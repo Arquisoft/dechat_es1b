@@ -1,17 +1,17 @@
-= dechat_0
+= dechat_es1b
 
-image:https://travis-ci.org/Arquisoft/dechat_0.svg?branch=master["Build Status", link="https://travis-ci.org/Arquisoft/dechat_0"]
-image:https://codecov.io/gh/Arquisoft/dechat_0/branch/master/graph/badge.svg["Codecov",link="https://codecov.io/gh/Arquisoft/dechat_0"]
-image:https://api.codacy.com/project/badge/Grade/fc7dc1da60ee4e9fb67ccff782625794["Codacy code quality", link="https://www.codacy.com/app/jelabra/dechat_0?utm_source=github.com&utm_medium=referral&utm_content=Arquisoft/dechat_0&utm_campaign=Badge_Grade"]
+image:https://travis-ci.org/Arquisoft/dechat_es1b.svg?branch=master["Build Status", link="https://travis-ci.org/Arquisoft/dechat_es1b"]
+image:https://codecov.io/gh/Arquisoft/dechat_es1b/branch/master/graph/badge.svg["Codecov",link="https://codecov.io/gh/Arquisoft/dechat_es1b"]
+image:https://coveralls.io/repos/github/Arquisoft/dechat_es1b/badge.svg["Coverage",link="https://coveralls.io/github/Arquisoft/dechat_es1b"]
+image:https://api.codacy.com/project/badge/Grade/fc7dc1da60ee4e9fb67ccff782625794["Codacy code quality", link="https://www.codacy.com/app/jelabra/dechat_es1b?utm_source=github.com&utm_medium=referral&utm_content=Arquisoft/dechat_es1b&utm_campaign=Badge_Grade"]
 
-Skeleton of decentralized chat repository
 
 == Build documentation
 
 The documentation is done in http://asciidoc.org/[AsciiDoc]
 using the https://arc42.org/[arc42] templates.
 The source documents are located at
- https://github.com/Arquisoft/dechat_0/tree/master/src/docs[src/docs].
+ https://github.com/Arquisoft/dechat_es1b/tree/master/src/docs[src/docs].
 
 Using https://maven.apache.org/[Maven] and the
 https://asciidoctor.org/[AsciiDoctor plugin] it is possible to generate
@@ -35,12 +35,12 @@ Once executed, the application should be available at: http://localhost:8080
 == Testing
 
 There are some simple Unit tests at:
- https://github.com/Arquisoft/dechat_0/tree/master/src/test[src/test].
+ https://github.com/Arquisoft/dechat_es1b/tree/master/src/test[src/test].
 
 There are also some
  https://cucumber.io/[Cucumber based tests]
  with a simple user story defined at:
- https://github.com/Arquisoft/dechat_0/tree/master/src/test/resources/features[src/test/resources/features].
+ https://github.com/Arquisoft/dechat_es1b/tree/master/src/test/resources/features[src/test/resources/features].
 
 To run tests execute:
 
@@ -50,7 +50,7 @@ mvn test
 
 == Site documentation
 
-The https://github.com/Arquisoft/dechat_0/tree/master/pom.xml[pom.xml] file
+The https://github.com/Arquisoft/dechat_es1b/tree/master/pom.xml[pom.xml] file
  has also been configured to generate site project documentation running:
 
 ----
