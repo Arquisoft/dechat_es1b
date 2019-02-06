@@ -5,9 +5,9 @@
 ****
 Here the relevant requirements, goals and objectives of the final project will be described:
 
-+ business goals, essential features and functional system requirements 
-+ quality architecture goals 
-+ relevant stakeholders and their respective expectations
+* business goals, essential features and functional system requirements 
+* quality architecture goals 
+* relevant stakeholders and their respective expectations
 ****
 
 === Requirements Overview
@@ -27,24 +27,22 @@ their chat data or files will be kept outside their respective user PODs, and
 so they will have total control over their personal information and data.
 
 .Form
-+ Users will receive a notification when another user wants to chat.
-+ Group chats, with multiple users receiving messages.
-+ Optionally, users will be able to share their screen.
-+ Optionally, users could perform live voice or video calls.
+* Users will receive a notification when another user wants to chat.
+* Group chats, with multiple users receiving messages.
+* Optionally, users will be able to share their screen.
+* Optionally, users could perform live voice or video calls.
 ****
 
 === Quality Goals
 
 [role="arc42help"]
 ****
-.Contents
-TBD
-
-.Motivation
-TBD
-
-.Form
-TBD
+| N.      		| Contents          			 | Motivation  |
+| ------------- |:------------------------------:| -----------:|
+| 1     		| Online independence 			 | Application must offer a secure and private way of chatting based on SOLID, with no centralized control of data |
+| 2   			| Responsive and smooth      	 | The app must be a responsive to use and a fast way of communication  |
+| 3 			| Full user privacy and security | All users keep control of their own data and files, and chat must have no vulnerable points |
+| 4 			| Easy to learn and use 		 | A regular, general user must have no difficulties learning to use the app |
 ****
 
 === Stakeholders
