@@ -37,12 +37,14 @@ so they will have total control over their personal information and data.
 
 [role="arc42help"]
 ****
-| N.      		| Contents          			 | Motivation  |
-| ------------- |:------------------------------:| -----------:|
-| 1     		| Online independence 			 | Application must offer a secure and private way of chatting based on SOLID, with no centralized control of data |
-| 2   			| Responsive and smooth      	 | The app must be a responsive to use and a fast way of communication  |
-| 3 			| Full user privacy and security | All users keep control of their own data and files, and chat must have no vulnerable points |
-| 4 			| Easy to learn and use 		 | A regular, general user must have no difficulties learning to use the app |
+[options="header",cols="1,2,2"]
+|===
+|N.| Contents| Motivation
+|1| Online independence| Application must offer a secure and private way of chatting based on SOLID, with no centralized control of data 
+|2| Responsive and smooth| The app must be a responsive to use and a fast way of communication 
+|3| Full user privacy and security | All users keep control of their own data and files, and chat must have no vulnerable points 
+|4| Easy to learn and use | A regular, general user must have no difficulties learning to use the app 
+|===
 ****
 
 === Stakeholders
