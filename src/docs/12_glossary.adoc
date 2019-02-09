@@ -4,19 +4,11 @@
 
 
 [role="arc42help"]
-****
-.Contents
-List of the terms and their definitions used throughout the documentation
-
-.Motivation
-Providing a referencable place in order to specify the technicisms and terminology related to the project.
-
-.Form
-****
-
 [options="header"]
 |===
 | Term         | Definition
 | Solid     | Solid is a technology developed by Inrupt whose goal is to empower the user and make him the owner of his own data. For that purpose it uses web standards such as Linked Data. 
 | POD     | A Solid POD is your own private place where your data will reside. You as a user decide who and what can access this data. As well, your POD acts as an API that allows all your Solid Apps to intercommunicate
+| Node.js | Open source, cross-platformo JavaScript environment that executes JS code outside of a browser
+| Angular | Typescrit-based full-stack web application framework this project will be made with.
 |===
