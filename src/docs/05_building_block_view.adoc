@@ -2,8 +2,10 @@
 == Building Block View
 
 === Whitebox Overall System
+.Overview diagram
+[#img-overviewdiagram]
+image::./diagrams/scopecontext.jpg[overviewdiagram]
 
-image::diagrams/scopecontext.jpg
 
 This view illustrates the relationship between the app and the users and pods.
 
