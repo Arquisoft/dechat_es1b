@@ -1,61 +1,36 @@
-*.class
-.idea
-*.iml
 
-# Package Files #
-*.jar
-*.war
-*.ear
-.classpath
-.settings/*
-/target
+# Created by https://www.gitignore.io/api/angular
+# Edit at https://www.gitignore.io/?templates=angular
 
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
+### Angular ###
+## Angular ##
+# compiled output
+/dist
+/tmp
+/app/**/*.js
+/app/**/*.js.map
 
-# Eclipse Core
-.project
+# dependencies
+/node_modules
+/bower_components
 
-# External tool builders
-.externalToolBuilders/
+# IDEs and editors
+/.idea
 
-# Locally stored "Eclipse launch configurations"
-*.launch
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
 
-# PyDev specific (Python IDE for Eclipse)
-*.pydevproject
+# e2e
+/e2e/*.js
+/e2e/*.map
 
-# CDT-specific (C/C++ Development Tooling)
-.cproject
+#System Files
+.DS_Store
 
-# JDT-specific (Eclipse Java Development Tools)
-.classpath
-
-# Java annotation processor (APT)
-.factorypath
-
-# PDT-specific (PHP Development Tools)
-.buildpath
-
-# sbteclipse plugin
-.target
-
-# Tern plugin
-.tern-project
-
-# TeXlipse plugin
-.texlipse
-
-# STS (Spring Tool Suite)
-.springBeans
-
-# Code Recommenders
-.recommenders/
+# End of https://www.gitignore.io/api/angular
