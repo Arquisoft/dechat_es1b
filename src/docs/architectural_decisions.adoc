@@ -18,4 +18,4 @@ We have to use Solid,  a web decentralization project led by Tim Berners-Lee.
 - Using C#.
 
 ### Decision
-We make the decisión of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.
+We make the decision of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.
