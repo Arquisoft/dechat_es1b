@@ -1,0 +1,21 @@
+# Architectural decisions
+
+## Using JavaScript:
+
+### Problem:
+We have to choose the language of the programming that we will use to carry out the project, taking into account the advantages and disadvantages of each one.
+
+### Constraints
+We have to use Solid,  a web decentralization project led by Tim Berners-Lee.
+
+### Assumptions
+- If we use a language that we do not know at all, the beginning of the project will be hard.
+- If we use a language other than JavaScript, we will have many less alternatives in the future because solid supports Angular a framework of JavaScript and React a library of JavaScript.
+
+### Considered Alternatives
+- Using Java.
+- Using JavaScript.
+- Using C#.
+
+### Decision
+We make the decisión of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.
