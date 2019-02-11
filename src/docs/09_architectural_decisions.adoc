@@ -4,7 +4,7 @@
 [role="arc42help"]
 ****
 
-### Using JavaScript:
+== Using JavaScript:
 
 .Problem:
 We have to choose the language of the programming that we will use to carry out the project, taking into account the advantages and disadvantages of each one.
@@ -22,4 +22,4 @@ We have to use Solid,  a web decentralization project led by Tim Berners-Lee.
 - Using C#.
 
 .Decision
-We make the decisión of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.
+We make the decision of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.
