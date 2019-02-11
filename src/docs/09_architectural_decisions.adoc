@@ -1,11 +1,12 @@
 [[section-architectural-decisions]]
 ## Architectural decisions
 
+
+
+### Using JavaScript:
+
 [role="arc42help"]
 ****
-
-.Using JavaScript:
-
 .Problem:
 We have to choose the language of the programming that we will use to carry out the project, taking into account the advantages and disadvantages of each one.
 
