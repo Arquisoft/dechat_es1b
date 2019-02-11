@@ -3,7 +3,7 @@
 
 
 
-### Using JavaScript:
+### Using JavaScript and the framework Angular:
 
 [role="arc42help"]
 ****
@@ -11,7 +11,7 @@
 We have to choose the language of the programming that we will use to carry out the project, taking into account the advantages and disadvantages of each one.
 
 .Constraints
-We have to use Solid,  a web decentralization project led by Tim Berners-Lee.
+We have to use Solid,  a web decentralization project led by Tim Berners-Lee. Solid supports the framework of JavaScript Angular and the library React.
 
 .Assumptions
 - If we use a language that we do not know at all, the beginning of the project will be hard.
