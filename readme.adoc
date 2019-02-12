@@ -22,7 +22,7 @@ cd dechat_es1b
 
 Install angular dependencies:
 ----
-npm install --save-dev @angular-devkit/build-angular-devkit/build-angular
+npm install --save-dev @angular-devkit/build-angular
 ----
 
 Start server:
