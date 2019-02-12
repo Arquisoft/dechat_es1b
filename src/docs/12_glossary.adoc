@@ -11,4 +11,5 @@
 | POD     | A Solid POD is your own private place where your data will reside. You as a user decide who and what can access this data. As well, your POD acts as an API that allows all your Solid Apps to intercommunicate
 | Node.js | Open source, cross-platformo JavaScript environment that executes JS code outside of a browser
 | Angular | Typescrit-based full-stack web application framework this project will be made with.
+| React |  Is a JavaScript library for building user interfaces. React can be used as a base in the development of single-page or mobile applications.
 |===
