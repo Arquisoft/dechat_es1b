@@ -29,7 +29,7 @@ The app will be used in every modern browser (multi browser compatibility)
 
 .*Overview Business diagram*
 [#img-overviewdiagram]
-image::./diagrams/scopeContext.png[overviewbusinessdiagram]
+image::./diagrams/scopecontext.jpg[overviewbusinessdiagram]
 
 ****
 
