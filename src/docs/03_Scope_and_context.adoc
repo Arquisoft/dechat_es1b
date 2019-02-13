@@ -6,7 +6,8 @@
 The DeChat will be supported by some partners to allow real time interaction
 or isolation from external viewers.
 Here we will describe the context (technical and business) and the scope of our decentralized chat
-trying to adjust to the maximun the first version of our chat.
+trying to adjust as better as possible the first version of our chat.
+
 ****
 
 === Business Context
@@ -17,15 +18,18 @@ trying to adjust to the maximun the first version of our chat.
 Users can chat privately, messages aren´t registered in a server, 
 with others using their own pod (SOLID credentials for any client)  
 
-.*RTC Service*
-Allows real time communication providing an API
-
 .*SOLID*
-Decentralized server to allow communication interchange
+Decentralized server to allow communication interchange.
+Any user needs an account to use the chat because it´s the key 
+of the decentralization.
+
+.*Browser*
+This is a web app so we need a browser to run it.
+The app will be used in every modern browser (multi browser compatibility)
 
 .*Overview Business diagram*
 [#img-overviewdiagram]
-image::./diagrams/extendedBusinessContext.png[overviewbusinessdiagram]
+image::./diagrams/scopeContext.png[overviewbusinessdiagram]
 
 ****
 
