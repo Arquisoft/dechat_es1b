@@ -1,28 +1,28 @@
 <div class="profile-container">
   <!-- EXAMPLE TOP NAV -->
-  <div class="topnav">
-    <div class="logo">Solid</div>
+  <div class="topnav" style = "background:#7E50FF">
+    <div class="logo">DECHAT ES1B</div>
     <div class="menu-item">
       <div>
-        <i class="far fa-compass"></i>
+        <i class="far fa-address-book"></i>
       </div>
-      Menu Item 1
+      Contacts
     </div>
     <div class="menu-item">
       <div>
-        <i class="far fa-comment"></i>
+        <i class="far fa-comments"></i>
       </div>
-      Menu Item 2
+      Chats
     </div>
     <div class="menu-item">
       <div>
-        <i class="fas fa-sliders-h"></i>
+        <i class="fas fa-id-card"></i>
       </div>
-      Menu Item 3
+      My profile
     </div>
 
-    <div class="profile-menu" (click)="logout()">
-      <img [src]="profileImage" />
+    <div class="profile-menu" (click)="logout()" >
+        <i class="fas fa-sign-out-alt fa-2x" style="padding-top: 7px; padding-left: 10px"></i>
     </div>
   </div>
   <h1>Profile</h1>
@@ -70,12 +70,12 @@
 
         <!-- ADDRESS -->
         <div class="pure-u-1-1 pure-u-md-1-2 form-group">
-          <i class="fas fa-map-marker-alt" style="width: 12px; margin-left: 2px;"></i><input type="text" class="field-text form-control" name="address" placeholder="ADDRESS" [(ngModel)]="profile.address.street" />
+          <i class="fas fa-map-marker-alt" style="width: 12px; margin-left: 2px;"></i><input type="text" class="field-text form-control" name="address" placeholder="ADDRESS" [(ngModel)]="profile.address.street"  />
         </div>
       </div>
 
       <div class="profile-save-button-container">
-        <button type="submit" class="wide-button profile-save-button" [disabled]="!cardForm || cardForm.pristine">Save</button>
+        <button type="submit" class="wide-button profile-save-button" [disabled]="!cardForm || cardForm.pristine"style = "background:#7E50FF">Save</button>
       </div>
     </form>
   </div>
