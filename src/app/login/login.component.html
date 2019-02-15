@@ -2,12 +2,13 @@
 
   <!-- APP LOGO -->
   <div style="margin-top:60px;">
-    <i class="fas fa-user-circle" style="font-size: 64px;"></i>
+    <i class="fas fa-comments" style="font-size: 140px;color:#7E50FF"></i>
+
   </div>
 
   <!-- APP NAME -->
-  <h1>
-    Profile Demo App
+  <h1 style= "color:#7E50FF">
+    Dechat_ES1B
   </h1>
 
   <!-- LOGIN TITLE -->
@@ -43,13 +44,13 @@
            placeholder="Enter WebID"
            style="margin-top:10px; padding: 12px 10px; width: 340px; height: 16px; display: block; margin-left: auto; margin-right: auto;"
            [(ngModel)]="customProviderUrl" />
-    <button class="wide-button" (click)="onLogin()" *ngIf="selectedProviderUrl !== undefined || customProviderUrl !== undefined" [disabled]="selectedProviderUrl===null && !customProviderUrl" style="margin-top:10px;">Go</button>
+    <button class="wide-button" (click)="onLogin()" *ngIf="selectedProviderUrl !== undefined || customProviderUrl !== undefined" [disabled]="selectedProviderUrl===null && !customProviderUrl" style="margin-top:10px;background:#7E50FF">Go</button>
   </div>
 
   <!-- REGISTRATION -->
   <div class="registration-link">
     <p style="margin: 12px;">Don't have a Solid Identity?</p>
-    <button class="wide-button" (click)="goToRegistration()">Register</button>
+    <button class="wide-button" (click)="goToRegistration()" style = "background:#7E50FF">Register</button>
   </div>
 
   <!-- HELP -->
