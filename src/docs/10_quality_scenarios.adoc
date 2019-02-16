@@ -1,0 +1,40 @@
+[[section-quality-scenarios]]
+== Quality Requirements
+
+
+[role="arc42help"]
+****
+
+_Testability_::
+The app should be testable, as automated as possible with the use of Unit Testing and CI where applicable.
+
+_Performance_::
+The app must perform within reasonable levels of latency
+
+_Usability_::
+The app must be user friendly and should have a comfortable learning curve. It is imperative that the user doesnt need to waste time figuring out how to use the app
+
+_Maintainability_::
+We must produce clean and organized code so further work on the app is as easy as possible.
+
+_Adaptability_::
+The app must be flexible enough to allow changes and extensions easily in an environment of continous changes and growing requirements.
+
+_Suitability_::
+The app must fit what the stakeholders expect from a chat first and foremost.
+
+****
+
+=== Quality Tree
+
+[role="arc42help"]
+****
+TBD
+****
+
+=== Quality Scenarios
+
+[role="arc42help"]
+****
+TBD
+****
