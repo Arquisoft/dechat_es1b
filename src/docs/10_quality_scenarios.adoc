@@ -23,6 +23,13 @@ The app must be flexible enough to allow changes and extensions easily in an env
 _Suitability_::
 The app must fit what the stakeholders expect from a chat first and foremost.
 
+_Modularity_::
+The app have to be a set of modules. Some advanatges by using modules are:
+* Singly testability, every module will be tested 
+* Extensibility, adding another services in a simple way -only modifying new service related parts-.
+* Easy replacement, having differentiaded modules we may facilitate the interchage between similar choices 
+-eg. in a project that uses a database change a relational one by a non-relational using the adapter patern-. 
+
 ****
 
 === Quality Tree
