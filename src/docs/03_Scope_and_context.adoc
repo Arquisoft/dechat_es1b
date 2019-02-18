@@ -41,15 +41,17 @@ image::./diagrams/scopecontext.jpg[overviewbusinessdiagram]
 The app uses SOLID server, through PODs.
 A POD is like a key for an user. 
 It detemines who can get a content, as messages, avoiding unwanted accesses from external people.
-This way we will get the final task a decentralized chat.
+This way we will get the final task, a decentralized chat.
 ****
 
 .*Frontend* 
 
 DeChat may be composed, at least, by two different components.
-* Login: Identify the user to been able to chat.
-* Chat: The chat itself, allows users interaction with each other.
-
+[role="arc42help"]
+****
+.. Login: Identify the user to been able to chat.
+.. Chat: The chat itself, allows users interaction with each other.
+****
 .Overview Technical diagram
 [#img-overviewdiagram]
 image::./diagrams/initialTechContext.png[overviewtechdiagram]
