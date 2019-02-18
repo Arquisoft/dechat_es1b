@@ -1,0 +1,38 @@
+[[section-architectural-decisions]]
+== Architectural decisions
+
+=== Using JavaScript and the framework Angular:
+
+.Problem:
+
+[role="arc42help"]
+****
+We have to choose the language of the programming that we will use to carry out the project, taking into account the advantages and disadvantages of each one.
+****
+
+.Constraints
+[role="arc42help"]
+****
+We have to use Solid,  a web decentralization project led by Tim Berners-Lee. Solid supports the framework of JavaScript Angular and the library React.
+****
+
+.Assumptions
+[role="arc42help"]
+****
+- If we use a language that we do not know at all, the beginning of the project will be hard.
+- If we use a language other than JavaScript, we will have many less alternatives in the future because solid supports Angular a framework of JavaScript and React a library of JavaScript.
+****
+
+.Considered Alternatives
+[role="arc42help"]
+****
+- Using Java.
+- Using JavaScript.
+- Using C#.
+****
+
+.Decision
+[role="arc42help"]
+****
+We make the decision of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.
+****

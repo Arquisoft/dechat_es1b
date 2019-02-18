@@ -1,0 +1,20 @@
+[[section-building-block-view]]
+== Building Block View
+
+=== Whitebox Overall System
+.Overview diagram
+[#img-overviewdiagram]
+image::./diagrams/scopecontext.jpg[overviewdiagram]
+
+
+This view illustrates the relationship between the app and the users and pods.
+
+==== Users
+The users will interact with the application through their user agent, reading and sending information from/to the DeChat.
+
+==== Solid POD
+Solid PODs store the data of their owner. Each user's messages will be stored in their own POD and nowhere else.
+PODs also contain the inbox where notificiations for new messages will be sent. 
+
+==== DeChat
+The application itself allows the users to interact with each other. Messages will be read from the PODs. Sent messages will be written in the sender's POD and the receiver wil be notified in their inbox, referencing the message URI.

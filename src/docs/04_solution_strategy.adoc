@@ -1,0 +1,19 @@
+[[section-solution-strategy]]
+== Solution Strategy
+
+
+[role="arc42help"]
+****
+
+
+The application will be structured with MVC architectural pattern, to achieve this we will work using Angular framework therefore Javascript is choosen as programming language.
+
+The choose of Javascript has a significant reason, it is necessary/appropriate to integrate SOLID technology which is the piece that our application will be focused.
+On the other hand, the GUI (graphic user interface), obviously will be developed using web technologies (HTML5 and CSS3) and following their standards defined in W3C. 
+
+Finally, it is expected that we should use JSON as file format to transmit data objects and intercomunnicate our application and RDF (Resource Description Framework) which is necessary to interchange data on the Web.
+
+* The technology decisions that has been made are focus on the compatibilities with SOLID specification.
+* All decisions were made with the aim of easily developing the application, using previous knowledge of the team members and adapting them to SOLID technology.
+   
+****

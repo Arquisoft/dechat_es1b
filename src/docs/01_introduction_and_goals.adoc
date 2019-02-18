@@ -51,20 +51,12 @@ so they will have total control over their personal information and data.
 
 [role="arc42help"]
 ****
-.Contents
-TBD
-
-.Motivation
-TBD
-
-.Form
-TBD
-
-****
 
 [options="header",cols="1,2,2"]
 |===
 |Role/Name|Contact|Expectations
-| _<Role-1>_ | _<Contact-1>_ | _<Expectation-1>_
-| _<Role-2>_ | _<Contact-2>_ | _<Expectation-2>_
+| Users | Use the app to communicate with other people | Real Time chat with other users 
+| Teachers | Grade the app, educate devs | Expect app to meet certain criteria and functional requisites
+| Inrupt | Startup behind Solid | Success and expansion of Solid
+| Developers | Design and implement the application both from an architectural view and from a coding view | Successful project that meets all its goals 
 |===
