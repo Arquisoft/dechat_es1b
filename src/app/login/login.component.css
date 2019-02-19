@@ -6,14 +6,21 @@
 }
 
 .login-page h1 {
-  font-size: 38px;
-  text-transform: uppercase;
+  font-style: normal;
   font-weight: bold;
+  letter-spacing: 0.5px;
+
+  font-size: 4em;
+  text-transform: uppercase;
   line-height: 50px;
-  letter-spacing: 1.9px;
+
   padding-top: 12px;
   margin-top: 0px;
+  box-shadow: 1em;
 }
+
+
+
 
 .login-page h2 {
   color: #666;

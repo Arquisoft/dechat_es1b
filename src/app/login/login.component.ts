@@ -10,9 +10,15 @@ import { SolidProvider } from '../models/solid-provider.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+
+
 export class LoginComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  profileImage : string;
+  constructor(private auth: AuthService, private router: Router) {
+    this.profileImage= '/assets/images/Solid.png';
+   }
 
   /**
    * A list of Solid Identity Providers
