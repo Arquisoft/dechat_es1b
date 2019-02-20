@@ -5,6 +5,7 @@ image:https://codecov.io/gh/Arquisoft/dechat_es1b/branch/master/graph/badge.svg[
 image:https://coveralls.io/repos/github/Arquisoft/dechat_es1b/badge.svg["Coverage",link="https://coveralls.io/github/Arquisoft/dechat_es1b"]
 image:https://api.codacy.com/project/badge/Grade/fc7dc1da60ee4e9fb67ccff782625794["Codacy code quality", link="https://www.codacy.com/app/jelabra/dechat_es1b?utm_source=github.com&utm_medium=referral&utm_content=Arquisoft/dechat_es1b&utm_campaign=Badge_Grade"]
 
+
 image:https://avatars3.githubusercontent.com/u/14262490?v=3&s=200["Solid logo", 200, 200]  image:https://ak0.scstatic.net/1/bigimg-cdn1-cont11.sweetcouch.com/151939047516778218-angular-sticker.png["Angular logo", 200, 200]
 
 > Re-decentralizing the web
@@ -31,6 +32,14 @@ ng serve
 ----
 
 The application should be available at: http://localhost:4200/
+
+== Contributors
+- https://github.com/uo257493[Javier Ardura González].
+- https://github.com/LuisBoto[Luis Boto Fernández].
+- https://github.com/MarcosCl98[Marcos Canal López].
+- https://github.com/srensamblador[Samuel Cifuentes García].
+- https://github.com/martinlacorrona[Martín Fernández Prieto].
+- https://github.com/JavierUrones[Javier Urones Monteserín].
 
 == Wiki
 Do you want know more about us?
