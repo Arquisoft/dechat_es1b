@@ -47,7 +47,7 @@
   margin-top: 24px;
 }
 
-.profile-fields-container input[type=text].field-text {
+.message-list-container input[type=text].field-text {
   height: 12px;
   width: 280px;
   border: 1px solid #89969F;
@@ -68,14 +68,14 @@
   justify-content: flex-end;
 }
 
-.profile-save-button {
+.send-button {
   background-color: #7C55FB;
   margin-left: auto;
   margin-right: auto;
   width: 280px;
 }
 
-.profile-save-button:disabled {
+.send-button:disabled {
   background-color: #F0EEEB;
   border-color: #F0EEEB;
   cursor: not-allowed;

@@ -16,6 +16,7 @@ export class CardComponent implements OnInit  {
   profile: SolidProfile;
   profileImage: string;
   loadingProfile: Boolean;
+  contacts;
 
   @ViewChild('f') cardForm: NgForm;
 
@@ -25,10 +26,16 @@ export class CardComponent implements OnInit  {
   ngOnInit() {
     this.loadingProfile = true;
     this.loadProfile();
+	this.loadContacts();
 
     // Clear cached profile data
     // TODO: Remove this code and find a better way to get the old data
     localStorage.removeItem('oldProfileData');
+  }
+  
+  async loadContacts() {
+	// Here the friends service would be called to retrieve the contact list
+	// contacts = ...
   }
 
   // Loads the profile from the rdf service and handles the response
@@ -49,16 +56,8 @@ export class CardComponent implements OnInit  {
 
   }
 
-  // Submits the form, and saves the profile data using the auth/rdf service
-  async onSubmit () {
-    if (!this.cardForm.invalid) {
-      try {
-        await this.rdf.updateProfile(this.cardForm);
-        localStorage.setItem('oldProfileData', JSON.stringify(this.profile));
-      } catch (err) {
-        console.log(`Error: ${err}`);
-      }
-    }
+  async onSubmit (message: string) {
+    //This function should now send a message with its message attribute
   }
 
   // Format data coming back from server. Intended purpose is to replace profile image with default if it's missing
@@ -71,6 +70,11 @@ export class CardComponent implements OnInit  {
     }
   }
 
+  loadChat(contactpod: string) {
+	//Here chat messages between user and contact would be fetched from
+	//respective POD's etc
+  }
+  
   // Example of logout functionality. Normally wouldn't be triggered by clicking the profile picture.
   logout() {
     this.auth.solidSignOut();
