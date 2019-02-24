@@ -4,6 +4,7 @@
   "description": "Decentralized Chat",
   "main": "server.js",
   "dependencies": {
+    "@solid/query-ldflex": "^2.3.1",
     "coveralls": "^3.0.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
