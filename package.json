@@ -1,0 +1,29 @@
+{
+  "name": "dechat_es1b",
+  "version": "1.0.0",
+  "description": "Decentralized Chat",
+  "main": "server.js",
+  "dependencies": {
+    "coveralls": "^3.0.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mocha": "^6.0.1",
+    "nyc": "^13.3.0",
+    "solid-auth-client": "^2.2.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test",
+    "coverage": "nyc --reporter text-lcov node_modules/.bin/_mocha --require @babel/register -R spec --timeout 100 | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arquisoft/dechat_es1b.git"
+  },
+  "author": "ES1B",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Arquisoft/dechat_es1b/issues"
+  },
+  "homepage": "https://github.com/Arquisoft/dechat_es1b#readme"
+}
