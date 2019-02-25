@@ -1,20 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>DeChat ES1B</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel=stylesheet href="style.css"> 
+
 </head>
 
 <body>
-    <input type="button" id="login" value="Login" />
-    <input type="button" id="logout" value="Logout" />
-    <input type="button" id="friends" value="List friends" />
 
-    <ul id="friendList"></ul>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm">
+                <h1 class="text-center">DESCENTRALIZED CHAT</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h1 class="text-center">Start chatting today!</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                    <img src="/assets/images/Solid.png" alt="solid logo">
+                    </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <input type="button" id="login" class="btn btn-outline-primary btn-lg btn-block" value="Login"></input>
+            </div>
+            <div class="col-sm">
+                <input type="button" id="logout" class="btn btn-outline-primary btn-lg btn-block"
+                    value="Logout"></input>
+            </div>
+            <div class="col-sm">
+                <input type="button" id="friends" class="btn btn-outline-primary btn-lg btn-block"
+                    value="List friends"></input>
+            </div>
+        </div>
+
+    </div>
+
+
 </body>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+<script src="https://solid.github.io/solid-auth-client/dist/solid-auth-client.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="../lib/solid-query-ldflex.bundle.js"></script>
 <script src="../dist/main.js"></script>
-
 
 </html>

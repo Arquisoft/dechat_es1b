@@ -38,7 +38,8 @@ $("#friends").click(async () => {
     friends = await pod.friends()
     
     $.each(friends, (i, friend) => {
-        $("#friendList").prepend("<li>" + friend.value + "</li>")
+        //$("#friendList").prepend("<li>" + friend.value + "</li>")
+        console.log(friend.value)
     })
     
 })
