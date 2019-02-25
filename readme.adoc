@@ -6,8 +6,8 @@ image:https://coveralls.io/repos/github/Arquisoft/dechat_es1b/badge.svg["Coverag
 image:https://api.codacy.com/project/badge/Grade/fc7dc1da60ee4e9fb67ccff782625794["Codacy code quality", link="https://www.codacy.com/app/jelabra/dechat_es1b?utm_source=github.com&utm_medium=referral&utm_content=Arquisoft/dechat_es1b&utm_campaign=Badge_Grade"]
 
 
-image:https://avatars3.githubusercontent.com/u/14262490?v=3&s=200["Solid logo", 200, 200]  image:https://ak0.scstatic.net/1/bigimg-cdn1-cont11.sweetcouch.com/151939047516778218-angular-sticker.png["Angular logo", 200, 200]
-
+image:https://avatars3.githubusercontent.com/u/14262490?v=3&s=200["Solid logo", 200, 200]  
+image:https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZLs3_MH6n8iaxmziDn-nI3oWwQ3jg-ystB6BQIq9IZRpRRCIk["Node logo", 200, 200]  
 > Re-decentralizing the web
 
 == How to start the app?
