@@ -22,7 +22,7 @@ async function isLoggedIn(){
 $("#login").click(async () => {
     console.log(isLoggedIn())
     if (! await isLoggedIn())
-        auth.popupLogin({ popupUri: '../views/popup.html' })
+        auth.popupLogin({ popupUri: './popup.html' })
     else
         console.log("Ya tas dentro tt")
     trackSession()
@@ -38,7 +38,6 @@ $("#friends").click(async () => {
         const session = await auth.currentSession();
         user = data[session.webId];
         for await (const friend of user.friends){
-            console.log('*')
             console.log(friend.value)
         }
     }
