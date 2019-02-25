@@ -18,13 +18,16 @@
     "web-streams-polyfill": "^1.3.2"
   },
   "devDependencies": {
+    "codacy-coverage": "^3.4.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3"
   },
   "scripts": {
-    "test": "standard && nyc --reporter lcov mocha --require @babel/register -R spec",
+    "test": "mocha",
     "coverage": "nyc --reporter text-lcov node_modules/.bin/_mocha --require @babel/register -R spec --timeout 100 | coveralls",
-    "build": "webpack && npm start"
+    "build": "webpack && npm start",
+    "test-coverage": "nyc --reporter text-lcov node_modules/.bin/_mocha --require @babel/register -R spec --timeout 100 && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
