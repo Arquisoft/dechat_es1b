@@ -7,7 +7,8 @@ image:https://api.codacy.com/project/badge/Grade/fc7dc1da60ee4e9fb67ccff78262579
 
 
 image:https://avatars3.githubusercontent.com/u/14262490?v=3&s=200["Solid logo", 200, 200]  
-image:https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZLs3_MH6n8iaxmziDn-nI3oWwQ3jg-ystB6BQIq9IZRpRRCIk["Node logo", 200, 200]  
+image:https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZLs3_MH6n8iaxmziDn-nI3oWwQ3jg-ystB6BQIq9IZRpRRCIk["Node logo", 200, 200] 
+
 > Re-decentralizing the web
 
 == How to start the app?
