@@ -23,6 +23,8 @@ $("#login").click(async () => {
     console.log(await pod.isLoggedIn())
     if (! await pod.isLoggedIn()){
         pod.login()
+        document.getElementById("login").disabled = true;
+        document.getElementById("logout").disabled = false;
         console.log("Está bien, puedes pasar")
     }
     else
@@ -30,8 +32,11 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
-    if (await pod.isLoggedIn())
+    if (await pod.isLoggedIn()) {
         pod.logout()
+        document.getElementById("login").disabled = false;
+        document.getElementById("logout").disabled = true;
+    }
 })
 
 $("#friends").click(async () => {
