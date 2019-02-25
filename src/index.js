@@ -1,6 +1,6 @@
-const auth = solid.auth
-const data = solid.data
-
+const auth = require("solid-auth-client")
+const { default: data } = require("@solid/query-ldflex")
+const pod = require("./lib/POD-handler")
 // Displays user's webid in the console if he's logged in
 function trackSession(){
     auth.trackSession(session => {
@@ -20,25 +20,25 @@ async function isLoggedIn(){
 }
 
 $("#login").click(async () => {
-    console.log(isLoggedIn())
-    if (! await isLoggedIn())
-        auth.popupLogin({ popupUri: './popup.html' })
+    console.log(await pod.isLoggedIn())
+    if (! await pod.isLoggedIn()){
+        pod.login()
+        console.log("Está bien, puedes pasar")
+    }
     else
-        console.log("Ya tas dentro tt")
-    trackSession()
+        console.log("De que vas pavo")
 })
 
 $("#logout").click(async () => {
-    if (await isLoggedIn())
-        auth.logout().then(alert("See you l8r allig8r"))
+    if (await pod.isLoggedIn())
+        pod.logout()
 })
 
 $("#friends").click(async () => {
-    if (await isLoggedIn()){
-        const session = await auth.currentSession();
-        user = data[session.webId];
-        for await (const friend of user.friends){
-            console.log(friend.value)
-        }
-    }
+    friends = await pod.friends()
+    
+    $.each(friends, (i, friend) => {
+        $("#friendList").prepend("<li>" + friend.value + "</li>")
+    })
+    
 })

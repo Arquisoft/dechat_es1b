@@ -3,10 +3,18 @@ const app = express()
 const path = require ('path')
 
 
-app.use(express.static(__dirname + '/src'));
+app.use(express.static(__dirname + "/src"));
 
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname + "/src/views/index.html"))
+  res.sendFile(path.join(__dirname + "/src/index.html"))
+})
+
+app.get('/dist/main.js', function(req, res){
+  res.sendFile(path.join(__dirname + "/src/dist/main.js"))
+})
+
+app.get('/popup.html', function (req, res){
+  res.sendFile(path.join(__dirname + "/src/popup.html"))
 })
 
 
