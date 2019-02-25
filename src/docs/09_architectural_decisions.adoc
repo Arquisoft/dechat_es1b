@@ -1,7 +1,7 @@
 [[section-architectural-decisions]]
 == Architectural decisions
 
-=== Using JavaScript and the framework Angular:
+=== 1# Using JavaScript and the framework Angular:
 
 .Problem:
 
@@ -35,4 +35,37 @@ We have to use Solid,  a web decentralization project led by Tim Berners-Lee. So
 [role="arc42help"]
 ****
 We make the decision of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.
+****
+
+
+
+=== 2# Using Node.js and do not use Angular:
+
+.Problem:
+
+[role="arc42help"]
+****
+We have to learn too many things to carry out the project.
+****
+
+
+.Assumptions
+[role="arc42help"]
+****
+
+- If we decided to use Angular we would have to learn to use it, this means, where we already have things to learn to add one more. And we do not believe that we will know enough about Angular to carry out the project correctly. It does not save us anything.
+- If we discard Angular and use only Node.js, we would save ourselves learning Angular. With Node.js and jQuery, it is enough to carry out the project.
+****
+
+.Considered Alternatives
+[role="arc42help"]
+****
+- Using only Node.js.
+- Using Node.js and Angular.
+****
+
+.Decision
+[role="arc42help"]
+****
+We decided to use Node.js and jQuery because with these tools we can carry out the project without problem and we save ourselves the task of having to learn and know how to handle Angular.
 ****
