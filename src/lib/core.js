@@ -27,18 +27,18 @@ const rdfjsSourceFromUrl = require('./rdfjssourcefactory').fromUrl;
    * @param {string} webId: the WebId for which to find the inbox
    * @returns {Promise}: a promise that resolves with the inbox found via the WebId.
    */
-    async getInboxUrl(webId) {
+  async getInboxUrl(webId) {
         if (!this.inboxUrls[webId]) {
             this.inboxUrls[webId] = (await this.getObjectFromPredicateForResource(webId, namespaces.ldp + 'inbox')).value;
         }
 
         return this.inboxUrls[webId];
-    }
+  }
     
    /**
    * This method returns a formatted name for a WebId.
    * @param webid: the WebId for which a formatted name needs to be created.
-   * @returns {Promise<string|null>}: a promise that resolvew with the formatted name (string) or
+   * @returns {Promise<string|null>}: a promise that resolves with the formatted name (string) or
    * null if no name details were found.
    */
   async getFormattedName(webid) {
@@ -74,7 +74,7 @@ const rdfjsSourceFromUrl = require('./rdfjssourcefactory').fromUrl;
   }
 
 
-    async getObjectFromPredicateForResource(url, predicate) {
+  async getObjectFromPredicateForResource(url, predicate) {
         const deferred = Q.defer();
         const rdfjsSource = await rdfjsSourceFromUrl(url, this.fetch);
 
