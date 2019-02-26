@@ -16,7 +16,7 @@ async function login(){
 /**
  * Returns the current session
  */
-async function isLoggedIn() {
+async function getSession() {
   return await auth.currentSession();
 };
 
@@ -52,7 +52,7 @@ async function track(success, failure){
 module.exports = {
     login,
     logout,
-    isLoggedIn,
+    getSession,
     friends,
     track
 }

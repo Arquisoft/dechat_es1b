@@ -23,7 +23,7 @@ $("#logout").click(async () => {
 })
 
 $("#friends").click(async () => {
-    userWerbId = session.webId
+    userWerbId = pod.getSession().webId
     friends = await pod.friends()
 
     $.each(friends, (i, friend) => {
