@@ -44,12 +44,18 @@ function changeView(session) {
     $("#login").prop("show", !session)
     $("#logout").prop("show", session)
     $("#friends").prop("show", session)
+    changeTitles(session);
 
 }
 
-function hideTitles(){
-    $("#titleApp").html("Welcome user: " + pod.isLoggedIn());
-    $("#subTitleApp").prop("hidden", session)
+function changeTitles(session){
+    if(session){
+        $("#titleApp").html("Welcome user: " + pod.isLoggedIn());
+        $("#subTitleApp").prop("hidden", session)
+    }else{
+        $("#titleApp").html("Sign in using Solid technology");
+        $("#subTitleApp").prop("show", session)
+    }
 }
 function startApplicationView() {
     pod.track(
