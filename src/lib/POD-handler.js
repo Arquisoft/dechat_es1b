@@ -10,7 +10,7 @@ const Friend = require("../model/friend");
  * Presents a popup and logs the user in
  */
 async function login(){
-  console.log(await auth.popupLogin({ popupUri: "../popup.html" }));
+  await auth.popupLogin({ popupUri: "../popup.html" });
 };
 
 /**
@@ -31,7 +31,7 @@ async function friends() {
   const session = await auth.currentSession();
   user = data[session.webId];
   toRet = [];
-  for await (const friend of user.friends) toRet.push(new Friend(friend));
+  for await (const friend of user.friends) toRet.push(await new Friend(friend));
   return toRet;
 }
 

@@ -1,22 +1,29 @@
 const pod = require("./lib/POD-handler")
-// Displays user's webid in the console if he's logged in
+const ldfquery = require("./lib/ldflex-queries")
 
+const queryFactory = new ldfquery.QueryFactory
+let query
 /**
  * On DOM load, set solid.auth to track the session status
  */
 $("document").ready(async () => {
     pod.track(
         // If there's a session
-        () => changeView(true),
+        () => {
+            query = queryFactory.forSession()
+            changeView(true)
+        },
         // User isn't logged in
-        () => changeView(false)
+        () => {
+            query = null
+            changeView(false)
+        }
     )
 })
 
 // Button listeners
 $("#login").click(async () => {
     pod.login()
-    startApplicationView();
 })
 
 $("#logout").click(async () => {
@@ -29,7 +36,8 @@ $("#friends").click(async () => {
 
     $.each(friends, (i, friend) => {
         //$("#friendList").prepend("<li>" + friend.fullname + "</li>")
-        console.log(friend.value)
+        console.log(friend)
+        console.log(friend.value + friend.name + friend.inbox)
     })
 })
 
@@ -51,18 +59,11 @@ function changeView(session) {
 
 async function changeTitles(session){
     if(session){
-        $("#titleApp").html("Welcome user: " + await pod.getSession());
+        $("#titleApp").html("Welcome user: " + await query.getName());
         $("#subTitleApp").prop("hidden", session)
     }else{
         $("#titleApp").html("Sign in using Solid technology");
         $("#subTitleApp").prop("show", session)
     }
 }
-function startApplicationView() {
-    pod.track(
-        // If there's a session
-        () => changeView(true),
-        // User isn't logged in
-        () => changeView(false)
-    )
-}
+
