@@ -1,4 +1,4 @@
-const core = require("../lib/core");
+const query = require("../lib/ldflex-queries")
 
 /**
  * Class representing a friend for DTO purposes
