@@ -4,6 +4,7 @@ const winston = require('winston');
 const {format} = require('date-fns');
 const rdfjsSourceFromUrl = require('./rdfjssourcefactory').fromUrl;
     
+module.exports = class Core {
     constructor(fetch) {
     this.inboxUrls = {};
     this.fetch = fetch;
@@ -15,7 +16,7 @@ const rdfjsSourceFromUrl = require('./rdfjssourcefactory').fromUrl;
       ],
       format: winston.format.cli()
     });
-  };
+  }
     
    /**
    * This method returns the inbox of a WebId.
@@ -96,3 +97,4 @@ const rdfjsSourceFromUrl = require('./rdfjssourcefactory').fromUrl;
 
     return deferred.promise;
   }
+}
