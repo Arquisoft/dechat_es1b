@@ -27,8 +27,7 @@ $("#friends").click(async () => {
     friends = await pod.friends()
 
     $.each(friends, (i, friend) => {
-        //$("#friendList").prepend("<li>" + friend.value + "</li>")
-        //friendInbox = await core.getInboxUrl(friendWebId),
+        //$("#friendList").prepend("<li>" + friend.fullname + "</li>")
         console.log(friend.value)
     })
 })
