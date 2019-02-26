@@ -29,6 +29,7 @@
     "coverage": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage", 
     "build": "webpack && npm start",
     "test-coverage": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage"
+
   },
   "repository": {
     "type": "git",
@@ -39,5 +40,8 @@
   "bugs": {
     "url": "https://github.com/Arquisoft/dechat_es1b/issues"
   },
-  "homepage": "https://github.com/Arquisoft/dechat_es1b#readme"
+  "homepage": "https://github.com/Arquisoft/dechat_es1b#readme",
+  "directories": {
+    "test": "test"
+  }
 }

@@ -1,14 +1,10 @@
-const N3 = require('n3');
-const Q = require('q');
 const newEngine = require('@comunica/actor-init-sparql-rdfjs').newEngine;
 const namespaces = require('./namespaces');
-const uniqid = require('uniqid');
-const {SemanticChess, Loader} = require('semantic-chess');
 const winston = require('winston');
-const URI = require('uri-js');
 const {format} = require('date-fns');
 const rdfjsSourceFromUrl = require('./rdfjssourcefactory').fromUrl;
     
+module.exports = class Core {
     constructor(fetch) {
     this.inboxUrls = {};
     this.fetch = fetch;
@@ -20,7 +16,7 @@ const rdfjsSourceFromUrl = require('./rdfjssourcefactory').fromUrl;
       ],
       format: winston.format.cli()
     });
-  };
+  }
     
    /**
    * This method returns the inbox of a WebId.
@@ -101,3 +97,4 @@ const rdfjsSourceFromUrl = require('./rdfjssourcefactory').fromUrl;
 
     return deferred.promise;
   }
+}

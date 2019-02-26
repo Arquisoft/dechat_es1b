@@ -21,7 +21,7 @@ async function getSession() {
 };
 
 async function logout() {
-  auth.logout().then(alert("See you l8r allig8r"));
+  auth.logout().then(alert("Disconnected"));
 };
 
 /**

@@ -7,15 +7,16 @@ const pod = require("./lib/POD-handler")
 $("document").ready(async () => {
     pod.track(
         // If there's a session
-        () => toggleButtons(true),
+        () => changeView(true),
         // User isn't logged in
-        () => toggleButtons(false)
+        () => changeView(false)
     )
 })
 
 // Button listeners
 $("#login").click(async () => {
     pod.login()
+    startApplicationView();
 })
 
 $("#logout").click(async () => {
@@ -27,8 +28,7 @@ $("#friends").click(async () => {
     friends = await pod.friends()
 
     $.each(friends, (i, friend) => {
-        //$("#friendList").prepend("<li>" + friend.value + "</li>")
-        //friendInbox = await core.getInboxUrl(friendWebId),
+        //$("#friendList").prepend("<li>" + friend.fullname + "</li>")
         console.log(friend.value)
     })
 })
@@ -37,8 +37,32 @@ $("#friends").click(async () => {
  * Sets the buttons according to the session status
  * @param {boolean} session 
  */
-function toggleButtons(session){
-    $("#login").prop("disabled", session)
-    $("#logout").prop("disabled", !session)
-    $("#friends").prop("disabled", !session)
+function changeView(session) {
+    $("#login").prop("hidden", session)
+    $("#logout").prop("hidden", !session)
+    $("#friends").prop("hidden", !session)
+
+    $("#login").prop("show", !session)
+    $("#logout").prop("show", session)
+    $("#friends").prop("show", session)
+    changeTitles(session);
+
+}
+
+function changeTitles(session){
+    if(session){
+        $("#titleApp").html("Welcome user: " + pod.isLoggedIn());
+        $("#subTitleApp").prop("hidden", session)
+    }else{
+        $("#titleApp").html("Sign in using Solid technology");
+        $("#subTitleApp").prop("show", session)
+    }
+}
+function startApplicationView() {
+    pod.track(
+        // If there's a session
+        () => changeView(true),
+        // User isn't logged in
+        () => changeView(false)
+    )
 }
