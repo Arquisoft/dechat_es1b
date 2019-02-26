@@ -51,7 +51,7 @@ function changeView(session) {
 
 function changeTitles(session){
     if(session){
-        $("#titleApp").html("Welcome user: " + pod.isLoggedIn());
+        $("#titleApp").html("Welcome user: " + pod.getSession());
         $("#subTitleApp").prop("hidden", session)
     }else{
         $("#titleApp").html("Sign in using Solid technology");
