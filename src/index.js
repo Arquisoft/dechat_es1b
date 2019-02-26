@@ -24,10 +24,11 @@ $("#logout").click(async () => {
 })
 
 $("#friends").click(async () => {
+    userWerbId = session.webId
     friends = await pod.friends()
 
     $.each(friends, (i, friend) => {
-        //$("#friendList").prepend("<li>" + friend.value + "</li>")
+        //$("#friendList").prepend("<li>" + friend.fullname + "</li>")
         console.log(friend.value)
     })
 })
