@@ -24,7 +24,6 @@
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3",
     "@comunica/actor-init-sparql-rdfjs": "1.4.2",
-    "@solid/query-ldflex": "^1.1.1",
     "date-fns": "^2.0.0-alpha.25",
     "q": "^1.5.1",
     "solid-auth-client": "^2.2.10",
