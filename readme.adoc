@@ -16,7 +16,7 @@ Clone this repository:
 git clone https://github.com/Arquisoft/dechat_es1b.git
 ----
 
-Enter in this folder:
+Open that folder:
 ----
 cd dechat_es1b
 ----
@@ -40,7 +40,7 @@ npm start
 ----
 
 === Run test
-To run the tests
+To run the tests:
 ----
 npm test
 ----
