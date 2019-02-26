@@ -14,5 +14,6 @@
 | React |  Is a JavaScript library for building user interfaces. React can be used as a base in the development of single-page or mobile applications.
 | RDF | (Resource Description Framework) RDF is a standard model for data interchange on the Web.
 | NPM | The default package handler for Node.js, an execution environment for JavaScript.
+| jQuery | Is a multiplatform library of JavaScript, that allows to simplify the way to interact with HTML documents, manipulate the DOM tree, manage events, develop animations and add interaction with the AJAX technique to web pages.
 |===
 
