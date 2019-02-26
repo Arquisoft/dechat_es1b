@@ -27,7 +27,8 @@
     "test": "mocha",
     "coverage": "nyc --reporter text-lcov node_modules/.bin/_mocha --require @babel/register -R spec --timeout 100 | coveralls",
     "build": "webpack && npm start",
-    "test-coverage": "nyc --reporter text-lcov node_modules/.bin/_mocha --require @babel/register -R spec --timeout 100 && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage"
+    "test-coverage": "nyc --reporter text-lcov node_modules/.bin/_mocha --require @babel/register -R spec --timeout 100 && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -38,5 +39,8 @@
   "bugs": {
     "url": "https://github.com/Arquisoft/dechat_es1b/issues"
   },
-  "homepage": "https://github.com/Arquisoft/dechat_es1b#readme"
+  "homepage": "https://github.com/Arquisoft/dechat_es1b#readme",
+  "directories": {
+    "test": "test"
+  }
 }
