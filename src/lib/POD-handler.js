@@ -10,17 +10,23 @@ const Friend = require("../model/friend");
  * Presents a popup and logs the user in
  */
 async function login(){
-  auth.popupLogin({ popupUri: "../popup.html" });
+  console.log(await auth.popupLogin({ popupUri: "../popup.html" }));
 };
 
+/**
+ * Returns the current session
+ */
 async function isLoggedIn() {
-  return auth.currentSession();
+  return await auth.currentSession();
 };
 
 async function logout() {
   auth.logout().then(alert("See you l8r allig8r"));
 };
 
+/**
+ * Returns a list of Friends @see{Friend.js} from the authenticated user
+ */
 async function friends() {
   const session = await auth.currentSession();
   user = data[session.webId];
@@ -29,9 +35,24 @@ async function friends() {
   return toRet;
 }
 
+/**
+ * Tracks the session and executes the callback functions depending on the session status
+ * @param {function} success 
+ * @param {function} failure 
+ */
+async function track(success, failure){
+  auth.trackSession(session => {
+    if (!session){
+      failure()
+    }else
+    success()
+  })
+}
+
 module.exports = {
     login,
     logout,
     isLoggedIn,
-    friends
+    friends,
+    track
 }

@@ -1,45 +1,42 @@
-const auth = require("solid-auth-client")
-const { default: data } = require("@solid/query-ldflex")
 const pod = require("./lib/POD-handler")
 // Displays user's webid in the console if he's logged in
-function trackSession(){
-    auth.trackSession(session => {
-        if (!session)
-          console.log('The user is not logged in')
-        else
-          console.log(`The user is ${session.webId}`)
-      })
-}
 
-function getWebId(){
+/**
+ * On DOM load, set solid.auth to track the session status
+ */
+$("document").ready(async () => {
+    pod.track(
+        // If there's a session
+        () => toggleButtons(true),
+        // User isn't logged in
+        () => toggleButtons(false)
+    )
+})
 
-}
-
-async function isLoggedIn(){
-    return await auth.currentSession();
-}
-
+// Button listeners
 $("#login").click(async () => {
-    console.log(await pod.isLoggedIn())
-    if (! await pod.isLoggedIn()){
-        pod.login()
-        console.log("Está bien, puedes pasar")
-    }
-    else
-        console.log("De que vas pavo")
+    pod.login()
 })
 
 $("#logout").click(async () => {
-    if (await pod.isLoggedIn())
-        pod.logout()
+    pod.logout()
 })
 
 $("#friends").click(async () => {
     friends = await pod.friends()
-    
+
     $.each(friends, (i, friend) => {
         //$("#friendList").prepend("<li>" + friend.value + "</li>")
         console.log(friend.value)
     })
-    
 })
+
+/**
+ * Sets the buttons according to the session status
+ * @param {boolean} session 
+ */
+function toggleButtons(session){
+    $("#login").prop("disabled", session)
+    $("#logout").prop("disabled", !session)
+    $("#friends").prop("disabled", !session)
+}
