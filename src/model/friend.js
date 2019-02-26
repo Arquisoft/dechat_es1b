@@ -6,7 +6,7 @@ const core = require("../lib/core");
 module.exports = class Friend{
     constructor(friend){
         this.value = friend.value
-        this.fullname = await core.getFormattedName(this.value);
-        this.inbox = await core.getInboxUrl(this.value);
+        this.fullname = core.getFormattedName(this.value);
+        this.inbox = core.getInboxUrl(this.value);
     }
 }
