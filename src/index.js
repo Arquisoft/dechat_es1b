@@ -23,10 +23,12 @@ $("#logout").click(async () => {
 })
 
 $("#friends").click(async () => {
+    userWerbId = session.webId
     friends = await pod.friends()
 
     $.each(friends, (i, friend) => {
         //$("#friendList").prepend("<li>" + friend.value + "</li>")
+        //friendInbox = await core.getInboxUrl(friendWebId),
         console.log(friend.value)
     })
 })
