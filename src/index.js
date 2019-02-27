@@ -31,10 +31,19 @@ $("#friends").click(async () => {
     friends = await query.getFriends()
 
     $.each(friends, (i, friend) => {
-        //$("#friendList").prepend("<li>" + friend.fullname + "</li>")
+        $(".friends-list").prepend("<button onClick=startChat("+friend.id+")>" + "Chat with " + friend.name + "</button>")
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
 })
+
+/**
+* Start a chat with the selected friend
+* @param id ID del objeto Person que representa al amigo en cuestion
+*/
+function startChat(id) {
+	alert(id)
+	console.log(id)
+}
 
 /**
  * Sets the buttons according to the session status
