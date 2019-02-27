@@ -31,8 +31,8 @@ $("#friends").click(async () => {
     friends = await query.getFriends()
 
     $.each(friends, (i, friend) => {
-        $(".friends-list").prepend("<button id='Amigo "+i+"'>" + "Chat with " + friend.name + "</button>")
-		//document.getElementById(friend.id).click(async() => { startChat()})
+        $(".friends-list").prepend("<button id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button>")
+		$("#Amigo"+i).click(async() => { startChat(friend)})
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
 })
@@ -42,8 +42,8 @@ $("#friends").click(async () => {
 * @param {Person} friend objeto Person que representa al amigo en cuestion
 */
 function startChat(friend) {
-	alert("Se llama a la f start")
-	//console.log(friend.id)
+	alert(friend.name)
+	console.log(friend.id)
 }
 
 /**
