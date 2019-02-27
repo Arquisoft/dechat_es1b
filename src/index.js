@@ -23,7 +23,6 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
-	$(".friends-list").empty()
     pod.logout()
 })
 
@@ -32,8 +31,8 @@ $("#friends").click(async () => {
     friends = await query.getFriends()
 
     $.each(friends, (i, friend) => {
-        $(".friends-list").prepend("<button id='"+friend.id+"'>" + "Chat with " + friend.name + "</button>")
-		//document.getElementById(friend.id).onClick = function(startChat(friend))	
+        $(".friends-list").prepend("<button id='Amigo "+i+"'>" + "Chat with " + friend.name + "</button>")
+		//document.getElementById(friend.id).click(async() => { startChat()})
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
 })
@@ -43,8 +42,8 @@ $("#friends").click(async () => {
 * @param {Person} friend objeto Person que representa al amigo en cuestion
 */
 function startChat(friend) {
-	alert(friend.id)
-	console.log(friend.id)
+	alert("Se llama a la f start")
+	//console.log(friend.id)
 }
 
 /**
@@ -60,7 +59,9 @@ function changeView(session) {
     $("#logout").prop("show", session)
     $("#friends").prop("show", session)
     changeTitles(session);
-
+	
+	if(!session)		
+		$(".friends-list").empty()
 }
 
 async function changeTitles(session){
