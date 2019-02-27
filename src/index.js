@@ -31,7 +31,7 @@ $("#friends").click(async () => {
     friends = await query.getFriends()
 
     $.each(friends, (i, friend) => {
-        $(".friends-list").prepend("<button id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button>")
+        $(".friends-list").prepend("<ul><button style='width:200px' id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
 		$("#Amigo"+i).click(async() => { startChat(friend)})
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
