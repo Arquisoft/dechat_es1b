@@ -23,6 +23,7 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
+	$(".friends-list").empty()
     pod.logout()
 })
 
@@ -31,18 +32,19 @@ $("#friends").click(async () => {
     friends = await query.getFriends()
 
     $.each(friends, (i, friend) => {
-        $(".friends-list").prepend("<button onClick=startChat("+friend.id+")>" + "Chat with " + friend.name + "</button>")
+        $(".friends-list").prepend("<button id='"+friend.id+"'>" + "Chat with " + friend.name + "</button>")
+		//document.getElementById(friend.id).onClick = function(startChat(friend))	
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
 })
 
 /**
 * Start a chat with the selected friend
-* @param id ID del objeto Person que representa al amigo en cuestion
+* @param {Person} friend objeto Person que representa al amigo en cuestion
 */
-function startChat(id) {
-	alert(id)
-	console.log(id)
+function startChat(friend) {
+	alert(friend.id)
+	console.log(friend.id)
 }
 
 /**
