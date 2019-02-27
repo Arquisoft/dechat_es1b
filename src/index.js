@@ -1,8 +1,6 @@
-const pod = require("./lib/POD-handler")
-const ldfquery = require("./lib/ldflex-queries")
+const pod = require("./lib/session")
+const query = require("./lib/ldflex-queries")
 
-const queryFactory = new ldfquery.QueryFactory
-let query
 /**
  * On DOM load, set solid.auth to track the session status
  */
@@ -10,12 +8,10 @@ $("document").ready(async () => {
     pod.track(
         // If there's a session
         () => {
-            query = queryFactory.forSession()
             changeView(true)
         },
         // User isn't logged in
         () => {
-            query = null
             changeView(false)
         }
     )
@@ -32,12 +28,11 @@ $("#logout").click(async () => {
 
 $("#friends").click(async () => {
     userWerbId = pod.getSession().webId
-    friends = await pod.friends()
+    friends = await query.getFriends()
 
     $.each(friends, (i, friend) => {
         //$("#friendList").prepend("<li>" + friend.fullname + "</li>")
-        console.log(friend)
-        console.log(friend.value + friend.name + friend.inbox)
+        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
 })
 

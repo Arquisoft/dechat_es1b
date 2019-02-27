@@ -2,54 +2,53 @@
  * Contains basic queries to fetch data from the PODs
  */
 const { default: data } = require("@solid/query-ldflex")
+const Person = require("../model/person")
 
 /**
  * Creates handlers to run queries against WebID or the authenticated user
  */
-class QueryFactory{
-    forWebID(webID){
-        return new WebIDQueryMaker(webID)
-    }
 
-    forSession(){
-        return new SessionQueryMaker
-    }
+async function getName(webID) {
+    let proxy
+    if (webID)
+        proxy = await data[webID].name
+    else
+        proxy = await data.user.name
+    return proxy.value
+}
+
+async function getInbox(webID) {
+    let proxy
+    if (webID)
+        proxy = await data[webID].inbox
+    else
+        proxy = await data.user.inbox
+    return proxy.value
 }
 
 /**
- * Takes a WebID as a parameter and runs the query against it
+ * Returns a list of Friends @see{person.js} from the authenticated user
  */
-class WebIDQueryMaker {
-    constructor(webID) {
-        this.webID = webID
+async function getFriends(webID) {
+    let friends
+    toRet = [];
+    if (webID)
+        friends = data[webID].friends
+    else
+        friends = data.user.friends
+    for await (const friend of friends){
+      var id = await friend.value
+      var name = await getName(id)
+      var inbox = await getInbox(id)
+      toRet.push(new Person(id, name, inbox));
     }
-    async getName() {
-        const proxy = await data[this.webID].name
-        return proxy.value
-    }
+    return toRet;
+  }
+  
 
-    async getInbox() {
-        const proxy = await data[this.webID].inbox
-        return proxy.value
-    }
-
-}
-
-/**
- * Searches in the logged users' POD
- */
-class SessionQueryMaker{
-    async getName(){
-        const proxy = await data.user.name
-        return proxy.value
-    }
-
-    async getInbox(){
-        const proxy = await data.user.inbox
-        return proxy.value
-    }
-}
 
 module.exports = {
-    QueryFactory
+    getName,
+    getInbox,
+    getFriends
 }
