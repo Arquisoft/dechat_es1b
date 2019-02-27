@@ -2,10 +2,35 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Singin html">
     <title>DeChat ES1B</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel=stylesheet href="style.css">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    
+    
+         
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -13,17 +38,18 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm">
+                    <img class="mb-4" src="assets/images/Solid.png" alt="" width="160" height="140">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
                     <h1 class="text-center">DECENTRALIZED CHAT</h1>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm">
-                <img src="/assets/images/Solid.png" alt="solid logo">
-            </div>
-        </div>
-        </div>
+
     </header>
+    
     <div class="card text-center">
         <div class="card-header">
         </div>
@@ -34,22 +60,24 @@
 
                 <div class="col-sm">
                     <input type="button" id="friends" class="btn btn-outline-primary btn-lg" value="List friends"
-                        hidden=true></input>
+                        hidden=true>
                 </div>
                 <div class="col-sm">
-                    <input type="button" id="login" class="btn btn-outline-primary btn-lg" value="Login"></input>
+                    <input type="button" id="login" class="btn btn-outline-primary btn-lg" value="Login">
+                    <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
                 </div>
                 <div class="col-sm">
                     <input type="button" id="logout" class="btn btn-outline-primary btn-lg" value="Logout"
-                        hidden=true></input>
+                        hidden=true>
                 </div>
 
             </div>
+
 			<div class="friends-list" align="center">
 			
 			</div>
+
         </div>
-    </div>
     </div>
 </body>
 
