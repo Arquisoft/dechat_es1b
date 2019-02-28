@@ -43,14 +43,17 @@ function emptyFriendsList() {
 }
 
 $("#friends").click(async () => {
+    $(".friends-list").show();
     userWerbId = pod.getSession().webId
     friends = await query.getFriends()
 	emptyFriendsList()
     $.each(friends, (i, friend) => {
-        $(".friends-list").prepend("<ul><button class='contactButton' id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
-		$("#Amigo"+i).click(async() => { startChat(friend)})
+        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
+		$("#buttonFriend"+i).click(async() => { startChat(friend)})
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
+    
+
 })
 
 /**
@@ -80,4 +83,6 @@ async function changeTitles(session){
         $("#subTitleApp").prop("show", session)
     }
 }
+
+
 

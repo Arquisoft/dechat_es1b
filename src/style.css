@@ -4,3 +4,37 @@ img{
     align-content:center;
 }
 
+.friends-list{
+    background-color: white;
+    padding: 10px 24px; /* Some padding */
+    border: 1px solid #2FA7F5; /* Green border */
+    cursor: pointer; /* Pointer/hand icon */
+    width: 50%; /* Set a width if needed */
+    display: block; /* Make the buttons appear below each other */
+}
+
+
+.contactButton{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em; 
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    background-color: white;
+    font-weight:300;
+    color:#2FA7F5;
+    text-align:center;
+    transition: all 0.2s;
+}
+.contactButton:hover{
+    color:white;
+    background-color:#2FA7F5;
+}
+
+footer{
+    text-align:center;
+}
+
