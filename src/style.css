@@ -11,10 +11,11 @@ img{
     cursor: pointer; /* Pointer/hand icon */
     width: 50%; /* Set a width if needed */
     display: block; /* Make the buttons appear below each other */
+    align-self: center;
 }
 
 
-.contactButton{
+.contactButton, .sendButton{
     display:inline-block;
     padding:0.35em 1.2em;
     border:0.1em solid #FFFFFF;
@@ -33,6 +34,46 @@ img{
     color:white;
     background-color:#2FA7F5;
 }
+
+#content{
+    border:1px solid #A9F5A9;
+    background: #FFF;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 300px;
+    overflow: auto;
+}
+
+#content p{
+    padding: 1em;
+    margin: 1em;
+    background: #e6e6e6; 
+    border: 1px solid #bdbdbd;
+    border-radius:4px;
+}
+
+#message button{
+    margin: 1em 0 0 0;
+}
+
+#message textarea{
+    border:none;
+    padding:3px;
+    text-decoration:none;
+    border-radius:2px;
+    background: rgb(89, 143, 243);
+    box-shadow: 0 1px 0 white;
+}
+
+
+
+
+#message{
+    margin-top: 10px;
+
+}
+
 
 footer{
     text-align:center;
