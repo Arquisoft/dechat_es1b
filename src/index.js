@@ -28,17 +28,12 @@ $("#logout").click(async () => {
 
 /**
 * Start a chat with the selected friend
-* @param {Person} friend - object representing the user's contact
+* @param {Person} object representing the user's contact
 */
 function startChat(friend) {
-    console.log(friend.id)
-    $(".friends-list").prepend("<div id='sendMessage'><textarea rows='2' cols='34'>Send a message</textarea><button class='sendButton'>Send</button></div>");
-    $(".friends-list").prepend("<h2> CHAT with\t"+friend.name+"</h2><div id='chatContent'><p>This is a testing message\n</p></div>");
-
+	alert(friend.name)
+	console.log(friend.id)
 }
-
-
-
 
 /**
 * Empty the user's contacts html list
@@ -54,13 +49,10 @@ $("#friends").click(async () => {
 	emptyFriendsList()
     $.each(friends, (i, friend) => {
         $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
-		$("#buttonFriend"+i).click(async() => { startChat(friend, i)})
+		$("#buttonFriend"+i).click(async() => { startChat(friend)})
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
     
-    
-
-
 
 })
 
