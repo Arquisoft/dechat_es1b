@@ -26,25 +26,32 @@ $("#logout").click(async () => {
     pod.logout()
 })
 
-$("#friends").click(async () => {
-    userWerbId = pod.getSession().webId
-    friends = await query.getFriends()
-
-    $.each(friends, (i, friend) => {
-        $(".friends-list").prepend("<ul><button style='width:200px' id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
-		$("#Amigo"+i).click(async() => { startChat(friend)})
-        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
-    })
-})
-
 /**
 * Start a chat with the selected friend
-* @param {Person} friend objeto Person que representa al amigo en cuestion
+* @param {Person} object representing the user's contact
 */
 function startChat(friend) {
 	alert(friend.name)
 	console.log(friend.id)
 }
+
+/**
+* Empty the user's contacts html list
+*/
+function emptyFriendsList() {
+	$(".friends-list").empty()
+}
+
+$("#friends").click(async () => {
+    userWerbId = pod.getSession().webId
+    friends = await query.getFriends()
+	emptyFriendsList()
+    $.each(friends, (i, friend) => {
+        $(".friends-list").prepend("<ul><button class='contactButton' id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
+		$("#Amigo"+i).click(async() => { startChat(friend)})
+        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
+    })
+})
 
 /**
  * Sets the buttons according to the session status
@@ -60,8 +67,8 @@ function changeView(session) {
     $("#friends").prop("show", session)
     changeTitles(session);
 	
-	if(!session)		
-		$(".friends-list").empty()
+	if (!session)
+		emptyFriendsList()
 }
 
 async function changeTitles(session){
