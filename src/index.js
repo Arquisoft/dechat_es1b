@@ -26,12 +26,29 @@ $("#logout").click(async () => {
     pod.logout()
 })
 
+/**
+* Start a chat with the selected friend
+* @param {Person} object representing the user's contact
+*/
+function startChat(friend) {
+	alert(friend.name)
+	console.log(friend.id)
+}
+
+/**
+* Empty the user's contacts html list
+*/
+function emptyFriendsList() {
+	$(".friends-list").empty()
+}
+
 $("#friends").click(async () => {
     userWerbId = pod.getSession().webId
     friends = await query.getFriends()
-
+	emptyFriendsList()
     $.each(friends, (i, friend) => {
-        //$("#friendList").prepend("<li>" + friend.fullname + "</li>")
+        $(".friends-list").prepend("<ul><button class='contactButton' id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
+		$("#Amigo"+i).click(async() => { startChat(friend)})
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
 })
@@ -49,7 +66,9 @@ function changeView(session) {
     $("#logout").prop("show", session)
     $("#friends").prop("show", session)
     changeTitles(session);
-
+	
+	if (!session)
+		emptyFriendsList()
 }
 
 async function changeTitles(session){
