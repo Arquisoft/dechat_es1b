@@ -56,15 +56,24 @@ $("#friends").click(async () => {
 /**
  * Sets the buttons according to the session status
  * @param {boolean} session 
- */
-function changeView(session) {
-    $("#login").prop("hidden", session)
+ 
     $("#logout").prop("hidden", !session)
     $("#friends").prop("hidden", !session)
 
-    $("#login").prop("show", !session)
+    
     $("#logout").prop("show", session)
     $("#friends").prop("show", session)
+ */
+function changeView(session) {
+    
+    $("#login").prop("hidden", session)
+    $("#login").prop("show", !session)
+    
+    if (!session)
+        $("#navbar").css("visibility", "hidden");
+    if (session)
+        $("#navbar").css("visibility", "visible");
+    
     changeTitles(session);
 	
 	if (!session)

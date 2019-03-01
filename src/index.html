@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="description" content="Singin html">
@@ -13,7 +12,6 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    
     
          
     <style>
@@ -34,6 +32,84 @@
 </head>
 
 <body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="navbar-header">
+                <a class="home" href="/" aria-label="Home">
+                    <svg class=home-icon href = index.html width="36" height="36" viewBox="0 0 144.000000 144.000000">
+                        <title>Home</title>
+                        <g transform="translate(0.000000,144.000000) scale(0.100000,-0.100000)" fill="white" stroke="none">
+                            <path d="M635 1430 c-361 -43 -628 -344 -628 -710 0 -280 147 -516 398 -640
+                            110 -54 189 -73 315 -73 401 0 713 312 713 713 0 430 -372 762 -798 710z m170
+                            -433 c114 -65 112 -233 -4 -294 -56 -29 -106 -29 -161 0 -51 27 -90 90 -90
+                            147 0 128 143 210 255 147z m170 -432 c14 -27 28 -71 31 -97 l7 -48 -293 0
+                            -293 0 7 48 c8 62 47 139 90 181 l34 33 57 -27 c49 -24 64 -27 121 -22 46 3
+                            75 12 102 30 l37 25 38 -37 c21 -20 49 -58 62 -86z"/>
+                        </g>
+                    </svg>
+                </a>
+                <a class=contacts type=button id="friends"  style="padding-left: 10px" >
+                   <svg class=contacts-icon width="36" height="36" viewBox="0 0 144.000000 144.000000">
+                        <title>Contacts</title>
+                        <g transform="translate(0.000000,144.000000) scale(0.100000,-0.100000)"
+                        fill="white" stroke="none">
+                            <path d="M174 1428 c-33 -15 -44 -51 -44 -138 0 -104 6 -110 116 -110 78 0 86
+                            -2 116 -29 33 -29 33 -31 36 -128 3 -107 -5 -132 -50 -166 -21 -16 -48 -22
+                            -115 -25 -49 -3 -91 -10 -95 -16 -13 -19 -9 -171 5 -188 9 -12 35 -17 95 -20
+                            62 -4 90 -10 110 -25 45 -34 53 -59 50 -166 -3 -97 -3 -99 -36 -128 -30 -27
+                            -38 -29 -110 -29 -112 0 -122 -9 -122 -110 0 -89 11 -123 47 -139 17 -8 196
+                            -11 589 -11 l565 0 24 25 25 24 0 671 0 671 -25 24 -24 25 -568 -1 c-369 0
+                            -575 -4 -589 -11z m560 -320 c14 -13 41 -53 61 -90 41 -77 39 -92 -21 -129
+                            -32 -19 -35 -25 -30 -53 10 -52 64 -152 109 -202 l43 -47 43 22 c62 32 80 24
+                            129 -62 56 -99 55 -120 -5 -151 -123 -62 -291 48 -416 275 -53 94 -77 172 -77
+                            244 0 100 26 153 95 196 38 24 39 24 69 -3z"/>
+                            <path d="M72 1088 c-16 -16 -16 -140 0 -156 16 -16 210 -16 226 0 16 16 16
+                            140 0 156 -16 16 -210 16 -226 0z"/>
+                            <path d="M69 499 c-15 -29 -7 -138 12 -150 21 -13 193 -11 207 3 16 16 16 140
+                            0 156 -8 8 -47 12 -110 12 -89 0 -98 -2 -109 -21z"/>
+                        </g>
+                    </svg>
+                </a>
+                
+                <a class="chats" type=button id=chats aria-label="Home" style="padding-left: 10px" >
+                    <svg class=chats-icon width="36" height="36" viewBox="0 0 144.000000 144.000000">
+                        <title>Chats</title>
+                        <g transform="translate(0.000000,144.000000) scale(0.100000,-0.100000)"
+                            fill="white" stroke="none">
+                                <path d="M423 1245 c-122 -33 -211 -100 -264 -197 -31 -58 -34 -70 -34 -148 0
+                                -73 4 -92 28 -137 26 -50 27 -59 27 -198 l0 -146 98 75 98 74 54 -14 c140 -36
+                                304 3 416 99 22 20 56 64 75 99 31 58 34 70 34 148 0 78 -3 90 -34 148 -19 35
+                                -53 79 -75 99 -113 97 -281 136 -423 98z"/>
+                                <path d="M1080 881 c0 -61 -36 -163 -82 -231 -83 -125 -225 -205 -403 -228
+                                l-60 -7 47 -47 c105 -106 279 -152 428 -114 l54 14 98 -74 98 -75 0 144 c0
+                                137 1 148 28 203 22 49 27 72 27 139 -1 68 -5 88 -28 133 -34 64 -100 133
+                                -156 161 -22 12 -43 21 -46 21 -3 0 -5 -18 -5 -39z"/>
+                            </g>
+                    </svg>
+                </a>
+
+                <a class=logout type=button id="logout" style="padding-left: 1170px" >
+                   <svg class=logout-icon width="36" height="36" viewBox="0 0 144.000000 144.000000">
+                        <title>Contacts</title>
+                        <g transform="translate(0.000000,144.000000) scale(0.100000,-0.100000)"
+                        fill="white" stroke="none">
+                            <path d="M616 1427 c-24 -17 -24 -66 0 -84 14 -10 88 -13 341 -13 l323 0 0
+                            -610 0 -610 -324 0 c-352 0 -356 -1 -356 -55 0 -56 1 -56 387 -53 l355 3 24
+                            28 24 28 0 659 0 659 -24 28 -24 28 -354 3 c-286 2 -357 0 -372 -11z"/>
+                            <path d="M489 1182 c-52 -34 -411 -368 -425 -394 -18 -35 -18 -91 0 -127 15
+                            -27 390 -375 430 -398 31 -18 104 -16 137 4 35 21 69 86 69 131 l0 32 180 0
+                            c196 0 225 6 270 54 25 27 25 30 28 229 2 187 1 204 -17 234 -40 64 -55 68
+                            -268 71 l-193 4 0 29 c0 44 -23 91 -59 122 -39 33 -111 37 -152 9z m101 -182
+                            l5 -85 235 -5 c129 -3 236 -7 238 -8 1 -1 1 -82 0 -179 l-3 -178 -235 -5 -235
+                            -5 -3 -80 c-3 -73 -13 -105 -32 -105 -5 0 -95 79 -202 177 -135 123 -193 182
+                            -193 197 0 31 369 368 399 364 19 -3 21 -11 26 -88z"/>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+        </div> 
+    </nav>
+    
     <header>
         <div class="container-fluid">
             <div class="row">
@@ -57,28 +133,23 @@
             <h5 class="card-title" id="titleApp">Sign in using Solid technology</h5>
             <p class="card-text" id="subTitleApp">What is <a href="https://solid.inrupt.com/">Solid</a>?</p>
             <div class="row">
-
-                <div class="col-sm">
-                    <input type="button" id="friends" class="btn btn-outline-primary btn-lg" value="List friends"
-                        hidden=true>
-                </div>
                 <div class="col-sm">
                     <input type="button" id="login" class="btn btn-outline-primary btn-lg" value="Login">
-                    <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
                 </div>
-                <div class="col-sm">
-                    <input type="button" id="logout" class="btn btn-outline-primary btn-lg" value="Logout"
-                        hidden=true>
-                </div>
-
             </div>
-
-			<div class="friends-list" align="center">
+            
+            <div class="friends-list" align="center">
 			
-			</div>
+            </div>
 
         </div>
     </div>
+    
+    <footer class="footer">
+        <div class="container">
+          <p   class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
+        </div>
+    </footer>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
