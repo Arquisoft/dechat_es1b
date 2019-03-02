@@ -68,11 +68,13 @@ function changeView(session) {
     $("#login").prop("show", !session);
     $("#friends").prop("hidden", !session);
     $("#friends").prop("show", session);
-
+    changeTitles(session);
     if (!session)
         $("#navbar").css("visibility", "hidden");
     if (session)
         $("#navbar").css("visibility", "visible");
+    if (!session)
+		emptyFriendsList()
 }
 
 async function changeTitles(session){
