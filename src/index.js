@@ -1,5 +1,6 @@
 const pod = require("./lib/session")
 const query = require("./lib/ldflex-queries")
+const solidFC = require("./lib/FileClient.js")
 
 /**
  * On DOM load, set solid.auth to track the session status
@@ -23,16 +24,19 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
+    $(".friends-list").css("border", "1px solid #2FA7F5");
     pod.logout()
 })
 
 /**
 * Start a chat with the selected friend
-* @param {Person} object representing the user's contact
-*/
-function startChat(friend) {
-	alert(friend.name)
-	console.log(friend.id)
+* @param {Person} friend - object representing the user's contact*/
+function startChat(friend, i) {
+    console.log(friend.id)
+    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer"+i+"'>"+"<h4>" +  friend.name+ "</h4><div class=chatContent id='chatContent"+i+"'><p>This is a testing message\n</p></div>"+"<div id='sendMessage'"+i+"'>"+"<textarea rows='2' cols='34' id='messageText"+i+"'>"+"Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button></div></div>");
+    $("#buttonFriend"+i).prop('disabled', true);
+    $("#messageFriend"+i).click(async() => { solidFC.sendMessageToPOD(friend, document.getElementById("messageText"+i).value)});
+
 }
 
 /**
@@ -43,16 +47,27 @@ function emptyFriendsList() {
 }
 
 $("#friends").click(async () => {
+    $(".friends-list").show();
+    $(".friends-list").css("border", "1px solid #2FA7F5");
     userWerbId = pod.getSession().webId
     friends = await query.getFriends()
 	emptyFriendsList()
     $.each(friends, (i, friend) => {
-        $(".friends-list").prepend("<ul><button class='contactButton' id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
-		$("#Amigo"+i).click(async() => { startChat(friend)})
+        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
+        $("#buttonFriend"+i).click(async() => { startChat(friend, i)})
+        
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
+    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>")
+    $("#closeChats").click(async() => { closeChats(friends)})
 })
 
+function closeChats(friends){
+    $.each(friends, (i, friend) => {
+        $("#chatContainer"+i).remove()
+        $("#buttonFriend"+i).prop('disabled', false);
+    })
+}
 /**
  * Sets the buttons according to the session status
  * @param {boolean} session 
@@ -86,4 +101,6 @@ async function changeTitles(session){
         $("#subTitleApp").prop("show", session)
     }
 }
+
+
 
