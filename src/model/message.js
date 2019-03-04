@@ -18,7 +18,7 @@ class Message{
 
     generateNotification(){
         return {
-            "title": "DeChat"+this.timestamp,
+            "title": "dechat",
             "content":{
                 "origin":this.user,
                 "url": "https://example.org"

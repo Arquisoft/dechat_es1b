@@ -1,17 +1,23 @@
-const pod = require("./lib/session")
+const session = require("./lib/session")
 const query = require("./lib/ldflex-queries")
+const Chat = require("./lib/chat")
 
+let user;
 /**
  * On DOM load, set solid.auth to track the session status
  */
 $("document").ready(async () => {
-    pod.track(
+    session.track(
         // If there's a session
-        () => {
+        async () => {
+            user = await session.getUser();
+            console.log(user)
             changeView(true)
         },
         // User isn't logged in
-        () => {
+        async () => {
+            user = null;
+            console.log(user)
             changeView(false)
         }
     )
@@ -19,20 +25,23 @@ $("document").ready(async () => {
 
 // Button listeners
 $("#login").click(async () => {
-    pod.login()
+    session.login()
 })
 
 $("#logout").click(async () => {
-    pod.logout()
+    session.logout()
 })
 
 /**
 * Start a chat with the selected friend
 * @param {Person} object representing the user's contact
 */
-function startChat(friend) {
-	alert(friend.name)
-	console.log(friend.id)
+async function startChat(friend) {
+    console.log("Chat with "+ friend.id + " opened")
+
+
+    const chat = new Chat(user.id, friend.id)
+    console.log(chat)
 }
 
 /**
@@ -43,8 +52,7 @@ function emptyFriendsList() {
 }
 
 $("#friends").click(async () => {
-    userWerbId = pod.getSession().webId
-    friends = await query.getFriends()
+    friends = await query.getFriends(user.id)
 	emptyFriendsList()
     $.each(friends, (i, friend) => {
         $(".friends-list").prepend("<ul><button class='contactButton' id='Amigo"+i+"'>" + "Chat with " + friend.name + "</button></ul>")

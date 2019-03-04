@@ -2,6 +2,8 @@
  * API for handling SOLID pods
  */
 const auth = require("solid-auth-client");
+const query = require("./ldflex-queries");
+const Person = require("../model/person")
 
 
 /**
@@ -17,6 +19,13 @@ async function login(){
 async function getSession() {
   return await auth.currentSession();
 };
+
+async function getUser(){
+  webID = (await auth.currentSession()).webId;
+  name = await query.getName();
+  inbox = await query.getInbox();
+  return new Person(webID, name, inbox);
+}
 
 async function logout() {
   auth.logout().then(alert("Disconnected"));
@@ -42,5 +51,6 @@ module.exports = {
     logout,
     getSession,
     friends,
-    track
+    track,
+    getUser
 }

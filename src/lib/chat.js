@@ -11,7 +11,6 @@ class Chat{
         this.pod = new PODHelper(auth.fetch)
         this.user = user
         this.partner = partner
-
     }
 
     async sendMessage(text){
