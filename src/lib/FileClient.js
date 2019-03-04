@@ -1,9 +1,5 @@
 const fileClient = require("solid-file-client")
 
-/**
- * Creates handlers to run queries against WebID or the authenticated user
- */
-
 /*
 * Writes "message" parameter string to a new file within friend's pod
 */
