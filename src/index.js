@@ -1,6 +1,6 @@
 const pod = require("./lib/session")
 const query = require("./lib/ldflex-queries")
-const fileClient = require("solid-file-client")
+const solidFC = require("./lib/FileClient.js")
 
 /**
  * On DOM load, set solid.auth to track the session status
@@ -28,24 +28,6 @@ $("#logout").click(async () => {
     pod.logout()
 })
 
-function sendMessageToPOD(friend, message) {
-	alert(message)
-	//Obtaining a string with POD's rute to where we wanna write
-	friendRoute = friend.inbox + "/chat"+friend.name+".txt"
-	//friendRoute = friendRoute.replace("/profile/card#me","/public/chat"+friend.name+".txt")
-	
-	//Login since it looks like its required 
-	fileClient.popupLogin().then( webId => {
-       console.log( `Logged in as ${webId}.`)
-	}, err => console.log(err) );
-	
-	fileClient.createFile(friendRoute, message).then( fileCreated => {
-	console.log(`Created file ${fileCreated}.`);
-	}, err => console.log(err) );
-	
-	  
-}
-
 /**
 * Start a chat with the selected friend
 * @param {Person} friend - object representing the user's contact*/
@@ -53,7 +35,7 @@ function startChat(friend, i) {
     console.log(friend.id)
     $(".friends-list").prepend("<div class='chatContainer' id='chatContainer"+i+"'>"+"<h4>" +  friend.name+ "</h4><div class=chatContent id='chatContent"+i+"'><p>This is a testing message\n</p></div>"+"<div id='sendMessage'"+i+"'>"+"<textarea rows='2' cols='34' id='messageText"+i+"'>"+"Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button></div></div>");
     $("#buttonFriend"+i).prop('disabled', true);
-    $("#messageFriend"+i).click(async() => { sendMessageToPOD(friend, document.getElementById("messageText"+i).value)});
+    $("#messageFriend"+i).click(async() => { solidFC.sendMessageToPOD(friend, document.getElementById("messageText"+i).value)});
 
 }
 
