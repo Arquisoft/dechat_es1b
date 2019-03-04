@@ -51,17 +51,12 @@ function sendMessageToPOD(friend, message) {
 * @param {Person} friend - object representing the user's contact*/
 function startChat(friend, i) {
     console.log(friend.id)
-    $(".friends-list").prepend("<div id='sendMessage'"+i+">"+"<textarea rows='2' cols='34' id='messageText'"+i+">"+"Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button><button class='closeButton' id='closeFriend"+i+"'>Close</button></div></div>");
-    $(".friends-list").prepend("<div id='chatContainer'"+i+">"+"<h2> CHAT with\t"+friend.name+"</h2><div id='chatContent'><p>This is a testing message\n</p></div>");
+    $(".friends-list").prepend("<div id='chatContainer"+i+"'>"+"<h2> CHAT with\t"+friend.name+"</h2><div id='chatContent'><p>This is a testing message\n</p></div>"+"<div id='sendMessage'"+i+"'>"+"<textarea rows='2' cols='34' id='messageText'"+i+">"+"Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button></div></div>");
     $("#buttonFriend"+i).prop('disabled', true);
     $("#messageFriend"+i).click(async() => { sendMessageToPOD(friend, document.getElementById("messageText"+i).value)});
-    $("#closeFriend"+i).click(async() => { closeChat(i)})
 
 }
 
-function closeChat(i){
-    $("#chatContainer"+i).hide();
-}
 /**
 * Empty the user's contacts html list
 */
@@ -77,13 +72,20 @@ $("#friends").click(async () => {
 	emptyFriendsList()
     $.each(friends, (i, friend) => {
         $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend"+i+"'>" + "Chat with " + friend.name + "</button></ul>")
-		$("#buttonFriend"+i).click(async() => { startChat(friend, i)})
+        $("#buttonFriend"+i).click(async() => { startChat(friend, i)})
+        
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox)
     })
-    
-
+    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>")
+    $("#closeChats").click(async() => { closeChats(friends)})
 })
 
+function closeChats(friends){
+    $.each(friends, (i, friend) => {
+        $("#chatContainer"+i).remove()
+        $("#buttonFriend"+i).prop('disabled', false);
+    })
+}
 /**
  * Sets the buttons according to the session status
  * @param {boolean} session 

@@ -38,6 +38,22 @@ img{
     text-align:center;
     transition: all 0.2s;
 }
+
+#closeChats{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em; 
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    background-color: white;
+    font-weight:300;
+    color: rgb(255, 78, 78);
+    text-align:center;
+    transition: all 0.2s;
+}
 .contactButton:hover{
     color:white;
     background-color:#2FA7F5;
