@@ -7,7 +7,17 @@ class PODHelper{
     sendToInbox(inboxURL, data){
         return this.fetch(inboxURL, {
             method: 'POST',
-            body: data
+            headers:{
+                "Content-Type":"application/json",
+                "Slug": data.title,
+            },
+            body: data.url
+        })
+    }
+
+    getURL(url){
+        return this.fetch(url, {
+            method: 'GET'
         })
     }
 }

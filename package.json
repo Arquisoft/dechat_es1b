@@ -14,6 +14,7 @@
     "node-web-streams": "^0.2.2",
     "nyc": "^13.3.0",
     "solid-auth-client": "^2.2.14",
+    "solid-file-client": "^0.4.9",
     "standard": "^12.0.1",
     "web-streams-polyfill": "^1.3.2"
   },
