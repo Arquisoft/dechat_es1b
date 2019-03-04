@@ -7,13 +7,21 @@ img{
 .friends-list{
     background-color: white;
     padding: 10px 24px; /* Some padding */
-    border: 1px solid #2FA7F5; /* Green border */
+    /*border: 1px solid #2FA7F5; /* Green border */
     cursor: pointer; /* Pointer/hand icon */
     width: 50%; /* Set a width if needed */
     display: block; /* Make the buttons appear below each other */
     align-self: center;
 }
 
+#loginContainer, #login{
+    text-align: center;
+    align-self: center;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
 
 .contactButton, .sendButton{
     display:inline-block;

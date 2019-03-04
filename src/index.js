@@ -24,6 +24,7 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
+    $(".friends-list").css("border", "1px solid #2FA7F5");
     pod.logout()
 })
 
@@ -50,11 +51,17 @@ function sendMessageToPOD(friend, message) {
 * @param {Person} friend - object representing the user's contact*/
 function startChat(friend, i) {
     console.log(friend.id)
-    $(".friends-list").prepend("<div id='sendMessage'><textarea rows='2' cols='34' id='messageText"+i+"'>Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button></div>");
-    $(".friends-list").prepend("<h2> CHAT with\t"+friend.name+"</h2><div id='chatContent'><p>This is a testing message\n</p></div>");
-	$("#messageFriend"+i).click(async() => { sendMessageToPOD(friend, document.getElementById("messageText"+i).value)})
+    $(".friends-list").prepend("<div id='sendMessage'"+i+">"+"<textarea rows='2' cols='34' id='messageText'"+i+">"+"Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button><button class='closeButton' id='closeFriend"+i+"'>Close</button></div></div>");
+    $(".friends-list").prepend("<div id='chatContainer'"+i+">"+"<h2> CHAT with\t"+friend.name+"</h2><div id='chatContent'><p>This is a testing message\n</p></div>");
+    $("#buttonFriend"+i).prop('disabled', true);
+    $("#messageFriend"+i).click(async() => { sendMessageToPOD(friend, document.getElementById("messageText"+i).value)});
+    $("#closeFriend"+i).click(async() => { closeChat(i)})
+
 }
 
+function closeChat(i){
+    $("#chatContainer"+i).hide();
+}
 /**
 * Empty the user's contacts html list
 */
@@ -64,6 +71,7 @@ function emptyFriendsList() {
 
 $("#friends").click(async () => {
     $(".friends-list").show();
+    $(".friends-list").css("border", "1px solid #2FA7F5");
     userWerbId = pod.getSession().webId
     friends = await query.getFriends()
 	emptyFriendsList()
