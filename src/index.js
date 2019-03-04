@@ -51,7 +51,7 @@ function sendMessageToPOD(friend, message) {
 * @param {Person} friend - object representing the user's contact*/
 function startChat(friend, i) {
     console.log(friend.id)
-    $(".friends-list").prepend("<div id='chatContainer"+i+"'>"+"<h2> CHAT with\t"+friend.name+"</h2><div id='chatContent'><p>This is a testing message\n</p></div>"+"<div id='sendMessage'"+i+"'>"+"<textarea rows='2' cols='34' id='messageText'"+i+">"+"Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button></div></div>");
+    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer"+i+"'>"+"<h4>" +  friend.name+ "</h4><div class=chatContent id='chatContent"+i+"'><p>This is a testing message\n</p></div>"+"<div id='sendMessage'"+i+"'>"+"<textarea rows='2' cols='34' id='messageText"+i+"'>"+"Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button></div></div>");
     $("#buttonFriend"+i).prop('disabled', true);
     $("#messageFriend"+i).click(async() => { sendMessageToPOD(friend, document.getElementById("messageText"+i).value)});
 
