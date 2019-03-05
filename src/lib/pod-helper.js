@@ -1,7 +1,8 @@
 const fc = require("solid-file-client")
 const sp = require("solid-permissions")
 const rdf = require("rdflib")
-const webClient = require("solid-web-client")
+const auth = require("solid-auth-client");
+const webClient = require("solid-web-client")(rdf, auth)
 
 class PODHelper{
     constructor(fetch){
@@ -34,7 +35,8 @@ class PODHelper{
 	}
 	
 	/**
-     * Creates a folder in the specified pod, containing a json representing chat messages
+     * Creates a folder in user's own pod, containing a json representing chat messages
+	 * and grants read permissions to partner.
      * @param {String} userID 
      * @param {String} partnerID
 	 * @param {String} message
