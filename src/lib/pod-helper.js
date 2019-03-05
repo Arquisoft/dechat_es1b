@@ -1,4 +1,6 @@
 const fc = require("solid-file-client")
+const sp = require("solid-permissions")
+
 class PODHelper{
     constructor(fetch){
         this.fetch = fetch;
@@ -18,6 +20,16 @@ class PODHelper{
 	    return fc.createFile(friendRoute, message).then(200);
     }
 	
+	grantReadPermissionsToFolder(folderRoute, partnerID) {
+	
+	}
+	
+	/**
+     * Creates a folder in the specified pod, containing a json representing chat messages
+     * @param {String} userID 
+     * @param {String} partnerID
+	 * @param {String} message
+     */
 	sendToOwnPOD(userID, partnerID, message) {
 		//Obtaining a string representing contact's webID
 		//To do this, we will isolate the variable part of the WebID 
@@ -34,6 +46,8 @@ class PODHelper{
 		console.log("A 404 ERROR NEXT MEANS FOLDER HAS BEEN SUCCESFULLY CREATED");
 		fc.createFolder(folderRoute).then(200);
 		
+		grantReadPermissionsToFolder(folderRoute, partnerID);
+		
 		//TODO: Folder should automatically get read permissions for partner
 		console.log("A 404 ERROR NEXT MEANS MESSAGE LOG FILE HAS BEEN SUCCESFULLY CREATED");
 		return fc.updateFile(podFileRoute, message.serialize()).then(success => {
@@ -41,7 +55,7 @@ class PODHelper{
 		}, err => fc.createFile(podFileRoute, message.serialize()).then(200));
 		
 	}
-
+	
     saveToPod(user, message){
         var userRoute = user.id
     }
