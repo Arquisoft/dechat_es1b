@@ -21,7 +21,14 @@ class PODHelper{
     }
 	
 	grantReadPermissionsToFolder(folderRoute, partnerID) {
-	
+		sp.getPermissions(folderRoute)
+		.then(function (permissionSet) {
+        // Loads the PermissionSet instance, parsed from folder 
+        // Now it can be edited and saved
+        return permissionSet
+          .addPermission(partnerID, solid.acl.READ)
+          .save()
+		});
 	}
 	
 	/**
@@ -46,13 +53,13 @@ class PODHelper{
 		console.log("A 404 ERROR NEXT MEANS FOLDER HAS BEEN SUCCESFULLY CREATED");
 		fc.createFolder(folderRoute).then(200);
 		
-		grantReadPermissionsToFolder(folderRoute, partnerID);
-		
 		//TODO: Folder should automatically get read permissions for partner
 		console.log("A 404 ERROR NEXT MEANS MESSAGE LOG FILE HAS BEEN SUCCESFULLY CREATED");
-		return fc.updateFile(podFileRoute, message.serialize()).then(success => {
+		fc.updateFile(podFileRoute, message.serialize()).then(success => {
 			console.log("Fichero de mensajes actualizado")
 		}, err => fc.createFile(podFileRoute, message.serialize()).then(200));
+		
+		this.grantReadPermissionsToFolder(podFileRoute, partnerID);
 		
 	}
 	
