@@ -1,7 +1,13 @@
 const fileClient = require('solid-file-client');
-var leemeURI = "https://podaes1b.solid.community/public/Bebesitaa/index.ttl"
-var almacen
-fileClient.readFile(leemeURI).then(  body => {
-	almacen = body;
-  console.log(almacen);
-}, err => console.log(err) );
+
+/**
+ * This function read a file of a POD.
+ * @param leemeURL URL where is the file.
+ */
+function readFile(leemeURL) {
+  var almacen;
+  fileClient.readFile(leemeURL).then(  body => {
+    almacen = body;
+    return almacen;
+  }, err => console.log(err) );
+}
