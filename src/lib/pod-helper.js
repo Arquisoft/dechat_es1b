@@ -19,17 +19,26 @@ class PODHelper{
     }
 	
 	sendToOwnPOD(userID, partnerID, message) {
+		//Obtaining a string representing contact's webID
+		//To do this, we will isolate the variable part of the WebID 
+		//(example: https://jhon.solid.community will turn into jhon.solid)
+		var friendIdentifier = partnerID.replace("https://", "");
+		var partes = friendIdentifier.split(".");
+		friendIdentifier = partes[0]+"."+partes[1];
 		
-		//Obtaining a string with POD's rute to where we wanna write
-		idfriend = partnerID.replace("https://", "");
-		idfriend = idfriend.replace("/profile/card#me", "");
-		folder = "/private/"+idFriend+"/messages.txt";
-		podRoute = userID.replace("/profile/card#me", folder);
+		var folderRoute = userID.replace("/profile/card#me", "/private/"+friendIdentifier+"/");
+		var podFileRoute = folderRoute+"messages.json";
 		
 		fc.popupLogin().then(200);
 		
+		console.log("A 404 ERROR NEXT MEANS FOLDER HAS BEEN SUCCESFULLY CREATED");
+		fc.createFolder(folderRoute).then(200);
+		
 		//TODO: Folder should automatically get read permissions for partner
-		return fc.createFile(podRoute, message.generateNotification()).then(200);
+		console.log("A 404 ERROR NEXT MEANS MESSAGE LOG FILE HAS BEEN SUCCESFULLY CREATED");
+		return fc.updateFile(podFileRoute, message.serialize()).then(success => {
+			console.log("Fichero de mensajes actualizado")
+		}, err => fc.createFile(podFileRoute, message.serialize()).then(200));
 		
 	}
 
