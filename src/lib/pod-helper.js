@@ -11,7 +11,7 @@ class PODHelper{
      */
     sendToInbox(friend, message){
         var friendRoute = friend.inbox + "/chat"+friend.name+".json"
-	
+
 	    //Login since it looks like its required 
 	    fc.popupLogin().then(200);
 	
@@ -29,7 +29,7 @@ class PODHelper{
 		fc.popupLogin().then(200);
 		
 		//TODO: Folder should automatically get read permissions for partner
-		return fc.createFile(podRoute, message).then(200);
+		return fc.createFile(podRoute, message.generateNotification()).then(200);
 		
 	}
 
