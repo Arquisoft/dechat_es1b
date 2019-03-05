@@ -4,7 +4,6 @@
 const auth = require("solid-auth-client");
 const PODHelper = require("./pod-helper.js");
 const Message = require("../model/message");
-const query = require("./ldflex-queries.js");
 "use strict";
 class Chat{
     constructor(user, partner){
@@ -14,11 +13,12 @@ class Chat{
     }
 
     async sendMessage(text){
+        console.log(text)
         // TODO save message in sender's POD
-        // TODO push notification in receiver's POD
-        var inboxUrl = await query.getInbox(this.partner)
-        return this.pod.sendToInbox(inboxUrl,
-         new Message(this.user, this.partner, text).generateNotification());
+
+        // TODO give format to the notification     
+        return this.pod.sendToInbox(this.partner,
+         new Message(this.user.id, this.partner.id, text).generateNotification());
     }
 
     async getMessages(){

@@ -13,6 +13,7 @@ describe("Chat tests", function(){
     beforeAll(()=>{
         fc.createFile = jest.fn().mockResolvedValue(200);
         fc.readFolder = jest.fn().mockResolvedValue(["notif1", "notif2", "notif3"]);
+        fc.popupLogin = jest.fn().mockResolvedValue(200);
     }),
     it("Notification should get sent to inbox", async function(){
        var response = await chat.sendMessage("This is a test message :^)");

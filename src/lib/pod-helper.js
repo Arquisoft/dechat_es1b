@@ -9,8 +9,18 @@ class PODHelper{
      * @param {String} inboxURL 
      * @param {String} data 
      */
-    sendToInbox(inboxURL, data){
-        return fc.createFile(inboxURL, data, "application/json").then(()=> 200)
+    sendToInbox(friend, message){
+        var friendRoute = friend.inbox + "/chat"+friend.name+".json"
+	    //Should be changed to user's pod so own messages are kept
+	
+	    //Login since it looks like its required 
+	    fc.popupLogin().then(200);
+	
+	    return fc.createFile(friendRoute, message).then(200);
+    }
+
+    saveToPod(user, message){
+        var userRoute = user.id
     }
 
     /**
@@ -22,7 +32,7 @@ class PODHelper{
     }
 
     /**
-     * Delets the file with the given URL
+     * Deletes the file with the given URL
      * @param {String} url 
      */
     deleteFile(url){

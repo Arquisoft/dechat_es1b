@@ -17,13 +17,14 @@ class Message{
     }
 
     generateNotification(){
-        return {
+        var jsonstring = JSON.stringify( {
             "title": "dechat",
             "content":{
                 "origin":this.user,
                 "url": "https://example.org"
             }            
-        }
+        });
+        return jsonstring;
     }
 }
 
