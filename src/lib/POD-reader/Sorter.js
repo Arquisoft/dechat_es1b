@@ -15,7 +15,7 @@ Esta clase usa linq: npm install linq
 
 function sort(lista){
 
-var ordenados = linq.from(ms).orderBy(function(m){
+var ordenados = linq.from(lista).orderBy(function(m){
                                         return m.date;
                                     }).toArray();
 return ordenados;
