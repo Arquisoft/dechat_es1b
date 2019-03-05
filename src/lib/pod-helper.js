@@ -11,13 +11,27 @@ class PODHelper{
      */
     sendToInbox(friend, message){
         var friendRoute = friend.inbox + "/chat"+friend.name+".json"
-	    //Should be changed to user's pod so own messages are kept
 	
 	    //Login since it looks like its required 
 	    fc.popupLogin().then(200);
 	
 	    return fc.createFile(friendRoute, message).then(200);
     }
+	
+	sendToOwnPOD(userID, partnerID, message) {
+		
+		//Obtaining a string with POD's rute to where we wanna write
+		idfriend = partnerID.replace("https://", "");
+		idfriend = idfriend.replace("/profile/card#me", "");
+		folder = "/private/"+idFriend+"/messages.txt";
+		podRoute = userID.replace("/profile/card#me", folder);
+		
+		fc.popupLogin().then(200);
+		
+		//TODO: Folder should automatically get read permissions for partner
+		return fc.createFile(podRoute, message).then(200);
+		
+	}
 
     saveToPod(user, message){
         var userRoute = user.id
