@@ -1,5 +1,7 @@
 const fc = require("solid-file-client")
 const sp = require("solid-permissions")
+const rdf = require("rdflib")
+const webClient = require("solid-web-client")
 
 class PODHelper{
     constructor(fetch){
@@ -20,8 +22,8 @@ class PODHelper{
 	    return fc.createFile(friendRoute, message).then(200);
     }
 	
-	grantReadPermissionsToFolder(folderRoute, partnerID) {
-		sp.getPermissions(folderRoute)
+	grantReadPermissionsToFile(fileRoute, partnerID) {
+		sp.getPermissions(fileRoute, webClient, rdf)
 		.then(function (permissionSet) {
         // Loads the PermissionSet instance, parsed from folder 
         // Now it can be edited and saved
@@ -53,13 +55,12 @@ class PODHelper{
 		console.log("A 404 ERROR NEXT MEANS FOLDER HAS BEEN SUCCESFULLY CREATED");
 		fc.createFolder(folderRoute).then(200);
 		
-		//TODO: Folder should automatically get read permissions for partner
 		console.log("A 404 ERROR NEXT MEANS MESSAGE LOG FILE HAS BEEN SUCCESFULLY CREATED");
 		fc.updateFile(podFileRoute, message.serialize()).then(success => {
 			console.log("Fichero de mensajes actualizado")
 		}, err => fc.createFile(podFileRoute, message.serialize()).then(200));
 		
-		this.grantReadPermissionsToFolder(podFileRoute, partnerID);
+		this.grantReadPermissionsToFile(podFileRoute, partnerID);
 		
 	}
 	
