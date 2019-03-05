@@ -1,10 +1,8 @@
 const fc = require("solid-file-client")
-const sp = require("solid-permissions")
-const rdf = require("rdflib")
-const auth = require("solid-auth-client");
-const webClient = require("solid-web-client")(rdf, auth)
+const MESSAGE_FILE = "messages.json"
 
 class PODHelper{
+	
     constructor(fetch){
         this.fetch = fetch;
     }
@@ -23,15 +21,38 @@ class PODHelper{
 	    return fc.createFile(friendRoute, message).then(200);
     }
 	
+	/**
+	*Generate an ACL text string that grants owner all permissions and Read only to partnerID
+	*@param {String} partnerID
+	*/
+	generateACL(partnerID) {
+		partnerID = partnerID.replace("#me", "#");
+		var ACL = "@prefix : <#>. \n"
+			+"@prefix n0: <http://www.w3.org/ns/auth/acl#>. \n"
+			+"@prefix c: </profile/card#>. \n"
+			+"@prefix c0: <"+ partnerID + ">. \n\n"
+
+			+":ControlReadWrite \n"
+				+"\ta n0:Authorization; \n"
+				+"\tn0:accessTo <"+ MESSAGE_FILE +">; \n"
+				+"\tn0:agent c:me; \n"
+				+"\tn0:mode n0:Control, n0:Read, n0:Write. \n"
+			+":Read \n"
+				+"\ta n0:Authorization; \n"
+				+"\tn0:accessTo <"+ MESSAGE_FILE +">; \n"
+				+"\tn0:agent c0:me; \n"
+				+"\tn0:mode n0:Read.";
+			
+		return ACL;
+	}
+	
 	grantReadPermissionsToFile(fileRoute, partnerID) {
-		sp.getPermissions(fileRoute, webClient, rdf)
-		.then(function (permissionSet) {
-        // Loads the PermissionSet instance, parsed from folder 
-        // Now it can be edited and saved
-        return permissionSet
-          .addPermission(partnerID, solid.acl.READ)
-          .save()
-		});
+		var aclRoute = fileRoute+".acl";
+		var aclContents = this.generateACL(partnerID);
+		console.log("A 404 ERROR NEXT MEANS PERMISSIONS FILE HAS BEEN SUCCESFULLY CREATED");
+		fc.updateFile(aclRoute, aclContents).then(success => {
+			console.log("Permissions successfully configured")
+		}, err => fc.createFile(aclRoute, aclContents).then(200));
 	}
 	
 	/**
@@ -50,7 +71,7 @@ class PODHelper{
 		friendIdentifier = partes[0]+"."+partes[1];
 		
 		var folderRoute = userID.replace("/profile/card#me", "/private/"+friendIdentifier+"/");
-		var podFileRoute = folderRoute+"messages.json";
+		var podFileRoute = folderRoute+MESSAGE_FILE;
 		
 		fc.popupLogin().then(200);
 		
@@ -59,7 +80,7 @@ class PODHelper{
 		
 		console.log("A 404 ERROR NEXT MEANS MESSAGE LOG FILE HAS BEEN SUCCESFULLY CREATED");
 		fc.updateFile(podFileRoute, message.serialize()).then(success => {
-			console.log("Fichero de mensajes actualizado")
+			console.log("Messages file successfully updated")
 		}, err => fc.createFile(podFileRoute, message.serialize()).then(200));
 		
 		this.grantReadPermissionsToFile(podFileRoute, partnerID);
