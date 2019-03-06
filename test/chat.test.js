@@ -15,8 +15,10 @@ describe("Inbox and notification tests", function(){
     beforeAll(()=>{
         // Mock solid-file-client
         fc.createFile = jest.fn().mockResolvedValue(OK);
+        fc.updateFile = jest.fn().mockResolvedValue(OK);
         fc.popupLogin = jest.fn().mockResolvedValue(OK);
         fc.deleteFile = jest.fn().mockResolvedValue(OK);
+        fc.createFolder = jest.fn().mockResolvedValue(OK);
         fc.readFolder = jest.fn().mockResolvedValue(
             {
                 "files":[
