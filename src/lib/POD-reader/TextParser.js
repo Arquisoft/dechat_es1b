@@ -20,9 +20,9 @@ would be the injection (not allowed by our control)
 */
 
 function parseString(str){
+	
 	parsed = str.split("////");
 	
-	console.log('****'+parsed.length);
 	if(parsed.length > 3)
 	{
 		var i;

@@ -1,5 +1,5 @@
 var podReader = require('./PodReader.js');
-var textParser = require('./TextParserage.js');
+var textParser = require('./TextParser.js');
 var sorter = require('./Sorter.js');
 
 /**
