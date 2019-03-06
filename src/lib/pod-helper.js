@@ -11,12 +11,11 @@ class PODHelper{
      */
     sendToInbox(friend, message){
         var friendRoute = friend.inbox + "/dechat.txt"
-        console.log(friendRoute, message)
 	
 	    //Login since it looks like its required 
 	    fc.popupLogin();
 	
-	    return fc.createFile(friendRoute, message).then(console.log("ya ta"));
+	    return fc.createFile(friendRoute, message).then(200);
     }
 	
 	sendToOwnPOD(userID, partnerID, message) {

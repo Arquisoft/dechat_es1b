@@ -15,17 +15,6 @@ class Message{
             "timestamp": this.timestamp
         })
     }
-
-    generateNotification(){
-        var jsonstring = JSON.stringify( {
-            "title": "dechat",
-            "content":{
-                "origin":this.user,
-                "url": "https://example.org"
-            }            
-        });
-        return jsonstring;
-    }
 }
 
 module.exports = Message;
