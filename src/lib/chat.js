@@ -12,15 +12,13 @@ class Chat{
         this.partner = partner
     }
 
-    async sendMessage(text){
-        console.log(text);
-		
-		message = new Message(this.user.id, this.partner.id, text);
+    async sendMessage(text){        
+        var message = new Message(this.user.id, this.partner.id, text);
 		
 		this.pod.sendToOwnPOD(this.user.id, this.partner.id, message);
         // TODO give format to the notification     
         return this.pod.sendToInbox(this.partner,
-         message.generateNotification());
+        message.generateNotification());
     }
 
     async getMessages(){
