@@ -13,10 +13,10 @@ class PODHelper{
      * @param {String} data 
      */
     sendToInbox(friend, message){
-        var friendRoute = friend.inbox + "/chat"+friend.name+".json"
-
+        var friendRoute = friend.inbox + "/dechat.txt"
+	
 	    //Login since it looks like its required 
-	    fc.popupLogin().then(200);
+	    fc.popupLogin();
 	
 	    return fc.createFile(friendRoute, message).then(200);
     }
@@ -91,12 +91,30 @@ class PODHelper{
         var userRoute = user.id
     }
 
+    readFile(url){
+        return fc.readFile(url);
+    }
+
+    /**
+     * Deletes the content of the folder specified by url, assuming the logged user has the rights to do so
+     * @param {String} url 
+     */
+    emptyFolder(url){
+        return this.getFilesFromFolder(url).then((files)=>{
+            for (const file of files) {
+                this.deleteFile(file.url)
+            }
+        }).catch("Couldn't empty the folder")
+    }
+
     /**
      * Gets the files inside a folder
      * @param {String} url 
      */
     getFilesFromFolder(url){
-        return fc.readFolder(url).then((result) => result)
+        return fc.readFolder(url).then((result) => {
+            return result.files;
+        })
     }
 
     /**
