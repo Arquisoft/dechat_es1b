@@ -1,6 +1,7 @@
 const session = require("./lib/session")
 const query = require("./lib/ldflex-queries")
 const Chat = require("./lib/chat")
+const Person = require("./model/person")
 
 let user;
 /**
@@ -43,6 +44,11 @@ async function startChat(friend, i) {
     $(".friends-list").prepend("<div class='chatContainer' id='chatContainer"+i+"'>"+"<h4>" +  friend.name+ "</h4><div class=chatContent id='chatContent"+i+"'><p>This is a testing message\n</p></div>"+"<div id='sendMessage'"+i+"'>"+"<textarea rows='2' cols='34' id='messageText"+i+"'>"+"Send a message</textarea><button class='sendButton' id='messageFriend"+i+"'>Send</button></div></div>");
     $("#buttonFriend"+i).prop('disabled', true);
     $("#messageFriend"+i).click(async() => { chat.sendMessage(document.getElementById("messageText"+i).value)});
+
+    // Set up listener for new messages, time in ms
+    setInterval(() => {
+        checkForNewMessages(chat)
+    }, 2000)
 }
 
 /**
@@ -109,5 +115,7 @@ async function changeTitles(session){
     }
 }
 
-
-
+function checkForNewMessages(chat){    
+    // Pass the callback function to execute if a new notification is received, such as an UI update?
+    chat.checkForNotifications(() => {console.log("Got a new message...");})
+}
