@@ -59,6 +59,19 @@ img{
     background-color:#2FA7F5;
 }
 
+.notification{
+    border:0em;
+    background-color: rgb(174, 212, 248);
+    font-family:'Roboto',sans-serif;
+    color: white;
+}
+
+.notification:hover{
+    color:white;
+    background-color: rgb(174, 212, 248);
+}
+
+
 #content{
     border:1px solid #A9F5A9;
     background: #FFF;
