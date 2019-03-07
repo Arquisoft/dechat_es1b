@@ -45,7 +45,7 @@ describe("Inbox and notification tests", function(){
         fc.readFile = jest.fn().mockResolvedValue(user.id) // We mock the contents of the notification
         var callback = jest.fn().mockImplementation(()=>{ done(); })
         targetChat.checkForNotifications(callback);
-    }),
+    },500),
     it("There's a message but not from the other guy", async function(done){
         // First we send a message to target   
         await chat.sendMessage("User sends a message to target");    
