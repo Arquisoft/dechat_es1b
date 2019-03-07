@@ -21,7 +21,6 @@ function buildJSONmessages(senderID, receiverID, messages) {
 		else 
 			ret = ret+"]"+segments[1]+"////";
 	}
-	alert(ret);
 	return ret;		
 }
 	

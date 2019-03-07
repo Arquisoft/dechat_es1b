@@ -15,7 +15,7 @@ describe("LDFlex queries tests", function(){
     }),
     it("Gets friends of from WebID", async function(){
         const friends = await query.getFriends(WebID);
-        expect(friends.length).toBe(1);
-        expect(friends[0].id).toBe("https://samuelcifuentes.solid.community/profile/card#me");
+        expect(friends.length).toBe(2);
+        expect(friends[friends.length-1].id).toBe("https://samuelcifuentes.solid.community/profile/card#me");
     })
 })
