@@ -10,12 +10,13 @@ class Chat{
         this.pod = new PODHelper(auth.fetch)
         this.user = user
         this.partner = partner
+		this.sentMessages = []
     }
 
     async sendMessage(text){		
 		var message = new Message(this.user.id, this.partner.id, text);
-		
-		this.pod.sendToOwnPOD(this.user.id, this.partner.id, message);
+		this.sentMessages.push(message);
+		this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
         // TODO give format to the notification     
         return this.pod.sendToInbox(this.partner,
         message.user);

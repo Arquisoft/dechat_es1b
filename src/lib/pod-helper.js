@@ -24,6 +24,7 @@ class PODHelper{
 	/**
 	*Generate an ACL text string that grants owner all permissions and Read only to partnerID
 	*@param {String} partnerID
+	*@return {String} ACL string content
 	*/
 	generateACL(partnerID) {
 		partnerID = partnerID.replace("#me", "#");
@@ -55,14 +56,41 @@ class PODHelper{
 		}, err => fc.createFile(aclRoute, aclContents).then(200));
 	}
 	
+	/*
+	* Builds a JSON format file that contains all messages
+	* @param {String} senderID
+	* @param {String} receiverID
+	* @param {Array} messages
+	* @return {String} desired JSON-format contents in a string
+	*/
+	buildJSONmessages(senderID, receiverID, messages) {
+		var sender = senderID.replace("https://", "").replace("/profile/card#me", "");
+		var receiver = receiverID.replace("https://", "").replace("/profile/card#me", "");
+		var lastupdate = new Date().getTime();
+		
+		var jsonstring = JSON.stringify({"webid_sender":sender, "webid_receiver":receiver, "lastupdate":lastupdate, "messages":"////"});
+		var segments = jsonstring.split("////");
+		var ret = "////"+segments[0]+"[";
+		var i;
+		for (i=0; i<messages.length; i++) {
+			ret = ret+messages[i].serialize();
+			if (i!=messages.length-1)
+				ret=ret+",";
+			else 
+				ret = ret+"]"+segments[1]+"////";
+		}
+		alert(ret);
+		return ret;		
+	}
+	
 	/**
      * Creates a folder in user's own pod, containing a json representing chat messages
 	 * and grants read permissions to partner.
      * @param {String} userID 
      * @param {String} partnerID
-	 * @param {String} message
+	 * @param {Array} messages
      */
-	sendToOwnPOD(userID, partnerID, message) {
+	sendToOwnPOD(userID, partnerID, messages) {
 		//Obtaining a string representing contact's webID
 		//To do this, we will isolate the variable part of the WebID 
 		//(example: https://jhon.solid.community will turn into jhon.solid)
@@ -78,10 +106,12 @@ class PODHelper{
 		console.log("A 404 ERROR NEXT MEANS FOLDER HAS BEEN SUCCESFULLY CREATED");
 		fc.createFolder(folderRoute).then(200);
 		
+		var messagesJSON = this.buildJSONmessages(userID, partnerID, messages);
+		
 		console.log("A 404 ERROR NEXT MEANS MESSAGE LOG FILE HAS BEEN SUCCESFULLY CREATED");
-		fc.updateFile(podFileRoute, message.serialize()).then(success => {
+		fc.updateFile(podFileRoute, messagesJSON).then(success => {
 			console.log("Messages file successfully updated")
-		}, err => fc.createFile(podFileRoute, message.serialize()).then(200));
+		}, err => fc.createFile(podFileRoute, messagesJSON).then(200));
 		
 		this.grantReadPermissionsToFile(podFileRoute, partnerID);
 		
