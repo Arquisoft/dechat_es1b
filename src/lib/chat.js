@@ -33,18 +33,24 @@ class Chat{
         Checks if a notification has arrived for the current chat, in that case
         removes the notification and executes the callback function
      */
-    checkForNotifications(callback){
-        this.pod.getFilesFromFolder(this.user.inbox).then((files) => {
-            for (const file of files) {
-                this.pod.readFile(file.url).then((content)=>{
-                    if (content == this.partner.id){
-                        this.pod.deleteFile(file.url);
-                        callback();
-                        return;
-                    }
-                })
+    async checkForNotifications(callback){
+        var hits = [];
+        var files = await this.pod.getFilesFromFolder(this.user.inbox);
+        for (const file of files){
+            let content;
+            content = await this.pod.readFile(file.url);
+            if (content == this.partner.id){
+                hits.push(await file.url)
             }
-        })
+        }
+
+        if (hits.length > 0){
+            callback();
+        }
+
+        for (const url in hits){
+            this.pod.deleteFile(url);
+        }
     }
 }
 
