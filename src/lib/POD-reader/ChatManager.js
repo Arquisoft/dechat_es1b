@@ -1,28 +1,36 @@
 var podReader = require('./PodReader.js');
 var textParser = require('./TextParser.js');
 var sorter = require('./Sorter.js');
+const fileClient = require('solid-file-client');
+const creator = require('./ElementCreator.js')
 
-/**
- * This function get all messages and return
- * an array with all messages of 2 person
- * sorter by date.
+/*
+ * This function get all messages from a single pod uri
+ * parsing file and converting to a json
+ * After this an element creator go over every message 
+ * and create every element message
  */
-function get(myWebid, hisWebid){
-    //Generate url for chat file in pod.
-    var myWebidURL = "https://" + myWebid + "/private" + hisWebid + "/chat.json";
-    var hisWebidURL = "https://" + hisWebid + "/private" + myWebid + "/chat.json";
 
-    //Read file of two pods.
-    var myPod = podReader.readFile(myWebidURL);
-    var hisPod = podReader.readFile(hisWebidURL);
+ async function singleUriGetter(url){
 
-    //Parse files to convert json file in an array of messages.
-    var myMessages = textParser.parseString(myPod);
-    var hisMessages = textParser.parseString(hisPod);
+ var salida = await fileClient.readFile(url);
 
-    //Concat all messages
-    var allMessages = myMessages.concat(hisMessages);
+ var tr = await creator.create(textParser.parseString(salida));
 
-    //Sort messages and return this.
-    return sorter.sort(allMessages);
+ return await tr;
 }
+
+/*
+*	This function receives two uri applies singleUriGetter
+* 	to create a message array for each onerror
+*	and returns the sorted by date list 
+*/
+async function read(url1, url2){
+	var a1 = await singleUriGetter(url1);
+	var a2 = await singleUriGetter(url2);
+	var at = await a1.concat(a2);
+	var tr = await sorter.sort(at);
+ return await tr;
+}
+
+exports.read = read;
