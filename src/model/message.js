@@ -11,8 +11,8 @@ class Message{
 
     serialize(){
         return JSON.stringify({
-            "content":this.content,
-            "timestamp": this.timestamp
+            "date": this.timestamp,
+            "message":this.content
         })
     }
 }
