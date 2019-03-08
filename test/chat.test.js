@@ -4,14 +4,16 @@ const PODHelper = require("../src/lib/pod-helper")
 const fc = require("solid-file-client")
 const Persona = require("../src/model/person")
 
-const user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
-const target = new Persona("https://es1btest.solid.community/profile/card#me", "Paco", "https://es1btest.solid.community/inbox");
-const pod = new PODHelper(auth.fetch)
-const chat = new Chat(user, target)
-const targetChat = new Chat(target, user);
-const OK = 200;
+
 
 describe("Inbox and notification tests", function(){   
+    const user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
+    const target = new Persona("https://es1btest.solid.community/profile/card#me", "Paco", "https://es1btest.solid.community/inbox");
+    const pod = new PODHelper(auth.fetch)
+    const chat = new Chat(user, target)
+    const targetChat = new Chat(target, user);
+    const OK = 200;
+
     beforeAll(()=>{
         // Mock solid-file-client
         fc.createFile = jest.fn().mockResolvedValue(OK);
@@ -43,7 +45,7 @@ describe("Inbox and notification tests", function(){
         fc.readFile = jest.fn().mockResolvedValue(user.id) // We mock the contents of the notification
         var callback = jest.fn().mockImplementation(()=>{ done(); })
         targetChat.checkForNotifications(callback);
-    }, 500),
+    },500),
     it("There's a message but not from the other guy", async function(done){
         // First we send a message to target   
         await chat.sendMessage("User sends a message to target");    
