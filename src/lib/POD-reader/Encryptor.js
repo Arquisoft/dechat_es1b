@@ -1,15 +1,15 @@
 var splitChain;
 
-function splitMessage(msg){
+function splitMessage(msg) {
 	splitChain = msg.split("");
 }
 
-function encryptor(msg){
+function encryptor(msg) {
   splitMessage(msg);
 	return convert();
 }
 
-function convert(){
+function convert() {
   var tr="";
   var i;
   for (i = 0; i < splitChain.length; i++) {
