@@ -1,4 +1,3 @@
-var mess = require("./Message.js");
 
 function createSingle(sender, receiver, tmessage){
 	var tr = new Object;

@@ -1,5 +1,4 @@
 const linq = require("linq");
-var mess = require("./Message.js");
 
 /* 
 Message es una funcion creadora para crear 
