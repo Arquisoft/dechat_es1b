@@ -1,8 +1,8 @@
-var podReader = require('./PodReader.js');
-var textParser = require('./TextParser.js');
-var sorter = require('./Sorter.js');
-const fileClient = require('solid-file-client');
-const creator = require('./ElementCreator.js')
+var podReader = require("./PodReader.js");
+var textParser = require("./TextParser.js");
+var sorter = require("./Sorter.js");
+const fileClient = require("solid-file-client");
+const creator = require("./ElementCreator.js");
 
 /*
  * This function get all messages from a single pod uri
@@ -11,10 +11,10 @@ const creator = require('./ElementCreator.js')
  * and create every element message
  */
  async function singleUriGetter(url){
-	 var salida = await fileClient.readFile(url);
-	 var tr = await creator.create(textParser.parseString(salida));
-	 
-	 return await tr;
+	var salida = await fileClient.readFile(url);
+	var tr = await creator.create(textParser.parseString(salida));
+	
+	return await tr;
 }
 
 /*

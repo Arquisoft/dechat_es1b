@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 var parsed;
 /*
 Text parser allows conversion POD-JSON
@@ -18,31 +18,24 @@ would be the injection (not allowed by our control)
 	const parser = require('./TextParser.js');
 	var myVar = parser.parseString(almacen);
 */
-
-function parseString(str){
-	
+function parseString(str) {
 	parsed = str.split("////");
-	
-	if(parsed.length > 3)
-	{
+
+	if (parsed.length > 3) {
 		var i;
-		var local="";
-		for(i=1; i< parsed.length -1; i++)
-		{
-			if(i != parsed.length -2)
-			{
+		var local = "";
+		for (i = 1; i < parsed.length - 1; i++) {
+			if (i !== parsed.length - 2) {
 				local = local + parsed[i] + "////";
 			}
-			else
-			{
+			else {
 				local += parsed[i];
-				
+
 			}
 		}
 		return JSON.parse(local);
 	}
-	else
-	{
+	else {
 		return JSON.parse(parsed[1]);
 	}
 }
