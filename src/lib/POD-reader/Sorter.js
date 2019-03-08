@@ -1,22 +1,22 @@
 const linq = require("linq");
 
 /* 
-Message es una funcion creadora para crear 
-una lista de mensajes que pasar como parametro a prueba 
+Function to create 
+a message list to be pass as argument 
 var ms = [];
 
-ms.push( new mess.Message("Juan", "Paula","Que tal?",new Date(2018, 11, 24, 10, 33, 30, 0)));
-ms.push(new mess.Message("Juan", "Paula","Hola",new Date(2016, 11, 24, 10, 33, 30, 0)));
-ms.push(new mess.Message("Juan", "Paula","Cuanto tiempo",new Date(2017, 11, 24, 10, 33, 30, 0)));
+ms.push( new mess.Message("Juan", "Paula","How are you?",new Date(2018, 11, 24, 10, 33, 30, 0)));
+ms.push(new mess.Message("Juan", "Paula","Hi",new Date(2016, 11, 24, 10, 33, 30, 0)));
+ms.push(new mess.Message("Juan", "Paula","So much time...",new Date(2017, 11, 24, 10, 33, 30, 0)));
 
-Esta clase usa linq: npm install linq
+This class use LINQ: npm install linq
 */
 
-function sort(lista) {
-    var ordenados = linq.from(lista).orderBy(function (m) {
+function sort(list) {
+    var sorted = linq.from(list).orderBy(function (m) {
         return m.timestamp;
     }).toArray();
-    return ordenados;
+    return sorted;
 }
 
 exports.sort = sort;

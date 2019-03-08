@@ -48,7 +48,7 @@ async function startChat(friend, i) {
     // Set up listener for new messages, time in ms
     setInterval(() => {
         checkForNewMessages(chat)
-    }, 2000)
+    }, 5000)
 }
 
 /**
@@ -117,30 +117,22 @@ async function changeTitles(session) {
 
 function checkForNewMessages(chat) {
     // Pass the callback function to execute if a new notification is received
-    chat.checkForNotifications(() => { showNotification(); });
+    chat.checkForNotifications(() => { showNotification(chat); });
 }
 
-
-var notificationCounter = 0;
 
 /**
  * Shows a notification in screen when it arrives.
  */
-async function showNotification() {
+async function showNotification(chat) {
     console.log("Got a new message");
-    $(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>Someone sends you a new message!</div>");
-    notificationCounter++;
+    $(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>" + chat.user.name + " sends you a new message!</div>");
     hideNotifications();
 }
 
 
 async function hideNotifications() {
-    while (notificationCounter > 0) {
-        setTimeout(function () {
-            $("#notificacion").fadeOut(1500);
-        }, 3000);
-        notificationCounter--;
-    }
+    $("#notificacion").fadeOut(1500);
 }
 
 
