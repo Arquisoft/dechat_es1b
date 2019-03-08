@@ -11,7 +11,7 @@ function buildJSONmessages(senderID, receiverID, messages) {
 	var lastupdate = new Date().getTime();
 	
 	var jsonstring = JSON.stringify({"webid_sender":sender, "webid_receiver":receiver, "lastupdate":lastupdate, "messages":"////"});
-	var segments = jsonstring.split("////");
+	var segments = jsonstring.split('"////"');
 	var ret = "////"+segments[0]+"[";
 	var i;
 	for (i=0; i<messages.length; i++) {
@@ -21,6 +21,7 @@ function buildJSONmessages(senderID, receiverID, messages) {
 		else 
 			ret = ret+"]"+segments[1]+"////";
 	}
+
 	return ret;		
 }
 	
