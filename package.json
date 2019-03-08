@@ -11,6 +11,7 @@
     "dependencies": "0.0.1",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "linq": "^3.1.1",
     "mocha": "^6.0.2",
     "node-web-streams": "^0.2.2",
     "nyc": "^13.3.0",
