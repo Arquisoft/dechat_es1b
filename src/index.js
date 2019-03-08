@@ -126,7 +126,7 @@ function checkForNewMessages(chat) {
  */
 async function showNotification(chat) {
     console.log("Got a new message");
-    $(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>" + chat.user.name + " sends you a new message!</div>");
+    $(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
     hideNotifications();
 }
 
