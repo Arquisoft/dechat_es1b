@@ -29,7 +29,7 @@ async function singleUriGetter(myWebid, hisWebid) {
  */
 async function read(url1, url2) {
 	var messagesUrl1 = await singleUriGetter(url1, url2);
-	var messagesUrl2 = await singleUriGetter(url2), url2);
+	var messagesUrl2 = await singleUriGetter(url2, url2);
 	var allMessages = await messagesUrl1.concat(messagesUrl2);
 	var alMessagesSorter = await sorter.sort(allMessages);
 
