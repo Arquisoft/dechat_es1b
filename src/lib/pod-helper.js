@@ -1,6 +1,7 @@
 const fc = require("solid-file-client")
 const MESSAGE_FILE = "messages.json"
 const txtFileBuilder = require("./textFileBuilder.js")
+const reader = require("./POD-reader/ChatManager.js")
 
 class PODHelper{
 	
@@ -72,6 +73,16 @@ class PODHelper{
     readFile(url){
         return fc.readFile(url);
     }
+	
+	/**
+	*	Read pod receives the webid of the chat participants returning and ordered array of messages
+	* @param userURL the webID of the chat's ownerDocument
+	* @param friendURL the webID of the chat's contact
+	* @return the ordered list of the conversation messages
+	*/
+	readPod(userURL, friendURL){
+		return reader.read(userURL, friendURL);
+	}
 
     /**
      * Deletes the content of the folder specified by url, assuming the logged user has the rights to do so
