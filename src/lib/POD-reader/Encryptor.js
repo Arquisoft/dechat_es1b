@@ -12,8 +12,9 @@ function encryptor(msg) {
 function convert() {
   var tr="";
   var i;
+  var temp;
   for (i = 0; i < splitChain.length; i++) {
-    var temp = splitChain[i].charCodeAt(0);
+    temp = splitChain[i].charCodeAt(0);
     if(temp !== 32)
       splitChain[i] = String.fromCharCode(temp+1);
     tr += splitChain[i];

@@ -1,7 +1,6 @@
 var podReader = require("./PodReader.js");
 var textParser = require("./TextParser.js");
 var sorter = require("./Sorter.js");
-const fileClient = require("solid-file-client");
 const creator = require("./ElementCreator.js");
 
 /*
@@ -14,7 +13,7 @@ async function singleUriGetter(myWebid, hisWebid) {
 	//This get chat.js from parse myWebId and hisWebid.
 	var myWebidURL = "https://" + myWebid + "/private/" + hisWebid + "/chat.json";
 
-	var salida = await fileClient.readFile(url);
+	var salida = await podReader.readFile(myWebidURL);
 	var tr = await creator.create(textParser.parseString(salida));
 
 	return await tr;
