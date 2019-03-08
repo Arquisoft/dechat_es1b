@@ -24,7 +24,9 @@ describe("Inbox and notification tests", function(){
         fc.readFolder = jest.fn().mockResolvedValue(
             {
                 "files":[
-                    "dechat.txt"
+                    {
+                        "url": "dechat.txt"
+                    }
                 ]
             }
         )        
