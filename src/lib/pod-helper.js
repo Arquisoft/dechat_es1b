@@ -1,5 +1,5 @@
 const fc = require("solid-file-client")
-const MESSAGE_FILE = "messages.json"
+const MESSAGE_FILE = "messages.txt"
 const txtFileBuilder = require("./textFileBuilder.js")
 const reader = require("./POD-reader/ChatManager.js")
 
@@ -23,11 +23,11 @@ class PODHelper{
 	    return fc.createFile(friendRoute, message).then(200);
     }
 	
-	grantReadPermissionsToFile(fileRoute, partnerID) {
+	async grantReadPermissionsToFile(fileRoute, partnerID) {
 		var aclRoute = fileRoute+".acl";
 		var aclContents = txtFileBuilder.generateACL(partnerID, MESSAGE_FILE);
 		console.log("A 404 ERROR NEXT MEANS PERMISSIONS FILE HAS BEEN SUCCESFULLY CREATED");
-		fc.updateFile(aclRoute, aclContents).then(success => {
+		await fc.updateFile(aclRoute, aclContents).then(success => {
 			console.log("Permissions successfully configured")
 		}, err => fc.createFile(aclRoute, aclContents).then(200));
 	}
@@ -39,7 +39,7 @@ class PODHelper{
      * @param {String} partnerID
 	 * @param {Array} messages
      */
-	sendToOwnPOD(userID, partnerID, messages) {
+	async sendToOwnPOD(userID, partnerID, messages) {
 		//Obtaining a string representing contact's webID
 		//To do this, we will isolate the variable part of the WebID 
 		//(example: https://jhon.solid.community will turn into jhon.solid)
@@ -50,15 +50,15 @@ class PODHelper{
 		var folderRoute = userID.replace("/profile/card#me", "/private/"+friendIdentifier+"/");
 		var podFileRoute = folderRoute+MESSAGE_FILE;
 		
-		fc.popupLogin().then(200);
+		await fc.popupLogin().then(200);
 		
 		console.log("A 404 ERROR NEXT MEANS FOLDER HAS BEEN SUCCESFULLY CREATED");
-		fc.createFolder(folderRoute).then(200);
+		await fc.createFolder(folderRoute).then(200);
 		
 		var messagesJSON = txtFileBuilder.buildJSONmessages(userID, partnerID, messages);
 		
 		console.log("A 404 ERROR NEXT MEANS MESSAGE LOG FILE HAS BEEN SUCCESFULLY CREATED");
-		fc.updateFile(podFileRoute, messagesJSON).then(success => {
+		await fc.updateFile(podFileRoute, messagesJSON).then(success => {
 			console.log("Messages file successfully updated")
 		}, err => fc.createFile(podFileRoute, messagesJSON).then(200));
 		
