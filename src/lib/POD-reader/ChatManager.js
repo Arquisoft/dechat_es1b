@@ -27,9 +27,7 @@ async function singleUriGetter(myWebid, hisWebid) {
  * @param {*} url2 Example: javierardura.solid.community
  */
 async function read(url1, url2) {
-	fileClient.popupLogin().then( webId => {
-    else console.log( `Logged in as ${webId}.`)
-	}, err => console.log(err) );
+	
 	var messagesUrl1 = await singleUriGetter(url1, url2);
 	var messagesUrl2 = await singleUriGetter(url2, url2);
 	var allMessages = await messagesUrl1.concat(messagesUrl2);
