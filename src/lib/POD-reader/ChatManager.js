@@ -25,14 +25,16 @@ async function singleUriGetter(url) {
  * @param {*} urlb Example: javierardura.solid.community
  */
 async function read(urla, urlb) {
-	var url1 = "https://"+urla+"/private/"+urlb+"/messages.txt"
-	var url2 = "https://"+urlb+"/private/"+urla+"/messages.txt"
+	var folderB = urlb.split(".")[0]+"."+urlb.split(".")[1];
+	var folderA = urla.split(".")[0]+"."+urla.split(".")[1];
+	var url1 = "https://"+urla+"/private/"+folderB+"/messages.txt"
+	var url2 = "https://"+urlb+"/private/"+folderA+"/messages.txt"
 	var a1 = await singleUriGetter(url1);
 	var a2 = await singleUriGetter(url2);
 	var at = await a1.concat(a2);
 	var tr = await sorter.sort(at);
 	
- return await a1;
+ return await tr;
 }
 
 exports.read = read;

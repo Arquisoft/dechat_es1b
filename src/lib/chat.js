@@ -11,34 +11,42 @@ class Chat{
         this.pod = new PODHelper(auth.fetch)
         this.user = user
         this.partner = partner
+		//TODO: Sent messages should be initialized from reading user's pod so we keep older messages
 		this.sentMessages = []
+		this.messages = []
     }
 
     async sendMessage(text){		
 		var message = new Message(this.user.id, this.partner.id, text);
-		await this.sentMessages.push(message);
+		
+		//Saving to array current message
+		this.sentMessages.push(message);
 		await this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
-		//For Debugging reader purposes
-		var tp = await this.pod.readPod("podes1b.solid.community", "es1btest.solid")
-		console.log("****");
-		console.log(tp)
-		////////////////////////////////////////////////////////////////////////////
-        // TODO give format to the notification     
+		
+		//TODO: Messages array is updated here, should be updated on notification timer function
+		//TODO: For some reason messages are retrieved with an undefined receiver field 
+		this.messages = await this.pod.readPod(this.user.id, this.partner.id);
+		//Printing messages to ensure everything is fine
+		var i;
+		for (i=0; i<this.messages.length; i++)
+			console.log(this.messages[i]);
+		
+        //TODO: give format to the notification     
         return this.pod.sendToInbox(this.partner,
         message.user);
     }
 
     async getMessages(){
-        // TODO read messages in the chat file
+        return this.messages;
     }
 
     async clearChat(){
         // TODO empty chat
     }
 
-    /*
-        Checks if a notification has arrived for the current chat, in that case
-        removes the notification and executes the callback function
+    /**
+     *   Checks if a notification has arrived for the current chat, in that case
+     *   removes the notification and executes the callback function
      */
     async checkForNotifications(callback){
         var hits = [];

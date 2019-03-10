@@ -81,7 +81,9 @@ class PODHelper{
 	* @return the ordered list of the conversation messages
 	*/
 	readPod(userURL, friendURL){
-		return reader.read(userURL, friendURL);
+		var user = userURL.replace("https://","").replace("/profile/card#me","");
+		var partner = friendURL.replace("https://","").replace("/profile/card#me","");
+		return reader.read(user, partner);
 	}
 
     /**
