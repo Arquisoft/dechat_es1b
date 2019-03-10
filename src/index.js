@@ -41,7 +41,7 @@ $("#logout").click(async () => {
 async function startChat(friend, i) {
     const chat = new Chat(user, friend)
     console.log("Chat with " + friend.id + " opened")
-    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class=chatContent id='chatContent" + i + "'><p class='textMessageScreen'>This is a testing message\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText"+ i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
+    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText"+ i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
     $("#buttonFriend" + i).prop('disabled', true);
     $("#messageFriend" + i).click(async () => { chat.sendMessage(document.getElementById("messageText" + i).value) });
 
@@ -118,9 +118,13 @@ async function changeTitles(session) {
 async function checkForNewMessages(chat) {
     // Pass the callback function to execute if a new notification is received
     var messages =  await chat.checkForNotifications(() => { showNotification(chat); });
+    // Deleted all the displayed messages
+    $("#textMessageScreen").remove();
+    $(".textMessageScreen").remove();
     var i;
+    //Show all the messages
     for (i = 0; i < messages.length; i++){
-        $(".chatContent").append("<p id='messageText'>"+messages[i].sender + " >" + messages[i].content+"</p>");
+        $(".chatContent").append("<p class='textMessageScreen' id='textMessageScreen'>"+messages[i].sender + " >" + messages[i].content+"</p>");
     }
 }
 
