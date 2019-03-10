@@ -4,6 +4,7 @@
 const auth = require("solid-auth-client");
 const PODHelper = require("./pod-helper.js");
 const Message = require("../model/message");
+const reader = require("./POD-reader/ChatManager.js");
 "use strict";
 class Chat{
     constructor(user, partner){
@@ -15,8 +16,13 @@ class Chat{
 
     async sendMessage(text){		
 		var message = new Message(this.user.id, this.partner.id, text);
-		this.sentMessages.push(message);
-		this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
+		await this.sentMessages.push(message);
+		await this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
+		//For Debugging reader purposes
+		var tp = await this.pod.readPod("podes1b.solid.community", "es1btest.solid")
+		console.log("****");
+		console.log(tp)
+		////////////////////////////////////////////////////////////////////////////
         // TODO give format to the notification     
         return this.pod.sendToInbox(this.partner,
         message.user);
