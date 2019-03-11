@@ -4,7 +4,6 @@
 const auth = require("solid-auth-client");
 const PODHelper = require("./pod-helper.js");
 const Message = require("../model/message");
-const reader = require("./POD-reader/ChatManager.js");
 "use strict";
 class Chat{
     constructor(user, partner){

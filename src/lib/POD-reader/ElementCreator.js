@@ -10,7 +10,7 @@ function createSingle(sender, receiver, tmessage){
 
 function create(jsonfile){
 	var sender = jsonfile.webid_sender;
-	var receiver = jsonfile.webid_reciever;
+	var receiver = jsonfile.webid_receiver;
 	var messages = jsonfile.messages;
 	var lista = [];
 	var particularMessage;

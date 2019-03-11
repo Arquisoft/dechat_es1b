@@ -65,10 +65,6 @@ class PODHelper{
 		this.grantReadPermissionsToFile(podFileRoute, partnerID);
 		
 	}
-	
-    saveToPod(user, message){
-        var userRoute = user.id
-    }
 
     readFile(url){
         return fc.readFile(url);
