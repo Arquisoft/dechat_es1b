@@ -12,17 +12,23 @@ class PODHelper{
     /**
      * Creates a file in the specified inbox with the json data passed as argument
      * @param {String} inboxURL 
-     * @param {String} data 
+     * @param {String} data Promise
+     * @return {Promise} file
      */
     sendToInbox(friend, message){
         var friendRoute = friend.inbox + "/dechat.txt"
 	
 	    //Login since it looks like its required 
 	    fc.popupLogin();
-	
+	   alert(fc.createFile(friendRoute, message).toString())
 	    return fc.createFile(friendRoute, message).then(200);
     }
 	
+    /**
+     * Grant the necessary permissions to read a file
+     * @param {String} route of the file  
+     * @param {String} webID of the partner
+     */
 	async grantReadPermissionsToFile(fileRoute, partnerID) {
 		var aclRoute = fileRoute+".acl";
 		var aclContents = txtFileBuilder.generateACL(partnerID, MESSAGE_FILE);
@@ -66,12 +72,16 @@ class PODHelper{
 		
 	}
 
+    /**
+     * Read the url file
+     * @return {Promise} file
+     */
     readFile(url){
         return fc.readFile(url);
     }
 	
 	/**
-	*	Read pod receives the webid of the chat participants returning and ordered array of messages
+	* Read pod receives the webid of the chat participants returning and ordered array of messages
 	* @param userURL the webID of the chat's ownerDocument
 	* @param friendURL the webID of the chat's contact
 	* @return the ordered list of the conversation messages
@@ -85,6 +95,7 @@ class PODHelper{
     /**
      * Deletes the content of the folder specified by url, assuming the logged user has the rights to do so
      * @param {String} url 
+     * @return {Promise} files
      */
     emptyFolder(url){
         return this.getFilesFromFolder(url).then((files)=>{
@@ -97,6 +108,7 @@ class PODHelper{
     /**
      * Gets the files inside a folder
      * @param {String} url 
+     * @return {Promise} files
      */
     getFilesFromFolder(url){
         return fc.readFolder(url).then((result) => {
@@ -107,6 +119,7 @@ class PODHelper{
     /**
      * Deletes the file with the given URL
      * @param {String} url 
+     * @return {Promise} file
      */
     deleteFile(url){
         return fc.deleteFile(url).then(() => 200);

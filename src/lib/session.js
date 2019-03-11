@@ -15,11 +15,16 @@ async function login(){
 
 /**
  * Returns the current session
+ * @return {function} currentSession 
  */
 async function getSession() {
   return await auth.currentSession();
 };
 
+/**
+ * Returns the authenticated user
+ * @return {Person} user 
+ */
 async function getUser(){
   webID = (await auth.currentSession()).webId;
   name = await query.getName();
@@ -27,6 +32,9 @@ async function getUser(){
   return new Person(webID, name, inbox);
 }
 
+/**
+ * Close user session 
+ */
 async function logout() {
   auth.logout().then(alert("Disconnected"));
 };

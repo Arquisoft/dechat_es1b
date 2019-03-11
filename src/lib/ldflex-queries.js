@@ -6,8 +6,9 @@ const Person = require("../model/person")
 
 /**
  * Creates handlers to run queries against WebID or the authenticated user
+ * @param {String} webID 
+ * @return {Proxy} controller
  */
-
 async function getName(webID) {
     let proxy
     if (webID)
@@ -17,6 +18,11 @@ async function getName(webID) {
     return proxy.value
 }
 
+/**
+ * We get the user's inbox
+ * @param {String} webID 
+ * @return {Proxy} controller
+ */
 async function getInbox(webID) {
     let proxy
     if (webID)
@@ -28,6 +34,8 @@ async function getInbox(webID) {
 
 /**
  * Returns a list of Friends @see{person.js} from the authenticated user
+ * @param {String} webID of the authenticated user
+ * @return {Array} array of friends
  */
 async function getFriends(webID) {
     let friends

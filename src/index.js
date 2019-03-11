@@ -4,6 +4,7 @@ const Chat = require("./lib/chat")
 const Person = require("./model/person")
 
 let user;
+
 /**
  * On DOM load, set solid.auth to track the session status
  */
@@ -35,16 +36,22 @@ $("#logout").click(async () => {
 })
 
 
-
+/**
+* Send a message
+* @param {Chat} the chat to which it will be sent
+* @param {Integer} i
+*/
 function sendMessage(chat, i) {
     chat.sendMessage(document.getElementById("messageText" + i).value);
     document.getElementById("messageText" + i).value = "";
 }
 
 var numberMessagesSended;
+
 /**
 * Start a chat with the selected friend
 * @param {Person} object representing the user's contact
+* @param {Integer} i
 */
 async function startChat(friend, i) {
     const chat = new Chat(user, friend)
@@ -88,20 +95,24 @@ $("#friends").click(async () => {
     $("#closeChats").click(async () => { closeChats(friends) });
 })
 
+/**
+* Close the chats of the friends list
+* @param {List<Person>} list of the user's contacts
+*/
 function closeChats(friends) {
     $.each(friends, (i, friend) => {
         $("#chatContainer" + i).remove()
         $("#buttonFriend" + i).prop('disabled', false);
     })
 }
+
 /**
- * Sets the buttons according to the session status
+ * Sets the buttons, nav and titles according to the session status.
+ * If we initiate session we hide the button of the log and appears the nav and the button of the list of friends.
+ * If we close session disappears the nav and the button of the list of friends and the button of the login appears.
+ * Change the titles depending on whether we are logged in or not.
+ * If we are not logged in, we will empty the list of friends.
  * @param {boolean} session 
-  $("#logout").prop("hidden", !session)
-    
-    $("#login").prop("show", !session)
-    
-    $("#logout").prop("show", session)
  */
 function changeView(session) {
 
@@ -118,6 +129,10 @@ function changeView(session) {
         emptyFriendsList()
 }
 
+/**
+* Change titles depending on whether they have logged in or not.
+* @param {boolean} session
+*/
 async function changeTitles(session) {
     if (session) {
         $("#titleApp").html("Welcome user: " + await query.getName());
@@ -129,7 +144,10 @@ async function changeTitles(session) {
 }
 
 
-
+/**
+* Check if there is a new message in a chat.
+* @param {Chat} A chat in particular
+*/
 async function checkForNewMessages(chat) {
     // Pass the callback function to execute if a new notification is received
     var messages = await chat.checkForNotifications(() => { showNotification(chat); });
@@ -158,6 +176,7 @@ async function checkForNewMessages(chat) {
 
 /**
  * Shows a notification in screen when it arrives.
+ * @param {Chat} A chat in particular
  */
 async function showNotification(chat) {
     console.log("Got a new message");
@@ -165,7 +184,9 @@ async function showNotification(chat) {
     hideNotifications();
 }
 
-
+/**
+ * This method has the function of hiding notifications
+ */
 async function hideNotifications() {
     $("#notificacion").fadeOut(1500);
 }
