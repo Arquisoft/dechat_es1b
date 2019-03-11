@@ -21,7 +21,6 @@ class Chat{
 		//Saving to array current message
 		this.sentMessages.push(message);
 		await this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
-		this.messages = await this.pod.readPod(this.user.id, this.partner.id);
         return this.pod.sendToInbox(this.partner,
         message.user);
     }
