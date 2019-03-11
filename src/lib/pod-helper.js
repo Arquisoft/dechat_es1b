@@ -20,7 +20,6 @@ class PODHelper{
 	
 	    //Login since it looks like its required 
 	    fc.popupLogin();
-	   alert(fc.createFile(friendRoute, message).toString())
 	    return fc.createFile(friendRoute, message).then(200);
     }
 	
