@@ -28,7 +28,7 @@ This is a web app so we need a browser to run it.
 The app will be used in every modern browser (multi browser compatibility)
 
 .*Overview Business diagram*
-[#img-overviewdiagram]
+[#img-overviewbusinessdiagram]
 image::./diagrams/scopecontext.jpg[overviewbusinessdiagram]
 
 ****
@@ -53,5 +53,5 @@ DeChat may be composed, at least, by two different components.
 .. Chat: The chat itself, allows users interaction with each other.
 ****
 .Overview Technical diagram
-[#img-overviewdiagram]
+[#img-overviewtechdiagram]
 image::./diagrams/initialTechContext.png[overviewtechdiagram]
