@@ -21,15 +21,7 @@ class Chat{
 		//Saving to array current message
 		this.sentMessages.push(message);
 		await this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
-		
-		//TODO: Messages array is updated here, should be updated on notification timer function
-		//TODO: For some reason messages are retrieved with an undefined receiver field 
 		this.messages = await this.pod.readPod(this.user.id, this.partner.id);
-		/*Printing messages to ensure everything is fine
-		var i;
-		for (i=0; i<this.messages.length; i++)
-			console.log(this.messages[i]);
-		*/
         return this.pod.sendToInbox(this.partner,
         message.user);
     }
@@ -53,7 +45,12 @@ class Chat{
             let content;
             content = await this.pod.readFile(file.url);
             if (content == this.partner.id){
-                hits.push(await file.url)
+                hits.push(await file.url);
+                this.messages = await this.pod.readPod(this.user.id, this.partner.id);
+                //Printing messages to ensure everything is fine
+                /*var i;
+                for (i=0; i<this.messages.length; i++)
+                    console.log(this.messages[i]);*/
             }
         }
 
@@ -64,6 +61,7 @@ class Chat{
         for (const url of hits){
             this.pod.deleteFile(url);
         }
+        return this.messages;
     }
 }
 
