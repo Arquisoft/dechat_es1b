@@ -6,7 +6,7 @@ describe('TextParser tests', () => {
     const user = "https://example.org/user";
     const target = "https://example.org/target";
     var msg = new Message(user, target, "Nothing to see here folks");
-    msg.timestamp =  new Date(2018, 12, 12);
+    msg.timestamp =  "2019-01-11T23:00:00.000Z";
     var messages = [msg]
     const input = builder.buildJSONmessages(user, target, messages);
     it('Parse valid input', () => {
@@ -32,7 +32,7 @@ describe('TextParser tests', () => {
     it('Prevent injection', () => {
         // Create a "problematic" message
         injectedMessage = new Message(user, target, "It's a //// trap!");
-        injectedMessage.timestamp =  new Date(2018, 12, 12);
+        injectedMessage.timestamp =  "2019-01-11T23:00:00.000Z"
         var messages = [injectedMessage];
         const input = builder.buildJSONmessages(user, target, messages);
 
@@ -40,7 +40,7 @@ describe('TextParser tests', () => {
         expect(parsed).toEqual({
             webid_sender: "example.org/user",
             webid_receiver: "example.org/target",
-            lastupdate: expect.any(Number),
+            lastupdate: expect.anything(),
             messages: [
                 {
                     date: "2019-01-11T23:00:00.000Z",
