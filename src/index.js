@@ -34,6 +34,11 @@ $("#logout").click(async () => {
     $(".friends-list").css("border", "1px solid #2FA7F5");
 })
 
+function sendMessage(chat, i) {
+	chat.sendMessage(document.getElementById("messageText" + i).value);
+	document.getElementById("messageText" + i).value = "";
+}
+
 /**
 * Start a chat with the selected friend
 * @param {Person} object representing the user's contact
@@ -43,7 +48,7 @@ async function startChat(friend, i) {
     console.log("Chat with " + friend.id + " opened")
     $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText"+ i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
     $("#buttonFriend" + i).prop('disabled', true);
-    $("#messageFriend" + i).click(async () => { chat.sendMessage(document.getElementById("messageText" + i).value) });
+    $("#messageFriend" + i).click(async () => { sendMessage(chat, i) });
 
     // Set up listener for new messages, time in ms
     setInterval(() => {
