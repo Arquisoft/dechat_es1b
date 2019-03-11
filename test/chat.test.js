@@ -3,18 +3,20 @@ const auth= require("solid-auth-client")
 const PODHelper = require("../src/lib/pod-helper")
 const fc = require("solid-file-client")
 const Persona = require("../src/model/person")
+const chatManager = require("../src/lib/POD-reader/ChatManager")
 
+const user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
+const target = new Persona("https://es1btest.solid.community/profile/card#me", "Paco", "https://es1btest.solid.community/inbox");
+const pod = new PODHelper(auth.fetch)
+var chat = new Chat(user, target)
+var targetChat = new Chat(target, user);
+const OK = 200;
 
-
-describe("Inbox and notification tests", function(){   
-    const user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
-    const target = new Persona("https://es1btest.solid.community/profile/card#me", "Paco", "https://es1btest.solid.community/inbox");
-    const pod = new PODHelper(auth.fetch)
-    const chat = new Chat(user, target)
-    const targetChat = new Chat(target, user);
-    const OK = 200;
+describe("Inbox and notification tests", function(){       
 
     beforeAll(()=>{
+        // Mock unrelated chatManager function        
+        chatManager.read = jest.fn(()=>{return OK;});
         // Mock solid-file-client
         fc.createFile = jest.fn().mockResolvedValue(OK);
         fc.updateFile = jest.fn().mockResolvedValue(OK);
@@ -58,4 +60,22 @@ describe("Inbox and notification tests", function(){
         done()
     })
 
-})
+}),
+describe('Send/Get messages tests', () => {
+    beforeAll(() => {
+        chat = new Chat(user, target)
+        //Mock unrelated function
+        chat.pod.sendToOwnPOD = jest.fn();
+        chat.pod.readPod = jest.fn();
+        chat.pod.sendToInbox = jest.fn();
+    }),
+    it('Message should get sent', async () => {       
+        expect(chat.sentMessages.length).toBe(0);
+        chat.sendMessage("New message");
+        expect(chat.sentMessages.length).toBe(1);
+        // Make sure all the PODHelper calls were done
+        expect(chat.pod.sendToOwnPOD).toBeCalled();
+        expect(await chat.pod.readPod).toBeCalled();
+        expect(await chat.pod.sendToInbox).toBeCalled();
+    })
+});

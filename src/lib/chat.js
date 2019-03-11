@@ -4,7 +4,6 @@
 const auth = require("solid-auth-client");
 const PODHelper = require("./pod-helper.js");
 const Message = require("../model/message");
-const reader = require("./POD-reader/ChatManager.js");
 "use strict";
 class Chat{
     constructor(user, partner){
@@ -23,7 +22,6 @@ class Chat{
 		this.sentMessages.push(message);
 		await this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
 		this.messages = await this.pod.readPod(this.user.id, this.partner.id);
-		
         return this.pod.sendToInbox(this.partner,
         message.user);
     }
@@ -57,13 +55,10 @@ class Chat{
         }
 
         if (hits.length > 0){
-            console.log(hits);
             callback();
         }
 
         for (const url of hits){
-            console.log("DELETE notification " + url);
-
             this.pod.deleteFile(url);
         }
         return this.messages;

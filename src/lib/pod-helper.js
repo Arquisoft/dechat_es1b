@@ -26,9 +26,9 @@ class PODHelper{
 	async grantReadPermissionsToFile(fileRoute, partnerID) {
 		var aclRoute = fileRoute+".acl";
 		var aclContents = txtFileBuilder.generateACL(partnerID, MESSAGE_FILE);
-		console.log("A 404 ERROR NEXT MEANS PERMISSIONS FILE HAS BEEN SUCCESFULLY CREATED");
+		
 		await fc.updateFile(aclRoute, aclContents).then(success => {
-			console.log("Permissions successfully configured")
+			200
 		}, err => fc.createFile(aclRoute, aclContents).then(200));
 	}
 	
@@ -52,23 +52,19 @@ class PODHelper{
 		
 		await fc.popupLogin().then(200);
 		
-		console.log("A 404 ERROR NEXT MEANS FOLDER HAS BEEN SUCCESFULLY CREATED");
+		
 		await fc.createFolder(folderRoute).then(200);
 		
 		var messagesJSON = txtFileBuilder.buildJSONmessages(userID, partnerID, messages);
 		
-		console.log("A 404 ERROR NEXT MEANS MESSAGE LOG FILE HAS BEEN SUCCESFULLY CREATED");
+		
 		await fc.updateFile(podFileRoute, messagesJSON).then(success => {
-			console.log("Messages file successfully updated")
+			200
 		}, err => fc.createFile(podFileRoute, messagesJSON).then(200));
 		
 		this.grantReadPermissionsToFile(podFileRoute, partnerID);
 		
 	}
-	
-    saveToPod(user, message){
-        var userRoute = user.id
-    }
 
     readFile(url){
         return fc.readFile(url);

@@ -1,4 +1,3 @@
-var podReader = require("./PodReader.js");
 var textParser = require("./TextParser.js");
 var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
