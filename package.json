@@ -7,6 +7,7 @@
     "@babel/core": "^7.3.4",
     "@babel/register": "^7.0.0",
     "@solid/query-ldflex": "^2.4.0",
+    "babel-jest": "^24.4.0",
     "coveralls": "^3.0.3",
     "dependencies": "0.0.1",
     "ejs": "^2.6.1",

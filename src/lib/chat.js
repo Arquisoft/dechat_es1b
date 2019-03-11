@@ -26,12 +26,11 @@ class Chat{
 		//TODO: Messages array is updated here, should be updated on notification timer function
 		//TODO: For some reason messages are retrieved with an undefined receiver field 
 		this.messages = await this.pod.readPod(this.user.id, this.partner.id);
-		//Printing messages to ensure everything is fine
+		/*Printing messages to ensure everything is fine
 		var i;
 		for (i=0; i<this.messages.length; i++)
 			console.log(this.messages[i]);
-		
-        //TODO: give format to the notification     
+		*/
         return this.pod.sendToInbox(this.partner,
         message.user);
     }
@@ -60,13 +59,10 @@ class Chat{
         }
 
         if (hits.length > 0){
-            console.log(hits);
             callback();
         }
 
         for (const url of hits){
-            console.log("BORRO " + url);
-
             this.pod.deleteFile(url);
         }
     }
