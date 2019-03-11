@@ -22,12 +22,8 @@ class Chat{
 		//Saving to array current message
 		this.sentMessages.push(message);
 		await this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
+		this.messages = await this.pod.readPod(this.user.id, this.partner.id);
 		
-		//TODO: Messages array is updated here, should be updated on notification timer function
-		//TODO: For some reason messages are retrieved with an undefined receiver field 
-
-		
-        //TODO: give format to the notification     
         return this.pod.sendToInbox(this.partner,
         message.user);
     }
