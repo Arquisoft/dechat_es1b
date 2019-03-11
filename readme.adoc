@@ -1,12 +1,11 @@
 = dechat_es1b
 
 image:https://travis-ci.org/Arquisoft/dechat_es1b.svg?branch=master["Build Status", link="https://travis-ci.org/Arquisoft/dechat_es1b"]
-image:https://codecov.io/gh/Arquisoft/dechat_es1b/branch/master/graph/badge.svg["Codecov",link="https://codecov.io/gh/Arquisoft/dechat_es1b"]
-image:https://coveralls.io/repos/github/Arquisoft/dechat_es1b/badge.svg["Coverage",link="https://coveralls.io/github/Arquisoft/dechat_es1b"]
+image:https://coveralls.io/repos/github/Arquisoft/dechat_es1b/badge.svg?branch=develop["Coveralls", link ="https://coveralls.io/github/Arquisoft/dechat_es1b?branch=develop"]
 image:https://api.codacy.com/project/badge/Grade/fc7dc1da60ee4e9fb67ccff782625794["Codacy code quality", link="https://www.codacy.com/app/jelabra/dechat_es1b?utm_source=github.com&utm_medium=referral&utm_content=Arquisoft/dechat_es1b&utm_campaign=Badge_Grade"]
 
 
-image:https://avatars3.githubusercontent.com/u/14262490?v=3&s=200["Solid logo", 200, 200]  
+image:https://avatars3.githubusercontent.com/u/14262490?v=3&s=200["Solid logo", 200, 200] 
 image:https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZLs3_MH6n8iaxmziDn-nI3oWwQ3jg-ystB6BQIq9IZRpRRCIk["Node logo", 200, 200] 
 
 > Re-decentralizing the web
@@ -17,22 +16,40 @@ Clone this repository:
 git clone https://github.com/Arquisoft/dechat_es1b.git
 ----
 
-Enter in this folder:
+Open that folder:
 ----
 cd dechat_es1b
 ----
 
-Install angular dependencies:
+Install node dependencies:
 ----
-npm install --save-dev @angular-devkit/build-angular
-----
-
-Start server:
-----
-ng serve
+npm install 
 ----
 
-The application should be available at: http://localhost:4200/
+Build the app and start the server:
+----
+npm run build
+----
+
+*Done!* The application should be available at: http://localhost:3000/
+
+Alternatively, you can build the app and start the server in two separate steps:
+----
+webpack
+npm start
+----
+
+=== Run test
+To run the tests:
+----
+npm test
+----
+
+=== Generate html documentation
+To generate html documentation:
+----
+mvn generate-resources
+----
 
 == Contributors
 - https://github.com/uo257493[Javier Ardura González].
@@ -45,13 +62,3 @@ The application should be available at: http://localhost:4200/
 == Wiki
 Do you want know more about us?
 Look our https://github.com/Arquisoft/dechat_es1b/wiki[wiki].
-
-
-
-
-
-
-
-
-
-

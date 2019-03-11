@@ -1,0 +1,42 @@
+[[section-architecture_constraints]]
+== Architecture Constraints
+Here we go to present any requirement that constrained us in our freedom of design and implementation decisions or decision about the development process.
+
+=== Constraints
+==== Technical Constraints
+[role="arc42help"]
+****
+[options="header",cols="1,2,2"]
+|===
+|N.| Constraints| Motivation
+|TC1| Use SOLID | Application must offer a secure and private way of chatting based on SOLID, with no centralized control of data 
+|TC2| Use Node.js | SOLID technology are very young, we don't have time to create new libraries in our speciality. (Java)
+|TC3| Full compatible application | This application must be compatible with the most important browsers of today (Chrome, Firefox, Opera, Edge ...)
+|TC4| Most POD providers currently have a size quota that will affect how we handle MIME files in our chat.
+|===
+****
+
+==== Organizational Constraints
+[role="arc42help"]
+****
+[options="header",cols="1,2,2"]
+|===
+|N.| Constraints| Motivation
+|OC1| Time schedule | We start in janury of 2019, first "release" schedule is programed to March 2019. The final release is schedule to May 2019.
+|OC2| IDE | It's independent.
+|OC3| Published under an Open Source | The source, including documentation, should be published as Open Source.
+|===
+****
+
+==== Conventions
+[role="arc42help"]
+****
+[options="header",cols="1,2,2"]
+|===
+|N.| Conventions | Motivation
+|C1| Use arc42 | We use this template for all documentation.
+|C2| Language | English, this app is focused on an international audience.
+|===
+****
+
+
