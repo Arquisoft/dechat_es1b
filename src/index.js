@@ -34,6 +34,8 @@ $("#logout").click(async () => {
     $(".friends-list").css("border", "1px solid #2FA7F5");
 })
 
+
+var numberMessagesSended ;
 /**
 * Start a chat with the selected friend
 * @param {Person} object representing the user's contact
@@ -41,9 +43,14 @@ $("#logout").click(async () => {
 async function startChat(friend, i) {
     const chat = new Chat(user, friend)
     console.log("Chat with " + friend.id + " opened")
-    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText"+ i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
+    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText" + i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
     $("#buttonFriend" + i).prop('disabled', true);
-    $("#messageFriend" + i).click(async () => { chat.sendMessage(document.getElementById("messageText" + i).value) });
+    $("#messageFriend" + i).click(async () => {
+        chat.sendMessage(document.getElementById("messageText" + i).value)
+        //it may be a solve to show messages when they are send but it produces other bugs.
+        $(".chatContent").append("<p class='textMessageSended'>" + user.inbox.substring(0, user.inbox.length - 6) + " >" + document.getElementById("messageText" + i).value + "</p>");
+        numberMessagesSended++;
+    });
 
     // Set up listener for new messages, time in ms
     setInterval(() => {
@@ -115,17 +122,32 @@ async function changeTitles(session) {
     }
 }
 
+
+
 async function checkForNewMessages(chat) {
     // Pass the callback function to execute if a new notification is received
-    var messages =  await chat.checkForNotifications(() => { showNotification(chat); });
+    var messages = await chat.checkForNotifications(() => { showNotification(chat); });
     // Deleted all the displayed messages
     $("#textMessageScreen").remove();
     $(".textMessageScreen").remove();
     var i;
     //Show all the messages
-    for (i = 0; i < messages.length; i++){
-        $(".chatContent").append("<p class='textMessageScreen' id='textMessageScreen'>"+messages[i].sender + " >" + messages[i].content+"</p>");
+    var j;
+    var messageSendedContent;
+    for(j= 0 ; j < numberMessagesSended; j++)
+        messageSendedContent[j] = $(".textMessageSended").text();
+    
+
+    for (i = 0; i < messages.length; i++) {
+            $(".chatContent").append("<p class='textMessageScreen' id='textMessageScreen'>" + messages[i].sender + " >" + messages[i].content + "</p>");
     }
+
+    $(".textMessageSended").remove();
+    var k;
+    for(k= 0 ; k < numberMessagesSended; k++)
+        $(".chatContent").append("<p class='textMessageSended'>"+ messageContent[k]  + "</p>");
+    
+
 }
 
 /**
