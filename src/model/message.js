@@ -9,6 +9,11 @@ class Message{
         this.timestamp = new Date().getTime();
     }
 
+/**
+ * Converts an object or JavaScript value into a JSON text string
+ * Format: {"date": time, "message": content}
+ * @return {String} JSON text string
+ */
     serialize(){
         return JSON.stringify({
             "date": this.timestamp,

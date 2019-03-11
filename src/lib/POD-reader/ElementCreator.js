@@ -1,4 +1,9 @@
 
+
+/**
+ * Create a message object
+ * @return {Object} message
+ */
 function createSingle(sender, receiver, tmessage){
 	var tr = new Object;
 	tr.sender = sender;
@@ -8,6 +13,11 @@ function createSingle(sender, receiver, tmessage){
 	return tr;
 }
 
+/**
+ * Create a list of Objects messages
+ * @param {JSON} json file
+ * @return {Array} array of Objects messages
+ */
 function create(jsonfile){
 	var sender = jsonfile.webid_sender;
 	var receiver = jsonfile.webid_receiver;
