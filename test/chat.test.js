@@ -75,7 +75,6 @@ describe('Send/Get messages tests', () => {
         expect(chat.sentMessages.length).toBe(1);
         // Make sure all the PODHelper calls were done
         expect(chat.pod.sendToOwnPOD).toBeCalled();
-        expect(await chat.pod.readPod).toBeCalled();
         expect(await chat.pod.sendToInbox).toBeCalled();
     })
 });
