@@ -48,7 +48,7 @@ npm test
 === Generate html documentation
 To generate html documentation:
 ----
-mvn generate-resources
+gulp
 ----
 
 == Contributors
