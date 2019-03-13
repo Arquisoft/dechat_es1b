@@ -53,7 +53,7 @@ class PODHelper{
 		var partes = friendIdentifier.split(".");
 		friendIdentifier = partes[0]+"."+partes[1];
 		
-		var folderRoute = userID.replace("/profile/card#me", "/private/"+friendIdentifier+"/");
+		var folderRoute = userID.replace("/profile/card#me", "/dechat/"+friendIdentifier+"/");
 		var podFileRoute = folderRoute+MESSAGE_FILE;
 		
 		await fc.popupLogin().then(200);
