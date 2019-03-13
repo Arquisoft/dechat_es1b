@@ -1,5 +1,6 @@
 const fc = require("solid-file-client")
 const MESSAGE_FILE = "messages.txt"
+const CHAT_FOLDER = "/dechat"
 const txtFileBuilder = require("./textFileBuilder.js")
 const reader = require("./POD-reader/ChatManager.js")
 
@@ -122,6 +123,35 @@ class PODHelper{
      */
     deleteFile(url){
         return fc.deleteFile(url).then(() => 200);
+    }
+    
+    /**
+     * Creates a folder using the url
+     * @param {String} url folder
+     */
+    async createFolder(url){
+        await fc.createFolder(url);
+    }
+    
+   /**
+     * Reads a folder using the url
+     * @param {String} url folder
+     * @return {Promise} Object promise if exist or undefined if not
+     */
+    async readFolder(url){
+       return fc.readFolder(url).then(folder => { return(folder)}, err=> console.log(err));
+    }
+
+    /**
+     * Check if the pod has the dechat folder
+     * If not, creates the folder
+     * @param {String} url folder
+     */
+    async checkDechatFolder(userUrl){
+        let check =  await this.readFolder(userUrl + CHAT_FOLDER);
+        if (check == undefined){
+            this.createFolder(userUrl + CHAT_FOLDER);
+        }
     }
     
 }
