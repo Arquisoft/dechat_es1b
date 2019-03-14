@@ -47,6 +47,14 @@ class Chat{
     }
 
     /**
+     * Check if the pod has the dechat folder
+     * If not, creates the folder
+     * @param {String} url folder
+     */
+    async checkDechatFolder(url){
+        this.pod.checkDechatFolder(url);
+    }
+    /**
      *   Checks if a notification has arrived for the current chat, in that case
      *   removes the notification and executes the callback function
      *   @param {function} callback

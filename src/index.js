@@ -54,7 +54,11 @@ var numberMessagesSended;
 * @param {Integer} i
 */
 async function startChat(friend, i) {
+    var splitId = user.id.split("/");
+    var urlFolder = splitId[0] + splitId[1] + splitId[2];
     const chat = new Chat(user, friend)
+    chat.checkDechatFolder(urlFolder);
+    //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
     $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText" + i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
     $("#buttonFriend" + i).prop('disabled', true);
