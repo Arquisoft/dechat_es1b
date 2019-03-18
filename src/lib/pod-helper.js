@@ -3,6 +3,7 @@ const MESSAGE_FILE = "messages.txt"
 const CHAT_FOLDER = "/dechat"
 const txtFileBuilder = require("./textFileBuilder.js")
 const reader = require("./POD-reader/ChatManager.js")
+const folderValidator = require('./folderValidator')
 
 class PODHelper{
 	
@@ -153,6 +154,16 @@ class PODHelper{
             this.createFolder(userUrl + CHAT_FOLDER);
         }
     }
+	
+	/**
+	* Check if a determinate folder or file exists or is accesible
+	* @Param {String} uri to validate its existence
+	* @return {Boolean} true if exists, false in other case
+	*/
+	async validate(uriToValidate){
+		let result = await folderValidator.validate(uriToValidate);
+		return result;
+	}
     
 }
 
