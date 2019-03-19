@@ -3,8 +3,6 @@
 
 == Deployment View
 
-[role="arc42help"]
-****
 .Content
 The deployment view describes:
 
@@ -32,12 +30,9 @@ zoom into this black box using additional deployment diagrams:
 * UML offers deployment diagrams to express that view. Use it, probably with nested diagrams,
 when your infrastructure is more complex.
 * When your (hardware) stakeholders prefer other kinds of diagrams rather than the deployment diagram, let them use any kind that is able to show nodes and channels of the infrastructure.
-****
 
 === Infrastructure Level 1
 
-[role="arc42help"]
-****
 Describe (usually in a combination of diagrams, tables, and text):
 
 *  the distribution of your system to multiple locations, environments, computers, processors, .. as well as the physical connections between them
@@ -46,7 +41,6 @@ Describe (usually in a combination of diagrams, tables, and text):
 *  the mapping of software artifacts to elements of the infrastructure
 
 For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.
-****
 
 _**<Overview Diagram>**_
 
@@ -64,12 +58,10 @@ _<description of the mapping>_
 
 === Infrastructure Level 2
 
-[role="arc42help"]
-****
 Here you can include the internal structure of (some) infrastructure elements from level 1.
 
 Please copy the structure from level 1 for each selected element.
-****
+
 
 ==== _<Infrastructure Element 1>_
 

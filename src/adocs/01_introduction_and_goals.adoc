@@ -1,19 +1,14 @@
 [[section-introduction-and-goals]]
 == Introduction and Goals
 
-[role="arc42help"]
-****
-Here the relevant requirements, goals and objectives of the final project will be described:
+In this section the relevant requirements, goals and objectives of the final project will be described:
 
 * business goals, essential features and functional system requirements 
 * quality architecture goals 
 * relevant stakeholders and their respective expectations
-****
+
 
 === Requirements Overview
-
-[role="arc42help"]
-****
 .Contents
 The main functionality consists of a decentralized, SOLID based 
 chat application that allows to comunicate via text messages, and where users 
@@ -31,12 +26,7 @@ so they will have total control over their personal information and data.
 * Group chats, with multiple users receiving messages.
 * Optionally, users will be able to share their screen.
 * Optionally, users could perform live voice or video calls.
-****
 
-=== Quality Goals
-
-[role="arc42help"]
-****
 [options="header",cols="1,2,2"]
 |===
 |N.| Contents| Motivation
@@ -45,12 +35,8 @@ so they will have total control over their personal information and data.
 |3| Full user privacy and security | All users keep control of their own data and files, and chat must have no vulnerable points 
 |4| Easy to learn and use | A regular, general user must have no difficulties learning to use the app 
 |===
-****
 
 === Stakeholders
-
-[role="arc42help"]
-****
 
 [options="header",cols="1,2,2"]
 |===

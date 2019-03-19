@@ -1,10 +1,6 @@
 [[section-quality-scenarios]]
 == Quality Requirements
 
-
-[role="arc42help"]
-****
-
 _Testability_::
 The app should be testable, as automated as possible with the use of Unit Testing and CI where applicable.
 
@@ -33,8 +29,6 @@ The app have to be a set of modules. Some advanatges by using modules are:
 _Portability_::
 The app must be used in any operating system as long as it has a web browser.
 
-
-****
 
 === Quality Tree
 
