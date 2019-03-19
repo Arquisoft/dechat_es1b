@@ -154,8 +154,15 @@ async function changeTitles(session) {
 */
 async function checkForNewMessages(chat) {
     // Pass the callback function to execute if a new notification is received
-    var messages = await chat.checkForNotifications(() => { showNotification(chat); });
-    // Deleted all the displayed messages
+    var messages = await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages) });
+}
+
+/**
+* Update chat UI. This function should only be called once a notification has arrived.
+* @param {Message[]} messages Message array containing chat messages
+*/
+function updateUIMessages(messages) {
+	// Deleted all the displayed messages
     $("#textMessageScreen").remove();
     $(".textMessageScreen").remove();
     var i;
@@ -174,8 +181,6 @@ async function checkForNewMessages(chat) {
     var k;
     for (k = 0; k < numberMessagesSended; k++)
         $(".chatContent").append("<p class='textMessageSended'>" + messageContent[k] + "</p>");
-
-
 }
 
 /**
