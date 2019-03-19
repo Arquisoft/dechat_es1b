@@ -1,6 +1,11 @@
 const chatReader = require("ChatReader/ChatReader.js");
 const chatWriter = require("ChatWriter/ChatWriter.js");
-
+    
+  class ChatManager{
+    
+    constructor(fetch){
+        this.fetch = fetch;
+    }
     /**
      * This function receives two uri applies singleUriGetter
      * 	to create a message array for each onerror
@@ -9,7 +14,25 @@ const chatWriter = require("ChatWriter/ChatWriter.js");
      * @param {String} urlb Example: javierardura.solid.community
      */
     async function read(urla, urlb) {
-        return this.chatReader(urla, urlb);
+        return this.chatReader.read(urla, urlb);
+    }
+
+    /**
+    * Read pod receives the webid of the chat participants returning and ordered array of messages
+    * @param userURL the webID of the chat's ownerDocument
+    * @param friendURL the webID of the chat's contact
+    * @return the ordered list of the conversation messages
+    */
+    readPod(userURL, friendURL) {
+        return this.chatReader.readPod(urla, urlb);
+    }
+    /**
+     * Gets the files inside a folder
+     * @param {String} url 
+     * @return {Promise} files
+     */
+    getFilesFromFolder(url) {
+        return this.chatWriter.getFilesFromFolder(url);
     }
 
     /**
@@ -19,7 +42,7 @@ const chatWriter = require("ChatWriter/ChatWriter.js");
      * @return {Promise} file
      */
     function writeInbox(friend, message){
-        return this.ChatWriter.sendToInbox(friend,message);
+        return this.chatWriter.sendToInbox(friend,message);
     }
     
     /**
@@ -30,6 +53,6 @@ const chatWriter = require("ChatWriter/ChatWriter.js");
      * @param {Array} messages
      */
     async function writeOwnPOD(userID, partnerID, messages) {
-        this.ChatWriter.sendToOwnPOD(userID, partnerID, messages); 
+        this.chatWriter.sendToOwnPOD(userID, partnerID, messages); 
     }
 

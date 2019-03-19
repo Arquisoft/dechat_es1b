@@ -6,7 +6,7 @@ const txtFileBuilder = require("TextFileBuilder.js");
 /**
 * Class with all the methods necessaries to manage a POD and write in the chat
 */
-class WriteDataPOD {
+class ChatWriter {
     
     /**
      * Creates a file in the specified inbox with the json data passed as argument
@@ -19,6 +19,15 @@ class WriteDataPOD {
 	    //Login since it looks like its required 
 	    fileClient.popupLogin();
 	    return fileClient.createFile(friendRoute, message).then(200);
+    }
+
+    /**
+     * Gets the files inside a folder
+     * @param {String} url 
+     * @return {Promise} files
+     */
+    getFilesFromFolder(url) {
+        return folderManager.getFilesFromFolder(url);
     }
 	
 	/**

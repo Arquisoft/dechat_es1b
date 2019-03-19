@@ -8,6 +8,14 @@ const fileClient = require('solid-file-client');
         return fileClient.deleteFile(url).then(() => 200);
     }
 
+    /**
+     * Read the url file
+     * @return {Promise} file
+     */
+    readFile(url) {
+        return fileClient.readFile(url);
+    }
+
     module.exports = {
     deleteFile
 }
