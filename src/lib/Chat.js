@@ -7,11 +7,9 @@ const folderManager = require("./ChatManager/ChatWriter/FolderManager.js");
 const fileManager = require("./ChatManager/ChatWriter/FileManager.js");
 const Message = require("../model/message");
 
-"use strict";
 class Chat{
 
     constructor(user, partner){
-        this.chatManager = new ChatManager(auth.fetch)
         this.user = user;
         this.partner = partner;
 		//TODO: Sent messages should be initialized from reading user's pod so we keep older messages

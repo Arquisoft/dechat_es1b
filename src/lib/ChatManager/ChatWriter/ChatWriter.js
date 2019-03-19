@@ -48,7 +48,4 @@ class ChatWriter {
    
 }
 
-module.exports = {
-    sendToInbox,
-    sendToOwnPOD,
-}
+module.exports = ChatWriter;

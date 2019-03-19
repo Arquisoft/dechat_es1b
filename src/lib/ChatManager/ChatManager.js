@@ -2,10 +2,6 @@ const chatReader = require("./ChatReader/ChatReader");
 const chatWriter = require("./ChatWriter/ChatWriter");
     
   class ChatManager {
-    
-    constructor(fetch) {
-        this.fetch = fetch;
-    }
 
     /**
      * This function receives two uri applies singleUriGetter
@@ -14,7 +10,7 @@ const chatWriter = require("./ChatWriter/ChatWriter");
      * @param {String} urla Example: martinlacorrona.solid.community
      * @param {String} urlb Example: javierardura.solid.community
      */
-    read(urla, urlb) {
+    async read(urla, urlb) {
         return this.chatReader.read(urla, urlb);
     }
 
@@ -45,7 +41,8 @@ const chatWriter = require("./ChatWriter/ChatWriter");
      * @param {String} partnerID
      * @param {Array} messages
      */
-    writeOwnPOD(userID, partnerID, messages) {
+    async writeOwnPOD(userID, partnerID, messages) {
         this.chatWriter.sendToOwnPOD(userID, partnerID, messages); 
     }
 }
+module.exports = ChatManager;

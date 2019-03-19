@@ -2,10 +2,7 @@ const fileClient = require('solid-file-client');
 
 
 class FileManager{
-	
-    constructor(fetch){
-        this.fetch = fetch;
-}
+
 	/**
      * Deletes the file with the given URL
      * @param {String} url 
