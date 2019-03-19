@@ -3,8 +3,8 @@
  */
 const auth = require("solid-auth-client");
 const chatManager = require("./ChatManager/ChatManager.js");
-const folderManager = require("./ChatWriter/FolderManager.js");
-const fileManager = require("./ChatWriter/FileManager.js");
+const folderManager = require("./ChatManager/ChatWriter/FolderManager.js");
+const fileManager = require("./ChatManager/ChatWriter/FileManager.js");
 const Message = require("../model/message");
 
 "use strict";
