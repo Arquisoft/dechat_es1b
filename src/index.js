@@ -55,8 +55,7 @@ var numberMessagesSended;
 * @param {Integer} i
 */
 async function startChat(friend, i) {
-    var splitId = user.id.split("/");
-    var urlFolder = splitId[0] + splitId[1] + splitId[2];
+    var urlFolder = FolderManager.getUrlFolder(user.id);
     const chat = new Chat(user, friend);
     FolderManager.checkDechatFolder(urlFolder);
     //We start the chat when we make sure we have the folder created.

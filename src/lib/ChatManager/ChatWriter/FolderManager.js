@@ -39,6 +39,16 @@ const txtFileBuilder = require("./TextFileBuilder");
             return result.files;
         })
     };
+    
+     /**
+     * Returns the url of the chat folder 
+     * @return {String} url 
+     */
+    async function getUrlFolder(sessionURL) {
+      var splitId = sessionURL.split("/");
+      var urlFolder = splitId[0] + splitId[1] + splitId[2];
+      return urlFolder;
+    };
 
     /**
      * Creates a folder using the url
@@ -88,5 +98,6 @@ module.exports = {
     createFolder,
     readFolder,
     validate,
-    checkDechatFolder
+    checkDechatFolder,
+    getUrlFolder
 }
