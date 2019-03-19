@@ -27,8 +27,8 @@ class Chat{
 		//Saving to array current message
 		this.sentMessages.push(message);
 		this.messages.push(message);
-		await this.chatManager.writeOwnPOD(this.user.id, this.partner.id, this.sentMessages);
-        return this.chatManager.writeInbox(this.partner,message.user);
+		await chatManager.writeOwnPOD(this.user.id, this.partner.id, this.sentMessages);
+        return chatManager.writeInbox(this.partner,message.user);
     }
     
     /**
@@ -54,13 +54,13 @@ class Chat{
      */
     async checkForNotifications(callback){
         var hits = [];
-        var files = await this.folderManager.getFilesFromFolder(this.user.inbox);
+        var files = await folderManager.getFilesFromFolder(this.user.inbox);
         for (const file of files){
             let content;
-            content = await this.folderManager.readFile(file.url);
+            content = await fileManager.readFile(file.url);
             if (content == this.partner.id){
                 hits.push(await file.url);
-                this.messages = await this.chatManager.readPod(this.user.id, this.partner.id);
+                this.messages = await chatManager.readPod(this.user.id, this.partner.id);
             }
         }
 
@@ -69,7 +69,7 @@ class Chat{
         }
 
         for (const url of hits){
-            this.fileManager.deleteFile(url);
+            fileManager.deleteFile(url);
         }
         return this.messages;
     }

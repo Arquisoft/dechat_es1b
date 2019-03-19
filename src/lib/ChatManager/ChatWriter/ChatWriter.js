@@ -3,10 +3,7 @@ const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
 const txtFileBuilder = require("./TextFileBuilder");
 
-/**
-* Class with all the methods necessaries to manage a POD and write in the chat
-*/
-class ChatWriter {
+
     
     /**
      * Creates a file in the specified inbox with the json data passed as argument
@@ -14,12 +11,12 @@ class ChatWriter {
      * @param {String} data Promise
      * @return {Promise} file
      */
-    sendToInbox(friend, message){
+    function sendToInbox(friend, message){
         var friendRoute = friend.inbox + "/dechat.txt"
 	    //Login since it looks like its required 
 	    fileClient.popupLogin();
 	    return fileClient.createFile(friendRoute, message).then(200);
-    }
+    };
 	
 	/**
      * Creates a folder in user's own pod, containing a json representing chat messages
@@ -28,7 +25,7 @@ class ChatWriter {
      * @param {String} partnerID
 	 * @param {Array} messages
      */
-	async sendToOwnPOD(userID, partnerID, messages) {
+	async function sendToOwnPOD(userID, partnerID, messages) {
 		//Obtaining a string representing contact's webID
 		//To do this, we will isolate the variable part of the WebID 
 		//(example: https://jhon.solid.community will turn into jhon.solid)
@@ -44,8 +41,11 @@ class ChatWriter {
 			200
 		}, err => fileClient.createFile(podFileRoute, messagesJSON).then(200));
 		folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
-	}
+	};
    
-}
 
-module.exports = ChatWriter;
+
+module.exports = {
+    sendToInbox,
+    sendToOwnPOD
+}

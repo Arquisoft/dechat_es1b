@@ -3,7 +3,6 @@ var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
 
-class ChatReader {
 	/**
 	 * This function get all messages from a single pod uri
 	 * parsing file and converting to a json
@@ -12,13 +11,13 @@ class ChatReader {
 	 * @param {String} Url
 	 * @return {Array} List of objects messages
 	 */
-	async singleUriGetter(url) {
+	async function singleUriGetter(url) {
 		var salida = await fileClient.readFile(url);
 
 		var tr = await creator.create(textParser.parseString(salida));
 
 		return await tr;
-	}
+	};
 
 	/**
 	 * This function receives two uri applies singleUriGetter
@@ -27,7 +26,7 @@ class ChatReader {
 	 * @param {String} urla Example: martinlacorrona.solid.community
 	 * @param {String} urlb Example: javierardura.solid.community
 	 */
-	async read(urla, urlb) {
+	async function read(urla, urlb) {
 		var folderB = urlb.split(".")[0] + "." + urlb.split(".")[1];
 		var folderA = urla.split(".")[0] + "." + urla.split(".")[1];
 		var url1 = "https://" + urla + "/dechat/" + folderB + "/messages.txt";
@@ -38,7 +37,7 @@ class ChatReader {
 		var tr = await sorter.sort(at);
 
 		return await tr;
-	}
+	};
 
 	/**
 	* Read pod receives the webid of the chat participants returning and ordered array of messages
@@ -46,10 +45,14 @@ class ChatReader {
 	* @param friendURL the webID of the chat's contact
 	* @return the ordered list of the conversation messages
 	*/
-	async readPod(userURL, friendURL) {
+	async function readPod(userURL, friendURL) {
 		var user = userURL.replace("https://", "").replace("/profile/card#me", "");
 		var partner = friendURL.replace("https://", "").replace("/profile/card#me", "");
-		return reader.read(user, partner);
-	}
+		return this.read(user, partner);
+	};
+
+module.exports = {
+    singleUriGetter,
+    read,
+    readPod
 }
-module.exports = ChatReader;

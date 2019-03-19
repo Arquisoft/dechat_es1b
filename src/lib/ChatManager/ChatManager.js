@@ -1,7 +1,5 @@
 const chatReader = require("./ChatReader/ChatReader");
 const chatWriter = require("./ChatWriter/ChatWriter");
-    
-  class ChatManager {
 
     /**
      * This function receives two uri applies singleUriGetter
@@ -10,9 +8,9 @@ const chatWriter = require("./ChatWriter/ChatWriter");
      * @param {String} urla Example: martinlacorrona.solid.community
      * @param {String} urlb Example: javierardura.solid.community
      */
-    async read(urla, urlb) {
-        return this.chatReader.read(urla, urlb);
-    }
+    async function read(urla, urlb) {
+        return chatReader.read(urla, urlb);
+    };
 
     /**
     * Read pod receives the webid of the chat participants returning and ordered array of messages
@@ -20,9 +18,9 @@ const chatWriter = require("./ChatWriter/ChatWriter");
     * @param friendURL the webID of the chat's contact
     * @return the ordered list of the conversation messages
     */
-    readPod(userURL, friendURL) {
-        return this.chatReader.readPod(urla, urlb);
-    }
+    function readPod(userURL, friendURL) {
+        return chatReader.readPod(userURL, friendURL);
+    };
 
     /**
      * Creates a file in the specified inbox with the json data passed as argument
@@ -30,9 +28,9 @@ const chatWriter = require("./ChatWriter/ChatWriter");
      * @param {String} data Promise
      * @return {Promise} file
      */
-    writeInbox(friend, message){
-        return this.chatWriter.sendToInbox(friend,message);
-    }
+    function writeInbox(friend, message){
+        return chatWriter.sendToInbox(friend,message);
+    };
     
     /**
      * Creates a folder in user's own pod, containing a json representing chat messages
@@ -41,8 +39,13 @@ const chatWriter = require("./ChatWriter/ChatWriter");
      * @param {String} partnerID
      * @param {Array} messages
      */
-    async writeOwnPOD(userID, partnerID, messages) {
-        this.chatWriter.sendToOwnPOD(userID, partnerID, messages); 
-    }
+    async function writeOwnPOD(userID, partnerID, messages) {
+        chatWriter.sendToOwnPOD(userID, partnerID, messages); 
+    };
+
+module.exports = {
+    read,
+    readPod,
+    writeInbox,
+    writeOwnPOD
 }
-module.exports = ChatManager;
