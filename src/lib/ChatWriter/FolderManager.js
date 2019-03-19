@@ -76,6 +76,16 @@ const reader = require("./POD-reader/ChatManager.js");
             this.createFolder(userUrl + CHAT_FOLDER);
         }
     }
+
+    /**
+     * Reads a folder using the url
+     * @param {String} url folder
+     * @return {Promise} Object promise if exist or undefined if not
+     */
+    async readFolder(url) {
+       return fileClient.readFolder(url).then(folder => { return(folder)}, err=> console.log(err));
+    }
+
 	
 	/**
 	* Check if a determinate folder or file exists or is accesible

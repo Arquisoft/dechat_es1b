@@ -39,4 +39,17 @@ async function read(urla, urlb) {
  return await tr;
 }
 
+/**
+* Read pod receives the webid of the chat participants returning and ordered array of messages
+* @param userURL the webID of the chat's ownerDocument
+* @param friendURL the webID of the chat's contact
+* @return the ordered list of the conversation messages
+*/
+readPod(userURL, friendURL) {
+    var user = userURL.replace("https://","").replace("/profile/card#me","");
+    var partner = friendURL.replace("https://","").replace("/profile/card#me","");
+return reader.read(user, partner);
+}
+   
 exports.read = read;
+exports.readPod = readPod;
