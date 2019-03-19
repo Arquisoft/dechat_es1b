@@ -3,21 +3,12 @@ const MESSAGE_FILE = "messages.txt";
 const CHAT_FOLDER = "/dechat";
 const txtFileBuilder = require("./TextFileBuilder");
 
-
-	/** Boolean function to determine the existence of a solid file or folder
-    * @param {String} uri the pod uri of the element to know about its existence
-    * @return {Boolean} true if exists, false if is not accesible or non-existent
-    */
-    async function checkFolder(uri) {
-        try{
-            await fileClient.readFile(uri);
-            return true;
-        }
-        catch(err){
-            return false;
-        }
+class FolderManager{
+	
+    constructor(fetch){
+        this.fetch = fetch;
     }
-
+    
     /**
      * Grant the necessary permissions to read a file
      * @param {String} route of the file  
@@ -96,13 +87,5 @@ const txtFileBuilder = require("./TextFileBuilder");
 		return result;
 	}
 
-module.exports = {
-    checkFolder,
-    grantReadPermissionsToFile,
-    emptyFolder,
-    getFilesFromFolder,
-    createFolder,
-    checkDechatFolder,
-    validate
-
 }
+module.exports = FolderManager;
