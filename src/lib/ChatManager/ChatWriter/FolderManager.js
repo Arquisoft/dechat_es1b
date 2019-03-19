@@ -2,8 +2,7 @@ const fileClient = require('solid-file-client');
 const MESSAGE_FILE = "messages.txt";
 const CHAT_FOLDER = "/dechat";
 const txtFileBuilder = require("./TextFileBuilder");
-
-    
+   
     /**
      * Grant the necessary permissions to read a file
      * @param {String} route of the file  

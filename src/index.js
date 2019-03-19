@@ -5,6 +5,7 @@ const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 
 let user;
+var numberMessagesSended;
 
 /**
  * On DOM load, set solid.auth to track the session status
@@ -37,6 +38,23 @@ $("#logout").click(async () => {
 })
 
 
+$("#friends").click(async () => {
+    $(".friends-list").show();
+    $(".friends-list").css("border", "1px solid #2FA7F5");
+    userWerbId = session.getSession().webId;
+    friends = await query.getFriends();
+    emptyFriendsList();
+    $.each(friends, (i, friend) => {
+        console.log(friend, i)
+        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
+        $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
+
+        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
+    })
+    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>");
+    $("#closeChats").click(async () => { closeChats(friends) });
+})
+
 /**
 * Send a message
 * @param {Chat} the chat to which it will be sent
@@ -46,8 +64,6 @@ function sendMessage(chat, i) {
     chat.sendMessage(document.getElementById("messageText" + i).value);
     document.getElementById("messageText" + i).value = "";
 }
-
-var numberMessagesSended;
 
 /**
 * Start a chat with the selected friend
@@ -82,22 +98,6 @@ function emptyFriendsList() {
     $(".friends-list").empty()
 }
 
-$("#friends").click(async () => {
-    $(".friends-list").show();
-    $(".friends-list").css("border", "1px solid #2FA7F5");
-    userWerbId = session.getSession().webId;
-    friends = await query.getFriends();
-    emptyFriendsList();
-    $.each(friends, (i, friend) => {
-        console.log(friend, i)
-        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
-        $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
-
-        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
-    })
-    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>");
-    $("#closeChats").click(async () => { closeChats(friends) });
-})
 
 /**
 * Close the chats of the friends list
