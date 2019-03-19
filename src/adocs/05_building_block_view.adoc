@@ -18,3 +18,9 @@ PODs also contain the inbox where notificiations for new messages will be sent.
 
 ==== DeChat
 The application itself allows the users to interact with each other. Messages will be read from the PODs. Sent messages will be written in the sender's POD and the receiver wil be notified in their inbox, referencing the message URI.
+
+==== UI
+The UI interface use this UML:
+.UI UML
+[#img-uiuml]
+image::./diagrams/ui-chatmanager-poddate.jpg[uiuml] 
