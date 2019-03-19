@@ -13,30 +13,53 @@ $("document").ready(async () => {
         // If there's a session
         async () => {
             user = await session.getUser();
-            console.log(user)
-            changeView(true) // Update this in the future
+            console.log(user);
+            changeView(true);
+            loadInitialContacts();
         },
         // User isn't logged in
         async () => {
             user = null;
-            console.log(user)
-            changeView(false)
+            console.log(user);
+            changeView(false);
         }
     )
 })
 
 // Button listeners
 $("#login").click(async () => {
-    session.login()
-    loadInitialChat();
+    session.login();
 })
 
 $("#logout").click(async () => {
     session.logout()
-    $(".friends-list").css("border", "1px solid #2FA7F5");
+    
 })
 
 
+async function loadInitialContacts(){
+    loadFriends();
+}
+
+async function loadFriends(){
+    friends = await query.getFriends();
+    emptyFriendsList();
+    $.each(friends, (i, friend) => {
+        console.log(friend, i)
+        //$(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
+        //$("#buttonFriend" + i).click(async () => { startChat(friend, i) });
+        var textFriend = "<div class='chat_list'>"+
+                            "<div class='chat_people'>"+
+                                "<div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='profile img'> </div>"+
+                                    "<div class='chat_ib'>"+
+                                        "<h5>"+ friend.name +"</h5>"+
+                                    "</div>"+
+                                "</div>"+
+                            "</div>";
+        $(".inbox_chat scroll").prepend(textFriend);
+        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
+    });
+}
 /**
 * Send a message
 * @param {Chat} the chat to which it will be sent
@@ -80,8 +103,10 @@ async function startChat(friend, i) {
 * Empty the user's contacts html list
 */
 function emptyFriendsList() {
-    $(".friends-list").empty()
-}
+   // $(".friends-list").empty()
+   $(".inbox_chat scroll").empty();
+
+}   
 
 $("#friends").click(async () => {
     $(".friends-list").show();
@@ -120,23 +145,21 @@ function closeChats(friends) {
  * @param {boolean} session 
  */
 function changeView(session) {
-
     $("#login").prop("hidden", session);
     $("#login").prop("show", !session);
-    //$("#friends").prop("hidden", !session);
-    //$("#friends").prop("show", session);
-    
+    $("#mainHeader").prop("hidden", session);
+    $("#mainHeader").prop("show", !session);
     changeTitles(session);
     if (!session){
         $("#navbar").css("visibility", "hidden");
         $(".messaging").css("visibility", "hidden");
+        emptyFriendsList();
     }        
     if (session){
         $("#navbar").css("visibility", "visible");
         $(".messaging").css("visibility", "visible");
     }
-    if (!session)
-        emptyFriendsList()
+        
 }
 
 /**
