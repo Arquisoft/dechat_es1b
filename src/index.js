@@ -14,7 +14,7 @@ $("document").ready(async () => {
         async () => {
             user = await session.getUser();
             console.log(user)
-            changeView(true)
+            changeView(true) // Update this in the future
         },
         // User isn't logged in
         async () => {
@@ -28,6 +28,7 @@ $("document").ready(async () => {
 // Button listeners
 $("#login").click(async () => {
     session.login()
+    loadInitialChat();
 })
 
 $("#logout").click(async () => {
@@ -122,13 +123,18 @@ function changeView(session) {
 
     $("#login").prop("hidden", session);
     $("#login").prop("show", !session);
-    $("#friends").prop("hidden", !session);
-    $("#friends").prop("show", session);
+    //$("#friends").prop("hidden", !session);
+    //$("#friends").prop("show", session);
+    
     changeTitles(session);
-    if (!session)
+    if (!session){
         $("#navbar").css("visibility", "hidden");
-    if (session)
+        $(".messaging").css("visibility", "hidden");
+    }        
+    if (session){
         $("#navbar").css("visibility", "visible");
+        $(".messaging").css("visibility", "visible");
+    }
     if (!session)
         emptyFriendsList()
 }
