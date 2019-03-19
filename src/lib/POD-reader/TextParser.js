@@ -18,6 +18,15 @@ would be the injection (not allowed by our control)
 	const parser = require('./TextParser.js');
 	var myVar = parser.parseString(almacen);
 */
+
+
+
+
+/**
+ * Function that parses the string from the POD to get the JSON
+ * @param {String} chain from the POD
+ * @return {JSON} with messages
+ */
 function parseString(str) {
 	parsed = str.split("////");
 

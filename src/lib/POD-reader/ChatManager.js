@@ -2,11 +2,14 @@ var textParser = require("./TextParser.js");
 var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
+
 /**
  * This function get all messages from a single pod uri
  * parsing file and converting to a json
  * After this an element creator go over every message 
  * and create every element message
+ * @param {String} Url
+ * @return {Array} List of objects messages
  */
 async function singleUriGetter(url) {
 	var salida = await fileClient.readFile(url);
@@ -20,8 +23,8 @@ async function singleUriGetter(url) {
  * This function receives two uri applies singleUriGetter
  * 	to create a message array for each onerror
  *	and returns the sorted by date list 
- * @param {*} urla Example: martinlacorrona.solid.community
- * @param {*} urlb Example: javierardura.solid.community
+ * @param {String} urla Example: martinlacorrona.solid.community
+ * @param {String} urlb Example: javierardura.solid.community
  */
 async function read(urla, urlb) {
 	var folderB = urlb.split(".")[0]+"."+urlb.split(".")[1];

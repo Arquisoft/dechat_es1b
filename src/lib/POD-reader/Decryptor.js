@@ -1,9 +1,17 @@
 var splitChain;
 
+/**
+ * Separate the message letter by letter
+ * @param {String} message
+ */
 function splitMessage(msg){
 	splitChain = msg.split("");
 }
 
+/**
+ * Change each character by its previous in ASCII
+ * @return {String} decrypted message
+ */
 function deConvert(){
   var tr="";
   var i;
@@ -17,6 +25,11 @@ function deConvert(){
   return tr;
 }
 
+/**
+ * This function decrypt the message
+ * @param {String} message
+ * @return {String} decrypted message
+ */
 function decryptor(msg){
   splitMessage(msg);
   return deConvert();

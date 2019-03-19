@@ -14,21 +14,34 @@ class Chat{
 		this.sentMessages = []
 		this.messages = []
     }
-
+    
+    /**
+    * Method to send a message
+    * @param {String} text content of the message 
+    * @return {Promise} file
+    */
     async sendMessage(text){		
 		var message = new Message(this.user.id, this.partner.id, text);
 		
 		//Saving to array current message
 		this.sentMessages.push(message);
+		this.messages.push(message);
 		await this.pod.sendToOwnPOD(this.user.id, this.partner.id, this.sentMessages);
         return this.pod.sendToInbox(this.partner,
         message.user);
     }
-
+    
+    /**
+    * Method to get the messages
+    * @return {Array} messages
+    */
     async getMessages(){
         return this.messages;
     }
-
+    
+    /**
+    * Delete all the messages and clear the chat
+    */
     async clearChat(){
         // TODO empty chat
     }
@@ -36,6 +49,8 @@ class Chat{
     /**
      *   Checks if a notification has arrived for the current chat, in that case
      *   removes the notification and executes the callback function
+     *   @param {function} callback
+     *   @return {Array} messages
      */
     async checkForNotifications(callback){
         var hits = [];
