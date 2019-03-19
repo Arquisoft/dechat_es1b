@@ -1,7 +1,7 @@
 const fileClient = require("solid-file-client");
-const folderManager = require("FolderManager.js");
+const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
-const txtFileBuilder = require("TextFileBuilder.js");
+const txtFileBuilder = require("./TextFileBuilder");
 
 /**
 * Class with all the methods necessaries to manage a POD and write in the chat

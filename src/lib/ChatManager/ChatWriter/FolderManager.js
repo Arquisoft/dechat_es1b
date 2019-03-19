@@ -1,8 +1,7 @@
 const fileClient = require('solid-file-client');
 const MESSAGE_FILE = "messages.txt";
 const CHAT_FOLDER = "/dechat";
-const txtFileBuilder = require("./textFileBuilder.js");
-const reader = require("./POD-reader/ChatManager.js");
+const txtFileBuilder = require("./TextFileBuilder");
 
 
 	/** Boolean function to determine the existence of a solid file or folder

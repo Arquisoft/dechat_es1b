@@ -1,7 +1,7 @@
-const chatReader = require("ChatReader/ChatReader.js");
-const chatWriter = require("ChatWriter/ChatWriter.js");
+const chatReader = require("./ChatReader/ChatReader");
+const chatWriter = require("./ChatWriter/ChatWriter");
     
-  class ChatManager{
+  class ChatManager {
     
     constructor(fetch) {
         this.fetch = fetch;
@@ -14,7 +14,7 @@ const chatWriter = require("ChatWriter/ChatWriter.js");
      * @param {String} urla Example: martinlacorrona.solid.community
      * @param {String} urlb Example: javierardura.solid.community
      */
-    async function read(urla, urlb) {
+    read(urla, urlb) {
         return this.chatReader.read(urla, urlb);
     }
 
@@ -34,7 +34,7 @@ const chatWriter = require("ChatWriter/ChatWriter.js");
      * @param {String} data Promise
      * @return {Promise} file
      */
-    function writeInbox(friend, message){
+    writeInbox(friend, message){
         return this.chatWriter.sendToInbox(friend,message);
     }
     
@@ -45,7 +45,7 @@ const chatWriter = require("ChatWriter/ChatWriter.js");
      * @param {String} partnerID
      * @param {Array} messages
      */
-    async function writeOwnPOD(userID, partnerID, messages) {
+    writeOwnPOD(userID, partnerID, messages) {
         this.chatWriter.sendToOwnPOD(userID, partnerID, messages); 
     }
-
+}

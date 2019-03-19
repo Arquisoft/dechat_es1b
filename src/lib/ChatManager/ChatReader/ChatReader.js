@@ -45,7 +45,7 @@ async function read(urla, urlb) {
 * @param friendURL the webID of the chat's contact
 * @return the ordered list of the conversation messages
 */
-readPod(userURL, friendURL) {
+async function readPod(userURL, friendURL) {
     var user = userURL.replace("https://","").replace("/profile/card#me","");
     var partner = friendURL.replace("https://","").replace("/profile/card#me","");
 return reader.read(user, partner);
