@@ -4,8 +4,6 @@ Here we go to present any requirement that constrained us in our freedom of desi
 
 === Constraints
 ==== Technical Constraints
-[role="arc42help"]
-****
 [options="header",cols="1,2,2"]
 |===
 |N.| Constraints| Motivation
@@ -14,11 +12,9 @@ Here we go to present any requirement that constrained us in our freedom of desi
 |TC3| Full compatible application | This application must be compatible with the most important browsers of today (Chrome, Firefox, Opera, Edge ...)
 |TC4| Most POD providers currently have a size quota that will affect how we handle MIME files in our chat.
 |===
-****
 
 ==== Organizational Constraints
-[role="arc42help"]
-****
+
 [options="header",cols="1,2,2"]
 |===
 |N.| Constraints| Motivation
@@ -26,17 +22,14 @@ Here we go to present any requirement that constrained us in our freedom of desi
 |OC2| IDE | It's independent.
 |OC3| Published under an Open Source | The source, including documentation, should be published as Open Source.
 |===
-****
 
 ==== Conventions
-[role="arc42help"]
-****
+
 [options="header",cols="1,2,2"]
 |===
 |N.| Conventions | Motivation
 |C1| Use arc42 | We use this template for all documentation.
 |C2| Language | English, this app is focused on an international audience.
 |===
-****
 
 
