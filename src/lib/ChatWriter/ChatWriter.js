@@ -43,9 +43,7 @@ class WriteDataPOD {
 		await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
 			200
 		}, err => fileClient.createFile(podFileRoute, messagesJSON).then(200));
-		
 		folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
-		
 	}
    
 }
