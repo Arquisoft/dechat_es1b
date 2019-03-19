@@ -29,8 +29,8 @@ async function singleUriGetter(url) {
 async function read(urla, urlb) {
 	var folderB = urlb.split(".")[0]+"."+urlb.split(".")[1];
 	var folderA = urla.split(".")[0]+"."+urla.split(".")[1];
-	var url1 = "https://"+urla+"/private/"+folderB+"/messages.txt"
-	var url2 = "https://"+urlb+"/private/"+folderA+"/messages.txt"
+	var url1 = "https://"+urla+"/dechat/"+folderB+"/messages.txt";
+	var url2 = "https://"+urlb+"/dechat/"+folderA+"/messages.txt";
 	var a1 = await singleUriGetter(url1);
 	var a2 = await singleUriGetter(url2);
 	var at = await a1.concat(a2);
