@@ -20,15 +20,6 @@ class ChatWriter {
 	    fileClient.popupLogin();
 	    return fileClient.createFile(friendRoute, message).then(200);
     }
-
-    /**
-     * Gets the files inside a folder
-     * @param {String} url 
-     * @return {Promise} files
-     */
-    getFilesFromFolder(url) {
-        return folderManager.getFilesFromFolder(url);
-    }
 	
 	/**
      * Creates a folder in user's own pod, containing a json representing chat messages

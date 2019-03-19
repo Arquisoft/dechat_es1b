@@ -3,9 +3,10 @@ const chatWriter = require("ChatWriter/ChatWriter.js");
     
   class ChatManager{
     
-    constructor(fetch){
+    constructor(fetch) {
         this.fetch = fetch;
     }
+
     /**
      * This function receives two uri applies singleUriGetter
      * 	to create a message array for each onerror
@@ -25,14 +26,6 @@ const chatWriter = require("ChatWriter/ChatWriter.js");
     */
     readPod(userURL, friendURL) {
         return this.chatReader.readPod(urla, urlb);
-    }
-    /**
-     * Gets the files inside a folder
-     * @param {String} url 
-     * @return {Promise} files
-     */
-    getFilesFromFolder(url) {
-        return this.chatWriter.getFilesFromFolder(url);
     }
 
     /**
