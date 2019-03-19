@@ -56,7 +56,7 @@ async function loadFriends(){
                                     "</div>"+
                                 "</div>"+
                             "</div>";
-        $(".inbox_chat scroll").prepend(textFriend);
+        $("#chat_scroll").prepend(textFriend);
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     });
 }
