@@ -1,10 +1,7 @@
 [[section-technical-risks]]
 == Risks and Technical Debts
 
-
-[role="arc42help"]
-****
 These are the known risks and solution proposals:
 * *First time using several techs.* This project is the first time all of us work with Node.js and Angular. A such we will have to invest heavily in our formation.
 * *New technology.* Solid is a relatively new spec, therefore it's not as tried and tested as a decades old tech would be. Nonetheless there should be enough resources online to solve most of our possible blocks and walls.
-****
+
