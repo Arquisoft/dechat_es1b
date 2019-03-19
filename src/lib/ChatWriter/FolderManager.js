@@ -1,4 +1,9 @@
 const fileClient = require('solid-file-client');
+const MESSAGE_FILE = "messages.txt";
+const CHAT_FOLDER = "/dechat";
+const txtFileBuilder = require("./textFileBuilder.js");
+const reader = require("./POD-reader/ChatManager.js");
+
 
 	/** Boolean function to determine the existence of a solid file or folder
     * @param {String} uri the pod uri of the element to know about its existence
