@@ -1,9 +1,6 @@
 [[section-glossary]]
 == Glossary
 
-
-
-[role="arc42help"]
 [options="header"]
 |===
 | Term         | Definition
