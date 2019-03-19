@@ -1,4 +1,7 @@
 const fileClient = require("solid-file-client");
+const folderManager = require("FolderManager.js");
+const MESSAGE_FILE = "messages.txt";
+const txtFileBuilder = require("./textFileBuilder.js");
 
 /**
 * Class with all the methods necessaries to manage a POD and write in the chat
@@ -41,10 +44,13 @@ class WriteDataPOD {
 			200
 		}, err => fileClient.createFile(podFileRoute, messagesJSON).then(200));
 		
-		this.grantReadPermissionsToFile(podFileRoute, partnerID);
+		folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
 		
 	}
    
 }
 
-module.exports = WriteDataPOD;
+module.exports = {
+    sendToInbox,
+    sendToOwnPOD,
+}
