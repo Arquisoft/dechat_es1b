@@ -1,5 +1,5 @@
 const chatReader = require("ChatReader/ChatReader.js");
-
+const chatWriter = require("ChatReader/chatWriter.js");
 /**
  * This function receives two uri applies singleUriGetter
  * 	to create a message array for each onerror
