@@ -1,7 +1,6 @@
 /**
  * Interface that isolates SOLID pod handling from the UI regarding the chat itself
  */
-const auth = require("solid-auth-client");
 const chatManager = require("./ChatManager/ChatManager.js");
 const folderManager = require("./ChatManager/ChatWriter/FolderManager.js");
 const fileManager = require("./ChatManager/ChatWriter/FileManager.js");
