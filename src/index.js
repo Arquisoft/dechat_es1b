@@ -77,32 +77,38 @@ async function startChat(friend, i) {
     console.log("Chat with " + friend.id + " opened")
 
     $("#mesgs").empty(); //Delete all the content of mesgs
-    var initialMessageContent = "<div class='msg_history'> </div>"+
+    var initialMessageContent = "<div class='msg_history' id='msg_history" + i+"'>"+"</div>"+
                                 "<div class='type_msg'>"+
                                     "<div class='input_msg_write'>"+
-                                        "<input type='text' class='write_msg' placeholder='Write a message' />"+
-                                         "<button class='msg_send_btn' type='button'>Send</button>"+
+                                        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "'/>"+
+                                         "<button class='msg_send_btn' type='button' id='sendMessages" + i + "'>" +"Send</button>"+
                                     "</div>"+
                                 "</div>";                            
     $("#mesgs").append(initialMessageContent);
 
 
     //Load stored messages from pod.
+    //checkForNewMessages(chat);
 
-/*
-    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText" + i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
-    $("#buttonFriend" + i).prop('disabled', true);
-    $("#messageFriend" + i).click(async () => {
-        sendMessage(chat, i)
-        //it may be a solve to show messages when they are send but it produces other bugs.
-        $(".chatContent").append("<p class='textMessageSended'>" + user.inbox.substring(0, user.inbox.length - 6) + " >" + document.getElementById("messageText" + i).value + "</p>");
+    
+    //Add action to sending messages button
+    $("#sendMessages" + i).click(async () => {
+        //sendMessage(chat, i);
+        console.log("sending message to " + i );
+        var messageContent = "<div class='outgoing_msg'>"+
+                                "<div class='sent_msg'>"+
+                                    "<p>"+$("#contentText" + i).val()+"</p>"+
+                                 "</div>"+
+                                "</div>";
+        $("#msg_history" + i).append(messageContent);
         numberMessagesSended++;
     });
 
     // Set up listener for new messages, time in ms
-    setInterval(() => {
-        checkForNewMessages(chat)
+    /*setInterval(() => {
+            checkForNewMessages(chat)
     }, 5000)*/
+
 }
 
 /**
@@ -203,8 +209,7 @@ async function checkForNewMessages(chat) {
     // Pass the callback function to execute if a new notification is received
     var messages = await chat.checkForNotifications(() => { showNotification(chat); });
     // Deleted all the displayed messages
-    $("#textMessageScreen").remove();
-    $(".textMessageScreen").remove();
+    $("#mesgs").empty();
     var i;
     //Show all the messages
     var j;
