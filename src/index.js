@@ -87,14 +87,13 @@ async function startChat(friend, i) {
     $("#mesgs").append(initialMessageContent);
 
 
-    //Load stored messages from pod.
-    //checkForNewMessages(chat);
+    //Load stored messages from POD.
+
 
     
     //Add action to sending messages button
     $("#sendMessages" + i).click(async () => {
-        //sendMessage(chat, i);
-        console.log("sending message to " + i );
+        sendMessage(chat, i);
         var messageContent = "<div class='outgoing_msg'>"+
                                 "<div class='sent_msg'>"+
                                     "<p>"+$("#contentText" + i).val()+"</p>"+
@@ -105,9 +104,9 @@ async function startChat(friend, i) {
     });
 
     // Set up listener for new messages, time in ms
-    /*setInterval(() => {
-            checkForNewMessages(chat)
-    }, 5000)*/
+    setInterval(() => {
+            checkForNewMessages(chat, i)
+    }, 5000);
 
 }
 
@@ -117,11 +116,9 @@ async function startChat(friend, i) {
 * @param {Integer} i
 */
 function sendMessage(chat, i) {
-    chat.sendMessage(document.getElementById("messageText" + i).value);
-    document.getElementById("messageText" + i).value = "";
+    chat.sendMessage($("#contentText" + i).val());
+    $("#contentText" + i).val("");
 }
-
-
 
 /**
 * Empty the user's contacts html list
@@ -132,33 +129,6 @@ function emptyFriendsList() {
 
 }   
 
-$("#friends").click(async () => {
-    $(".friends-list").show();
-    $(".friends-list").css("border", "1px solid #2FA7F5");
-    userWerbId = session.getSession().webId;
-    friends = await query.getFriends();
-    emptyFriendsList();
-    $.each(friends, (i, friend) => {
-        console.log(friend, i)
-        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
-        $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
-
-        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
-    })
-    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>");
-    $("#closeChats").click(async () => { closeChats(friends) });
-})
-
-/**
-* Close the chats of the friends list
-* @param {List<Person>} list of the user's contacts
-*/
-function closeChats(friends) {
-    $.each(friends, (i, friend) => {
-        $("#chatContainer" + i).remove()
-        $("#buttonFriend" + i).prop('disabled', false);
-    })
-}
 
 /**
  * Sets the buttons, nav and titles according to the session status.
@@ -205,12 +175,37 @@ async function changeTitles(session) {
 * Check if there is a new message in a chat.
 * @param {Chat} A chat in particular
 */
-async function checkForNewMessages(chat) {
+async function checkForNewMessages(chat, index) {
     // Pass the callback function to execute if a new notification is received
     var messages = await chat.checkForNotifications(() => { showNotification(chat); });
     // Deleted all the displayed messages
-    $("#mesgs").empty();
+    $("#msg_history" + index).empty();
     var i;
+    for (i = 0; i < messages.length; i++) {
+        var sendedMessage;
+        if(messages[i].user==user.id){
+            sendedMessage = "<div class='outgoing_msg'>"+
+                                    "<div class='sent_msg'>"+
+                                    "<p>"+ messages[i].content +"</p>"+
+                                    "<span class='time_date'>"+ messages[i].timestamp+"</span> </div>"+
+                                    " </div>";
+            
+        }
+        else{
+            sendedMessage = "<div class='incoming_msg'>"+
+                                "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>"+
+                                "<div class='received_msg'>"+
+                                    "<div class='received_withd_msg'>"+
+                                        "<p>"+messages[i].content+"</p>"+
+                                        "<span class='time_date'>"+messages[i].timestamp+"</span></div>"+
+                                    "</div>"
+                            "</div>";
+        }
+        console.log("Messages loop" + messages[i].content);
+        $("#msg_history" + index).append(sendedMessage);
+    }
+
+    /*var i;
     //Show all the messages
     var j;
     var messageSendedContent;
@@ -219,6 +214,7 @@ async function checkForNewMessages(chat) {
 
 
     for (i = 0; i < messages.length; i++) {
+        if(messages[i].sender==)
         $(".chatContent").append("<p class='textMessageScreen' id='textMessageScreen'>" + messages[i].sender + " >" + messages[i].content + "</p>");
     }
 
@@ -226,7 +222,7 @@ async function checkForNewMessages(chat) {
     var k;
     for (k = 0; k < numberMessagesSended; k++)
         $(".chatContent").append("<p class='textMessageSended'>" + messageContent[k] + "</p>");
-
+*/
 
 }
 
@@ -236,8 +232,8 @@ async function checkForNewMessages(chat) {
  */
 async function showNotification(chat) {
     console.log("Got a new message");
-    $(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
-    hideNotifications();
+    //$(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
+    //hideNotifications();
 }
 
 /**
