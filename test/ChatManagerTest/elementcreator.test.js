@@ -1,4 +1,4 @@
-const creator = require("../../src/lib/POD-reader/ElementCreator");
+const creator = require("../../src/lib/ChatManager/ChatReader/ElementCreator");
 
 describe('Extraction of messages from JSON', () => {
     it('Should extract the messages from a JSON input', () => {
