@@ -46,8 +46,6 @@ async function loadFriends(){
     emptyFriendsList();
     $.each(friends, (i, friend) => {
         console.log(friend, i)
-        //$(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
-        //$("#buttonFriend" + i).click(async () => { startChat(friend, i) });
         var textFriend = "<div class='chat_list'>"+
                             "<div class='chat_people'>"+
                                 "<div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='profile img'> </div>"+
@@ -55,19 +53,12 @@ async function loadFriends(){
                                         "<h5>"+ friend.name +"</h5>"+
                                     "</div>"+
                                 "</div>"+
+                                "<button class='btn btn-outline-secondary btn-rounded waves-effect' id='buttonFriend" + i + "'>" + " Chat </button>" + 
                             "</div>";
         $("#chat_scroll").prepend(textFriend);
+        $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     });
-}
-/**
-* Send a message
-* @param {Chat} the chat to which it will be sent
-* @param {Integer} i
-*/
-function sendMessage(chat, i) {
-    chat.sendMessage(document.getElementById("messageText" + i).value);
-    document.getElementById("messageText" + i).value = "";
 }
 
 var numberMessagesSended;
@@ -84,6 +75,21 @@ async function startChat(friend, i) {
     chat.checkDechatFolder(urlFolder);
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
+
+    $("#mesgs").empty(); //Delete all the content of mesgs
+    var initialMessageContent = "<div class='msg_history'> </div>"+
+                                "<div class='type_msg'>"+
+                                    "<div class='input_msg_write'>"+
+                                        "<input type='text' class='write_msg' placeholder='Write a message' />"+
+                                         "<button class='msg_send_btn' type='button'>Send</button>"+
+                                    "</div>"+
+                                "</div>";                            
+    $("#mesgs").append(initialMessageContent);
+
+
+    //Load stored messages from pod.
+
+/*
     $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText" + i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
     $("#buttonFriend" + i).prop('disabled', true);
     $("#messageFriend" + i).click(async () => {
@@ -96,8 +102,20 @@ async function startChat(friend, i) {
     // Set up listener for new messages, time in ms
     setInterval(() => {
         checkForNewMessages(chat)
-    }, 5000)
+    }, 5000)*/
 }
+
+/**
+* Send a message
+* @param {Chat} the chat to which it will be sent
+* @param {Integer} i
+*/
+function sendMessage(chat, i) {
+    chat.sendMessage(document.getElementById("messageText" + i).value);
+    document.getElementById("messageText" + i).value = "";
+}
+
+
 
 /**
 * Empty the user's contacts html list
