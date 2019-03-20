@@ -457,14 +457,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
 <li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
+<li><a href="#_building_blocks_level_2">5.2. Building Blocks: Level 2</a></li>
 </ul>
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
-<li><a href="#_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</a></li>
-<li><a href="#_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</a></li>
-<li><a href="#">6.3. &#8230;&#8203;</a></li>
-<li><a href="#_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</a></li>
+<li><a href="#_create_chat">6.1. Create Chat</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
@@ -852,7 +850,7 @@ On the other hand, the GUI (graphic user interface), obviously will be developed
 <h3 id="_whitebox_overall_system">5.1. Whitebox Overall System</h3>
 <div id="img-overviewdiagram" class="imageblock">
 <div class="content">
-<img src="./diagrams/scopecontext.jpg" alt="overviewdiagram">
+<img src="./diagrams/05-scopecontext.jpg" alt="overviewdiagram">
 </div>
 <div class="title">Figure 3. Overview diagram</div>
 </div>
@@ -875,7 +873,67 @@ PODs also contain the inbox where notificiations for new messages will be sent.<
 <div class="sect3">
 <h4 id="_dechat">5.1.3. DeChat</h4>
 <div class="paragraph">
-<p>The application itself allows the users to interact with each other. Messages will be read from the PODs. Sent messages will be written in the sender&#8217;s POD and the receiver wil be notified in their inbox, referencing the message URI.</p>
+<p>The application itself allows the users to interact with each other. Messages will be read from the PODs. Sent messages will be written in the sender&#8217;s POD and the receiver wil be notified in their inbox, referencing the message URI.
+The application will be run client-side, in the user&#8217;s browser.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_building_blocks_level_2">5.2. Building Blocks: Level 2</h3>
+<div class="paragraph">
+<p>Focusing in the DeChat app itself we have the following blocks:</p>
+</div>
+<div id="img-level2" class="imageblock">
+<div class="content">
+<img src="./diagrams/05-bb_level2.png" alt="level2">
+</div>
+<div class="title">Figure 4. DeChat Main Blocks</div>
+</div>
+<div class="sect3">
+<h4 id="_ui">5.2.1. UI</h4>
+<div class="paragraph">
+<p>DeChat is presented as SPA (Single Page Application) where the user interacts through his/her browser.
+UI functionality is contained to <code>index.js</code> and isolated from the app&#8217;s logic.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_chat">5.2.2. Chat</h4>
+<div class="paragraph">
+<p>The logic of the chat is contained in its own module <code>chat.js</code>
+It allows us to separate the chat itself from the presentation so the UI can be changed freely.
+In SOLID, the user is the owner of his data, therefore each participant in the chat stores their messages in their own POD.
+This module must recompose the whole chat from the data it gets from both PODs through the Persistence layer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_pod_handling">5.2.3. POD Handling</h4>
+<div class="paragraph">
+<p>Communications with the PODs are done through the ChatManager package, a grouping of submodules that handle the persistence and data transformations needed to work with the PODs.
+Each DeChat&#8217;s instance will write/read both to the user&#8217;s POD (write users messages, read notifications) and the target&#8217;s (read their messages, send notifications).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_building_blocks_level_3">5.2.4. Building Blocks: Level 3</h4>
+<div id="img-uiuml" class="imageblock">
+<div class="content">
+<img src="./diagrams/05-chatmanager.jpg" alt="uiuml">
+</div>
+<div class="title">Figure 5. Chat interface and ChatManager main modules</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_chat_interface">5.2.5. Chat interface</h4>
+<div class="paragraph">
+<p>The UI should be agnostic from the implementation. For that purpose we provide an interface it will communicate with, with general purpose methods such as <code>sendMessage</code>, <code>getMessages</code> or <code>checkForNotifications</code>.
+Details of implementation should be irrelevant for the UI itself allowing for the reusability of the interface in a different chat domain.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_chatmanager">5.2.6. ChatManager</h4>
+<div class="paragraph">
+<p>The modules destined to the Read/Write operations against the PODs are split in two subfolders according to their nature, mainly represented by the <code>ChatReader.js</code> and <code>ChatWriter.js</code> modules.
+Aside from this two there&#8217;s a series of dependencies on both our own submodules and third party ones that collaborate towards the POD-Handling.
+Some third party notable dependencies are <code>ldflex-query</code> and <code>solid-file-client</code>.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -886,83 +944,23 @@ PODs also contain the inbox where notificiations for new messages will be sent.<
 <h2 id="section-runtime-view">6. Runtime View</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:</p>
+<p>Here we will discuss some important use cases.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>important use cases or features: how do building blocks execute them?</p>
-</li>
-<li>
-<p>interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?</p>
-</li>
-<li>
-<p>operation and administration: launch, start-up, stop</p>
-</li>
-<li>
-<p>error and exception scenarios</p>
-</li>
-</ul>
-</div>
+<div class="sect2">
+<h3 id="_create_chat">6.1. Create Chat</h3>
 <div class="paragraph">
-<p>Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their <strong>architectural relevance</strong>. It is <strong>not</strong> important to describe a large number of scenarios. You should rather document a representative selection.</p>
+<p>Implying first time a user chats with friend X.</p>
 </div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
-You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>There are many notations for describing scenarios, e.g.</p>
-</div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>numbered list of steps (in natural language)</p>
+<p>User clicks <code>Chat</code> in the desired friend.</p>
 </li>
 <li>
-<p>activity diagrams or flow charts</p>
+<p>A chat is created and a chat window is displayed</p>
 </li>
-<li>
-<p>sequence diagrams</p>
-</li>
-<li>
-<p>BPMN or EPCs (event process chains)</p>
-</li>
-<li>
-<p>state machines</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
+</ol>
 </div>
-<div class="sect2">
-<h3 id="_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><em>&lt;insert runtime diagram or textual description of the scenario&gt;</em></p>
-</li>
-<li>
-<p><em>&lt;insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.&gt;</em></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</h3>
-
-</div>
-<div class="sect2">
-<h3 id="">6.3. &#8230;&#8203;</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</h3>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1386,19 +1384,35 @@ on this list.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">POD</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A Solid POD is your own private place where your data will reside. You as a user decide who and what can access this data. As well, your POD acts as an API that allows all your Solid Apps to intercommunicate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A Solid POD is your own private place where your data will reside. You as a user decide who and what can access this data. As well, your POD acts as an API that allows all your Solid Apps to intercommunicate.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Node.js</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Open source, cross-platformo JavaScript environment that executes JS code outside of a browser</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open source, cross-platformo JavaScript environment that executes JS code outside of a browser.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Angular</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Typescrit-based full-stack web application framework this project will be made with.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typescrit-based full-stack web application framework which was considered in early stages.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">React</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is a JavaScript library for building user interfaces. React can be used as a base in the development of single-page or mobile applications.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript Object Notation is a lightweight data exchange format that will be used by DeChat to store user&#8217;s messages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Interface, is the space where the interaction between the user and the machine will take place.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ldflex-query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Library that allows querying PODS through LDFlex expressions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solid-file-client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Library by Jeff Zucker that allows creating and managing files and folders in SOLID PODs.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RDF</p></td>
@@ -1443,7 +1457,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-19 09:57:19 +0100
+Last updated 2019-03-20 09:20:25 +0100
 </div>
 </div>
 </body>

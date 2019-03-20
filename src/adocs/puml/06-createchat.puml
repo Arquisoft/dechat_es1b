@@ -1,0 +1,18 @@
+@startuml
+
+title "Create Chat"
+
+actor UserA as user
+participant DeChat
+database PODA as poda
+
+
+user -> DeChat : click chat
+group start_chat
+    DeChat -> poda  : checkDeChatFolder()
+    DeChat -> poda: createFolder("/dechat")
+    DeChat -> DeChat : checkForNewNotifications()
+end
+DeChat -> user : display chat window
+
+@enduml
