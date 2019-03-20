@@ -187,7 +187,7 @@ async function checkForNewMessages(chat, index) {
             sendedMessage = "<div class='outgoing_msg'>"+
                                     "<div class='sent_msg'>"+
                                     "<p>"+ messages[i].content +"</p>"+
-                                    "<span class='time_date'>"+ messages[i].timestamp+"</span> </div>"+
+                                    "<span class='time_date'>"+ new Date(messages[i].timestamp).toLocaleDateString()+"\t" + new Date(messages[i].timestamp).toLocaleTimeString()+"</span> </div>"+
                                     " </div>";
             
         }
@@ -197,7 +197,7 @@ async function checkForNewMessages(chat, index) {
                                 "<div class='received_msg'>"+
                                     "<div class='received_withd_msg'>"+
                                         "<p>"+messages[i].content+"</p>"+
-                                        "<span class='time_date'>"+messages[i].timestamp+"</span></div>"+
+                                        "<span class='time_date'>"+new Date(messages[i].timestamp).toLocaleDateString()+"\t"+new Date(messages[i].timestamp).toLocaleTimeString()+"</span></div>"+
                                     "</div>"
                             "</div>";
         }
