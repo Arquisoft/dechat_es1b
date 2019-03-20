@@ -1,9 +1,7 @@
-const Chat = require("../src/lib/chat")
-const auth= require("solid-auth-client")
+const Chat = require("../src/lib/Chat")
 const fc = require("solid-file-client")
 const Persona = require("../src/model/person")
 const chatManager = require("../src/lib/ChatManager/ChatManager")
-const folderManager = require("../src/lib/ChatManager/ChatWriter/FolderManager.js");
 const fileManager = require("../src/lib/ChatManager/ChatWriter/FileManager");
 
 const user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
