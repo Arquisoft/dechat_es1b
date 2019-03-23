@@ -1,12 +1,12 @@
 [[section-solution-strategy]]
 == Solution Strategy
 
-The application will be structured with MVC architectural pattern, to achieve this we will work using Angular framework therefore Javascript is choosen as programming language.
+Language of choice is JavaScript. It's the most adequate language to develop SOLID apps at the moment both because of the support module wise it has currently such as its synergy with web applications.
 
-The choose of Javascript has a significant reason, it is necessary/appropriate to integrate SOLID technology which is the piece that our application will be focused.
-On the other hand, the GUI (graphic user interface), obviously will be developed using web technologies (HTML5 and CSS3) and following their standards defined in W3C. 
+Node.js modularity, asynchronity capabilities and its underlaying package managers are interesting features we want in our application therefore DeChat is made with Node. 
 
-Finally, it is expected that we should use JSON as file format to transmit data objects and intercomunnicate our application and RDF (Resource Description Framework) which is necessary to interchange data on the Web.
+However we want DeChat to be client side and communicate with the POD's wherever they are hosted, removing any unneeded middle server. For that purpose, Webpack will be used to keep all the advantages of Node, client side.
 
-* The technology decisions that has been made are focus on the compatibilities with SOLID specification.
-* All decisions were made with the aim of easily developing the application, using previous knowledge of the team members and adapting them to SOLID technology.
+For the UI because of our time constraints JQuery will be used. A framework such as Angular or React would be more of a hindrance than an advantage considering we already have to learn a lot of new tech we aren't used to as students and for this project's needs they would be overdesigning anyways.
+
+As for data storage, JSON is our choice because it's lightweight and it's ingrained into JavaScript.
