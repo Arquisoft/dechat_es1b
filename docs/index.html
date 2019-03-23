@@ -464,6 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_create_chat">6.1. Create Chat</a></li>
 <li><a href="#_send_message">6.2. Send Message</a></li>
+<li><a href="#_receive_notification">6.3. Receive notification</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
@@ -474,9 +475,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_concept_1">8.1. <em>&lt;Concept 1&gt;</em></a></li>
-<li><a href="#_concept_2">8.2. <em>&lt;Concept 2&gt;</em></a></li>
-<li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
+<li><a href="#_data_privacy_and_ownership">8.1. Data Privacy and Ownership</a></li>
+<li><a href="#_performance">8.2. Performance</a></li>
+<li><a href="#_security">8.3. Security</a></li>
+<li><a href="#_user_experience">8.4. User Experience</a></li>
 </ul>
 </li>
 <li><a href="#section-architectural-decisions">9. Architectural decisions</a>
@@ -674,7 +676,7 @@ so they will have total control over their personal information and data.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TC2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use Node.js</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID technology are very young, we don&#8217;t have time to create new libraries in our speciality. (Java)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID technology are very young, we don&#8217;t have time to create new libraries in our specialty. (Java)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TC3</p></td>
@@ -742,7 +744,7 @@ so they will have total control over their personal information and data.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">C2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Language</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">English, this app is focused on an international audience.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">English, this app is focused on a global audience.</p></td>
 </tr>
 </tbody>
 </table>
@@ -762,27 +764,30 @@ trying to adjust as better as possible the first version of our chat.</p>
 </div>
 <div class="sect2">
 <h3 id="_business_context">3.1. Business Context</h3>
+<div class="sect3">
+<h4 id="_users">3.1.1. Users</h4>
 <div class="paragraph">
-<div class="title"><strong>Users</strong></div>
 <p>Users can chat privately, messages aren´t registered in a server,
 with others using their own pod (SOLID credentials for any client)</p>
 </div>
-<div class="paragraph">
-<div class="title"><strong>SOLID</strong></div>
-<p>Decentralized server to allow communication interchange.
-Any user needs an account to use the chat because it´s the key
-of the decentralization.</p>
 </div>
+<div class="sect3">
+<h4 id="_solid_pod">3.1.2. SOLID POD</h4>
 <div class="paragraph">
-<div class="title"><strong>Browser</strong></div>
-<p>This is a web app so we need a browser to run it.
-The app will be used in every modern browser (multi browser compatibility)</p>
+<p>Each user&#8217;s data will be stored in their own personal POD to guarantee the ownership of their data.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_browser">3.1.3. Browser</h4>
+<div class="paragraph">
+<p>DeChat is client side, it depends on the browser to be run. Multi-browser compatibility is imperative.</p>
 </div>
 <div id="img-overviewbusinessdiagram" class="imageblock">
 <div class="content">
-<img src="./diagrams/scopecontext.jpg" alt="overviewbusinessdiagram">
+<img src="./diagrams/05-scopecontext.jpg" alt="overviewbusinessdiagram">
 </div>
 <div class="title">Figure 1. <strong>Overview Business diagram</strong></div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -796,23 +801,8 @@ This way we will get the final task, a decentralized chat.</p>
 </div>
 <div class="paragraph">
 <div class="title"><strong>Frontend</strong></div>
-<p>DeChat may be composed, at least, by two different components.</p>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Login: Identify the user to been able to chat.</p>
-</li>
-<li>
-<p>Chat: The chat itself, allows users interaction with each other.</p>
-</li>
-</ol>
-</div>
-<div id="img-overviewtechdiagram" class="imageblock">
-<div class="content">
-<img src="./diagrams/initialTechContext.png" alt="overviewtechdiagram">
-</div>
-<div class="title">Figure 2. Overview Technical diagram</div>
+<p>The frontend will be a SPA (Single page application) in which the user will make all of his interactions, which will be the authentication and the chatting itself.
+The application must interact with the PODs through their HTTP API.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -822,24 +812,19 @@ This way we will get the final task, a decentralized chat.</p>
 <h2 id="section-solution-strategy">4. Solution Strategy</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application will be structured with MVC architectural pattern, to achieve this we will work using Angular framework therefore Javascript is choosen as programming language.</p>
+<p>Language of choice is JavaScript. It&#8217;s the most adequate language to develop SOLID apps at the moment both because of the support module wise it has currently such as its synergy with web applications.</p>
 </div>
 <div class="paragraph">
-<p>The choose of Javascript has a significant reason, it is necessary/appropriate to integrate SOLID technology which is the piece that our application will be focused.
-On the other hand, the GUI (graphic user interface), obviously will be developed using web technologies (HTML5 and CSS3) and following their standards defined in W3C.</p>
+<p>Node.js modularity, asynchronity capabilities and its underlaying package managers are interesting features we want in our application therefore DeChat is made with Node.</p>
 </div>
 <div class="paragraph">
-<p>Finally, it is expected that we should use JSON as file format to transmit data objects and intercomunnicate our application and RDF (Resource Description Framework) which is necessary to interchange data on the Web.</p>
+<p>However we want DeChat to be client side and communicate with the POD&#8217;s wherever they are hosted, removing any unneeded middle server. For that purpose, Webpack will be used to keep all the advantages of Node, client side.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>The technology decisions that has been made are focus on the compatibilities with SOLID specification.</p>
-</li>
-<li>
-<p>All decisions were made with the aim of easily developing the application, using previous knowledge of the team members and adapting them to SOLID technology.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>For the UI because of our time constraints JQuery will be used. A framework such as Angular or React would be more of a hindrance than an advantage considering we already have to learn a lot of new tech we aren&#8217;t used to as students and for this project&#8217;s needs they would be overdesigning anyways.</p>
+</div>
+<div class="paragraph">
+<p>As for data storage, JSON is our choice because it&#8217;s lightweight and it&#8217;s ingrained into JavaScript.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -853,19 +838,19 @@ On the other hand, the GUI (graphic user interface), obviously will be developed
 <div class="content">
 <img src="./diagrams/05-scopecontext.jpg" alt="overviewdiagram">
 </div>
-<div class="title">Figure 3. Overview diagram</div>
+<div class="title">Figure 2. Overview diagram</div>
 </div>
 <div class="paragraph">
 <p>This view illustrates the relationship between the app and the users and pods.</p>
 </div>
 <div class="sect3">
-<h4 id="_users">5.1.1. Users</h4>
+<h4 id="_users_2">5.1.1. Users</h4>
 <div class="paragraph">
 <p>The users will interact with the application through their user agent, reading and sending information from/to the DeChat.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_solid_pod">5.1.2. Solid POD</h4>
+<h4 id="_solid_pod_2">5.1.2. Solid POD</h4>
 <div class="paragraph">
 <p>Solid PODs store the data of their owner. Each user&#8217;s messages will be stored in their own POD and nowhere else.
 PODs also contain the inbox where notificiations for new messages will be sent.</p>
@@ -888,7 +873,7 @@ The application will be run client-side, in the user&#8217;s browser.</p>
 <div class="content">
 <img src="./diagrams/05-bb_level2.png" alt="level2">
 </div>
-<div class="title">Figure 4. DeChat Main Blocks</div>
+<div class="title">Figure 3. DeChat Main Blocks</div>
 </div>
 <div class="sect3">
 <h4 id="_ui">5.2.1. UI</h4>
@@ -919,7 +904,7 @@ Each DeChat&#8217;s instance will write/read both to the user&#8217;s POD (write
 <div class="content">
 <img src="./diagrams/05-chatmanager.jpg" alt="uiuml">
 </div>
-<div class="title">Figure 5. Chat interface and ChatManager main modules</div>
+<div class="title">Figure 4. Chat interface and ChatManager main modules</div>
 </div>
 </div>
 <div class="sect3">
@@ -966,7 +951,7 @@ Some third party notable dependencies are <code>ldflex-query</code> and <code>so
 <div class="content">
 <img src="./diagrams/06-createchat.png" alt="createchat">
 </div>
-<div class="title">Figure 6. Create chat - Sequence diagram</div>
+<div class="title">Figure 5. Create chat - Sequence diagram</div>
 </div>
 <div class="paragraph">
 <p>The user selects a friend in the UI and clicks the Chat button. First the app checks if the containing folder for the chats is already present in the pod, otherwise it gets created.</p>
@@ -997,7 +982,25 @@ Some third party notable dependencies are <code>ldflex-query</code> and <code>so
 <div class="content">
 <img src="./diagrams/06-sendmessage.png" alt="sendmessage">
 </div>
-<div class="title">Figure 7. Send message - Sequence diagram</div>
+<div class="title">Figure 6. Send message - Sequence diagram</div>
+</div>
+<div class="paragraph">
+<p>The user types his message and clicks the send button. Afterwards a message object is composed with all the relevant data (users IDs, content, timestamp).
+The message is then written in its author&#8217;s POD and a notification gets sent to his partner&#8217;s inbox so he knows he got new messages from this particular chat.
+Finally the UI is refreshed to show the new message.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_receive_notification">6.3. Receive notification</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User receives a notification indicating new messages</p>
+</li>
+<li>
+<p>A notification is shown in the user&#8217;s UI</p>
+</li>
+</ol>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1132,114 +1135,40 @@ when your infrastructure is more complex.</p>
 <div class="sect1">
 <h2 id="section-concepts">8. Cross-cutting Concepts</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<div class="title">Content</div>
-<p>This section describes overall, principal regulations and solution ideas that are
-relevant in multiple parts (= cross-cutting) of your system.
-Such concepts are often related to multiple building blocks.
-They can include many different topics, such as</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>domain models</p>
-</li>
-<li>
-<p>architecture patterns or design patterns</p>
-</li>
-<li>
-<p>rules for using specific technology</p>
-</li>
-<li>
-<p>principal, often technical decisions of overall decisions</p>
-</li>
-<li>
-<p>implementation rules</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Concepts form the basis for <em>conceptual integrity</em> (consistency, homogeneity)
-of the architecture. Thus, they are an important contribution to achieve inner qualities of your system.</p>
-</div>
-<div class="paragraph">
-<p>Some of these concepts cannot be assigned to individual building blocks
-(e.g. security or safety). This is the place in the template that we provided for a
-cohesive specification of such concepts.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>The form can be varied:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>concept papers with any kind of structure</p>
-</li>
-<li>
-<p>cross-cutting model excerpts or scenarios using notations of the architecture views</p>
-</li>
-<li>
-<p>sample implementations, especially for technical concepts</p>
-</li>
-<li>
-<p>reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Structure</div>
-<p>A potential (but not mandatory) structure for this section could be:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Domain concepts</p>
-</li>
-<li>
-<p>User Experience concepts (UX)</p>
-</li>
-<li>
-<p>Safety and security concepts</p>
-</li>
-<li>
-<p>Architecture and design patterns</p>
-</li>
-<li>
-<p>"Under-the-hood"</p>
-</li>
-<li>
-<p>development concepts</p>
-</li>
-<li>
-<p>operational concepts</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Note: it might be difficult to assign individual concepts to one specific topic
-on this list.</p>
-</div>
 <div class="sect2">
-<h3 id="_concept_1">8.1. <em>&lt;Concept 1&gt;</em></h3>
+<h3 id="_data_privacy_and_ownership">8.1. Data Privacy and Ownership</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>Perhaps the most important concept surrounding this project and what sets it apart from a conventional chat.</p>
+</div>
+<div class="paragraph">
+<p>Pursuing what the SOLID spec looks for, its imperative that the user regains control of his own data and that it doesnt fall in the hands of a third party.</p>
+</div>
+<div class="paragraph">
+<p>For that purpose each user&#8217;s data will be uniquely in his own POD, a personal storage to which only he has full control over. As a result, when a user sends a message this message will only be stored in that user&#8217;s POD and nowhere else. His partner will be able to read this message as long as he is granted permission to do so but as said, the data will be exclusively in its author&#8217;s POD.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_2">8.2. <em>&lt;Concept 2&gt;</em></h3>
+<h3 id="_performance">8.2. Performance</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>Obviously we aren&#8217;t trying to get top of the industry speed in our chat, but that doesnt mean that its latency should be thrown out of the window either.</p>
 </div>
 <div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p>Considering that decentralizing the data means we will have to connect to several PODs instead of a unique server like in a centralized architecture it might be a challenge to retain acceptable speeds.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_concept_n">8.3. <em>&lt;Concept n&gt;</em></h3>
+<h3 id="_security">8.3. Security</h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>It&#8217;s important to preserve the privacy of the data and the security of the user during the usage of DeChat.</p>
+</div>
+<div class="paragraph">
+<p>For that purpose all connections will be done through HTTPS. Authentication will be done with the user&#8217;s POD and special care is given to the <a href="https://github.com/solid/web-access-control-spec">Authorization</a> as well.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_user_experience">8.4. User Experience</h3>
+<div class="paragraph">
+<p>At the end of the day this is a chat and its meant to allow several people to communicate through it. User interface must be friendly and accessible so all kind of user profiles can use the application without any impediment or difficulty.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1369,12 +1298,11 @@ on this list.</p>
 </div>
 <div class="sect2">
 <h3 id="_quality_tree">10.1. Quality Tree</h3>
-<div class="sidebarblock arc42help">
+<div id="img-mindmap" class="imageblock">
 <div class="content">
-<div class="paragraph">
-<p>TBD</p>
+<img src="./diagrams/10-mindmap.png" alt="qualityattributes">
 </div>
-</div>
+<div class="title">Figure 7. Quality attributes</div>
 </div>
 </div>
 <div class="sect2">
@@ -1429,6 +1357,10 @@ on this list.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Open source, cross-platformo JavaScript environment that executes JS code outside of a browser.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Webpack</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Module bundler that processes a project&#8217;s dependencies a generates one or more bundles.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Angular</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Typescrit-based full-stack web application framework which was considered in early stages.</p></td>
 </tr>
@@ -1439,6 +1371,10 @@ on this list.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JSON</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript Object Notation is a lightweight data exchange format that will be used by DeChat to store user&#8217;s messages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RDF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Resource Description Framework) RDF is a standard model for data interchange on the Web.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">UI</p></td>
@@ -1453,10 +1389,6 @@ on this list.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Library by Jeff Zucker that allows creating and managing files and folders in SOLID PODs.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RDF</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(Resource Description Framework) RDF is a standard model for data interchange on the Web.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NPM</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The default package handler for Node.js, an execution environment for JavaScript.</p></td>
 </tr>
@@ -1467,6 +1399,10 @@ on this list.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jQuery</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is a multiplatform library of JavaScript, that allows to simplify the way to interact with HTML documents, manipulate the DOM tree, manage events, develop animations and add interaction with the AJAX technique to web pages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">.acl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">files that specify the authorization rules of a POD&#8217;s directory/file.</p></td>
 </tr>
 </tbody>
 </table>

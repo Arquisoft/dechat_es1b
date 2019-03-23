@@ -31,11 +31,9 @@ The app must be used in any operating system as long as it has a web browser.
 
 
 === Quality Tree
-
-[role="arc42help"]
-****
-TBD
-****
+[#img-mindmap]
+.Quality attributes
+image::./diagrams/10-mindmap.png[qualityattributes]
 
 === Quality Scenarios
 

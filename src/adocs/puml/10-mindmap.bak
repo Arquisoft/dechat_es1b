@@ -1,0 +1,22 @@
+@startmindmap
++ Quality attributes
+++ Testability
++++ <i>Unit tests</i>
++++ <i>Continous Integration</i>
++++ <i>Coverage</i>
+++ Performance
++++ Latency
+++ Usability
++++ Friendliness
++++ Accessibility
+-- Maintanability
+-- Adaptability
+-- Suitability
+-- Modularity
+--- Testable modules
+--- Extensible
+--- Replacability
+-- Portability
+-- Security
+--- <i>Authorizations</i>
+@endmindmap
