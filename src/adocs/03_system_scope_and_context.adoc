@@ -9,22 +9,21 @@ trying to adjust as better as possible the first version of our chat.
 
 === Business Context
 
-.*Users*
+==== Users
 Users can chat privately, messages aren´t registered in a server, 
 with others using their own pod (SOLID credentials for any client)  
 
-.*SOLID*
-Decentralized server to allow communication interchange.
-Any user needs an account to use the chat because it´s the key 
-of the decentralization.
+==== SOLID POD
+Each user's data will be stored in their own personal POD to guarantee the ownership of their data.
 
-.*Browser*
-This is a web app so we need a browser to run it.
-The app will be used in every modern browser (multi browser compatibility)
+==== Browser
+DeChat is client side, it depends on the browser to be run. Multi-browser compatibility is imperative.
+
+
 
 .*Overview Business diagram*
 [#img-overviewbusinessdiagram]
-image::./diagrams/scopecontext.jpg[overviewbusinessdiagram]
+image::./diagrams/05-scopecontext.jpg[overviewbusinessdiagram]
 
 
 === Technical Context
@@ -37,12 +36,7 @@ It detemines who can get a content, as messages, avoiding unwanted accesses from
 This way we will get the final task, a decentralized chat.
 
 .*Frontend* 
+The frontend will be a SPA (Single page application) in which the user will make all of his interactions, which will be the authentication and the chatting itself.
+The application must interact with the PODs through their HTTP API.
 
-DeChat may be composed, at least, by two different components.
 
-.. Login: Identify the user to been able to chat.
-.. Chat: The chat itself, allows users interaction with each other.
-
-.Overview Technical diagram
-[#img-overviewtechdiagram]
-image::./diagrams/initialTechContext.png[overviewtechdiagram]
