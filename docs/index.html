@@ -463,6 +463,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
 <li><a href="#_create_chat">6.1. Create Chat</a></li>
+<li><a href="#_send_message">6.2. Send Message</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
@@ -961,6 +962,43 @@ Some third party notable dependencies are <code>ldflex-query</code> and <code>so
 </li>
 </ol>
 </div>
+<div id="img-createchat" class="imageblock">
+<div class="content">
+<img src="./diagrams/06-createchat.png" alt="createchat">
+</div>
+<div class="title">Figure 6. Create chat - Sequence diagram</div>
+</div>
+<div class="paragraph">
+<p>The user selects a friend in the UI and clicks the Chat button. First the app checks if the containing folder for the chats is already present in the pod, otherwise it gets created.</p>
+</div>
+<div class="paragraph">
+<p>Afterwards, a loop is set up to listen for notifications (new messages from partner) and at last the chat window is displayed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_send_message">6.2. Send Message</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User types his message in the input field and clicks send</p>
+</li>
+<li>
+<p>Message is wrote in user&#8217;s POD</p>
+</li>
+<li>
+<p>A notification is sent to partner&#8217;s inbox</p>
+</li>
+<li>
+<p>UI is refreshed</p>
+</li>
+</ol>
+</div>
+<div id="img-sendmessage" class="imageblock">
+<div class="content">
+<img src="./diagrams/06-sendmessage.png" alt="sendmessage">
+</div>
+<div class="title">Figure 7. Send message - Sequence diagram</div>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1457,7 +1495,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-20 09:20:25 +0100
+Last updated 2019-03-23 14:52:58 +0100
 </div>
 </div>
 </body>

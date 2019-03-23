@@ -68,3 +68,6 @@ typings/
 
 # .idea
 .idea
+
+# linter
+.eslintrc.js

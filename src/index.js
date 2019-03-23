@@ -1,14 +1,17 @@
-const session = require("./lib/session")
-const query = require("./lib/ldflex-queries")
-const Chat = require("./lib/chat")
-const Person = require("./model/person")
+/* eslint-disable semi */
+/* eslint-disable space-before-function-paren */
+/* eslint-disable indent */
+const session = require('./lib/session')
+const query = require('./lib/ldflex-queries')
+const Chat = require('./lib/chat')
+const Person = require('./model/person')
 
 let user;
 
 /**
  * On DOM load, set solid.auth to track the session status
  */
-$("document").ready(async () => {
+$('document').ready(async () => {
     session.track(
         // If there's a session
         async () => {
@@ -26,13 +29,13 @@ $("document").ready(async () => {
 })
 
 // Button listeners
-$("#login").click(async () => {
+$('#login').click(async () => {
     session.login()
 })
 
-$("#logout").click(async () => {
+$('#logout').click(async () => {
     session.logout()
-    $(".friends-list").css("border", "1px solid #2FA7F5");
+    $('.friends-list').css('border', '1px solid #2FA7F5');
 })
 
 
@@ -42,8 +45,8 @@ $("#logout").click(async () => {
 * @param {Integer} i
 */
 function sendMessage(chat, i) {
-    chat.sendMessage(document.getElementById("messageText" + i).value);
-    document.getElementById("messageText" + i).value = "";
+    chat.sendMessage(document.getElementById('messageText' + i).value);
+    document.getElementById('messageText' + i).value = '';
 }
 
 var numberMessagesSended;
@@ -54,18 +57,18 @@ var numberMessagesSended;
 * @param {Integer} i
 */
 async function startChat(friend, i) {
-    var splitId = user.id.split("/");
+    var splitId = user.id.split('/');
     var urlFolder = splitId[0] + splitId[1] + splitId[2];
     const chat = new Chat(user, friend)
     chat.checkDechatFolder(urlFolder);
     //We start the chat when we make sure we have the folder created.
-    console.log("Chat with " + friend.id + " opened")
-    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText" + i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
-    $("#buttonFriend" + i).prop('disabled', true);
-    $("#messageFriend" + i).click(async () => {
+    console.log('Chat with ' + friend.id + ' opened')
+    $('.friends-list').prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + '<h4>' + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText" + i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
+    $('#buttonFriend' + i).prop('disabled', true);
+    $('#messageFriend' + i).click(async () => {
         sendMessage(chat, i)
         //it may be a solve to show messages when they are send but it produces other bugs.
-        $(".chatContent").append("<p class='textMessageSended'>" + user.inbox.substring(0, user.inbox.length - 6) + " >" + document.getElementById("messageText" + i).value + "</p>");
+        $('.chatContent').append("<p class='textMessageSended'>" + user.inbox.substring(0, user.inbox.length - 6) + ' >' + document.getElementById('messageText' + i).value + '</p>');
         numberMessagesSended++;
     });
 
@@ -79,24 +82,24 @@ async function startChat(friend, i) {
 * Empty the user's contacts html list
 */
 function emptyFriendsList() {
-    $(".friends-list").empty()
+    $('.friends-list').empty()
 }
 
-$("#friends").click(async () => {
-    $(".friends-list").show();
-    $(".friends-list").css("border", "1px solid #2FA7F5");
+$('#friends').click(async () => {
+    $('.friends-list').show();
+    $('.friends-list').css('border', '1px solid #2FA7F5');
     userWerbId = session.getSession().webId;
     friends = await query.getFriends();
     emptyFriendsList();
     $.each(friends, (i, friend) => {
         console.log(friend, i)
-        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
-        $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
+        $('.friends-list').prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + 'Chat with ' + friend.name + '</button></ul>');
+        $('#buttonFriend' + i).click(async () => { startChat(friend, i) });
 
-        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
+        console.log('Friend #' + i + ' ' + friend.id + ' ' + friend.name + ' ' + friend.inbox);
     })
-    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>");
-    $("#closeChats").click(async () => { closeChats(friends) });
+    $('.friends-list').prepend("<ul><button class='closeChats' id='closeChats'>" + 'Close Chats </button></ul>');
+    $('#closeChats').click(async () => { closeChats(friends) });
 })
 
 /**
@@ -105,8 +108,8 @@ $("#friends").click(async () => {
 */
 function closeChats(friends) {
     $.each(friends, (i, friend) => {
-        $("#chatContainer" + i).remove()
-        $("#buttonFriend" + i).prop('disabled', false);
+        $('#chatContainer' + i).remove()
+        $('#buttonFriend' + i).prop('disabled', false);
     })
 }
 
@@ -120,15 +123,15 @@ function closeChats(friends) {
  */
 function changeView(session) {
 
-    $("#login").prop("hidden", session);
-    $("#login").prop("show", !session);
-    $("#friends").prop("hidden", !session);
-    $("#friends").prop("show", session);
+    $('#login').prop('hidden', session);
+    $('#login').prop('show', !session);
+    $('#friends').prop('hidden', !session);
+    $('#friends').prop('show', session);
     changeTitles(session);
     if (!session)
-        $("#navbar").css("visibility", "hidden");
+        $('#navbar').css('visibility', 'hidden');
     if (session)
-        $("#navbar").css("visibility", "visible");
+        $('#navbar').css('visibility', 'visible');
     if (!session)
         emptyFriendsList()
 }
@@ -139,11 +142,11 @@ function changeView(session) {
 */
 async function changeTitles(session) {
     if (session) {
-        $("#titleApp").html("Welcome user: " + await query.getName());
-        $("#subTitleApp").prop("hidden", session)
+        $('#titleApp').html('Welcome user: ' + await query.getName());
+        $('#subTitleApp').prop('hidden', session)
     } else {
-        $("#titleApp").html("Sign in using Solid technology");
-        $("#subTitleApp").prop("show", session)
+        $('#titleApp').html('Sign in using Solid technology');
+        $('#subTitleApp').prop('show', session)
     }
 }
 
@@ -163,24 +166,24 @@ async function checkForNewMessages(chat) {
 */
 function updateUIMessages(messages) {
 	// Deleted all the displayed messages
-    $("#textMessageScreen").remove();
-    $(".textMessageScreen").remove();
+    $('#textMessageScreen').remove();
+    $('.textMessageScreen').remove();
     var i;
     //Show all the messages
     var j;
     var messageSendedContent;
     for (j = 0; j < numberMessagesSended; j++)
-        messageSendedContent[j] = $(".textMessageSended").text();
+        messageSendedContent[j] = $('.textMessageSended').text();
 
 
     for (i = 0; i < messages.length; i++) {
-        $(".chatContent").append("<p class='textMessageScreen' id='textMessageScreen'>" + messages[i].sender + " >" + messages[i].content + "</p>");
+        $('.chatContent').append("<p class='textMessageScreen' id='textMessageScreen'>" + messages[i].sender + ' >' + messages[i].content + '</p>');
     }
 
-    $(".textMessageSended").remove();
+    $('.textMessageSended').remove();
     var k;
     for (k = 0; k < numberMessagesSended; k++)
-        $(".chatContent").append("<p class='textMessageSended'>" + messageContent[k] + "</p>");
+        $('.chatContent').append("<p class='textMessageSended'>" + messageContent[k] + '</p>');
 }
 
 /**
@@ -188,8 +191,8 @@ function updateUIMessages(messages) {
  * @param {Chat} A chat in particular
  */
 async function showNotification(chat) {
-    console.log("Got a new message");
-    $(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
+    console.log('Got a new message');
+    $('.friends-list').prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + ' sends you a new message!</div>');
     hideNotifications();
 }
 
@@ -197,7 +200,7 @@ async function showNotification(chat) {
  * This method has the function of hiding notifications
  */
 async function hideNotifications() {
-    $("#notificacion").fadeOut(1500);
+    $('#notificacion').fadeOut(1500);
 }
 
 
