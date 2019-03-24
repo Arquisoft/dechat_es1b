@@ -88,7 +88,32 @@ async function startChat(friend, i) {
 
 
     //Load stored messages from POD.
-
+    var storedMessages = await chat.getMessages();
+    console.log(storedMessages);
+    var j;
+    for(j = 0 ; j< storedMessages.length; j++){
+        var storedContent;
+        if(storedMessages[j].user==user.id){
+            storedContent = "<div class='outgoing_msg'>"+
+                                    "<div class='sent_msg'>"+
+                                    "<p>"+ storedMessages[j].content +"</p>"+
+                                    "<span class='time_date'>"+ new Date(storedMessages[j].timestamp).toLocaleDateString()+"\t" + new Date(storedMessages[j].timestamp).toLocaleTimeString()+"</span> </div>"+
+                                    " </div>";
+            
+        }
+        else{
+            storedContent = "<div class='incoming_msg'>"+
+                                "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>"+
+                                "<div class='received_msg'>"+
+                                    "<div class='received_withd_msg'>"+
+                                        "<p>"+storedMessages[j].content+"</p>"+
+                                        "<span class='time_date'>"+new Date(storedMessages[j].timestamp).toLocaleDateString()+"\t"+new Date(storedMessages[j].timestamp).toLocaleTimeString()+"</span></div>"+
+                                    "</div>"
+                            "</div>";
+        }
+        console.log("Messages loop" + storedMessages[j].content);
+        $("#msg_history" + i).append(storedContent);
+    }
 
     
     //Add action to sending messages button

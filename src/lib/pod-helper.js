@@ -90,7 +90,7 @@ class PODHelper{
 	readPod(userURL, friendURL){
 		var user = userURL.replace("https://","").replace("/profile/card#me","");
 		var partner = friendURL.replace("https://","").replace("/profile/card#me","");
-		return reader.read(user, partner);
+        return reader.read(user, partner);
 	}
 
     /**

@@ -15,6 +15,7 @@ class Chat{
 		this.messages = []
     }
     
+
     /**
     * Method to send a message
     * @param {String} text content of the message 
@@ -36,7 +37,9 @@ class Chat{
     * @return {Array} messages
     */
     async getMessages(){
-        return this.messages;
+        console.log("Initialized chat user: " + this.user.name + "Partner: " + this.partner.name);
+        var listMessages = await this.pod.readPod(this.user.id, this.partner.id);
+        return listMessages;
     }
     
     /**
