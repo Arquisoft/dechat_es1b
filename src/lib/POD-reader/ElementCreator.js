@@ -6,8 +6,8 @@
  */
 function createSingle(sender, receiver, tmessage){
 	var tr = new Object;
-	tr.sender = sender;
-	tr.receiver = receiver;
+	tr.user = sender;
+	tr.partner = receiver;
 	tr.content = tmessage.message;
 	tr.timestamp = tmessage.date;
 	return tr;

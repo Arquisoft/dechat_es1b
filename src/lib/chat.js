@@ -80,7 +80,7 @@ class Chat{
         }
 
         if (hits.length > 0){
-            callback();
+            callback(this.messages);
         }
 
         for (const url of hits){

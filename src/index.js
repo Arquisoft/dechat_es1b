@@ -33,28 +33,28 @@ $("#login").click(async () => {
 
 $("#logout").click(async () => {
     session.logout()
-    
+
 })
 
 
-async function loadInitialContacts(){
+async function loadInitialContacts() {
     loadFriends();
 }
 
-async function loadFriends(){
+async function loadFriends() {
     friends = await query.getFriends();
     emptyFriendsList();
     $.each(friends, (i, friend) => {
         console.log(friend, i)
-        var textFriend = "<div class='chat_list'>"+
-                            "<div class='chat_people'>"+
-                                "<div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='profile img'> </div>"+
-                                    "<div class='chat_ib'>"+
-                                        "<h5>"+ friend.name +"</h5>"+
-                                    "</div>"+
-                                "</div>"+
-                                "<button class='btn btn-outline-secondary btn-rounded waves-effect' id='buttonFriend" + i + "'>" + " Chat </button>" + 
-                            "</div>";
+        var textFriend = "<div class='chat_list'>" +
+            "<div class='chat_people'>" +
+            "<div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='profile img'> </div>" +
+            "<div class='chat_ib'>" +
+            "<h5>" + friend.name + "</h5>" +
+            "</div>" +
+            "</div>" +
+            "<button class='btn btn-outline-secondary btn-rounded waves-effect' id='buttonFriend" + i + "'>" + " Chat </button>" +
+            "</div>";
         $("#chat_scroll").prepend(textFriend);
         $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
@@ -77,63 +77,121 @@ async function startChat(friend, i) {
     console.log("Chat with " + friend.id + " opened")
 
     $("#mesgs").empty(); //Delete all the content of mesgs
-    var initialMessageContent = "<div class='msg_history' id='msg_history" + i+"'>"+"</div>"+
-                                "<div class='type_msg'>"+
-                                    "<div class='input_msg_write'>"+
-                                        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "'/>"+
-                                         "<button class='msg_send_btn' type='button' id='sendMessages" + i + "'>" +"Send</button>"+
-                                    "</div>"+
-                                "</div>";                            
+    var initialMessageContent = "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
+        "<div class='type_msg'>" +
+        "<div class='input_msg_write'>" +
+        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "'/>" +
+        "<button class='msg_send_btn' type='button' id='sendMessages" + i + "'>" + "Send</button>" +
+        "</div>" +
+        "</div>";
     $("#mesgs").append(initialMessageContent);
 
-
-    //Load stored messages from POD.
-    var storedMessages = await chat.getMessages();
-    console.log(storedMessages);
-    var j;
-    for(j = 0 ; j< storedMessages.length; j++){
-        var storedContent;
-        if(storedMessages[j].user==user.id){
-            storedContent = "<div class='outgoing_msg'>"+
-                                    "<div class='sent_msg'>"+
-                                    "<p>"+ storedMessages[j].content +"</p>"+
-                                    "<span class='time_date'>"+ new Date(storedMessages[j].timestamp).toLocaleDateString()+"\t" + new Date(storedMessages[j].timestamp).toLocaleTimeString()+"</span> </div>"+
-                                    " </div>";
-            
-        }
-        else{
-            storedContent = "<div class='incoming_msg'>"+
-                                "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>"+
-                                "<div class='received_msg'>"+
-                                    "<div class='received_withd_msg'>"+
-                                        "<p>"+storedMessages[j].content+"</p>"+
-                                        "<span class='time_date'>"+new Date(storedMessages[j].timestamp).toLocaleDateString()+"\t"+new Date(storedMessages[j].timestamp).toLocaleTimeString()+"</span></div>"+
-                                    "</div>"
-                            "</div>";
-        }
-        console.log("Messages loop" + storedMessages[j].content);
-        $("#msg_history" + i).append(storedContent);
-    }
 
     
     //Add action to sending messages button
     $("#sendMessages" + i).click(async () => {
-        sendMessage(chat, i);
-        var messageContent = "<div class='outgoing_msg'>"+
-                                "<div class='sent_msg'>"+
-                                    "<p>"+$("#contentText" + i).val()+"</p>"+
-                                 "</div>"+
-                                "</div>";
+        var messageContent = "<div class='outgoing_msg'>" +
+                "<div class='sent_msg'>" +
+                "<p>" + document.getElementById("contentText"+i).value + "</p>" +
+                "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
+                " </div>";
+
+        sendMessage(chat, i, user, friend);
+
         $("#msg_history" + i).append(messageContent);
+
         numberMessagesSended++;
     });
 
     // Set up listener for new messages, time in ms
     setInterval(() => {
-            checkForNewMessages(chat, i)
+        checkForNewMessages(chat, i)
     }, 5000);
 
 }
+
+
+
+/**
+* Check if there is a new message in a chat.
+* @param {Chat} A chat in particular
+*/
+async function checkForNewMessages(chat, index) {
+    // Pass the callback function to execute if a new notification is received
+    var messages = await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
+}
+/**
+* Update chat UI. This function should only be called once a notification has arrived.
+* @param {Message[]} messages Message array containing chat messages
+*/
+function updateUIMessages(messages, index) {
+    // Deleted all the displayed messages
+    $("#msg_history" + index).empty();
+
+    var j;
+    var messageSendedContent;
+    for (j = 0; j < numberMessagesSended; j++)
+        messageSendedContent[j] = $("#just_sended").text();
+    
+
+    var i;
+    for (i = 0; i < messages.length; i++) {
+        var sendedMessage;
+        var userToCompare = "https://"+ messages[i].user + "/profile/card#me"; //It is neccesary to known if the message is outgoing or incoming.
+        if (userToCompare == user.id) {
+            sendedMessage = "<div class='outgoing_msg'>" +
+                "<div class='sent_msg'>" +
+                "<p>" + messages[i].content + "</p>" +
+                "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span> </div>" +
+                " </div>";
+
+        }
+        else {
+            sendedMessage = "<div class='incoming_msg'>" +
+                "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>" +
+                "<div class='received_msg'>" +
+                "<div class='received_withd_msg'>" +
+                "<p>" + messages[i].content + "</p>" +
+                "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span></div>" +
+                "</div>"
+            "</div>";
+        }
+        console.log("Messages loop " + messages[i].content);
+        $("#msg_history" + index).append(sendedMessage);
+    }
+
+    $("#just_sended").remove();
+
+    var k;
+    for (k = 0; k < numberMessagesSended; k++){
+       var content =  "<div class='outgoing_msg'>" +
+                "<div class='sent_msg'>" +
+                "<p>" + messagesSendendContent[k]+ "</p>" +
+                "<span class='time_date'>" + new Date().toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span> </div>" +
+                " </div>";
+        $("#msg_history").append(content);
+    }
+}
+
+
+
+/**
+ * Shows a notification in screen when it arrives.
+ * @param {Chat} A chat in particular
+ */
+async function showNotification(chat) {
+    console.log("Got a new message");
+    $("#mesgs").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
+    hideNotifications();
+}
+
+/**
+ * This method has the function of hiding notifications
+ */
+async function hideNotifications() {
+    $("#notificacion").fadeOut(1500);
+}
+
 
 /**
 * Send a message
@@ -142,17 +200,17 @@ async function startChat(friend, i) {
 */
 function sendMessage(chat, i) {
     chat.sendMessage($("#contentText" + i).val());
-    $("#contentText" + i).val("");
+    $("#contentText" + i).val(""); //Remove content of the send message text area
 }
 
 /**
 * Empty the user's contacts html list
 */
 function emptyFriendsList() {
-   // $(".friends-list").empty()
-   $(".inbox_chat scroll").empty();
+    // $(".friends-list").empty()
+    $(".inbox_chat scroll").empty();
 
-}   
+}
 
 
 /**
@@ -169,16 +227,16 @@ function changeView(session) {
     $("#mainHeader").prop("hidden", session);
     $("#mainHeader").prop("show", !session);
     changeTitles(session);
-    if (!session){
+    if (!session) {
         $("#navbar").css("visibility", "hidden");
         $(".messaging").css("visibility", "hidden");
         emptyFriendsList();
-    }        
-    if (session){
+    }
+    if (session) {
         $("#navbar").css("visibility", "visible");
         $(".messaging").css("visibility", "visible");
     }
-        
+
 }
 
 /**
@@ -195,77 +253,5 @@ async function changeTitles(session) {
     }
 }
 
-
-/**
-* Check if there is a new message in a chat.
-* @param {Chat} A chat in particular
-*/
-async function checkForNewMessages(chat, index) {
-    // Pass the callback function to execute if a new notification is received
-    var messages = await chat.checkForNotifications(() => { showNotification(chat); });
-    // Deleted all the displayed messages
-    $("#msg_history" + index).empty();
-    var i;
-    for (i = 0; i < messages.length; i++) {
-        var sendedMessage;
-        if(messages[i].user==user.id){
-            sendedMessage = "<div class='outgoing_msg'>"+
-                                    "<div class='sent_msg'>"+
-                                    "<p>"+ messages[i].content +"</p>"+
-                                    "<span class='time_date'>"+ new Date(messages[i].timestamp).toLocaleDateString()+"\t" + new Date(messages[i].timestamp).toLocaleTimeString()+"</span> </div>"+
-                                    " </div>";
-            
-        }
-        else{
-            sendedMessage = "<div class='incoming_msg'>"+
-                                "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>"+
-                                "<div class='received_msg'>"+
-                                    "<div class='received_withd_msg'>"+
-                                        "<p>"+messages[i].content+"</p>"+
-                                        "<span class='time_date'>"+new Date(messages[i].timestamp).toLocaleDateString()+"\t"+new Date(messages[i].timestamp).toLocaleTimeString()+"</span></div>"+
-                                    "</div>"
-                            "</div>";
-        }
-        console.log("Messages loop" + messages[i].content);
-        $("#msg_history" + index).append(sendedMessage);
-    }
-
-    /*var i;
-    //Show all the messages
-    var j;
-    var messageSendedContent;
-    for (j = 0; j < numberMessagesSended; j++)
-        messageSendedContent[j] = $(".textMessageSended").text();
-
-
-    for (i = 0; i < messages.length; i++) {
-        if(messages[i].sender==)
-        $(".chatContent").append("<p class='textMessageScreen' id='textMessageScreen'>" + messages[i].sender + " >" + messages[i].content + "</p>");
-    }
-
-    $(".textMessageSended").remove();
-    var k;
-    for (k = 0; k < numberMessagesSended; k++)
-        $(".chatContent").append("<p class='textMessageSended'>" + messageContent[k] + "</p>");
-*/
-
-}
-
-/**
- * Shows a notification in screen when it arrives.
- * @param {Chat} A chat in particular
- */
-async function showNotification(chat) {
-    console.log("Got a new message");
-    //$(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
-    //hideNotifications();
-}
-
-/**
- * This method has the function of hiding notifications
- */
-async function hideNotifications() {
-    $("#notificacion").fadeOut(1500);
-}
 
 
