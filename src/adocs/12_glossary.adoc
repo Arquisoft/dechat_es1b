@@ -19,5 +19,6 @@
 | IDE | (Integrated Development Environment) IDE is a software application that provides comprehensive facilities to computer programmers for software development.
 | jQuery | Is a multiplatform library of JavaScript, that allows to simplify the way to interact with HTML documents, manipulate the DOM tree, manage events, develop animations and add interaction with the AJAX technique to web pages.
 | .acl | files that specify the authorization rules of a POD's directory/file.
+| GitHub Pages | Static site hosting service by GitHub
 |===
 
