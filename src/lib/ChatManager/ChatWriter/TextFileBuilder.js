@@ -12,14 +12,14 @@ function buildJSONmessages(senderID, receiverID, messages) {
 
 	var jsonstring = JSON.stringify({ "webid_sender": sender, "webid_receiver": receiver, "lastupdate": lastupdate, "messages": "////" });
 	var segments = jsonstring.split('"////"');
-	var ret = "////" + segments[0] + "[";
+	var ret = segments[0] + "[";
 	var i;
 	for (i = 0; i < messages.length; i++) {
 		ret = ret + messages[i].serialize();
 		if (i != messages.length - 1)
 			ret = ret + ",";
 		else
-			ret = ret + "]" + segments[1] + "////";
+			ret = ret + "]" + segments[1];
 	}
 
 	return ret;
