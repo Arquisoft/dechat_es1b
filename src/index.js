@@ -81,13 +81,12 @@ async function startChat(friend, i) {
         "<div class='type_msg'>" +
         "<div class='input_msg_write'>" +
         "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "'/>" +
-        "<button class='msg_send_btn' type='button' id='sendMessages" + i + "'>" + "Send</button>" +
+        "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "'>" + "Send</button>" +
         "</div>" +
         "</div>";
     $("#mesgs").append(initialMessageContent);
 
 
-    
     //Add action to sending messages button
     $("#sendMessages" + i).click(async () => {
         var messageContent = "<div class='outgoing_msg'>" +
@@ -127,10 +126,6 @@ async function checkForNewMessages(chat, index) {
 function updateUIMessages(messages, index) {
     // Deleted all the displayed messages
     $("#msg_history" + index).empty();
-
-
-    
-
     var i;
     for (i = 0; i < messages.length; i++) {
         var sendedMessage;
