@@ -128,10 +128,7 @@ function updateUIMessages(messages, index) {
     // Deleted all the displayed messages
     $("#msg_history" + index).empty();
 
-    var j;
-    var messageSendedContent;
-    for (j = 0; j < numberMessagesSended; j++)
-        messageSendedContent[j] = $("#just_sended").text();
+
     
 
     var i;
@@ -160,17 +157,7 @@ function updateUIMessages(messages, index) {
         $("#msg_history" + index).append(sendedMessage);
     }
 
-    $("#just_sended").remove();
 
-    var k;
-    for (k = 0; k < numberMessagesSended; k++){
-       var content =  "<div class='outgoing_msg'>" +
-                "<div class='sent_msg'>" +
-                "<p>" + messagesSendendContent[k]+ "</p>" +
-                "<span class='time_date'>" + new Date().toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span> </div>" +
-                " </div>";
-        $("#msg_history").append(content);
-    }
 }
 
 
