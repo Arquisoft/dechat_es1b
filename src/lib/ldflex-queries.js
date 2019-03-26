@@ -38,25 +38,36 @@ async function getInbox(webID) {
  * @return {Array} array of friends
  */
 async function getFriends(webID) {
-    let friends
+    let friends;
     toRet = [];
     if (webID)
-        friends = data[webID].friends
+        friends = data[webID].friends;
     else
-        friends = data.user.friends
+        friends = data.user.friends;
     for await (const friend of friends){
-      var id = await friend.value
-      var name = await getName(id)
-      var inbox = await getInbox(id)
+      var id = await friend.value;
+      var name = await getName(id);
+      var inbox = await getInbox(id);
       toRet.push(new Person(id, name, inbox));
     }
     return toRet;
   }
+
+async function getProfilePic(webID){
+    let pic;
+    if (webID)
+        pic = data[webID].vcard$hasPhoto;
+    else
+        pic = data.user.vcard$hasPhoto;
+    pic = await pic.value;
+    return pic;
+}
   
 
 
 module.exports = {
     getName,
     getInbox,
-    getFriends
+    getFriends,
+    getProfilePic
 }

@@ -72,6 +72,15 @@ class Chat {
         }
         return this.messages;
     }
+
+    /**
+     * Returns the profile pic of the given user if it has one, else undefined
+     * @param {WebID} webID 
+     */
+    async getProfilePic(webID){
+        var pic = await query.getProfilePic(webID);
+        return pic;
+    }
 }
 
 module.exports = Chat
