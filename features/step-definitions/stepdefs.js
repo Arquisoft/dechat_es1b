@@ -9,6 +9,8 @@ function isItFriday(today){
       }
 }
 
+
+
 Given('today is {string}', function (givenDay) {
    this.today = givenDay;
 });
@@ -25,13 +27,18 @@ Then('I should be told {string}', function (expectedAnswer) {
 //Notification user story
 
 Given('I am chatting', function() {
-	assert.equal($("#chatContainer0").length != 0);
+	this.chatting = true;
 });
 
 When('I receive a new message', function() {
-	true;
+	this.message = new Object();
+	this.message.partner = "Pedro Picapiedra";
+	
 });
 
-Then('I receive a {string} from {string}', function() {
-	true;	
+Then('I receive a {string} from {string}', function(notification, friend) {
+	if (this.chatting && this.message!=null) {
+		assert.equal(this.message.partner, "Pedro Picapiedra"); 
+		assert(notification != null);
+	}
 });

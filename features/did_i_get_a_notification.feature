@@ -4,7 +4,7 @@ Feature: Did i get a notification?
   Scenario Outline: Did a notification pop up
 	Given I am chatting
     When I receive a new message
-    Then I receive a "<notification>" from "<friend>"
+    Then I receive a "notification" from "<friend>"
 	
   Examples:
     | notification | answer |
