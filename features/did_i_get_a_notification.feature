@@ -3,10 +3,11 @@ Feature: Did i get a notification?
 
   Scenario Outline: Did a notification pop up
 	Given I am chatting
-    When I receive a new message
-    Then I receive a "notification" from "<friend>"
+    When I receive a new message from "<friend>"
+    Then I receive a "<notification>" from "<friend>"
 	
   Examples:
-    | notification | answer |
-	| friend | answer |
-    | anything else! | Nope |
+    | Pedro | Alerta | Pedro |
+	| Juan | Nuevo mensaje | Pedro |
+	| Alberto | Alerta | Alberto |
+    | Pepe || Pepe |
