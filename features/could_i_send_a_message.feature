@@ -7,7 +7,7 @@ Feature: Could i send a message?
     Then My friend gets a message "<message>" from me
 	
   Examples:
-    | Hola | Ole |
+    | Hola | Hola |
 	| Como estas | Como estas |
 	| Igual | Distinto y no pasa |
 	| Mismo | Mismo |

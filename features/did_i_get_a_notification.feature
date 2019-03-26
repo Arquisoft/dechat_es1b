@@ -8,6 +8,6 @@ Feature: Did i get a notification?
 	
   Examples:
     | Pedro | Alerta | Pedro |
-	| Juan | Nuevo mensaje | Pedro |
+	| Juan | Nuevo mensaje | Juan |
 	| Alberto | Alerta | Alberto |
     | Pepe | Got a new Message | Pepe |
