@@ -1,4 +1,4 @@
-const creator = require("../../src/lib/POD-reader/ElementCreator");
+const creator = require("../../src/lib/ChatManager/ChatReader/ElementCreator");
 
 describe('Extraction of messages from JSON', () => {
     it('Should extract the messages from a JSON input', () => {
@@ -25,20 +25,20 @@ describe('Extraction of messages from JSON', () => {
         expect(messages[0]).toEqual({
             timestamp: "2019-06-23",
             content: "Dad, I'm hungry",
-            sender: "https://example.org/user",
-            receiver: "https://example.org/receiver"
+            user: "https://example.org/user",
+            partner: "https://example.org/receiver"
         });
         expect(messages[1]).toEqual({
             timestamp: "2019-06-23",
             content: "Hi Hungry, I'm Dad",
-            sender: "https://example.org/user",
-            receiver: "https://example.org/receiver"
+            user: "https://example.org/user",
+            partner: "https://example.org/receiver"
         });
         expect(messages[2]).toEqual({
             timestamp: "2019-06-23",
             content: "I wish I was adopted",
-            sender: "https://example.org/user",
-            receiver: "https://example.org/receiver"
+            user: "https://example.org/user",
+            partner: "https://example.org/receiver"
         });
     });
 });

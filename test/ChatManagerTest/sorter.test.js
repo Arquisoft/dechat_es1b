@@ -1,4 +1,4 @@
-const sorter = require("../../src/lib/POD-reader/Sorter");
+const sorter = require("../../src/lib/ChatManager/ChatReader/Sorter");
 const Message = require("../../src/model/message");
 
 describe('Sorter tests', () => {

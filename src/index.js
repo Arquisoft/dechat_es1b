@@ -1,9 +1,11 @@
-const session = require("./lib/session")
-const query = require("./lib/ldflex-queries")
-const Chat = require("./lib/chat")
-const Person = require("./model/person")
+const session = require("./lib/session");
+const query = require("./lib/ldflex-queries");
+const Chat = require("./lib/Chat");
+const Person = require("./model/person");
+const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 
 let user;
+var numberMessagesSended;
 
 /**
  * On DOM load, set solid.auth to track the session status
@@ -36,6 +38,23 @@ $("#logout").click(async () => {
 })
 
 
+$("#friends").click(async () => {
+    $(".friends-list").show();
+    $(".friends-list").css("border", "1px solid #2FA7F5");
+    userWerbId = session.getSession().webId;
+    friends = await query.getFriends();
+    emptyFriendsList();
+    $.each(friends, (i, friend) => {
+        console.log(friend, i)
+        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
+        $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
+
+        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
+    })
+    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>");
+    $("#closeChats").click(async () => { closeChats(friends) });
+})
+
 /**
 * Send a message
 * @param {Chat} the chat to which it will be sent
@@ -46,18 +65,15 @@ function sendMessage(chat, i) {
     document.getElementById("messageText" + i).value = "";
 }
 
-var numberMessagesSended;
-
 /**
 * Start a chat with the selected friend
 * @param {Person} object representing the user's contact
 * @param {Integer} i
 */
 async function startChat(friend, i) {
-    var splitId = user.id.split("/");
-    var urlFolder = splitId[0] + splitId[1] + splitId[2];
-    const chat = new Chat(user, friend)
-    chat.checkDechatFolder(urlFolder);
+    var urlFolder = FolderManager.getUrlFolder(user.id);
+    const chat = new Chat(user, friend);
+    FolderManager.checkDechatFolder(urlFolder);
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
     $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText" + i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
@@ -82,22 +98,6 @@ function emptyFriendsList() {
     $(".friends-list").empty()
 }
 
-$("#friends").click(async () => {
-    $(".friends-list").show();
-    $(".friends-list").css("border", "1px solid #2FA7F5");
-    userWerbId = session.getSession().webId;
-    friends = await query.getFriends();
-    emptyFriendsList();
-    $.each(friends, (i, friend) => {
-        console.log(friend, i)
-        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
-        $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
-
-        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
-    })
-    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>");
-    $("#closeChats").click(async () => { closeChats(friends) });
-})
 
 /**
 * Close the chats of the friends list
