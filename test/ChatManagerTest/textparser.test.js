@@ -1,5 +1,5 @@
-const parser = require("../../src/lib/POD-reader/TextParser")
-const builder = require("../../src/lib/textFileBuilder")
+const parser = require("../../src/lib/ChatManager/ChatReader/TextParser")
+const builder = require("../../src/lib/ChatManager/ChatWriter/TextFileBuilder")
 const Message = require("../../src/model/message");
 
 describe('TextParser tests', () => {

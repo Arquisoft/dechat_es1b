@@ -1,7 +1,8 @@
-const session = require("./lib/session")
-const query = require("./lib/ldflex-queries")
-const Chat = require("./lib/chat")
-const Person = require("./model/person")
+const session = require("./lib/session");
+const query = require("./lib/ldflex-queries");
+const Chat = require("./lib/Chat");
+const Person = require("./model/person");
+const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 
 let user;
 
@@ -68,10 +69,9 @@ async function loadFriends() {
 * @param {Integer} i
 */
 async function startChat(friend, i) {
-    var splitId = user.id.split("/");
-    var urlFolder = splitId[0] + splitId[1] + splitId[2];
-    const chat = new Chat(user, friend)
-    chat.checkDechatFolder(urlFolder);
+    var urlFolder = FolderManager.getUrlFolder(user.id);
+    const chat = new Chat(user, friend);
+    FolderManager.checkDechatFolder(urlFolder);
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
 
@@ -154,7 +154,6 @@ function updateUIMessages(messages, index) {
 
 
 }
-
 
 
 /**
