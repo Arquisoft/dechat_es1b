@@ -61,7 +61,6 @@ async function loadFriends() {
     });
 }
 
-var numberMessagesSended;
 
 /**
 * Start a chat with the selected friend
@@ -86,6 +85,8 @@ async function startChat(friend, i) {
         "</div>";
     $("#mesgs").append(initialMessageContent);
 
+    var initialMessages = await chat.getMessages();
+    updateUIMessages(initialMessages, i);
 
     //Add action to sending messages button
     $("#sendMessages" + i).click(async () => {
@@ -99,7 +100,6 @@ async function startChat(friend, i) {
 
         $("#msg_history" + i).append(messageContent);
 
-        numberMessagesSended++;
     });
 
     // Set up listener for new messages, time in ms
@@ -214,7 +214,7 @@ function changeView(session) {
         $(".messaging").css("visibility", "hidden");
         emptyFriendsList();
     }
-    if (session) {
+    else {
         $("#navbar").css("visibility", "visible");
         $(".messaging").css("visibility", "visible");
     }
