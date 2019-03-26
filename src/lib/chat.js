@@ -35,8 +35,7 @@ class Chat {
     * @return {Array} messages
     */
     async getMessages() {
-        var listMessages = await chatManager.readPod(this.user.id, this.partner.id);
-        return listMessages;
+        return await chatManager.readPod(this.user.id, this.partner.id);
     }
 
     /**
