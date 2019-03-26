@@ -10,4 +10,4 @@ Feature: Did i get a notification?
     | Pedro | Alerta | Pedro |
 	| Juan | Nuevo mensaje | Pedro |
 	| Alberto | Alerta | Alberto |
-    | Pepe || Pepe |
+    | Pepe | Got a new Message | Pepe |
