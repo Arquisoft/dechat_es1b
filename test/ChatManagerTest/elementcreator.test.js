@@ -25,20 +25,20 @@ describe('Extraction of messages from JSON', () => {
         expect(messages[0]).toEqual({
             timestamp: "2019-06-23",
             content: "Dad, I'm hungry",
-            sender: "https://example.org/user",
-            receiver: "https://example.org/receiver"
+            user: "https://example.org/user",
+            partner: "https://example.org/receiver"
         });
         expect(messages[1]).toEqual({
             timestamp: "2019-06-23",
             content: "Hi Hungry, I'm Dad",
-            sender: "https://example.org/user",
-            receiver: "https://example.org/receiver"
+            user: "https://example.org/user",
+            partner: "https://example.org/receiver"
         });
         expect(messages[2]).toEqual({
             timestamp: "2019-06-23",
             content: "I wish I was adopted",
-            sender: "https://example.org/user",
-            receiver: "https://example.org/receiver"
+            user: "https://example.org/user",
+            partner: "https://example.org/receiver"
         });
     });
 });
