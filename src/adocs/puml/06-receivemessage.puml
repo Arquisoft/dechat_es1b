@@ -1,0 +1,11 @@
+@startuml
+
+title "Receive message"
+
+actor UserA as user
+participant DeChat
+database PODA as poda
+database PODB as podb
+actor UserB as partner
+
+@enduml

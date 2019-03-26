@@ -30,9 +30,14 @@ The user types his message and clicks the send button. Afterwards a message obje
 The message is then written in its author's POD and a notification gets sent to his partner's inbox so he knows he got new messages from this particular chat.
 Finally the UI is refreshed to show the new message.
 
-=== Receive notification
-1. User receives a notification indicating new messages
-2. A notification is shown in the user's UI
+=== Receive message
+1. Partner sends user a message
+2. A notification arrives at user's inbox
+3. DeChat detects the notification
+4. A visual notification is sent to the user
+5. Messages get loaded and UI updated
+
+
 
 
 
