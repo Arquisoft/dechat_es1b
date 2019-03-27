@@ -8,4 +8,13 @@ database PODA as poda
 database PODB as podb
 actor UserB as partner
 
+partner -> podb : writeOwnPOD(message)
+partner -> poda : writeInbox(notificatioin)
+loop 
+    DeChat -> poda : checkForNotifications()
+    alt found notification
+        DeChat -
+    end
+end
+
 @enduml
