@@ -11,7 +11,7 @@ class Chat {
     constructor(user, partner) {
         this.user = user;
         this.partner = partner;
-        //TODO: Sent messages should be initialized from reading user's pod so we keep older messages
+        //sentMessages and messages will be load when user sendMessage or open chat.
         this.sentMessages = [];
         this.messages = [];
     }
@@ -23,6 +23,14 @@ class Chat {
     */
     async sendMessage(text) {
         var message = new Message(this.user.id, this.partner.id, text);
+        this.messages = await this.getMessages();
+        this.sentMessages = [];
+        let userID = this.user.id.replace("/profile/card#me", "").replace("https://", "");
+        console.log("*** userID: " + userID + "\nMessages:");
+        for(var i = 0; i < this.messages.length; i++) {
+            //if(this.messages[i].user === userID)
+                //this.sentMessages.push(this.messages[i]);
+        }
         //Saving to array current message
         this.sentMessages.push(message);
         this.messages.push(message);

@@ -18,7 +18,6 @@ async function singleUriGetter(url) {
 	console.log(url + ": " + salida);
 
 	var tr = await creator.create(textParser.parseString(salida));
-
 	return await tr;
 };
 

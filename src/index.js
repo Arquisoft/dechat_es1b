@@ -85,9 +85,6 @@ async function startChat(friend, i) {
         "</div>";
     $("#mesgs").append(initialMessageContent);
 
-    let msgs = await chat.getMessages();
-    console.log(msgs);
-
     updateUIMessages(await chat.getMessages(), i);
 
     //Add action to sending messages button
