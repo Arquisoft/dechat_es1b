@@ -33,8 +33,8 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
-    session.logout()
-
+    emptyFriendsList();
+    session.logout();
 })
 
 
