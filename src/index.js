@@ -69,7 +69,7 @@ async function loadFriends() {
 * @param {Integer} i
 */
 async function startChat(friend, i) {
-    var urlFolder = FolderManager.getUrlFolder(user.id);
+    var urlFolder = await FolderManager.getUrlFolder(user.id);
     const chat = new Chat(user, friend);
     FolderManager.checkDechatFolder(urlFolder);
     //We start the chat when we make sure we have the folder created.
