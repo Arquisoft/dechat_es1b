@@ -1,22 +1,45 @@
 const assert = require("assert")  ;
 const { Given, When, Then } = require('cucumber');
+const Chat = require("../../src/lib/Chat.js")
+const fc = require("solid-file-client")
+const Persona = require("../../src/model/person")
+const chatManager = require("../../src/lib/ChatManager/ChatManager")
+const fileManager = require("../../src/lib/ChatManager/ChatWriter/FileManager");
+const chatWriter = require("../../src/lib/ChatManager/ChatWriter/ChatWriter.js");
+const OK = 1;
 
 //Notification user story
 
 Given('I am chatting', function() {
-	this.chatting = true;
+	var user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
+	var target = new Persona("https://es1btest.solid.community/profile/card#me", "Paco", "https://es1btest.solid.community/inbox");
+	this.chat = new Chat(user, target)
 });
 
-When('I receive a new message from {string}', function(friend) {
-	this.message = new Object();
-	this.message.partner = friend;	
+When('I receive a new message from partner', function() {
+	//Mocking solid-file-client
+	chatWriter.sendToInbox = function() { return OK; }
+	//chatManager.writeInbox = function() { return this.OK; }
+    fc.createFile = function() { return OK; }
+    fc.updateFile = function() { return OK; }
+    fc.popupLogin = function() { return OK; }
+    fc.deleteFile = function() { return OK; }
+    fc.createFolder = function() { return OK; }
+    fc.readFolder = function()
+        { return JSON.parse("files:[{url : dechat.txt}]"); }
+    
+
+    fileManager.readFile = function() { return this.target.id; }
+    chatManager.readPod = function() {
+        if (user_id === user.id && target_id === target.id)
+            return ["Bingo"];
+    }
+    fileManager.deleteFile = function() { return OK; }
 });
 
-Then('I receive a {string} from {string}', function(notification, friend) {
-	if (this.chatting && this.message!=null) {
-		assert.equal(this.message.partner, friend); 
-		assert(notification != '');
-	}
+Then('I receive a notification', async function() {
+	var response = await this.chat.sendMessage("This is a test message :^)");
+    assert.equal(OK, response);
 });
 
 //Sending a message user story
