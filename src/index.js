@@ -70,7 +70,7 @@ async function loadFriends() {
 */
 async function startChat(friend, i) {
     var urlFolder = await FolderManager.getUrlFolder(user.id);
-    const chat = new Chat(user, friend);
+    const chat = await new Chat(user, friend);
     FolderManager.checkDechatFolder(urlFolder);
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
@@ -84,6 +84,9 @@ async function startChat(friend, i) {
         "</div>" +
         "</div>";
     $("#mesgs").append(initialMessageContent);
+
+    let msgs = await chat.getMessages();
+    console.log(msgs);
 
     updateUIMessages(await chat.getMessages(), i);
 
@@ -116,7 +119,7 @@ async function startChat(friend, i) {
 */
 async function checkForNewMessages(chat, index) {
     // Pass the callback function to execute if a new notification is received
-    var messages = await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
+    await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
 }
 /**
 * Update chat UI. This function should only be called once a notification has arrived.

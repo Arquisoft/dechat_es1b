@@ -15,6 +15,8 @@ const ChatWritter = require("../ChatWriter/ChatWriter")
 async function singleUriGetter(url) {
 	var salida = await fileClient.readFile(url);
 
+	console.log(url + ": " + salida);
+
 	var tr = await creator.create(textParser.parseString(salida));
 
 	return await tr;
@@ -46,11 +48,27 @@ async function read(urla, urlb) {
  * @param {String} userURL 
  * @param {String} friendURL 
  */
+async function checkIfMessageExists(userUrl, friendUrl) {
+	var friendIdentifier = friendUrl.replace("https://", "");
+	var partes = friendIdentifier.split(".");
+	friendIdentifier = partes[0] + "." + partes[1];
+	var fileRoute = userUrl.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/messages.txt");
+	try {
+		await fileClient.readFile(fileRoute);
+	} catch(error) {
+		console.log("Restaurando ruta: " + fileRoute)
+		await ChatWritter.sendToOwnPOD(userUrl, friendUrl, []);
+	}
+}
+
+/**
+ * Check if messages exists.
+ * @param {String} userURL 
+ * @param {String} friendURL 
+ */
 async function checkIfMessagesExists(userURL, friendURL) {
-	//let userID = userURL.replace("https://", "").replace("/profile/card#me", "");
-	//let friendID = friendURL.replace("https://", "").replace("/profile/card#me", "");
-	await ChatWritter.sendToOwnPOD(userURL, friendURL);
-	await ChatWritter.sendToOwnPOD(friendURL, userURL);
+	await checkIfMessageExists(userURL, friendURL);
+	await checkIfMessageExists(friendURL, userURL);
 }
 
 /**
@@ -60,12 +78,10 @@ async function checkIfMessagesExists(userURL, friendURL) {
 * @return the ordered list of the conversation messages
 */
 async function readPod(userURL, friendURL) {
-	//First check if messages exists
 	await checkIfMessagesExists(userURL, friendURL);
-
 	var user = userURL.replace("https://", "").replace("/profile/card#me", "");
 	var partner = friendURL.replace("https://", "").replace("/profile/card#me", "");
-	return this.read(user, partner);
+	return await read(user, partner);
 };
 
 module.exports = {
