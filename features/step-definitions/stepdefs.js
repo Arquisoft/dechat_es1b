@@ -8,16 +8,8 @@ const fileManager = require("../../src/lib/ChatManager/ChatWriter/FileManager");
 const chatWriter = require("../../src/lib/ChatManager/ChatWriter/ChatWriter.js");
 const OK = 1;
 
-//Notification user story
-
-Given('I am chatting', function() {
-	var user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
-	var target = new Persona("https://es1btest.solid.community/profile/card#me", "Paco", "https://es1btest.solid.community/inbox");
-	this.chat = new Chat(user, target)
-});
-
-When('I receive a new message from partner', function() {
-	//Mocking solid-file-client
+function mock() {
+	//Mocking solid-file-client and some modules
 	chatWriter.sendToInbox = function() { return OK; }
 	//chatManager.writeInbox = function() { return this.OK; }
     fc.createFile = function() { return OK; }
@@ -35,6 +27,18 @@ When('I receive a new message from partner', function() {
             return ["Bingo"];
     }
     fileManager.deleteFile = function() { return OK; }
+}
+
+//Notification user story
+
+Given('I am chatting', function() {
+	var user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
+	var target = new Persona("https://es1btest.solid.community/profile/card#me", "Paco", "https://es1btest.solid.community/inbox");
+	this.chat = new Chat(user, target)
+});
+
+When('I receive a new message from partner', function() {
+	mock();
 });
 
 Then('I receive a notification', async function() {
