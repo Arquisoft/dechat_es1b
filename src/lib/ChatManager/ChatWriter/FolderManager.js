@@ -54,7 +54,6 @@ async function getUrlFolder(sessionURL) {
  * @param {String} url folder
  */
 async function createFolder(url) {
-    console.log("Creando carpeta:" + url);
     await fileClient.createFolder(url);
 };
 

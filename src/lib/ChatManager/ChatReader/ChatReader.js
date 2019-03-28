@@ -40,12 +40,51 @@ async function read(urla, urlb) {
 };
 
 /**
+ * Reads a folder using the url
+ * @param {String} url folder
+ * @return {Promise} Object promise if exist or undefined if not
+ */
+async function readFolder(url) {
+    return fileClient.readFolder(url).then(folder => { return (folder) }, err => console.log(err));
+};
+
+/**
+ * Check if a message txt exist.
+ * @param {String} url 
+ */
+async function checkIfMessageExisteOneUrl(url, friendID) {
+	url = (url.replace("/profile/card#me", "")) + "/dechat/" +  friendID;
+	let check = await readFolder(url);
+    if (check == undefined) {
+		await fileClient.createFolder(url);
+		await fileClient.createFile(url + "/messages.txt");
+	}
+}
+
+/**
+ * If is the first time, messages.txt don't create,
+ * so we will create.
+ * @param {String} userURL 
+ * @param {String} friendURL 
+ */
+async function checkIfMessagesExists(userURL, friendURL) {
+	let userID = userURL.replace("https://", "").replace("/profile/card#me", "");
+	let friendID = friendURL.replace("https://", "").replace("/profile/card#me", "");
+
+	await checkIfMessageExisteOneUrl(userURL, friendID);
+	await checkIfMessageExisteOneUrl(friendURL, userID);
+}
+
+/**
 * Read pod receives the webid of the chat participants returning and ordered array of messages
 * @param userURL the webID of the chat's ownerDocument
 * @param friendURL the webID of the chat's contact
 * @return the ordered list of the conversation messages
 */
 async function readPod(userURL, friendURL) {
+	//First check if messages exists
+	await checkIfMessagesExists(userURL, friendURL);
+
 	var user = userURL.replace("https://", "").replace("/profile/card#me", "");
 	var partner = friendURL.replace("https://", "").replace("/profile/card#me", "");
 	return this.read(user, partner);
