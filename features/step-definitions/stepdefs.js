@@ -11,7 +11,10 @@ const OK = 1;
 function mock() {
 	//Mocking solid-file-client and some modules
 	chatWriter.sendToInbox = function() { return OK; }
+	chatWriter.sendToOwnPOD = function() { return OK; }
 	//chatManager.writeInbox = function() { return this.OK; }
+	fc.popupLogin = function() { return OK; }
+	fc.popupLogin.then = function() { return OK; }
     fc.createFile = function() { return OK; }
     fc.updateFile = function() { return OK; }
     fc.popupLogin = function() { return OK; }
@@ -34,28 +37,27 @@ function mock() {
 Given('I am chatting', function() {
 	var user = new Persona("https://podaes1b.solid.community/profile/card#me", "Carmen", "https://podaes1b.solid.community/inbox");
 	var target = new Persona("https://es1btest.solid.community/profile/card#me", "Paco", "https://es1btest.solid.community/inbox");
-	this.chat = new Chat(user, target)
-});
-
-When('I receive a new message from partner', function() {
+	this.chat = new Chat(user, target);
 	mock();
 });
 
-Then('I receive a notification', async function() {
-	var response = await this.chat.sendMessage("This is a test message :^)");
-    assert.equal(OK, response);
+When('I receive a new message from partner', async function() {
+	this.response = await this.chat.sendMessage("This is a test message :^)");
+});
+
+Then('I receive a notification', function() {
+    assert.equal(OK, this.response);
 });
 
 //Sending a message user story
 
-When('I send a message {string}', function(message) {
-	this.mensaje = message;
+When('I send a message {string}', async function(message) {
+	chatWriter.sendToInbox = function() { return message; }
+	this.response = await this.chat.sendMessage(message);
 });
 
 Then('My friend gets a message {string} from me', function(message) {
-	if (this.chatting) {
-		assert.equal(this.mensaje, message); 
-	}
+	assert.equal(this.response, message); 
 });
 
 //Friends listed story
@@ -79,3 +81,20 @@ Then('I looked for {string}', function(name) {
 		}
 	}
 });	
+
+// Looking for a friend story
+
+ Given('I am in the app', function () {                                 
+   // Write code here that turns the phrase above into concrete actions 
+   return 'pending';                                                    
+ });                                                                                                                                                                   
+                                                                        
+ When('I am into a chat', function () {                                 
+   // Write code here that turns the phrase above into concrete actions 
+   return 'pending';                                                    
+ });                                                                                           
+                                                                        
+ Then('I can see the name {string} of my partner', function (string) {  
+   // Write code here that turns the phrase above into concrete actions 
+   return 'pending';                                                    
+ });                                                                    

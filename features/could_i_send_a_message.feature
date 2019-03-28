@@ -10,4 +10,3 @@ Feature: Could i send a message?
     | Hola | Hola |
 	| Como estas | Como estas |
 	| Igual | Distinto y no pasa |
-	| Mismo | Mismo |
