@@ -2,6 +2,7 @@ var textParser = require("./TextParser.js");
 var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
+const ChatWritter = require("../ChatWriter/ChatWriter")
 
 /**
  * This function get all messages from a single pod uri
@@ -40,39 +41,16 @@ async function read(urla, urlb) {
 };
 
 /**
- * Reads a folder using the url
- * @param {String} url folder
- * @return {Promise} Object promise if exist or undefined if not
- */
-async function readFolder(url) {
-    return fileClient.readFolder(url).then(folder => { return (folder) }, err => console.log(err));
-};
-
-/**
- * Check if a message txt exist.
- * @param {String} url 
- */
-async function checkIfMessageExisteOneUrl(url, friendID) {
-	url = (url.replace("/profile/card#me", "")) + "/dechat/" +  friendID;
-	let check = await readFolder(url);
-    if (check == undefined) {
-		await fileClient.createFolder(url);
-		await fileClient.createFile(url + "/messages.txt");
-	}
-}
-
-/**
  * If is the first time, messages.txt don't create,
  * so we will create.
  * @param {String} userURL 
  * @param {String} friendURL 
  */
 async function checkIfMessagesExists(userURL, friendURL) {
-	let userID = userURL.replace("https://", "").replace("/profile/card#me", "");
-	let friendID = friendURL.replace("https://", "").replace("/profile/card#me", "");
-
-	await checkIfMessageExisteOneUrl(userURL, friendID);
-	await checkIfMessageExisteOneUrl(friendURL, userID);
+	//let userID = userURL.replace("https://", "").replace("/profile/card#me", "");
+	//let friendID = friendURL.replace("https://", "").replace("/profile/card#me", "");
+	await ChatWritter.sendToOwnPOD(userURL, friendURL);
+	await ChatWritter.sendToOwnPOD(friendURL, userURL);
 }
 
 /**
