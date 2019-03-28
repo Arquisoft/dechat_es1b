@@ -9,6 +9,7 @@ const chatWriter = require("../../src/lib/ChatManager/ChatWriter/ChatWriter.js")
 const query = require("../../src/lib/ldflex-queries");
 const OK = 1;
 
+
 function mock() {
 	//Mocking solid-file-client and some modules
 	chatWriter.sendToInbox = function() { return OK; }
@@ -93,3 +94,23 @@ Then('I looked for Alberto', function() {
    // Write code here that turns the phrase above into concrete actions 
    //return 'pending';                                                    
  });                                                                    
+ 
+
+//Checking i can read my partner name
+
+When('I am chatting with a friend', function() {
+	var myChatA = new Chat("Secundino","Samuel");
+ 	 var myChatB = new Chat("Secundino","Marcos");
+	 var myChatC = new Chat("Secundino","Martin");
+	 var myChatD = new Chat("Secundino","Luis");
+	 var myChatE = new Chat("Secundino","Javier");
+	 
+	 this.myList = [myChatA.partner, myChatB.partner, myChatC.partner, myChatD.partner, myChatE.partner];
+});
+
+Then('I can see my partner´s name {string}', function(name) {
+	
+	assert.equal(this.myList.indexOf(name)>=0,true);
+	
+});	
+
