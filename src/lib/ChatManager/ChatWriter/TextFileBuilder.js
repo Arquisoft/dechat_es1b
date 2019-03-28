@@ -14,14 +14,16 @@ function buildJSONmessages(senderID, receiverID, messages) {
 	var segments = jsonstring.split('"////"');
 	var ret = segments[0] + "[";
 	var i;
-	for (i = 0; i < messages.length; i++) {
-		ret = ret + messages[i].serialize();
-		if (i != messages.length - 1)
-			ret = ret + ",";
-		else
-			ret = ret + "]" + segments[1];
+	if(messages !== undefined) {
+		for (i = 0; i < messages.length; i++) {
+			ret = ret + messages[i].serialize();
+			if (i != messages.length - 1)
+				ret = ret + ",";
+			else
+				ret = ret + "]" + segments[1];
+		}
 	}
-	if(messages.length == 0)
+	if(messages === undefined || messages.length == 0)
 		ret = ret + "]}";
 
 	return ret;
