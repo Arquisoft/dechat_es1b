@@ -1,6 +1,6 @@
 const session = require("./lib/session");
 const query = require("./lib/ldflex-queries");
-const Chat = require("./lib/Chat");
+const Chat = require("./lib/chat");
 const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 
