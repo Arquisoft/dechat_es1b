@@ -147,7 +147,7 @@ function updateUIMessages(messages, index) {
                 "</div>"
             "</div>";
         }
-        console.log("Messages loop " + messages[i].content);
+        //console.log("Messages loop " + messages[i].content);
         $("#msg_history" + index).append(sendedMessage);
     }
 
@@ -160,7 +160,7 @@ function updateUIMessages(messages, index) {
  * @param {Chat} A chat in particular
  */
 async function showNotification(chat) {
-    console.log("Got a new message");
+    //console.log("Got a new message");
     $("#mesgs").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
     hideNotifications();
 }
