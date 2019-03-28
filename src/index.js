@@ -95,10 +95,12 @@ async function startChat(friend, i) {
                 "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
                 " </div>";
 
+        //If message is empty don't send message
+        if($("#contentText" + i).val().length > 0)
+            $("#msg_history" + i).append(messageContent);
+
+        
         sendMessage(chat, i, user, friend);
-
-        $("#msg_history" + i).append(messageContent);
-
     });
 
     // Set up listener for new messages, time in ms
@@ -160,7 +162,7 @@ function updateUIMessages(messages, index) {
  * @param {Chat} A chat in particular
  */
 async function showNotification(chat) {
-    //console.log("Got a new message");
+    console.log("Notification: You got a new message!");
     $("#mesgs").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
     hideNotifications();
 }
@@ -179,8 +181,11 @@ async function hideNotifications() {
 * @param {Integer} i
 */
 function sendMessage(chat, i) {
-    chat.sendMessage($("#contentText" + i).val());
-    $("#contentText" + i).val(""); //Remove content of the send message text area
+    //If message is not null
+    if($("#contentText" + i).val().length > 0) {
+        chat.sendMessage($("#contentText" + i).val());
+        $("#contentText" + i).val(""); //Remove content of the send message text area
+    }
 }
 
 /**

@@ -15,8 +15,6 @@ const ChatWritter = require("../ChatWriter/ChatWriter")
 async function singleUriGetter(url) {
 	var salida = await fileClient.readFile(url);
 
-	console.log(url + ": " + salida);
-
 	var tr = await creator.create(textParser.parseString(salida));
 	return await tr;
 };
@@ -55,7 +53,6 @@ async function checkIfMessageExists(userUrl, friendUrl) {
 	try {
 		await fileClient.readFile(fileRoute);
 	} catch(error) {
-		console.log("Restaurando ruta: " + fileRoute)
 		await ChatWritter.sendToOwnPOD(userUrl, friendUrl, []);
 	}
 }
