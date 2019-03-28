@@ -1,18 +1,19 @@
 const assert = require("assert")  ;
 const { Given, When, Then } = require('cucumber');
-const Chat = require("../../src/lib/Chat.js")
-const fc = require("solid-file-client")
-const Persona = require("../../src/model/person")
+const Chat = require("../../src/lib/Chat.js");
+const fc = require("solid-file-client");
+const Persona = require("../../src/model/person");
 const chatManager = require("../../src/lib/ChatManager/ChatManager")
 const fileManager = require("../../src/lib/ChatManager/ChatWriter/FileManager");
 const chatWriter = require("../../src/lib/ChatManager/ChatWriter/ChatWriter.js");
+const query = require("../../src/lib/ldflex-queries");
 const OK = 1;
 
 function mock() {
 	//Mocking solid-file-client and some modules
 	chatWriter.sendToInbox = function() { return OK; }
 	chatWriter.sendToOwnPOD = function() { return OK; }
-	//chatManager.writeInbox = function() { return this.OK; }
+	
 	fc.popupLogin = function() { return OK; }
 	fc.popupLogin.then = function() { return OK; }
     fc.createFile = function() { return OK; }
@@ -63,38 +64,32 @@ Then('My friend gets a message {string} from me', function(message) {
 //Friends listed story
 
 Given('I press List Friends button', function() {
-	this.pressedList = true;
+	mock();
 });
 
-When('My friends {string} got listed', function(friends) {
-	if (this.pressedList) 
-		this.friends = friends.split("-");
+When('My friends got listed', function() {
+	query.getFriends = function() { return "Alberto-Juan"; }
+	this.friends = query.getFriends();
 });
 
-Then('I looked for {string}', function(name) {
-	if (this.pressedList) {
-		var i;
-		for (i = 0; i<this.friends.length; i++) {
-			if (this.friends[i] === name) {
-				assert.equal(name, this.friends[i]);
-			}
-		}
-	}
+Then('I looked for Alberto', function() {
+	var presente = this.friends.indexOf("Alberto");
+	assert.equal(presente>=0, true);
 });	
 
 // Looking for a friend story
 
  Given('I am in the app', function () {                                 
    // Write code here that turns the phrase above into concrete actions 
-   return 'pending';                                                    
+   //return 'pending';                                                    
  });                                                                                                                                                                   
                                                                         
  When('I am into a chat', function () {                                 
    // Write code here that turns the phrase above into concrete actions 
-   return 'pending';                                                    
+   //return 'pending';                                                    
  });                                                                                           
                                                                         
  Then('I can see the name {string} of my partner', function (string) {  
    // Write code here that turns the phrase above into concrete actions 
-   return 'pending';                                                    
+   //return 'pending';                                                    
  });                                                                    
