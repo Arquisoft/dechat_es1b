@@ -17,6 +17,7 @@ $("document").ready(async () => {
             console.log(user);
             changeView(true);
             loadInitialContacts();
+            let urlFolder = await FolderManager.getUrlFolder(user.id);
             await FolderManager.checkDechatFolder(urlFolder);
         },
         // User isn't logged in
@@ -70,7 +71,6 @@ async function loadFriends() {
 * @param {Integer} i
 */
 async function startChat(friend, i) {
-    var urlFolder = await FolderManager.getUrlFolder(user.id);
     const chat = await new Chat(user, friend);
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
