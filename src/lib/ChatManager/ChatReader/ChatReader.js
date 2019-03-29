@@ -2,7 +2,8 @@ var textParser = require("./TextParser.js");
 var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
-const ChatWritter = require("../ChatWriter/ChatWriter")
+const ChatWritter = require("../ChatWriter/ChatWriter");
+const FolderManager = require("../ChatWriter/FolderManager");
 
 /**
  * This function get all messages from a single pod uri
@@ -13,7 +14,12 @@ const ChatWritter = require("../ChatWriter/ChatWriter")
  * @return {Array} List of objects messages
  */
 async function singleUriGetter(url) {
-	var salida = await fileClient.readFile(url);
+	//if user haven't folder create, return empty list of messages
+	try {
+		var salida = await fileClient.readFile(url);
+	} catch(error) {
+		return [];
+	}
 
 	var tr = await creator.create(textParser.parseString(salida));
 	return await tr;
@@ -58,13 +64,12 @@ async function checkIfMessageExists(userUrl, friendUrl) {
 }
 
 /**
- * Check if messages exists.
+ * Check if messages exists, if not create created.
  * @param {String} userURL 
  * @param {String} friendURL 
  */
 async function checkIfMessagesExists(userURL, friendURL) {
 	await checkIfMessageExists(userURL, friendURL);
-	await checkIfMessageExists(friendURL, userURL);
 }
 
 /**
