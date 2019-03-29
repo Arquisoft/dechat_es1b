@@ -76,27 +76,10 @@ When('My friends got listed', function() {
 Then('I looked for Alberto', function() {
 	var presente = this.friends.indexOf("Alberto");
 	assert.equal(presente>=0, true);
-});	
-
-// Looking for a friend story
-
- Given('I am in the app', function () {                                 
-   // Write code here that turns the phrase above into concrete actions 
-   //return 'pending';                                                    
- });                                                                                                                                                                   
-                                                                        
- When('I am into a chat', function () {                                 
-   // Write code here that turns the phrase above into concrete actions 
-   //return 'pending';                                                    
- });                                                                                           
-                                                                        
- Then('I can see the name {string} of my partner', function (string) {  
-   // Write code here that turns the phrase above into concrete actions 
-   //return 'pending';                                                    
- });                                                                    
+});	                                                                 
  
 
-//Checking i can read my partner name
+//Checking i can read my partner name story
 
 When('I am chatting with a friend', function() {
 	var myChatA = new Chat("Secundino","Samuel");
