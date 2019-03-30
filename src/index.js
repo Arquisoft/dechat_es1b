@@ -110,7 +110,7 @@ async function startChat(friend, i) {
         if($("#contentText" + i).val().length > 0)
             $("#msg_history" + i).append(messageContent);
 
-        
+        console.log(i)
         sendMessage(chat, i, user, friend);
     });
 

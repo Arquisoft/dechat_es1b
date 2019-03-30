@@ -63,11 +63,15 @@ async function getProfilePic(webID){
     return pic;
 }
   
+async function getFolder(folderURL){
+    return data[folderURL];
+}
 
 
 module.exports = {
     getName,
     getInbox,
     getFriends,
-    getProfilePic
+    getProfilePic,
+    getFolder
 }
