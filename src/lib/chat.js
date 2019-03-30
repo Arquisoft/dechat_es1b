@@ -65,25 +65,23 @@ class Chat {
      *   @return {Array} messages
      */
     async checkForNotifications(callback) {
-        var hits = [];
+        var partnerIds = [];
         var files = await folderManager.getFilesFromFolder(this.user.inbox);
         for (const file of files) {
             let content;
             content = await fileManager.readFile(file.url);
-            if (content == this.partner.id) {
-                hits.push(await file.url);
-                this.messages = await chatManager.readPod(this.user.id, this.partner.id);
-            }
+            if (!(content in partnerIds))
+                partnerIds.push(content);
         }
 
-        if (hits.length > 0) {
-            callback(this.messages);
+        if (partnerIds.length > 0) {
+            callback(partnerIds);
         }
 
-        for (const url of hits) {
-            fileManager.deleteFile(url);
+        for (const file of files){
+            fileManager.deleteFile(file.url);
         }
-        return this.messages;
+        return partnerIds;
     }
 
     /**

@@ -4,7 +4,12 @@ const Chat = require("./lib/chat");
 const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 
-let user;
+// Time constants
+const messageLoopTimer = 3000;
+const notifLoopTimer = 5000;
+const notifFadeout = 1500;
+
+let user, messageLoop, notifLoop;
 
 /**
  * On DOM load, set solid.auth to track the session status
@@ -36,6 +41,8 @@ $("#login").click(async () => {
 
 $("#logout").click(async () => {
     emptyFriendsList();
+    clearInterval(messageLoop);
+    clearInterval(notifLoop);
     session.logout();
 })
 
@@ -59,7 +66,11 @@ async function loadFriends() {
             "<button class='btn btn-outline-secondary btn-rounded waves-effect' id='buttonFriend" + i + "'>" + " Chat </button>" +
             "</div>";
         $("#chat_scroll").prepend(textFriend);
-        $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
+        $("#buttonFriend" + i).click(async () => { 
+            // if there's a chat active for someone else, we stop listening for messages from it
+            clearInterval(messageLoop);
+            startChat(friend, i) 
+        });
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     });
 }
@@ -104,9 +115,14 @@ async function startChat(friend, i) {
     });
 
     // Set up listener for new messages, time in ms
-    setInterval(() => {
+    messageLoop = setInterval(() => {
         checkForNewMessages(chat, i)
-    }, 5000);
+    }, messageLoopTimer);
+
+    // Set up listener for new notifications, time in ms
+    notifLoop = setInterval(() => {
+        chat.checkForNotifications((messages) => {showNotification(chat)});
+    }, notifLoopTimer);
 
 }
 
@@ -118,7 +134,10 @@ async function startChat(friend, i) {
 */
 async function checkForNewMessages(chat, index) {
     // Pass the callback function to execute if a new notification is received
-    await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
+    messages = chat.getMessages();
+    console.log(await messages)
+    updateUIMessages(await messages, index);
+    //await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
 }
 /**
 * Update chat UI. This function should only be called once a notification has arrived.
@@ -171,7 +190,7 @@ async function showNotification(chat) {
  * This method has the function of hiding notifications
  */
 async function hideNotifications() {
-    $("#notificacion").fadeOut(1500);
+    $("#notificacion").fadeOut(notifFadeout);
 }
 
 
