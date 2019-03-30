@@ -1,4 +1,4 @@
-const Chat = require("../src/lib/Chat")
+const Chat = require("../src/lib/chat")
 const fc = require("solid-file-client")
 const Persona = require("../src/model/person")
 const chatManager = require("../src/lib/ChatManager/ChatManager")
