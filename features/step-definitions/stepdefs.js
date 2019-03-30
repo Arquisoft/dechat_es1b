@@ -97,3 +97,39 @@ Then('I can see my partner´s name {string}', function(name) {
 	
 });	
 
+//Checking I can read messages story
+Given('I am using the app', function() {
+	var myChatA = new Chat("Secundino","Jose");
+	myChatA.messages = ["Hola que tal?","Como estas?"];
+ 	var myChatB = new Chat("Secundino","Jesus");
+	myChatB.messages = ["Secun maquina","Cuantisimo tiempo","Queria contarte una cosa","Hoy no atendi en clase, estaba descentralizado"];
+	 
+	 this.myList = [myChatA, myChatB];
+});
+When('I am chatting with {string}', function(name) {
+	var i;
+	var b = false;
+	for(i = 0; i<this.myList.length; i++){
+		if(this.myList[i].partner === name)
+		{	
+			b = true;
+			break;
+		}
+	}
+	assert.equal(b, true);
+});
+
+Then('I can read he has sent me {string}', function(message) {
+	
+	var i;
+	var b = false;
+	for(i = 0; i<this.myList.length; i++){
+		if(this.myList[i].messages.indexOf(message)>=0)
+		{
+			b = true;
+			break;
+		}
+	}
+	assert.equal(b, true);
+	
+});	
