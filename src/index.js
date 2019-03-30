@@ -134,9 +134,9 @@ async function startChat(friend, i) {
 */
 async function checkForNewMessages(chat, index) {
     // Pass the callback function to execute if a new notification is received
-    messages = chat.getMessages();
-    console.log(await messages)
-    updateUIMessages(await messages, index);
+    messages = await chat.getMessages();
+    console.log(messages)
+    updateUIMessages(messages, index);
     //await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
 }
 /**
