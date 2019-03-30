@@ -1,4 +1,4 @@
-const Chat = require("../src/lib/Chat")
+const Chat = require("../src/lib/chat")
 const fc = require("solid-file-client")
 const Persona = require("../src/model/person")
 const chatManager = require("../src/lib/ChatManager/ChatManager")
@@ -82,7 +82,7 @@ describe('Send/Get messages tests', () => {
     }),
     it('Message should get sent', async () => {       
         expect(chat.sentMessages.length).toBe(0);
-        chat.sendMessage("New message");
+        await chat.sendMessage("New message");
         expect(chat.sentMessages.length).toBe(1);
         // Make sure all the POD function calls were done
         expect(chatManager.writeOwnPOD).toBeCalled();

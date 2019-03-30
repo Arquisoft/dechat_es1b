@@ -1,11 +1,10 @@
 const session = require("./lib/session");
 const query = require("./lib/ldflex-queries");
-const Chat = require("./lib/Chat");
+const Chat = require("./lib/chat");
 const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 
 let user;
-var numberMessagesSended;
 
 /**
  * On DOM load, set solid.auth to track the session status
@@ -15,55 +14,56 @@ $("document").ready(async () => {
         // If there's a session
         async () => {
             user = await session.getUser();
-            console.log(user)
-            changeView(true)
+            console.log(user);
+            changeView(true);
+            loadInitialContacts();
+            let urlFolder = await FolderManager.getUrlFolder(user.id);
+            await FolderManager.checkDechatFolder(urlFolder);
         },
         // User isn't logged in
         async () => {
             user = null;
-            console.log(user)
-            changeView(false)
+            console.log(user);
+            changeView(false);
         }
     )
 })
 
 // Button listeners
 $("#login").click(async () => {
-    session.login()
+    session.login();
 })
 
 $("#logout").click(async () => {
-    session.logout()
-    $(".friends-list").css("border", "1px solid #2FA7F5");
+    emptyFriendsList();
+    session.logout();
 })
 
 
-$("#friends").click(async () => {
-    $(".friends-list").show();
-    $(".friends-list").css("border", "1px solid #2FA7F5");
-    userWerbId = session.getSession().webId;
+async function loadInitialContacts() {
+    loadFriends();
+}
+
+async function loadFriends() {
     friends = await query.getFriends();
     emptyFriendsList();
     $.each(friends, (i, friend) => {
         console.log(friend, i)
-        $(".friends-list").prepend("<ul><button class='contactButton' id='buttonFriend" + i + "'>" + "Chat with " + friend.name + "</button></ul>");
+        var textFriend = "<div class='chat_list'>" +
+            "<div class='chat_people'>" +
+            "<div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='profile img'> </div>" +
+            "<div class='chat_ib'>" +
+            "<h5>" + friend.name + "</h5>" +
+            "</div>" +
+            "</div>" +
+            "<button class='btn btn-outline-secondary btn-rounded waves-effect' id='buttonFriend" + i + "'>" + " Chat </button>" +
+            "</div>";
+        $("#chat_scroll").prepend(textFriend);
         $("#buttonFriend" + i).click(async () => { startChat(friend, i) });
-
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
-    })
-    $(".friends-list").prepend("<ul><button class='closeChats' id='closeChats'>" + "Close Chats </button></ul>");
-    $("#closeChats").click(async () => { closeChats(friends) });
-})
-
-/**
-* Send a message
-* @param {Chat} the chat to which it will be sent
-* @param {Integer} i
-*/
-function sendMessage(chat, i) {
-    chat.sendMessage(document.getElementById("messageText" + i).value);
-    document.getElementById("messageText" + i).value = "";
+    });
 }
+
 
 /**
 * Start a chat with the selected friend
@@ -71,44 +71,132 @@ function sendMessage(chat, i) {
 * @param {Integer} i
 */
 async function startChat(friend, i) {
-    var urlFolder = FolderManager.getUrlFolder(user.id);
-    const chat = new Chat(user, friend);
-    FolderManager.checkDechatFolder(urlFolder);
+    const chat = await new Chat(user, friend);
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
-    $(".friends-list").prepend("<div class='chatContainer' id='chatContainer" + i + "'>" + "<h4>" + friend.name + "</h4><div class='chatContent' id='chatContent" + i + "'><p id='textMessageScreen' class='textMessageScreen'>Welcome!\n</p></div>" + "<div id='sendMessage'" + i + "'>" + "<textarea rows='2' cols='34' id='messageText" + i + "'>" + "Send a message</textarea><button class='sendButton' id='messageFriend" + i + "'>Send</button></div></div>");
-    $("#buttonFriend" + i).prop('disabled', true);
-    $("#messageFriend" + i).click(async () => {
-        sendMessage(chat, i)
-        //it may be a solve to show messages when they are send but it produces other bugs.
-        $(".chatContent").append("<p class='textMessageSended'>" + user.inbox.substring(0, user.inbox.length - 6) + " >" + document.getElementById("messageText" + i).value + "</p>");
-        numberMessagesSended++;
+
+    $("#mesgs").empty(); //Delete all the content of mesgs
+    var initialMessageContent = "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
+        "<div class='type_msg'>" +
+        "<div class='input_msg_write'>" +
+        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "'/>" +
+        "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "'>" + "Send</button>" +
+        "</div>" +
+        "</div>";
+    $("#mesgs").append(initialMessageContent);
+
+    updateUIMessages(await chat.getMessages(), i);
+
+    //Add action to sending messages button
+    $("#sendMessages" + i).click(async () => {
+        var messageContent = "<div class='outgoing_msg'>" +
+                "<div class='sent_msg'>" +
+                "<p>" + document.getElementById("contentText"+i).value + "</p>" +
+                "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
+                " </div>";
+
+        //If message is empty don't send message
+        if($("#contentText" + i).val().length > 0)
+            $("#msg_history" + i).append(messageContent);
+
+        
+        sendMessage(chat, i, user, friend);
     });
 
     // Set up listener for new messages, time in ms
     setInterval(() => {
-        checkForNewMessages(chat)
-    }, 5000)
+        checkForNewMessages(chat, i)
+    }, 5000);
+
+}
+
+
+
+/**
+* Check if there is a new message in a chat.
+* @param {Chat} A chat in particular
+*/
+async function checkForNewMessages(chat, index) {
+    // Pass the callback function to execute if a new notification is received
+    await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
+}
+/**
+* Update chat UI. This function should only be called once a notification has arrived.
+* @param {Message[]} messages Message array containing chat messages
+*/
+function updateUIMessages(messages, index) {
+    // Deleted all the displayed messages
+    $("#msg_history" + index).empty();
+    var i;
+    for (i = 0; i < messages.length; i++) {
+        var sendedMessage;
+        var userToCompare = "https://"+ messages[i].user + "/profile/card#me"; //It is neccesary to known if the message is outgoing or incoming.
+        if (userToCompare == user.id) {
+            sendedMessage = "<div class='outgoing_msg'>" +
+                "<div class='sent_msg'>" +
+                "<p>" + messages[i].content + "</p>" +
+                "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span> </div>" +
+                " </div>";
+
+        }
+        else {
+            sendedMessage = "<div class='incoming_msg'>" +
+                "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>" +
+                "<div class='received_msg'>" +
+                "<div class='received_withd_msg'>" +
+                "<p>" + messages[i].content + "</p>" +
+                "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span></div>" +
+                "</div>"
+            "</div>";
+        }
+        //console.log("Messages loop " + messages[i].content);
+        $("#msg_history" + index).append(sendedMessage);
+    }
+
+
+}
+
+
+/**
+ * Shows a notification in screen when it arrives.
+ * @param {Chat} A chat in particular
+ */
+async function showNotification(chat) {
+    console.log("Notification: You got a new message!");
+    $("#mesgs").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
+    hideNotifications();
+}
+
+/**
+ * This method has the function of hiding notifications
+ */
+async function hideNotifications() {
+    $("#notificacion").fadeOut(1500);
+}
+
+
+/**
+* Send a message
+* @param {Chat} the chat to which it will be sent
+* @param {Integer} i
+*/
+function sendMessage(chat, i) {
+    //If message is not null
+    if($("#contentText" + i).val().length > 0) {
+        chat.sendMessage($("#contentText" + i).val());
+        $("#contentText" + i).val(""); //Remove content of the send message text area
+    }
 }
 
 /**
 * Empty the user's contacts html list
 */
 function emptyFriendsList() {
-    $(".friends-list").empty()
+    // $(".friends-list").empty()
+    $(".inbox_chat scroll").empty();
+
 }
 
-
-/**
-* Close the chats of the friends list
-* @param {List<Person>} list of the user's contacts
-*/
-function closeChats(friends) {
-    $.each(friends, (i, friend) => {
-        $("#chatContainer" + i).remove()
-        $("#buttonFriend" + i).prop('disabled', false);
-    })
-}
 
 /**
  * Sets the buttons, nav and titles according to the session status.
@@ -119,18 +207,21 @@ function closeChats(friends) {
  * @param {boolean} session 
  */
 function changeView(session) {
-
     $("#login").prop("hidden", session);
     $("#login").prop("show", !session);
-    $("#friends").prop("hidden", !session);
-    $("#friends").prop("show", session);
+    $("#mainHeader").prop("hidden", session);
+    $("#mainHeader").prop("show", !session);
     changeTitles(session);
-    if (!session)
+    if (!session) {
         $("#navbar").css("visibility", "hidden");
-    if (session)
+        $(".messaging").css("visibility", "hidden");
+        emptyFriendsList();
+    }
+    else {
         $("#navbar").css("visibility", "visible");
-    if (!session)
-        emptyFriendsList()
+        $(".messaging").css("visibility", "visible");
+    }
+
 }
 
 /**
@@ -147,57 +238,5 @@ async function changeTitles(session) {
     }
 }
 
-
-/**
-* Check if there is a new message in a chat.
-* @param {Chat} A chat in particular
-*/
-async function checkForNewMessages(chat) {
-    // Pass the callback function to execute if a new notification is received
-    var messages = await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages) });
-}
-
-/**
-* Update chat UI. This function should only be called once a notification has arrived.
-* @param {Message[]} messages Message array containing chat messages
-*/
-function updateUIMessages(messages) {
-	// Deleted all the displayed messages
-    $("#textMessageScreen").remove();
-    $(".textMessageScreen").remove();
-    var i;
-    //Show all the messages
-    var j;
-    var messageSendedContent;
-    for (j = 0; j < numberMessagesSended; j++)
-        messageSendedContent[j] = $(".textMessageSended").text();
-
-
-    for (i = 0; i < messages.length; i++) {
-        $(".chatContent").append("<p class='textMessageScreen' id='textMessageScreen'>" + messages[i].sender + " >" + messages[i].content + "</p>");
-    }
-
-    $(".textMessageSended").remove();
-    var k;
-    for (k = 0; k < numberMessagesSended; k++)
-        $(".chatContent").append("<p class='textMessageSended'>" + messageContent[k] + "</p>");
-}
-
-/**
- * Shows a notification in screen when it arrives.
- * @param {Chat} A chat in particular
- */
-async function showNotification(chat) {
-    console.log("Got a new message");
-    $(".friends-list").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
-    hideNotifications();
-}
-
-/**
- * This method has the function of hiding notifications
- */
-async function hideNotifications() {
-    $("#notificacion").fadeOut(1500);
-}
 
 

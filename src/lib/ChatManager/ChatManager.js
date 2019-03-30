@@ -18,8 +18,8 @@ async function read(urla, urlb) {
 * @param friendURL the webID of the chat's contact
 * @return the ordered list of the conversation messages
 */
-function readPod(userURL, friendURL) {
-    return chatReader.readPod(userURL, friendURL);
+async function readPod(userURL, friendURL, messages) {
+    return await chatReader.readPod(userURL, friendURL);
 };
 
 /**

@@ -2,6 +2,8 @@ var textParser = require("./TextParser.js");
 var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
+const ChatWritter = require("../ChatWriter/ChatWriter");
+const FolderManager = require("../ChatWriter/FolderManager");
 
 /**
  * This function get all messages from a single pod uri
@@ -12,10 +14,14 @@ const fileClient = require("solid-file-client");
  * @return {Array} List of objects messages
  */
 async function singleUriGetter(url) {
-	var salida = await fileClient.readFile(url);
+	//if user haven't folder create, return empty list of messages
+	try {
+		var salida = await fileClient.readFile(url);
+	} catch(error) {
+		return [];
+	}
 
 	var tr = await creator.create(textParser.parseString(salida));
-
 	return await tr;
 };
 
@@ -40,15 +46,43 @@ async function read(urla, urlb) {
 };
 
 /**
+ * If is the first time, messages.txt don't create,
+ * so we will create.
+ * @param {String} userURL 
+ * @param {String} friendURL 
+ */
+async function checkIfMessageExists(userUrl, friendUrl) {
+	var friendIdentifier = friendUrl.replace("https://", "");
+	var partes = friendIdentifier.split(".");
+	friendIdentifier = partes[0] + "." + partes[1];
+	var fileRoute = userUrl.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/messages.txt");
+	try {
+		await fileClient.readFile(fileRoute);
+	} catch(error) {
+		await ChatWritter.sendToOwnPOD(userUrl, friendUrl, []);
+	}
+}
+
+/**
+ * Check if messages exists, if not create created.
+ * @param {String} userURL 
+ * @param {String} friendURL 
+ */
+async function checkIfMessagesExists(userURL, friendURL) {
+	await checkIfMessageExists(userURL, friendURL);
+}
+
+/**
 * Read pod receives the webid of the chat participants returning and ordered array of messages
 * @param userURL the webID of the chat's ownerDocument
 * @param friendURL the webID of the chat's contact
 * @return the ordered list of the conversation messages
 */
 async function readPod(userURL, friendURL) {
+	await checkIfMessagesExists(userURL, friendURL);
 	var user = userURL.replace("https://", "").replace("/profile/card#me", "");
 	var partner = friendURL.replace("https://", "").replace("/profile/card#me", "");
-	return this.read(user, partner);
+	return await read(user, partner);
 };
 
 module.exports = {
