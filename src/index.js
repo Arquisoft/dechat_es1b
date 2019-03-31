@@ -63,17 +63,20 @@ async function loadFriends() {
             "<h5>" + friend.name + "</h5>" +
             "</div>" +
             "</div>" +
-            "<button class='btn btn-outline-secondary btn-rounded waves-effect' id='buttonFriend" + i + "'>" + " Chat </button>" +
+            "<button class='btn btn-outline-secondary btn-rounded waves-effect' id='buttonFriend" + i + "'" + " onkeypress='pressEnter(event)' >" + " Chat </button>" +
             "</div>";
         $("#chat_scroll").prepend(textFriend);
-        $("#buttonFriend" + i).click(async () => { 
+        $("#buttonFriend" + i).click(async () => {
             // if there's a chat active for someone else, we stop listening for messages from it
             clearInterval(messageLoop);
-            startChat(friend, i) 
+            startChat(friend, i)
         });
+
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     });
 }
+
+
 
 
 /**
@@ -90,10 +93,11 @@ async function startChat(friend, i) {
     var initialMessageContent = "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
         "<div class='type_msg'>" +
         "<div class='input_msg_write'>" +
-        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "'/>" +
-        "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "'>" + "Send</button>" +
+        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "' />" +
+        "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "' >" + "Send</button>" +
         "</div>" +
         "</div>";
+
     $("#mesgs").append(initialMessageContent);
 
     updateUIMessages(await chat.getMessages(), i);
@@ -101,18 +105,42 @@ async function startChat(friend, i) {
     //Add action to sending messages button
     $("#sendMessages" + i).click(async () => {
         var messageContent = "<div class='outgoing_msg'>" +
-                "<div class='sent_msg'>" +
-                "<p>" + document.getElementById("contentText"+i).value + "</p>" +
-                "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
-                " </div>";
+            "<div class='sent_msg'>" +
+            "<p>" + document.getElementById("contentText" + i).value + "</p>" +
+            "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
+            " </div>";
 
         //If message is empty don't send message
-        if($("#contentText" + i).val().length > 0)
+        if ($("#contentText" + i).val().length > 0)
+            $("#msg_history" + i).append(messageContent);
+
+        console.log(i)
+        sendMessage(chat, i, user, friend);
+        // Get the input field
+    });
+
+    // Trigger enter key to send messages action.
+    $('#contentText' + i).bind("enterKey", function (e) {
+        var messageContent = "<div class='outgoing_msg'>" +
+            "<div class='sent_msg'>" +
+            "<p>" + document.getElementById("contentText" + i).value + "</p>" +
+            "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
+            " </div>";
+
+        //If message is empty don't send message
+        if ($("#contentText" + i).val().length > 0)
             $("#msg_history" + i).append(messageContent);
 
         console.log(i)
         sendMessage(chat, i, user, friend);
     });
+
+    $('#contentText' + i).keyup(function (e) {
+        if (e.keyCode == 13) {
+            $(this).trigger("enterKey");
+        }
+    });
+
 
     // Set up listener for new messages, time in ms
     messageLoop = setInterval(() => {
@@ -121,10 +149,11 @@ async function startChat(friend, i) {
 
     // Set up listener for new notifications, time in ms
     notifLoop = setInterval(() => {
-        chat.checkForNotifications((messages) => {showNotification(chat)});
+        chat.checkForNotifications((messages) => { showNotification(chat) });
     }, notifLoopTimer);
 
 }
+
 
 
 
@@ -149,7 +178,7 @@ function updateUIMessages(messages, index) {
     var i;
     for (i = 0; i < messages.length; i++) {
         var sendedMessage;
-        var userToCompare = "https://"+ messages[i].user + "/profile/card#me"; //It is neccesary to known if the message is outgoing or incoming.
+        var userToCompare = "https://" + messages[i].user + "/profile/card#me"; //It is neccesary to known if the message is outgoing or incoming.
         if (userToCompare == user.id) {
             sendedMessage = "<div class='outgoing_msg'>" +
                 "<div class='sent_msg'>" +
@@ -201,7 +230,7 @@ async function hideNotifications() {
 */
 function sendMessage(chat, i) {
     //If message is not null
-    if($("#contentText" + i).val().length > 0) {
+    if ($("#contentText" + i).val().length > 0) {
         chat.sendMessage($("#contentText" + i).val());
         $("#contentText" + i).val(""); //Remove content of the send message text area
     }
