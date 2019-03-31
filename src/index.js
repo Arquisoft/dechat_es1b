@@ -55,6 +55,9 @@ async function loadFriends() {
     friends = await query.getFriends();
     emptyFriendsList();
     $.each(friends, (i, friend) => {
+        
+        
+
         console.log(friend, i)
         var textFriend = "<div class='chat_list'>" +
             "<div class='chat_people'>" +
@@ -89,6 +92,7 @@ async function startChat(friend, i) {
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
 
+
     $("#mesgs").empty(); //Delete all the content of mesgs
     var initialMessageContent = "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
         "<div class='type_msg'>" +
@@ -114,33 +118,12 @@ async function startChat(friend, i) {
         if ($("#contentText" + i).val().length > 0)
             $("#msg_history" + i).append(messageContent);
 
-        console.log(i)
+        //console.log(i)
         sendMessage(chat, i, user, friend);
         // Get the input field
     });
 
-    // Trigger enter key to send messages action.
-    $('#contentText' + i).bind("enterKey", function (e) {
-        var messageContent = "<div class='outgoing_msg'>" +
-            "<div class='sent_msg'>" +
-            "<p>" + document.getElementById("contentText" + i).value + "</p>" +
-            "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
-            " </div>";
-
-        //If message is empty don't send message
-        if ($("#contentText" + i).val().length > 0)
-            $("#msg_history" + i).append(messageContent);
-
-        console.log(i)
-        sendMessage(chat, i, user, friend);
-    });
-
-    $('#contentText' + i).keyup(function (e) {
-        if (e.keyCode == 13) {
-            $(this).trigger("enterKey");
-        }
-    });
-
+    addEnterListener(chat, i, user, friend);
 
     // Set up listener for new messages, time in ms
     messageLoop = setInterval(() => {
@@ -154,7 +137,36 @@ async function startChat(friend, i) {
 
 }
 
+/**
+* Add the functionality of sending messages to enter key
+* @param {Chat} chat representing the chat object.
+* @param {User} user representing the user who is using the chat.
+* @param {User} friend representing the friend of the user who receives the messages.
+* @param {Integer} i
+*/
+async function addEnterListener(chat, i, user, friend) {
+    // Trigger enter key to send messages action.
+    $('#contentText' + i).bind("enterKey", function (e) {
+        var messageContent = "<div class='outgoing_msg'>" +
+            "<div class='sent_msg'>" +
+            "<p>" + document.getElementById("contentText" + i).value + "</p>" +
+            "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
+            " </div>";
 
+        //If message is empty don't send message
+        if ($("#contentText" + i).val().length > 0)
+            $("#msg_history" + i).append(messageContent);
+
+        //console.log(i)
+        sendMessage(chat, i, user, friend);
+    });
+
+    $('#contentText' + i).keyup(function (e) {
+        if (e.keyCode == 13) {
+            $(this).trigger("enterKey");
+        }
+    });
+}
 
 
 /**
