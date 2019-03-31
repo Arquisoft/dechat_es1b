@@ -20,20 +20,20 @@ $("document").ready(async () => {
     session.track(
         // If there's a session
         async () => {
-                user = await session.getUser();
-                notifications = new Notifier(user);
-                console.log(user);
-                changeView(true);
-                loadInitialContacts();
-                let urlFolder = await FolderManager.getUrlFolder(user.id);
-                await FolderManager.checkDechatFolder(urlFolder);
-            },
-            // User isn't logged in
-            async () => {
-                user = null;
-                console.log(user);
-                changeView(false);
-            }
+            user = await session.getUser();
+            notifications = new Notifier(user);
+            console.log(user);
+            changeView(true);
+            loadInitialContacts();
+            let urlFolder = await FolderManager.getUrlFolder(user.id);
+            await FolderManager.checkDechatFolder(urlFolder);
+        },
+        // User isn't logged in
+        async () => {
+            user = null;
+            console.log(user);
+            changeView(false);
+        }
     )
 })
 
@@ -57,12 +57,21 @@ async function loadInitialContacts() {
 async function loadFriends() {
     friends = await query.getFriends();
     emptyFriendsList();
-    $.each(friends, (i, friend) => {
+  
+    $.each(friends, async (i, friend) => {
         console.log(friend.id);
         console.log(friend, i);
+
+
+        var image = await query.getProfilePic(friends[i].id);
+        if(typeof image === 'undefined'){
+            image = "https://ptetutorials.com/images/user-profile.png";
+            console.log("IMAGE " + image);
+        }
+        
         var textFriend = "<div class='chat_list'>" +
             "<div class='chat_people'>" +
-            "<div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='profile img'> </div>" +
+            "<div class='chat_img'> <img src='" + image  +"' alt='profile img'> </div>" +
             "<div class='chat_ib'>" +
             "<h5>" + friend.name + "</h5>" +
             "</div>" +
@@ -78,9 +87,9 @@ async function loadFriends() {
 
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     });
-
-    listenForNotifications();
-}
+    listenForNotifications(); 
+    }
+    
 
 
 
@@ -199,7 +208,7 @@ function updateUIMessages(messages, index) {
 
         } else {
             sendedMessage = "<div class='incoming_msg'>" +
-                "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>" +
+                "<div class='incoming_msg_img'></div>" +
                 "<div class='received_msg'>" +
                 "<div class='received_withd_msg'>" +
                 "<p>" + messages[i].content + "</p>" +
@@ -228,47 +237,47 @@ function listenForNotifications() {
     }, notifLoopTimer);
 }
 
-async function friendWantsToChat(friendList){
-    if(friendList.length>0){
+async function friendWantsToChat(friendList) {
+    if (friendList.length > 0) {
         var messageTalk = "";
-        for(i in friendList){
-            if(i>0){
-                    messageTalk+=", ";
+        for (i in friendList) {
+            if (i > 0) {
+                messageTalk += ", ";
             }
-           var nameFriend =  await query.getName(friendList[i]);
-           console.log("NAME FRIEND WHO WANTS TO TALK : " + nameFriend);
-          messageTalk = messageTalk + nameFriend+ " ";
+            var nameFriend = await query.getName(friendList[i]);
+            console.log("NAME FRIEND WHO WANTS TO TALK : " + nameFriend);
+            messageTalk = messageTalk + nameFriend + " ";
         }
         notifyMe(messageTalk);
     }
-        
+
 }
 
 function notifyMe(messageTalk) {
     // Let's check if the browser supports notifications
     if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
+        alert("This browser does not support desktop notification");
     }
-  
+
     // Let's check whether notification permissions have already been granted
     else if (Notification.permission === "granted") {
-      // If it's okay let's create a notification
-      var notification = new Notification(messageTalk + " sent you a message");
+        // If it's okay let's create a notification
+        var notification = new Notification(messageTalk + " sent you a message");
     }
-  
+
     // Otherwise, we need to ask the user for permission
     else if (Notification.permission !== 'denied') {
-      Notification.requestPermission(function (permission) {
-        // If the user accepts, let's create a notification
-        if (permission === "granted") {
-          var notification = new Notification(messageTalk + " sent you a message");
-        }
-      });
+        Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+                var notification = new Notification(messageTalk + " sent you a message");
+            }
+        });
     }
-  
+
     // At last, if the user has denied notifications, and you 
     // want to be respectful there is no need to bother them any more.
-  }
+}
 
 /**
  * Shows a notification in screen when it arrives.
