@@ -58,10 +58,8 @@ async function loadFriends() {
     friends = await query.getFriends();
     emptyFriendsList();
     $.each(friends, (i, friend) => {
-        
-        
-
-        console.log(friend, i)
+        console.log(friend.id);
+        console.log(friend, i);
         var textFriend = "<div class='chat_list'>" +
             "<div class='chat_people'>" +
             "<div class='chat_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='profile img'> </div>" +
@@ -221,12 +219,52 @@ function updateUIMessages(messages, index) {
  */
 function listenForNotifications() {
     notifLoop = setInterval(() => {
-        notifications.checkForNotifications((messages) => {
+        notifications.checkForNotifications((friendList) => {
             console.log("¡Te ha llegado una notificación!")
-            console.log(messages);
+            console.log(friendList);
+            //Call function to show message alert
+            friendWantsToChat(friendList);
         });
     }, notifLoopTimer);
 }
+
+function friendWantsToChat(friendList){
+    if(friendList.length>0){
+        var messageTalk = "";
+        for(friend of friendList){
+          messageTalk = messageTalk + friend+ " ";
+        }
+        notifyMe(messageTalk);
+    }
+        
+}
+
+function notifyMe(messageTalk) {
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    }
+  
+    // Let's check whether notification permissions have already been granted
+    else if (Notification.permission === "granted") {
+      // If it's okay let's create a notification
+      var notification = new Notification("There are people who want to chat:" + messageTalk);
+    }
+  
+    // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== 'denied') {
+      Notification.requestPermission(function (permission) {
+        // If the user accepts, let's create a notification
+        if (permission === "granted") {
+          var notification = new Notification("There are people who want to chat:" + messageTalk);
+        }
+      });
+    }
+  
+    // At last, if the user has denied notifications, and you 
+    // want to be respectful there is no need to bother them any more.
+  }
+
 /**
  * Shows a notification in screen when it arrives.
  * @param {Chat} A chat in particular
