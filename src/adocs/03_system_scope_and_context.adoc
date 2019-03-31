@@ -39,7 +39,12 @@ We can distinguish among two different contexts:
 .*Reading context*
 To describe it better we are going to use an iteration diagram between the Chat module and the ChatReader one.
 [#img-overviewreadcontext]
-image::./diagrams/03-readingContext.jpg[overviewreadcontext]
+image::./diagrams/03-readingContext.png[overviewreadcontext]
+
+.*Writting context*
+As we have done previously, It is going to be represented in the next diagram.
+[#img-overviewwrittingcontext]
+image::./diagrams/03-writtingContext.png[overviewwrittingcontext]
 
 
 
