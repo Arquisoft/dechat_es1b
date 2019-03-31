@@ -41,8 +41,7 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 		await fileClient.createFolder(folderRoute).then(200);
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, partnerID, messages);
 	await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
-		console.log("BOOM HEADSHOT")
-	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(console.log("mal rollo")));
+	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(404));
 	folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
 };
 

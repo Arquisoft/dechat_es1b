@@ -3,13 +3,15 @@ const query = require("./lib/ldflex-queries");
 const Chat = require("./lib/chat");
 const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
+const Notifier = require("./lib/notifier");
 
 // Time constants
 const messageLoopTimer = 3000;
 const notifLoopTimer = 5000;
 const notifFadeout = 1500;
 
-let user, messageLoop, notifLoop;
+let user, notifications, messageLoop, notifLoop;
+
 
 /**
  * On DOM load, set solid.auth to track the session status
@@ -18,19 +20,20 @@ $("document").ready(async () => {
     session.track(
         // If there's a session
         async () => {
-            user = await session.getUser();
-            console.log(user);
-            changeView(true);
-            loadInitialContacts();
-            let urlFolder = await FolderManager.getUrlFolder(user.id);
-            await FolderManager.checkDechatFolder(urlFolder);
-        },
-        // User isn't logged in
-        async () => {
-            user = null;
-            console.log(user);
-            changeView(false);
-        }
+                user = await session.getUser();
+                notifications = new Notifier(user);
+                console.log(user);
+                changeView(true);
+                loadInitialContacts();
+                let urlFolder = await FolderManager.getUrlFolder(user.id);
+                await FolderManager.checkDechatFolder(urlFolder);
+            },
+            // User isn't logged in
+            async () => {
+                user = null;
+                console.log(user);
+                changeView(false);
+            }
     )
 })
 
@@ -74,16 +77,18 @@ async function loadFriends() {
 
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     });
+
+    listenForNotifications();
 }
 
 
 
 
 /**
-* Start a chat with the selected friend
-* @param {Person} object representing the user's contact
-* @param {Integer} i
-*/
+ * Start a chat with the selected friend
+ * @param {Person} object representing the user's contact
+ * @param {Integer} i
+ */
 async function startChat(friend, i) {
     const chat = await new Chat(user, friend);
     //We start the chat when we make sure we have the folder created.
@@ -146,32 +151,25 @@ async function startChat(friend, i) {
     messageLoop = setInterval(() => {
         checkForNewMessages(chat, i)
     }, messageLoopTimer);
-
-    // Set up listener for new notifications, time in ms
-    notifLoop = setInterval(() => {
-        chat.checkForNotifications((messages) => { showNotification(chat) });
-    }, notifLoopTimer);
-
 }
 
 
 
 
 /**
-* Check if there is a new message in a chat.
-* @param {Chat} A chat in particular
-*/
+ * Check if there is a new message in a chat.
+ * @param {Chat} chat A chat in particular
+ */
 async function checkForNewMessages(chat, index) {
     // Pass the callback function to execute if a new notification is received
     messages = await chat.getMessages();
-    console.log(messages)
     updateUIMessages(messages, index);
     //await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
 }
 /**
-* Update chat UI. This function should only be called once a notification has arrived.
-* @param {Message[]} messages Message array containing chat messages
-*/
+ * Update chat UI. This function should only be called once a notification has arrived.
+ * @param {Message[]} messages Message array containing chat messages
+ */
 function updateUIMessages(messages, index) {
     // Deleted all the displayed messages
     $("#msg_history" + index).empty();
@@ -186,8 +184,7 @@ function updateUIMessages(messages, index) {
                 "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span> </div>" +
                 " </div>";
 
-        }
-        else {
+        } else {
             sendedMessage = "<div class='incoming_msg'>" +
                 "<div class='incoming_msg_img'> <img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>" +
                 "<div class='received_msg'>" +
@@ -204,7 +201,17 @@ function updateUIMessages(messages, index) {
 
 }
 
-
+/**
+ * Sets up a listener for notifications which will be run every {notifLoopTimer} ms
+ */
+function listenForNotifications() {
+    notifLoop = setInterval(() => {
+        notifications.checkForNotifications((messages) => {
+            console.log("¡Te ha llegado una notificación!")
+            console.log(messages);
+        });
+    }, notifLoopTimer);
+}
 /**
  * Shows a notification in screen when it arrives.
  * @param {Chat} A chat in particular
@@ -224,10 +231,10 @@ async function hideNotifications() {
 
 
 /**
-* Send a message
-* @param {Chat} the chat to which it will be sent
-* @param {Integer} i
-*/
+ * Send a message
+ * @param {Chat} the chat to which it will be sent
+ * @param {Integer} i
+ */
 function sendMessage(chat, i) {
     //If message is not null
     if ($("#contentText" + i).val().length > 0) {
@@ -237,8 +244,8 @@ function sendMessage(chat, i) {
 }
 
 /**
-* Empty the user's contacts html list
-*/
+ * Empty the user's contacts html list
+ */
 function emptyFriendsList() {
     // $(".friends-list").empty()
     $(".inbox_chat scroll").empty();
@@ -264,8 +271,7 @@ function changeView(session) {
         $("#navbar").css("visibility", "hidden");
         $(".messaging").css("visibility", "hidden");
         emptyFriendsList();
-    }
-    else {
+    } else {
         $("#navbar").css("visibility", "visible");
         $(".messaging").css("visibility", "visible");
     }
@@ -273,9 +279,9 @@ function changeView(session) {
 }
 
 /**
-* Change titles depending on whether they have logged in or not.
-* @param {boolean} session
-*/
+ * Change titles depending on whether they have logged in or not.
+ * @param {boolean} session
+ */
 async function changeTitles(session) {
     if (session) {
         $("#titleApp").html("Welcome user: " + await query.getName());
@@ -285,6 +291,3 @@ async function changeTitles(session) {
         $("#subTitleApp").prop("show", session)
     }
 }
-
-
-
