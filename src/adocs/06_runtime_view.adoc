@@ -37,7 +37,13 @@ Finally the UI is refreshed to show the new message.
 4. A visual notification is sent to the user
 5. Messages get loaded and UI updated
 
+[#img-receivemessage]
+.Receive message - Sequence diagram
+image::./diagrams/06-receivemessage.png[receivemessage]
 
+When the user logs in the application starts listening for notifications and when one is found the user is informed via a HTML5 Notification API who (one person or several) sent a message since the last check.
+
+On the other hand when a user starts a chat with someone a listener is set up to gather the messages from both of the PODs every few seconds. This listener is only set for the active chat in order to increase performance (why load all chats' messages when the user will only be using one at once?). If the user changes to a different chat the listener is released and a new one is set for the new chat.
 
 
 
