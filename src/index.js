@@ -135,10 +135,6 @@ async function startChat(friend, i) {
         checkForNewMessages(chat, i)
     }, messageLoopTimer);
 
-    // Set up listener for new notifications, time in ms
-    notifLoop = setInterval(() => {
-        chat.checkForNotifications((messages) => { showNotification(chat) });
-    }, notifLoopTimer);
 
 }
 
@@ -171,15 +167,7 @@ async function addEnterListener(chat, i, user, friend) {
             $(this).trigger("enterKey");
         }
     });
-<<<<<<< HEAD
-=======
 
-
-    // Set up listener for new messages, time in ms
-    messageLoop = setInterval(() => {
-        checkForNewMessages(chat, i)
-    }, messageLoopTimer);
->>>>>>> 667b5dc819b781478f425b5e9e3ac71a31b27f8f
 }
 
 
