@@ -228,11 +228,16 @@ function listenForNotifications() {
     }, notifLoopTimer);
 }
 
-function friendWantsToChat(friendList){
+async function friendWantsToChat(friendList){
     if(friendList.length>0){
         var messageTalk = "";
-        for(friend of friendList){
-          messageTalk = messageTalk + friend+ " ";
+        for(i in friendList){
+            if(i>0){
+                    messageTalk+=", ";
+            }
+           var nameFriend =  await query.getName(friendList[i]);
+           console.log("NAME FRIEND WHO WANTS TO TALK : " + nameFriend);
+          messageTalk = messageTalk + nameFriend+ " ";
         }
         notifyMe(messageTalk);
     }
@@ -248,7 +253,7 @@ function notifyMe(messageTalk) {
     // Let's check whether notification permissions have already been granted
     else if (Notification.permission === "granted") {
       // If it's okay let's create a notification
-      var notification = new Notification("There are people who want to chat:" + messageTalk);
+      var notification = new Notification(messageTalk + " sent you a message");
     }
   
     // Otherwise, we need to ask the user for permission
@@ -256,7 +261,7 @@ function notifyMe(messageTalk) {
       Notification.requestPermission(function (permission) {
         // If the user accepts, let's create a notification
         if (permission === "granted") {
-          var notification = new Notification("There are people who want to chat:" + messageTalk);
+          var notification = new Notification(messageTalk + " sent you a message");
         }
       });
     }

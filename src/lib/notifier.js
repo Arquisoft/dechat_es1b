@@ -20,7 +20,7 @@ class Notifier {
         for (const file of files) {
             let content;
             content = await fileManager.readFile(file.url);
-            if (!(content in partnerIds))
+            if (!(partnerIds.includes(content)))
                 partnerIds.push(content);
         }
 
