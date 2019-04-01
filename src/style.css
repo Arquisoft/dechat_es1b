@@ -120,7 +120,20 @@ img{
 
 }
 
+.bar_image{
+	border:1px solid;
+	text-align:center;
+	max-width: 5em;
+	height: 5em;
+	width: 5em/9; /* Bug de ie8 */
+	
+}
+.bar_image>h4 {
+	display:inline-block;
+	vertical-align:middle;
+	line-height:normal;
 
+}
 
 footer {
     position: absolute;

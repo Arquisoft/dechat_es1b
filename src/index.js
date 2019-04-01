@@ -105,10 +105,18 @@ async function startChat(friend, i) {
     const chat = await new Chat(user, friend);
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
-
-
     $("#mesgs").empty(); //Delete all the content of mesgs
-    var initialMessageContent = "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
+
+    var image = await query.getProfilePic(friend.id);
+    if(typeof image === 'undefined'){
+        image = "https://ptetutorials.com/images/user-profile.png";
+    }
+
+    $(".profile_bar").empty(); //Empty profile upper bar
+    $(".profile_bar").append("<img class='bar_image' src='" + image  +"' alt='profile img' /> <p class='text-center'>"+ friend.name + "</p>");
+
+    var initialMessageContent = 
+        "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
         "<div class='type_msg'>" +
         "<div class='input_msg_write'>" +
         "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "' />" +
@@ -117,6 +125,9 @@ async function startChat(friend, i) {
         "</div>";
 
     $("#mesgs").append(initialMessageContent);
+
+    
+
 
     updateUIMessages(await chat.getMessages(), i);
 
