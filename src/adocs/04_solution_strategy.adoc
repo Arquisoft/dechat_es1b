@@ -13,5 +13,8 @@ The user interface will be developed using web technologies (HTML5+CSS3+Bootstra
 As for data storage, JSON is our choice because it's lightweight, ingrained into JavaScript and it has an easy way of manipulation.
 
 Considerations:
-* The technology decisions that has been made are focus on the compatibilities with SOLID specification.
-* All decisions were made with the aim of easily developing the application, using previous knowledge of the team members and adapting them to SOLID technology.
+
+ - The technology decisions that has been made are focus on the compatibilities with SOLID specification.
+ 
+ - All decisions were made with the aim of easily developing the application, using previous knowledge of the team members and adapting them to SOLID technology.
+
