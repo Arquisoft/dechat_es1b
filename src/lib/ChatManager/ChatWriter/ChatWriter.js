@@ -35,8 +35,10 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
 
-	folderExists = await query.getFolder(folderRoute);
-	console.log(folderExists.value)
+	folderExists = await fileClient.readFolder(folderRoute).then(
+		success => 200, 
+		err => undefined);
+	console.log(folderExists)
 	if (typeof folderExists === 'undefined')
 		await fileClient.createFolder(folderRoute).then(200);
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, partnerID, messages);
