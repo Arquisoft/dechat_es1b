@@ -10,7 +10,7 @@ const Person = require("../model/person")
  * Presents a popup and logs the user in
  */
 async function login(){
-  await auth.popupLogin({ popupUri: "../popup.html" });
+  await auth.popupLogin({ popupUri: "./popup.html" });
 };
 
 /**
