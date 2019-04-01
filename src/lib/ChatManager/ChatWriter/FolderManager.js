@@ -64,10 +64,11 @@ async function createFolder(url) {
  */
 async function checkDechatFolder(userUrl) {
     let check = await this.readFolder(userUrl + CHAT_FOLDER);
-    console.log(check)
+    console.log("FOLDER NAME: " + check);
     if (typeof check === 'undefined') {
         console.log("ESTOY CREANDO COSAS")
-        this.createFolder(userUrl + CHAT_FOLDER);
+        await this.createFolder(userUrl + CHAT_FOLDER);
+        console.log("SE HA CREADO?")
     }
 };
 
@@ -77,7 +78,11 @@ async function checkDechatFolder(userUrl) {
  * @return {Promise} Object promise if exist or undefined if not
  */
 async function readFolder(url) {
-    return fileClient.readFolder(url).then(folder => { return (folder) }, err => undefined);
+    console.log("VOY A LEER: " + url)
+    return fileClient.readFolder(url).then(folder => {
+        console.log("YAY " + folder) 
+        return (folder);
+     }, err => undefined);
 };
 
 /**

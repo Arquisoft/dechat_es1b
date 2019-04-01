@@ -1,0 +1,15 @@
+@startuml
+
+title "Send message"
+
+actor UserA as user
+participant DeChat
+database PODA as poda
+database PODB as podb
+
+user -> DeChat : click send
+DeChat -> poda : writeOwnPod(message)
+DeChat -> podb : writeInbox(notification)
+DeChat -> user : refresh UI
+
+@enduml
