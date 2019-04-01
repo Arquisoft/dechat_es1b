@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="read"><span class="type-signature">(async) </span>read<span class="signature">(urla, urlb)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="parseString"><span class="type-signature"></span>parseString<span class="signature">(chain)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
     
 
     
@@ -112,7 +112,7 @@
 
 
 <div class="description">
-    This function receives two uri applies singleUriGetter	to create a message array for each onerror	and returns the sorted by date list
+    Function that parses the string from the POD to get the JSON
 </div>
 
 
@@ -148,7 +148,7 @@
 
         <tr>
             
-                <td class="name"><code>urla</code></td>
+                <td class="name"><code>chain</code></td>
             
 
             <td class="type">
@@ -164,30 +164,7 @@
 
             
 
-            <td class="description last">Example: martinlacorrona.solid.community</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>urlb</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Example: javierardura.solid.community</td>
+            <td class="description last">from the POD</td>
         </tr>
 
     
@@ -228,155 +205,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="readPod"><span class="type-signature">(async) </span>readPod<span class="signature">(userURL, friendURL)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Read pod receives the webid of the chat participants returning and ordered array of messages
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>userURL</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the webID of the chat's ownerDocument</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>friendURL</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the webID of the chat's contact</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line21">line 21</a>
+        <a href="TextParser.js.html">TextParser.js</a>, <a href="TextParser.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -403,175 +232,7 @@
 
         
 <div class="param-desc">
-    the ordered list of the conversation messages
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="writeInbox"><span class="type-signature"></span>writeInbox<span class="signature">(inboxURL, data)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Creates a file in the specified inbox with the json data passed as argument
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>inboxURL</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Promise</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line31">line 31</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    file
+    with messages
 </div>
 
 
@@ -582,194 +243,13 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">JSON</span>
 
 
     </dd>
 </dl>
 
     
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="writeOwnPOD"><span class="type-signature">(async) </span>writeOwnPOD<span class="signature">(userID, partnerID, messages)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Creates a folder in user's own pod, containing a json representing chat messagesand grants read permissions to partner.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>userID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partnerID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>messages</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line42">line 42</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -791,13 +271,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#read">read</a></li><li><a href="global.html#readPod">readPod</a></li><li><a href="global.html#writeInbox">writeInbox</a></li><li><a href="global.html#writeOwnPOD">writeOwnPOD</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#parseString">parseString</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 02 2019 00:17:06 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 02 2019 00:19:06 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
