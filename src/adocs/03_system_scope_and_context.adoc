@@ -29,7 +29,7 @@ image::./diagrams/05-scopecontext.jpg[overviewbusinessdiagram]
 === Technical Context
 
 
-====Backend
+==== Backend
 The app uses SOLID server, through PODs.
 A POD is like a key for an user. 
 It detemines who can get a content, as messages, avoiding unwanted accesses from external people.
@@ -48,7 +48,7 @@ image::./diagrams/03-writtingContext.png[overviewwrittingcontext]
 
 
 
-====Frontend 
+==== Frontend 
 The frontend will be a SPA (Single page application) in which the user will make all of his interactions, which will be the authentication and the chatting itself.
 The application must interact with the PODs through their HTTP API.
 

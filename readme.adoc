@@ -10,6 +10,9 @@ image:https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZLs3_MH6n8iaxmziDn-
 
 > Re-decentralizing the web
 
+== Do you want to test app?
+Enter here: https://arquisoft.github.io/dechat_es1b/
+
 == How to start the app?
 Clone this repository:
 ----
