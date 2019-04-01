@@ -77,7 +77,7 @@ async function checkDechatFolder(userUrl) {
  * @return {Promise} Object promise if exist or undefined if not
  */
 async function readFolder(url) {
-    return fileClient.readFolder(url).then(folder => { return (folder) }, err => console.log(err));
+    return fileClient.readFolder(url).then(folder => { return (folder) }, err => undefined);
 };
 
 /**
