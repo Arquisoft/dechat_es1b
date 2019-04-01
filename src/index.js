@@ -68,8 +68,9 @@ async function loadFriends() {
         var image = await query.getProfilePic(friends[i].id);
         if(typeof image === 'undefined'){
             image = "https://ptetutorials.com/images/user-profile.png";
-            console.log("IMAGE " + image);
         }
+
+        friends[i].image=image; //Image will be cached in friend object
         
         var textFriend = "<div class='chat_list'>" +
             "<div class='chat_people'>" +
@@ -105,10 +106,13 @@ async function startChat(friend, i) {
     const chat = await new Chat(user, friend);
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
-
-
     $("#mesgs").empty(); //Delete all the content of mesgs
-    var initialMessageContent = "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
+
+    $(".profile_bar").empty(); //Empty profile upper bar
+    $(".profile_bar").append("<img class='bar_image' src='" + friend.image  +"' alt='profile img' /> <p class='text-center'>"+ friend.name + "</p>"); //Add content of the profile upper bar
+
+    var initialMessageContent = 
+        "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
         "<div class='type_msg'>" +
         "<div class='input_msg_write'>" +
         "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "' />" +
@@ -117,6 +121,9 @@ async function startChat(friend, i) {
         "</div>";
 
     $("#mesgs").append(initialMessageContent);
+
+    
+
 
     updateUIMessages(await chat.getMessages(), i);
 
@@ -361,7 +368,7 @@ function changeView(session) {
  */
 async function changeTitles(session) {
     if (session) {
-        $("#titleApp").html("Welcome user: " + await query.getName());
+        $("#titleApp").html("Welcome " + await query.getName());
         $("#subTitleApp").prop("hidden", session)
     } else {
         $("#titleApp").html("Sign in using Solid technology");
