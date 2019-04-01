@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="changeTitles"><span class="type-signature">(async) </span>changeTitles<span class="signature">(session)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="buildJSONmessages"><span class="type-signature"></span>buildJSONmessages<span class="signature">(senderID, receiverID, messages)</span><span class="type-signature"> &rarr; {String}</span></h4>
     
 
     
@@ -112,7 +112,7 @@
 
 
 <div class="description">
-    Change titles depending on whether they have logged in or not.
+    Builds a JSON format file that contains all messages
 </div>
 
 
@@ -148,13 +148,13 @@
 
         <tr>
             
-                <td class="name"><code>session</code></td>
+                <td class="name"><code>senderID</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">String</span>
 
 
             
@@ -168,128 +168,16 @@
         </tr>
 
     
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line143">line 143</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="changeView"><span class="type-signature"></span>changeView<span class="signature">(session)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Sets the buttons, nav and titles according to the session status.If we initiate session we hide the button of the log and appears the nav and the button of the list of friends.If we close session disappears the nav and the button of the list of friends and the button of the login appears.Change the titles depending on whether we are logged in or not.If we are not logged in, we will empty the list of friends.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
 
         <tr>
             
-                <td class="name"><code>session</code></td>
+                <td class="name"><code>receiverID</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">String</span>
 
 
             
@@ -302,1011 +190,6 @@
             <td class="description last"></td>
         </tr>
 
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line124">line 124</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="checkForNewMessages"><span class="type-signature">(async) </span>checkForNewMessages<span class="signature">(A)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Check if there is a new message in a chat.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>A</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Chat</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">chat in particular</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line158">line 158</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="closeChats"><span class="type-signature"></span>closeChats<span class="signature">(list)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Close the chats of the friends list
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>list</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">List.&lt;Person></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the user's contacts</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line109">line 109</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="emptyFriendsList"><span class="type-signature"></span>emptyFriendsList<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Empty the user's contacts html list
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line84">line 84</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="hideNotifications"><span class="type-signature">(async) </span>hideNotifications<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    This method has the function of hiding notifications
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line202">line 202</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="sendMessage"><span class="type-signature"></span>sendMessage<span class="signature">(the, i)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Send a message
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>the</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Chat</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">chat to which it will be sent</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>i</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Integer</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line47">line 47</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="showNotification"><span class="type-signature">(async) </span>showNotification<span class="signature">(A)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Shows a notification in screen when it arrives.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>A</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Chat</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">chat in particular</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line193">line 193</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="startChat"><span class="type-signature">(async) </span>startChat<span class="signature">(object, i)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Start a chat with the selected friend
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>object</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Person</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">representing the user's contact</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>i</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Integer</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line59">line 59</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="updateUIMessages"><span class="type-signature"></span>updateUIMessages<span class="signature">(messages)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Update chat UI. This function should only be called once a notification has arrived.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
     
 
         <tr>
@@ -1317,7 +200,7 @@
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Message></span>
+<span class="param-type">Array</span>
 
 
             
@@ -1327,7 +210,7 @@
 
             
 
-            <td class="description last">Message array containing chat messages</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -1368,7 +251,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line167">line 167</a>
+        <a href="TextFileBuilder.js.html">TextFileBuilder.js</a>, <a href="TextFileBuilder.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -1391,6 +274,208 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    desired JSON-format contents in a string
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="generateACL"><span class="type-signature"></span>generateACL<span class="signature">(partnerID, filename)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Generate an ACL text string that grants owner all permissions and Read only to partnerID
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>partnerID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filename</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="TextFileBuilder.js.html">TextFileBuilder.js</a>, <a href="TextFileBuilder.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    ACL string content
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1412,13 +497,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeTitles">changeTitles</a></li><li><a href="global.html#changeView">changeView</a></li><li><a href="global.html#checkForNewMessages">checkForNewMessages</a></li><li><a href="global.html#closeChats">closeChats</a></li><li><a href="global.html#emptyFriendsList">emptyFriendsList</a></li><li><a href="global.html#hideNotifications">hideNotifications</a></li><li><a href="global.html#sendMessage">sendMessage</a></li><li><a href="global.html#showNotification">showNotification</a></li><li><a href="global.html#startChat">startChat</a></li><li><a href="global.html#updateUIMessages">updateUIMessages</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#buildJSONmessages">buildJSONmessages</a></li><li><a href="global.html#generateACL">generateACL</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Mar 24 2019 19:26:51 GMT+0100 (GMT+01:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 02 2019 00:20:16 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
