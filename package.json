@@ -28,7 +28,7 @@
     "webpack-cli": "^3.3.0"
   },
   "scripts": {
-    "test": "jest",
+    "test": "cucumber-js",
     "coverage": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "build": "webpack && npm start",
     "test-coverage": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage",
