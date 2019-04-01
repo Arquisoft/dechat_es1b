@@ -3,7 +3,7 @@
 //
 // ====================================
 
-= image:images/LogoASW.png[arc42] deChat - Decentralized Chat 0
+= image:images/LogoASW.png[arc42] deChat - ES1B
 // toc-title definition MUST follow document title without blank line!
 :toc-title: Table of Contents
 
@@ -84,5 +84,3 @@ include::12_glossary.adoc[]
 <<<<
 // About
 include::about-arc42.adoc[]
-
-****
