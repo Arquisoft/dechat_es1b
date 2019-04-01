@@ -68,8 +68,9 @@ async function loadFriends() {
         var image = await query.getProfilePic(friends[i].id);
         if(typeof image === 'undefined'){
             image = "https://ptetutorials.com/images/user-profile.png";
-            console.log("IMAGE " + image);
         }
+
+        friends[i].image=image; //Image will be cached in friend object
         
         var textFriend = "<div class='chat_list'>" +
             "<div class='chat_people'>" +
@@ -107,13 +108,8 @@ async function startChat(friend, i) {
     console.log("Chat with " + friend.id + " opened")
     $("#mesgs").empty(); //Delete all the content of mesgs
 
-    var image = await query.getProfilePic(friend.id);
-    if(typeof image === 'undefined'){
-        image = "https://ptetutorials.com/images/user-profile.png";
-    }
-
     $(".profile_bar").empty(); //Empty profile upper bar
-    $(".profile_bar").append("<img class='bar_image' src='" + image  +"' alt='profile img' /> <p class='text-center'>"+ friend.name + "</p>");
+    $(".profile_bar").append("<img class='bar_image' src='" + friend.image  +"' alt='profile img' /> <p class='text-center'>"+ friend.name + "</p>"); //Add content of the profile upper bar
 
     var initialMessageContent = 
         "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
