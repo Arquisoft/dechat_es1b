@@ -56,14 +56,15 @@ async function getFriends(webID) {
 async function getProfilePic(webID){
     let pic;
     if (webID)
-        pic = data[webID].vcard$hasPhoto;
+        pic = await data[webID].vcard$hasPhoto;
     else
-        pic = data.user.vcard$hasPhoto;
-    pic = await pic.value;
-    return pic;
+        pic = await data.user.vcard$hasPhoto;
+    if(typeof pic === 'undefined')
+        return undefined;
+    else
+        return pic.value;
 }
   
-
 
 module.exports = {
     getName,

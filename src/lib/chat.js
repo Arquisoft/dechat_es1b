@@ -2,8 +2,6 @@
  * Interface that isolates SOLID pod handling from the UI regarding the chat itself
  */
 const chatManager = require("./ChatManager/ChatManager.js");
-const folderManager = require("./ChatManager/ChatWriter/FolderManager.js");
-const fileManager = require("./ChatManager/ChatWriter/FileManager.js");
 const Message = require("../model/message");
 
 class Chat {
@@ -24,6 +22,7 @@ class Chat {
     async sendMessage(text) {
         var message = new Message(this.user.id, this.partner.id, text);
         this.messages = await this.getMessages();
+        console.log(this.messages);
 
         //Save current sentMessages.
         this.sentMessages = [];
@@ -56,34 +55,6 @@ class Chat {
     */
     async clearChat() {
         // TODO empty chat
-    }
-
-    /**
-     *   Checks if a notification has arrived for the current chat, in that case
-     *   removes the notification and executes the callback function
-     *   @param {function} callback
-     *   @return {Array} messages
-     */
-    async checkForNotifications(callback) {
-        var hits = [];
-        var files = await folderManager.getFilesFromFolder(this.user.inbox);
-        for (const file of files) {
-            let content;
-            content = await fileManager.readFile(file.url);
-            if (content == this.partner.id) {
-                hits.push(await file.url);
-                this.messages = await chatManager.readPod(this.user.id, this.partner.id);
-            }
-        }
-
-        if (hits.length > 0) {
-            callback(this.messages);
-        }
-
-        for (const url of hits) {
-            fileManager.deleteFile(url);
-        }
-        return this.messages;
     }
 
     /**

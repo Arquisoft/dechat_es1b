@@ -64,7 +64,9 @@ async function createFolder(url) {
  */
 async function checkDechatFolder(userUrl) {
     let check = await this.readFolder(userUrl + CHAT_FOLDER);
-    if (check == undefined) {
+    console.log(check)
+    if (typeof check === 'undefined') {
+        console.log("ESTOY CREANDO COSAS")
         this.createFolder(userUrl + CHAT_FOLDER);
     }
 };

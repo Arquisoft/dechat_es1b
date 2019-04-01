@@ -2,6 +2,7 @@ const fileClient = require("solid-file-client");
 const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
 const txtFileBuilder = require("./TextFileBuilder");
+const query = require("../../ldflex-queries")
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -33,11 +34,16 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
-	await fileClient.createFolder(folderRoute).then(200);
+
+	folderExists = await fileClient.readFolder(folderRoute).then(
+		success => 200, 
+		err => undefined);
+	console.log(folderExists)
+	if (typeof folderExists === 'undefined')
+		await fileClient.createFolder(folderRoute).then(200);
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, partnerID, messages);
 	await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
-		200
-	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(200));
+	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(404));
 	folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
 };
 
