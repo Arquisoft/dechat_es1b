@@ -1,0 +1,36 @@
+@startuml
+
+title "Receive message"
+
+actor UserA as user
+participant DeChat
+database PODA as poda
+database PODB as podb
+
+loop notifications
+    DeChat -> podb : checkForNotifications()
+    alt notification exists
+        podb --> DeChat
+        DeChat -> DeChat : friendWantsToChat()
+        DeChat --> user : displays HTML5 Notification
+    end
+end
+loop messages
+    DeChat -> podb : checkForNewMessages()
+    podb --> DeChat : Partner's messages
+    poda --> DeChat : User's messages
+    DeChat --> user : Updates UI with the messages so far
+
+end
+
+
+partner -> podb : writeOwnPOD(message)
+partner -> poda : writeInbox(notificatioin)
+loop 
+    DeChat -> poda : checkForNotifications()
+    alt found notification
+        DeChat -
+    end
+end
+
+@enduml

@@ -31,13 +31,42 @@ The app must be used in any operating system as long as it has a web browser.
 
 
 === Quality Tree
-
-[role="arc42help"]
-****
-TBD
-****
+[#img-mindmap]
+.Quality attributes
+image::./diagrams/10-mindmap.png[qualityattributes]
 
 === Quality Scenarios
+==== Usage Scenarios
+The following scenarios has been tested using Cucumber as teachers have requested.
+
+_List friends_::
+When we are start using DeChat app, after login, user's friends should be listed on.
+For example:
+When My friends got listed after press List Friends button I can find my friend Alberto there.
+
+_Get a notification_::
+We want to check if a notification pops up helping us knowing when a message arrives.
+When I receive a new message from a partner while i am chatting then I receive a notification.
+
+_Know the identity of our chat-partner_::
+It is very important for our users get the name of the friend who are chatting with.
+For example:
+When i am in the chat main page and I press the option tagged by "Pepito" i get a chat page headed by "Pepito", the name of the partner. 
+
+_Send a message_::
+Obviously, sending messages is a main part of the chat. So we want to send a message to another partner or group.
+This way my friend can get immediately my message.
+For example:
+When I send a message "Hello Margarita, que bella flor"
+Then She receives a message "Hello Margarita, que bella flor" from me
+
+_Read a received message_::
+The other main part of the chat, the messages have to persist, having them available after reading the first time.
+For example:
+If we are in the page that contains the chat with Jose, who ones sent me "Hi friend", we can read the message "Hi friend"
+as far as eg. we don´t delete the chat.
+
+
 
 [role="arc42help"]
 ****

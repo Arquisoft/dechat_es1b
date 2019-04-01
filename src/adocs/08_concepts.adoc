@@ -1,61 +1,22 @@
 [[section-concepts]]
 == Cross-cutting Concepts
 
-.Content
-This section describes overall, principal regulations and solution ideas that are
-relevant in multiple parts (= cross-cutting) of your system.
-Such concepts are often related to multiple building blocks.
-They can include many different topics, such as
+=== Data Privacy and Ownership
+Perhaps the most important concept surrounding this project and what sets it apart from a conventional chat. 
 
-* domain models
-* architecture patterns or design patterns
-* rules for using specific technology
-* principal, often technical decisions of overall decisions
-* implementation rules
+Pursuing what the SOLID spec looks for, its imperative that the user regains control of his own data and that it doesnt fall in the hands of a third party.
 
-.Motivation
-Concepts form the basis for _conceptual integrity_ (consistency, homogeneity)
-of the architecture. Thus, they are an important contribution to achieve inner qualities of your system.
+For that purpose each user's data will be uniquely in his own POD, a personal storage to which only he has full control over. As a result, when a user sends a message this message will only be stored in that user's POD and nowhere else. His partner will be able to read this message as long as he is granted permission to do so but as said, the data will be exclusively in its author's POD.
 
-Some of these concepts cannot be assigned to individual building blocks
-(e.g. security or safety). This is the place in the template that we provided for a
-cohesive specification of such concepts.
+=== Performance
+Obviously we aren't trying to get top of the industry speed in our chat, but that doesnt mean that its latency should be thrown out of the window either.
 
-.Form
-The form can be varied:
+Considering that decentralizing the data means we will have to connect to several PODs instead of a unique server like in a centralized architecture it might be a challenge to retain acceptable speeds.
 
-* concept papers with any kind of structure
-* cross-cutting model excerpts or scenarios using notations of the architecture views
-* sample implementations, especially for technical concepts
-* reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)
+=== Security
+It's important to preserve the privacy of the data and the security of the user during the usage of DeChat. 
 
-.Structure
-A potential (but not mandatory) structure for this section could be:
+For that purpose all connections will be done through HTTPS. Authentication will be done with the user's POD and special care is given to the https://github.com/solid/web-access-control-spec[Authorization] as well.
 
-* Domain concepts
-* User Experience concepts (UX)
-* Safety and security concepts
-* Architecture and design patterns
-* "Under-the-hood"
-* development concepts
-* operational concepts
-
-Note: it might be difficult to assign individual concepts to one specific topic
-on this list.
-
-
-=== _<Concept 1>_
-
-_<explanation>_
-
-
-
-=== _<Concept 2>_
-
-_<explanation>_
-
-...
-
-=== _<Concept n>_
-
-_<explanation>_
+=== User Experience
+At the end of the day this is a chat and its meant to allow several people to communicate through it. User interface must be friendly and accessible so all kind of user profiles can use the application without any impediment or difficulty.

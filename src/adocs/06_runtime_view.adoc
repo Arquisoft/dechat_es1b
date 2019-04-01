@@ -1,38 +1,51 @@
 [[section-runtime-view]]
 == Runtime View
+Here we will discuss some important use cases.
 
-.Contents
-The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:
+=== Create Chat
+Implying first time a user chats with friend X.
 
-* important use cases or features: how do building blocks execute them?
-* interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?
-* operation and administration: launch, start-up, stop
-* error and exception scenarios
+1. User clicks `Chat` in the desired friend.
+2. A chat is created and a chat window is displayed
 
-Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their *architectural relevance*. It is *not* important to describe a large number of scenarios. You should rather document a representative selection.
+[#img-createchat]
+.Create chat - Sequence diagram
+image::./diagrams/06-createchat.png[createchat]
 
-.Motivation
-You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
-You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).
+The user selects a friend in the UI and clicks the Chat button. First the app checks if the containing folder for the chats is already present in the pod, otherwise it gets created.
 
-.Form
-There are many notations for describing scenarios, e.g.
+Afterwards, a loop is set up to listen for notifications (new messages from partner) and at last the chat window is displayed.
 
-* numbered list of steps (in natural language)
-* activity diagrams or flow charts
-* sequence diagrams
-* BPMN or EPCs (event process chains)
-* state machines
-* ...
+=== Send Message
+1. User types his message in the input field and clicks send
+2. Message is wrote in user's POD
+3. A notification is sent to partner's inbox
+4. UI is refreshed
 
-=== <Runtime Scenario 1>
+[#img-sendmessage]
+.Send message - Sequence diagram
+image::./diagrams/06-sendmessage.png[sendmessage]
 
-* _<insert runtime diagram or textual description of the scenario>_
-* _<insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.>_
+The user types his message and clicks the send button. Afterwards a message object is composed with all the relevant data (users IDs, content, timestamp).
+The message is then written in its author's POD and a notification gets sent to his partner's inbox so he knows he got new messages from this particular chat.
+Finally the UI is refreshed to show the new message.
 
-=== <Runtime Scenario 2>
+=== Receive message
+1. Partner sends user a message
+2. A notification arrives at user's inbox
+3. DeChat detects the notification
+4. A visual notification is sent to the user
+5. Messages get loaded and UI updated
 
-=== ...
+[#img-receivemessage]
+.Receive message - Sequence diagram
+image::./diagrams/06-receivemessage.png[receivemessage]
 
-=== <Runtime Scenario n>
+When the user logs in the application starts listening for notifications and when one is found the user is informed via a HTML5 Notification API who (one person or several) sent a message since the last check.
+
+On the other hand when a user starts a chat with someone a listener is set up to gather the messages from both of the PODs every few seconds. This listener is only set for the active chat in order to increase performance (why load all chats' messages when the user will only be using one at once?). If the user changes to a different chat the listener is released and a new one is set for the new chat.
+
+
+
+
+

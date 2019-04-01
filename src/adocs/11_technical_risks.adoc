@@ -2,6 +2,16 @@
 == Risks and Technical Debts
 
 These are the known risks and solution proposals:
-* *First time using several techs.* This project is the first time all of us work with Node.js and Angular. A such we will have to invest heavily in our formation.
-* *New technology.* Solid is a relatively new spec, therefore it's not as tried and tested as a decades old tech would be. Nonetheless there should be enough resources online to solve most of our possible blocks and walls.
+
+* First time using most of this tech. We never made a RCT application before, nor used Node.js. It's an obstacle to overcome and to do so we have to learn how to dwell in all of this on our own, which is no easy task.
+
+* Low experience with JavaScript. We already know the basics, but developing such a web app is on another level. We need to get used to JS and its quirks.
+
+* SOLID is not exactly flavour of the month, therefore it's still greenfield that required a lot of investment in learning its modus operandi and specification.
+
+* PODs structure. One problem we came across is that we thought all PODs had the same directory structure (private folder, public folder, etc.) Once we started having users test the application we discovered this is not a norm and some users might not have the expected folders. Our solution was create our own folder inside the user's POD to store DeChat's data.
+
+* Permissions. We knew from the start that we should pay attention to which resources users had access too. For example, we dont want a user reading another user's DeChat folder. For that purpose, we learned Web Access Control in SOLID.
+
+* Performance. Specially considering group chats, we are aware that connecting to several PODS to get the messages from each participant will take a toll in latency. We must try to minimize this as much as we can.
 

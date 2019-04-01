@@ -18,7 +18,7 @@ let user, notifications, messageLoop, notifLoop;
 /**
  * On DOM load, set solid.auth to track the session status
  */
-$("document").ready(async () => {
+$('document').ready(async () => {
     session.track(
         // If there's a session
         async () => {

@@ -23,6 +23,8 @@
     "cucumber": "^5.1.0",
     "express": "^4.16.4",
     "gulp": "^4.0.0",
+    "gulp-puml": "^0.1.24",
+    "gulp-svg2png": "^2.0.2",
     "jest": "^24.3.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
@@ -32,7 +34,7 @@
     "coverage": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "build": "webpack && npm start",
     "test-coverage": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage",
-    "docs": "./node_modules/.bin/asciidoctorjs src/adocs/index.adoc -a toc=left --destination-dir docs"
+    "docs": "gulp"
   },
   "repository": {
     "type": "git",
