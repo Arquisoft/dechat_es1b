@@ -372,7 +372,7 @@ function changeView(session) {
  */
 async function changeTitles(session) {
     if (session) {
-        $("#titleApp").html("Welcome user: " + await query.getName());
+        $("#titleApp").html("Welcome " + await query.getName());
         $("#subTitleApp").prop("hidden", session)
     } else {
         $("#titleApp").html("Sign in using Solid technology");
