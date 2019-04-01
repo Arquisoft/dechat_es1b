@@ -20,7 +20,9 @@ describe('Send/Get messages tests', () => {
         chatManager.writeInbox = jest.fn();
         fc.popupLogin = jest.fn().mockResolvedValue(OK);
         fc.updateFile = jest.fn().mockResolvedValue(OK);
-    }),
+        fc.readFolder = jest.fn().mockResolvedValue(OK);
+        fc.createFolder = jest.fn().mockResolvedValue(OK);
+        }),
     it('Message should get sent', async () => {       
         expect(chat.sentMessages.length).toBe(0);
         await chat.sendMessage("New message");
