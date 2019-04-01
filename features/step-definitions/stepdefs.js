@@ -27,10 +27,6 @@ function mock() {
     
 
     fileManager.readFile = function() { return this.target.id; }
-    chatManager.readPod = function() {
-        if (user_id === user.id && target_id === target.id)
-            return ["Bingo"];
-    }
     fileManager.deleteFile = function() { return OK; }
 }
 
