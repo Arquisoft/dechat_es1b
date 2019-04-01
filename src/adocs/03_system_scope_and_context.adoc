@@ -29,13 +29,26 @@ image::./diagrams/05-scopecontext.jpg[overviewbusinessdiagram]
 === Technical Context
 
 
-.*Backend*
+====Backend
 The app uses SOLID server, through PODs.
 A POD is like a key for an user. 
 It detemines who can get a content, as messages, avoiding unwanted accesses from external people.
 This way we will get the final task, a decentralized chat.
 
-.*Frontend* 
+We can distinguish among two different contexts:
+.*Reading context*
+To describe it better we are going to use an iteration diagram between the Chat module and the ChatReader one.
+[#img-overviewreadcontext]
+image::./diagrams/03-readingContext.png[overviewreadcontext]
+
+.*Writting context*
+As we have done previously, It is going to be represented in the next diagram.
+[#img-overviewwrittingcontext]
+image::./diagrams/03-writtingContext.png[overviewwrittingcontext]
+
+
+
+====Frontend 
 The frontend will be a SPA (Single page application) in which the user will make all of his interactions, which will be the authentication and the chatting itself.
 The application must interact with the PODs through their HTTP API.
 
