@@ -10,7 +10,7 @@ const messageLoopTimer = 3000;
 const notifLoopTimer = 5000;
 const notifFadeout = 1500;
 
-const notifIconUrl = "./dechat_es1b/assets/images/Solid.png";
+const notifIconUrl = "./assets/images/Solid.png";
 
 let user, notifications, messageLoop, notifLoop;
 
