@@ -1,6 +1,6 @@
 const assert = require("assert")  ;
 const { Given, When, Then } = require('cucumber');
-const Chat = require("../../src/lib/Chat.js");
+const Chat = require("../../src/lib/chat.js");
 const fc = require("solid-file-client");
 const Persona = require("../../src/model/person");
 const chatManager = require("../../src/lib/ChatManager/ChatManager")
