@@ -464,15 +464,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_create_chat">6.1. Create Chat</a></li>
 <li><a href="#_send_message">6.2. Send Message</a></li>
-<li><a href="#_receive_notification">6.3. Receive notification</a></li>
+<li><a href="#_receive_message">6.3. Receive message</a></li>
 </ul>
 </li>
-<li><a href="#section-deployment-view">7. Deployment View</a>
-<ul class="sectlevel2">
-<li><a href="#_infrastructure_level_1">7.1. Infrastructure Level 1</a></li>
-<li><a href="#_infrastructure_level_2">7.2. Infrastructure Level 2</a></li>
-</ul>
-</li>
+<li><a href="#section-deployment-view">7. Deployment View</a></li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#_data_privacy_and_ownership">8.1. Data Privacy and Ownership</a></li>
@@ -793,15 +788,34 @@ with others using their own pod (SOLID credentials for any client)</p>
 <div class="sect2">
 <h3 id="_technical_context">3.2. Technical Context</h3>
 <div class="paragraph">
-<div class="title"><strong>Backend</strong></div>
-<p>The app uses SOLID server, through PODs.
+<p>====Backend
+The app uses SOLID server, through PODs.
 A POD is like a key for an user.
 It detemines who can get a content, as messages, avoiding unwanted accesses from external people.
 This way we will get the final task, a decentralized chat.</p>
 </div>
 <div class="paragraph">
-<div class="title"><strong>Frontend</strong></div>
-<p>The frontend will be a SPA (Single page application) in which the user will make all of his interactions, which will be the authentication and the chatting itself.
+<p>We can distinguish among two different contexts:
+.<strong>Reading context</strong>
+To describe it better we are going to use an iteration diagram between the Chat module and the ChatReader one.</p>
+</div>
+<div id="img-overviewreadcontext" class="imageblock">
+<div class="content">
+<img src="./diagrams/03-readingContext.png" alt="overviewreadcontext">
+</div>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Writting context</strong></div>
+<p>As we have done previously, It is going to be represented in the next diagram.</p>
+</div>
+<div id="img-overviewwrittingcontext" class="imageblock">
+<div class="content">
+<img src="./diagrams/03-writtingContext.png" alt="overviewwrittingcontext">
+</div>
+</div>
+<div class="paragraph">
+<p>====Frontend
+The frontend will be a SPA (Single page application) in which the user will make all of his interactions, which will be the authentication and the chatting itself.
 The application must interact with the PODs through their HTTP API.</p>
 </div>
 <div style="page-break-after: always;"></div>
@@ -991,16 +1005,37 @@ Finally the UI is refreshed to show the new message.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_receive_notification">6.3. Receive notification</h3>
+<h3 id="_receive_message">6.3. Receive message</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User receives a notification indicating new messages</p>
+<p>Partner sends user a message</p>
 </li>
 <li>
-<p>A notification is shown in the user&#8217;s UI</p>
+<p>A notification arrives at user&#8217;s inbox</p>
+</li>
+<li>
+<p>DeChat detects the notification</p>
+</li>
+<li>
+<p>A visual notification is sent to the user</p>
+</li>
+<li>
+<p>Messages get loaded and UI updated</p>
 </li>
 </ol>
+</div>
+<div id="img-receivemessage" class="imageblock">
+<div class="content">
+<img src="./diagrams/06-receivemessage.png" alt="receivemessage">
+</div>
+<div class="title">Figure 7. Receive message - Sequence diagram</div>
+</div>
+<div class="paragraph">
+<p>When the user logs in the application starts listening for notifications and when one is found the user is informed via a HTML5 Notification API who (one person or several) sent a message since the last check.</p>
+</div>
+<div class="paragraph">
+<p>On the other hand when a user starts a chat with someone a listener is set up to gather the messages from both of the PODs every few seconds. This listener is only set for the active chat in order to increase performance (why load all chats' messages when the user will only be using one at once?). If the user changes to a different chat the listener is released and a new one is set for the new chat.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1010,126 +1045,15 @@ Finally the UI is refreshed to show the new message.</p>
 <h2 id="section-deployment-view">7. Deployment View</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<div class="title">Content</div>
-<p>The deployment view describes:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>the technical infrastructure used to execute your system, with infrastructure elements like geographical locations, environments, computers, processors, channels and net topologies as well as other infrastructure elements and</p>
-</li>
-<li>
-<p>the mapping of (software) building blocks to that infrastructure elements.</p>
-</li>
-</ol>
+<p>DeChat is a client side application that will be run inside the user&#8217;s browser without server intervention other than connecting to the SOLID PODs.</p>
 </div>
 <div class="paragraph">
-<p>Often systems are executed in different environments, e.g. development environment, test environment, production environment. In such cases you should document all relevant environments.</p>
+<p>It makes sense to deploy the app in <a href="https://pages.github.com/">Github Pages</a>.</p>
 </div>
 <div class="paragraph">
-<p>Especially document the deployment view when your software is executed as distributed system with more then one computer, processor, server or container or when you design and construct your own hardware processors and chips.</p>
-</div>
-<div class="paragraph">
-<p>From a software perspective it is sufficient to capture those elements of the infrastructure that are needed to show the deployment of your building blocks. Hardware architects can go beyond that and describe the infrastructure to any level of detail they need to capture.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Software does not run without hardware.
-This underlying infrastructure can and will influence your system and/or some
-cross-cutting concepts. Therefore, you need to know the infrastructure.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Maybe the highest level deployment diagram is already contained in section 3.2. as
-technical context with your own infrastructure as ONE black box. In this section you will
-zoom into this black box using additional deployment diagrams:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>UML offers deployment diagrams to express that view. Use it, probably with nested diagrams,
-when your infrastructure is more complex.</p>
-</li>
-<li>
-<p>When your (hardware) stakeholders prefer other kinds of diagrams rather than the deployment diagram, let them use any kind that is able to show nodes and channels of the infrastructure.</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="_infrastructure_level_1">7.1. Infrastructure Level 1</h3>
-<div class="paragraph">
-<p>Describe (usually in a combination of diagrams, tables, and text):</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>the distribution of your system to multiple locations, environments, computers, processors, .. as well as the physical connections between them</p>
-</li>
-<li>
-<p>important justification or motivation for this deployment structure</p>
-</li>
-<li>
-<p>Quality and/or performance features of the infrastructure</p>
-</li>
-<li>
-<p>the mapping of software artifacts to elements of the infrastructure</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.</p>
-</div>
-<div class="paragraph">
-<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Motivation</dt>
-<dd>
-<p><em>&lt;explanation in text form&gt;</em></p>
-</dd>
-<dt class="hdlist1">Quality and/or Performance Features</dt>
-<dd>
-<p><em>&lt;explanation in text form&gt;</em></p>
-</dd>
-<dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
-<dd>
-<p><em>&lt;description of the mapping&gt;</em></p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_infrastructure_level_2">7.2. Infrastructure Level 2</h3>
-<div class="paragraph">
-<p>Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
-</div>
-<div class="paragraph">
-<p>Please copy the structure from level 1 for each selected element.</p>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_1">7.2.1. <em>&lt;Infrastructure Element 1&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_2">7.2.2. <em>&lt;Infrastructure Element 2&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
-</div>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_infrastructure_element_n">7.2.3. <em>&lt;Infrastructure Element n&gt;</em></h4>
-<div class="paragraph">
-<p><em>&lt;diagram + explanation&gt;</em></p>
+<p>This has the added benefit of having the whole project in one place so the user can see the code, the documentation and use the app itself from the same place.</p>
 </div>
 <div style="page-break-after: always;"></div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1302,11 +1226,52 @@ when your infrastructure is more complex.</p>
 <div class="content">
 <img src="./diagrams/10-mindmap.png" alt="qualityattributes">
 </div>
-<div class="title">Figure 7. Quality attributes</div>
+<div class="title">Figure 8. Quality attributes</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
+<div class="sect3">
+<h4 id="_usage_scenarios">10.2.1. Usage Scenarios</h4>
+<div class="paragraph">
+<p>The following scenarios has been tested using Cucumber as teachers have requested.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><em>List friends</em></dt>
+<dd>
+<p>When we are start using DeChat app, after login, user&#8217;s friends should be listed on.
+For example:
+When My friends got listed after press List Friends button I can find my friend Alberto there.</p>
+</dd>
+<dt class="hdlist1"><em>Get a notification</em></dt>
+<dd>
+<p>We want to check if a notification pops up helping us knowing when a message arrives.
+When I receive a new message from a partner while i am chatting then I receive a notification.</p>
+</dd>
+<dt class="hdlist1"><em>Know the identity of our chat-partner</em></dt>
+<dd>
+<p>It is very important for our users get the name of the friend who are chatting with.
+For example:
+When i am in the chat main page and I press the option tagged by "Pepito" i get a chat page headed by "Pepito", the name of the partner.</p>
+</dd>
+<dt class="hdlist1"><em>Send a message</em></dt>
+<dd>
+<p>Obviously, sending messages is a main part of the chat. So we want to send a message to another partner or group.
+This way my friend can get immediately my message.
+For example:
+When I send a message "Hello Margarita, que bella flor"
+Then She receives a message "Hello Margarita, que bella flor" from me</p>
+</dd>
+<dt class="hdlist1"><em>Read a received message</em></dt>
+<dd>
+<p>The other main part of the chat, the messages have to persist, having them available after reading the first time.
+For example:
+If we are in the page that contains the chat with Jose, who ones sent me "Hi friend", we can read the message "Hi friend"
+as far as eg. we don´t delete the chat.</p>
+</dd>
+</dl>
+</div>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -1318,13 +1283,34 @@ when your infrastructure is more complex.</p>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="section-technical-risks">11. Risks and Technical Debts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These are the known risks and solution proposals:
-* <strong>First time using several techs.</strong> This project is the first time all of us work with Node.js and Angular. A such we will have to invest heavily in our formation.
-* <strong>New technology.</strong> Solid is a relatively new spec, therefore it&#8217;s not as tried and tested as a decades old tech would be. Nonetheless there should be enough resources online to solve most of our possible blocks and walls.</p>
+<p>These are the known risks and solution proposals:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>First time using most of this tech. We never made a RCT application before, nor used Node.js. It&#8217;s an obstacle to overcome and to do so we have to learn how to dwell in all of this on our own, which is no easy task.</p>
+</li>
+<li>
+<p>Low experience with JavaScript. We already know the basics, but developing such a web app is on another level. We need to get used to JS and its quirks.</p>
+</li>
+<li>
+<p>SOLID is not exactly flavour of the month, therefore it&#8217;s still greenfield that required a lot of investment in learning its modus operandi and specification.</p>
+</li>
+<li>
+<p>PODs structure. One problem we came across is that we thought all PODs had the same directory structure (private folder, public folder, etc.) Once we started having users test the application we discovered this is not a norm and some users might not have the expected folders. Our solution was create our own folder inside the user&#8217;s POD to store DeChat&#8217;s data.</p>
+</li>
+<li>
+<p>Permissions. We knew from the start that we should pay attention to which resources users had access too. For example, we dont want a user reading another user&#8217;s DeChat folder. For that purpose, we learned Web Access Control in SOLID.</p>
+</li>
+<li>
+<p>Performance. Specially considering group chats, we are aware that connecting to several PODS to get the messages from each participant will take a toll in latency. We must try to minimize this as much as we can.</p>
+</li>
+</ul>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1404,6 +1390,10 @@ when your infrastructure is more complex.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">.acl</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">files that specify the authorization rules of a POD&#8217;s directory/file.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub Pages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Static site hosting service by GitHub</p></td>
+</tr>
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
@@ -1431,7 +1421,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-23 14:52:58 +0100
+Last updated 2019-03-30 14:15:50 +0100
 </div>
 </div>
 </body>
