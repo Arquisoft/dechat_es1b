@@ -10,6 +10,8 @@ const messageLoopTimer = 3000;
 const notifLoopTimer = 5000;
 const notifFadeout = 1500;
 
+const notifIconUrl = "./assets/images/Solid.png";
+
 let user, notifications, messageLoop, notifLoop;
 
 
@@ -245,7 +247,6 @@ async function friendWantsToChat(friendList) {
                 messageTalk += ", ";
             }
             var nameFriend = await query.getName(friendList[i]);
-            console.log("NAME FRIEND WHO WANTS TO TALK : " + nameFriend);
             messageTalk = messageTalk + nameFriend + " ";
         }
         notifyMe(messageTalk);
@@ -254,15 +255,20 @@ async function friendWantsToChat(friendList) {
 }
 
 function notifyMe(messageTalk) {
+    const messageTitle = "You have got new messages!"
     // Let's check if the browser supports notifications
     if (!("Notification" in window)) {
         alert("This browser does not support desktop notification");
-    }
+    }   
 
     // Let's check whether notification permissions have already been granted
     else if (Notification.permission === "granted") {
         // If it's okay let's create a notification
-        var notification = new Notification(messageTalk + " sent you a message");
+        var notification = new Notification(messageTitle, 
+            {   
+                body: "from " + messageTalk,
+                icon: notifIconUrl
+            });
     }
 
     // Otherwise, we need to ask the user for permission
@@ -270,7 +276,11 @@ function notifyMe(messageTalk) {
         Notification.requestPermission(function (permission) {
             // If the user accepts, let's create a notification
             if (permission === "granted") {
-                var notification = new Notification(messageTalk + " sent you a message");
+                var notification = new Notification(messageTalk + " sent you a message", 
+                {   
+                    body: "from " + messageTalk,
+                    icon: notifIconUrl
+                });
             }
         });
     }
