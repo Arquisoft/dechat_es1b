@@ -5,6 +5,8 @@ const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 const Notifier = require("./lib/notifier");
 
+const rdf = require("./lib/RDF/rdf")
+
 // Time constants
 const messageLoopTimer = 3000;
 const notifLoopTimer = 5000;
@@ -37,6 +39,11 @@ $('document').ready(async () => {
             changeView(false);
         }
     )
+})
+
+
+$("#testBtn").click(async ()=>{
+    rdf.addContact(user.id, "https://example.org/profile/card#me")
 })
 
 // Button listeners
