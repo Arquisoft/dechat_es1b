@@ -2,6 +2,7 @@
  * Interface that isolates SOLID pod handling from the UI regarding the chat itself
  */
 const chatManager = require("./ChatManager/ChatManager.js");
+const videochat = require("./VideoChat/PeerManager.js");
 const Message = require("../model/message");
 
 class Chat {
