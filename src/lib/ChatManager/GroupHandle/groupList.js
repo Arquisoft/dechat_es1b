@@ -16,4 +16,19 @@ const fileClient = require('solid-file-client');
  return list;
 }
 
+ async function addGroup(user, groupName){
+
+ var url = "https://"+user+".solid.community/dechat//groups.txt";
+ 
+ var salida = await fileClient.readFile(url);
+
+ var thejson =  JSON.parse(salida);
+ 
+ thejson.list.push(groupName);
+ 
+ //Subir el archivo
+
+}
+
 exports.listGroups = listGroups;
+exports.addGroup = addGroup;
