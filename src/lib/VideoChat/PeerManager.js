@@ -35,11 +35,11 @@ async function connectToPeer(peerID) {
 * partner's message correctly and is thus succesfully connected.
 */
 async function checkConnection() {
-	var res = 0;
+	var res = false;
 	await peer.on('connection', (conn) => {
 		conn.on('data', (data) => {
 			if (data.equals('Videochat connected')) {
-				res = 1;
+				res = true;
 			}
 		});
 	});
