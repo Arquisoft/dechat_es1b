@@ -26,8 +26,24 @@ async function initializePeer() {
 * This function will receive our partner's peer ID and stablish a connection between them.
 */
 async function connectToPeer(peerID) {
-	this.conn = peer.connect(peerID);
+	conn = peer.connect(peerID);
 	conn.on('open', () => {conn.send('Videochat connected');});
+}
+
+/**
+* This function will check if our connection has received our
+* partner's message correctly and is thus succesfully connected.
+*/
+async function checkConnection() {
+	var res = 0;
+	await peer.on('connection', (conn) => {
+		conn.on('data', (data) => {
+			if (data.equals('Videochat connected')) {
+				res = 1;
+			}
+		});
+	});
+	return res;
 }
 
 function getOwnPeerID() {
@@ -37,5 +53,6 @@ function getOwnPeerID() {
 module.exports = {
     initializePeer,
 	connectToPeer,
+	checkConnection,
 	getOwnPeerID
 }
