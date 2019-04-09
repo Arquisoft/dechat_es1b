@@ -26,14 +26,13 @@ class Chat {
 
         //Is is type image, process this:
         if(type === "image") {
-            //PROCESAR ESTO POR QUE ES UNA IMAGEN.
-
-            //El contendio debe de ser la URL de donde esta subido.
+            //Save in content name of file.
             message.content = content.name;
             console.log("Uploadig file... [" + message.content + "]");
 
-            //Subir imagen a la carpeta y dar permisos!!!! tabien se puede comprimir
-            //Aqui
+            //Upload image to Own POD.
+            await chatManager.uploadFileToOwnPOD(content, this.user.id, this.partner.id);
+            console.log("File uploaded fine.");
         }
 
         //Save current sentMessages.
