@@ -31,7 +31,8 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	var friendIdentifier = partnerID.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/");
+	var folderRoute = userID.replace("/profile/card#me", folderManager.CHAT_FOLDER +
+									"/" + friendIdentifier + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
 
@@ -54,6 +55,17 @@ async function sendToOwnPOD(userID, partnerID, messages) {
  * @param {*} partnerID 
  */
 async function uploadFileToOwnPOD(file, userID, partnerID) {
+	var friendIdentifier = partnerID.replace("https://", "");
+	var partes = friendIdentifier.split(".");
+	friendIdentifier = partes[0] + "." + partes[1];
+	var folderRoute = userID.replace("/profile/card#me", folderManager.CHAT_FOLDER +
+	"/" + friendIdentifier + folderManager.FILES_FOLDER);
+
+	//If folder don't exist create.
+	let checkFilesFolder = await this.readFolder(folderRoute);
+        if(typeof checkFilesFolder === 'undefined')
+			await this.createFolder(folderRoute);
+			
 	
 }
 

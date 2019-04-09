@@ -1,7 +1,7 @@
 const fileClient = require('solid-file-client');
 const MESSAGE_FILE = "messages.txt";
 const CHAT_FOLDER = "/dechat";
-const FILES_FOLDER = "/dechat/files";
+const FILES_FOLDER = "/files";
 const txtFileBuilder = require("./TextFileBuilder");
 
 /**
@@ -68,9 +68,6 @@ async function checkDechatFolder(userUrl) {
     console.log("FOLDER NAME: " + check);
     if (typeof check === 'undefined') {
         await this.createFolder(userUrl + CHAT_FOLDER);
-        let checkFilesFolder = await this.readFolder(userUrl + FILES_FOLDER);
-        if(typeof checkFilesFolder === 'undefined')
-            await this.createFolder(userUrl + FILES_FOLDER);
     }
 };
 
@@ -105,5 +102,7 @@ module.exports = {
     readFolder,
     validate,
     checkDechatFolder,
-    getUrlFolder
+    getUrlFolder,
+    CHAT_FOLDER,
+    FILES_FOLDER
 }
