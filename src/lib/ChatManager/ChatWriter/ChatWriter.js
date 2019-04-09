@@ -66,7 +66,9 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
         if(typeof checkFilesFolder === 'undefined')
 			await this.createFolder(folderRoute);
 			
-	
+	await fileClient.createFile(folderRoute + file.name, file).then(fileCreated => {
+		console.log("Created file ${fileCreated}.");
+	}, err => console.log(err));
 }
 
 module.exports = {
