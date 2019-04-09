@@ -42,6 +42,7 @@ $('document').ready(async () => {
 
 
 $("#testBtn").click(async ()=>{
+    //profile.addContact(user.id, "https://mierda.com");
     profile.addContact(user.id, "https://test12345.solid.community/profile/card#me")
 })
 
