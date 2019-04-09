@@ -21,27 +21,16 @@ async function addContact(userWebID, contactWebID) {
   const writer = new N3.Writer();
 
   var file = await fc.readFile(cardURI);
-  parser.parse(
-    file, (quad) => {},
-    (prefixes) => {
-        console.log(prefixes);
-    }
-    /*quad => {
-      writer.addQuad(quad);
-    },
-    prefix => {
-      writer.addPrefix(prefix);
-    }*/
-  );
-  writer.addQuad(
-    quad(namedNode(contactWebID), namedNode(KNOWS), namedNode("null#me"))
-  );
-  const output = writer.end((error, result) => {
-    result = result.replace(/(undefined|null)/g, "");
-    console.log(result);
-  });
+  console.log(file);
 
-  //fc.updateFile(cardURI, output).then(console.log("Ya ta!"))
+  writer.addQuad(
+    quad(namedNode(userWebID), namedNode(KNOWS), namedNode(contactWebID))
+  );
+  const newQuad = await writer.end((error, result) => {
+    result = result.replace(/(undefined|null)/g, "");
+    var output = file + result;
+    fc.updateFile(cardURI, output).then(console.log("Ya ta!"));
+  });
 }
 
 function getPrefixes(rdfFile) {

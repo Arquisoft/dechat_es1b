@@ -43,7 +43,7 @@ $('document').ready(async () => {
 
 
 $("#testBtn").click(async ()=>{
-    rdf.addContact(user.id, "https://example.org/profile/card#me")
+    rdf.addContact(user.id, "https://testuserchat.solid.community/profile/card#me")
 })
 
 // Button listeners
@@ -52,6 +52,7 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
+    
     emptyFriendsList();
     clearInterval(messageLoop);
     clearInterval(notifLoop);
