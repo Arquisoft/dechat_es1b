@@ -1,6 +1,7 @@
 const peerjs = require('peerjs')
 const peer = undefined;
 const conn = undefined;
+const call = undefined;
 
 /**
 * This function creates a random ID for our peer and initializes it,
@@ -69,7 +70,7 @@ function videocallPartner(peerID) {
 	//What next line means is unknown to me atm
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 	navigator.getUserMedia({video: true, audio: true}, (stream) => {
-		const call = peer.call(this.partnerPeerID, stream);
+		call = peer.call(this.partnerPeerID, stream);
 		call.on('stream', (remoteStream) => {
 			// Show stream in some <video> element. Gotta see how we access UI form here.
 		});
@@ -96,5 +97,8 @@ module.exports = {
     initializePeer,
 	connectToPeer,
 	checkConnection,
-	getOwnPeerID
+	getOwnPeerID,
+	setPartnerPeerID,
+	videocallPartner,
+	answerVideoCall
 }
