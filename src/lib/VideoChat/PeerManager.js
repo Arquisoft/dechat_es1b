@@ -78,6 +78,20 @@ function videocallPartner(peerID) {
 	});
 }
 
+function answerVideoCall() {
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	peer.on('call', (call) => {
+		navigator.getUserMedia({video: true, audio: true}, (stream) => {
+			call.answer(stream); // Answer the call with an Audio&&Video stream.
+			call.on('stream', (remoteStream) => {
+				// Show stream in some <video> element.
+			});
+		}, (err) => {
+			console.error('Failed to get local stream', err);
+		});
+	});
+}
+
 module.exports = {
     initializePeer,
 	connectToPeer,
