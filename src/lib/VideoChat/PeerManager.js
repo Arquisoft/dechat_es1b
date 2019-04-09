@@ -3,7 +3,9 @@ const peer = undefined;
 const conn = undefined;
 
 /**
- */
+* This function creates a random ID for our peer and initializes it,
+* connecting us to the PeerJs server. 
+*/
 async function initializePeer() {
 	//Test functionality to build a random ID. Leaving the Peer constructor
 	//blank gives us a random one automatically. However it
@@ -23,7 +25,9 @@ async function initializePeer() {
 };
 
 /**
-* This function will receive our partner's peer ID and stablish a connection between them.
+* This function will receive our partner's peer ID and stablish a connection 
+* between us and them.
+* @param {String} peerID
 */
 async function connectToPeer(peerID) {
 	conn = peer.connect(peerID);
@@ -33,6 +37,7 @@ async function connectToPeer(peerID) {
 /**
 * This function will check if our connection has received our
 * partner's message correctly and is thus succesfully connected.
+* @return {Boolean} 
 */
 async function checkConnection() {
 	var res = false;
@@ -46,6 +51,10 @@ async function checkConnection() {
 	return res;
 }
 
+/**
+* Return our peer id, so we can send it to our oartner at some point.
+* @return {String}
+*/
 function getOwnPeerID() {
 	return this.id;
 }
