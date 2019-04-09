@@ -5,7 +5,7 @@ const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 const Notifier = require("./lib/notifier");
 
-const rdf = require("./lib/RDF/rdf")
+const ProfileWriter = require("./lib/ChatManager/ChatWriter/ProfileWriter")
 
 // Time constants
 const messageLoopTimer = 3000;
@@ -43,7 +43,7 @@ $('document').ready(async () => {
 
 
 $("#testBtn").click(async ()=>{
-    rdf.addContact(user.id, "https://testuserchat.solid.community/profile/card#me")
+    ProfileWriter.addContact(user.id, "https://victima4.inrupt.net/profile/card#me")
 })
 
 // Button listeners
