@@ -24,6 +24,18 @@ class Chat {
         var message = new Message(this.user.id, this.partner.id, content, type);
         this.messages = await this.getMessages();
 
+        //Is is type image, process this:
+        if(type === "image") {
+            //PROCESAR ESTO POR QUE ES UNA IMAGEN.
+
+            //El contendio debe de ser la URL de donde esta subido.
+            message.content = content.name;
+            console.log("Uploadig file... [" + message.content + "]");
+
+            //Subir imagen a la carpeta y dar permisos!!!! tabien se puede comprimir
+            //Aqui
+        }
+
         //Save current sentMessages.
         this.sentMessages = [];
         let userID = this.user.id.replace("/profile/card#me", "").replace("https://", "");
