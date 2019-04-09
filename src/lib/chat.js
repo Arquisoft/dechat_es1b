@@ -22,7 +22,6 @@ class Chat {
     async sendMessage(text) {
         var message = new Message(this.user.id, this.partner.id, text);
         this.messages = await this.getMessages();
-        console.log(this.messages);
 
         //Save current sentMessages.
         this.sentMessages = [];
@@ -46,7 +45,7 @@ class Chat {
      * @param {*} file that user want send.
      */
     async sendImage(file) {
-        
+
     }
 
     /**
