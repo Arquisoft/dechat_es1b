@@ -16,11 +16,12 @@ class Chat {
 
     /**
     * Method to send a message
-    * @param {String} text content of the message 
+    * @param {} content this can be file or string.
+    * @param {String} type depend type, sendMessage process this.
     * @return {Promise} file
     */
-    async sendMessage(text) {
-        var message = new Message(this.user.id, this.partner.id, text);
+    async sendMessage(content, type) {
+        var message = new Message(this.user.id, this.partner.id, content, type);
         this.messages = await this.getMessages();
 
         //Save current sentMessages.
@@ -38,14 +39,6 @@ class Chat {
         this.messages.push(message);
         await chatManager.writeOwnPOD(this.user.id, this.partner.id, this.sentMessages);
         return chatManager.writeInbox(this.partner, message.user);
-    }
-
-    /**
-     * Method than allow send image to other chat.
-     * @param {*} file that user want send.
-     */
-    async sendImage(file) {
-
     }
 
     /**
