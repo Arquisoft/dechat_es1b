@@ -2,11 +2,15 @@
  * Class representing a message
  */
 class Message{
-    constructor(user, partner, content){
+    constructor(user, partner, content, type){
         this.user = user;
         this.partner = partner;
         this.content = content;
         this.timestamp = new Date().getTime();
+        if(type == undefined)
+            this.type = "message";
+        else
+            this.type = type;
     }
 
     init(timestamp){
@@ -21,7 +25,8 @@ class Message{
     serialize(){
         return JSON.stringify({
             "date": this.timestamp,
-            "message":this.content
+            "message" : this.content,
+            "type" : this.type
         })
     }
 }
