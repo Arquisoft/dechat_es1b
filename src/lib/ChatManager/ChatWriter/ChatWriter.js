@@ -47,7 +47,18 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
 };
 
+/**
+ * Function to upload file to own pod and grant permissions to partner.
+ * @param {*} file 
+ * @param {*} userID 
+ * @param {*} partnerID 
+ */
+async function uploadFileToOwnPOD(file, userID, partnerID) {
+	
+}
+
 module.exports = {
 	sendToInbox,
-	sendToOwnPOD
+	sendToOwnPOD,
+	uploadFileToOwnPOD
 }
