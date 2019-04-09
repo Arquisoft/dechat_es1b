@@ -1,7 +1,8 @@
 const peerjs = require('peerjs')
-this.peer = undefined;
-const conn = undefined;
-const call = undefined;
+var peer;
+var conn;
+var call;
+var partnerPeerID;
 
 /**
 * This function creates a random ID for our peer and initializes it,
@@ -9,9 +10,7 @@ const call = undefined;
 */
 async function initializePeer() {
 	//Test functionality to build a random ID. Leaving the Peer constructor
-	//blank gives us a random one automatically. However it
-	//may be useful maintaining record of our own ID when the time comes to send
-	//it to our partner so for now we go this way.
+	//blank gives us a random one automatically.
 	/*var symbols = ['1','2','3','4','5','d','e','c','h','a','t'];
 	this.id = "";
 	var i = 0;
@@ -22,9 +21,9 @@ async function initializePeer() {
 		i++;
 	} */
     //At this point we have built a hopefully unique ID for our peer
-	this.peer = new Peer();
-	this.peer.on('open', function(id) {
-		this.id = this.peer.id;
+	peer = new Peer();
+	peer.on('open', function(id) {
+		console.log("MANAGER: Peer id "+getOwnPeerID());
 	});
 };
 
@@ -35,7 +34,7 @@ async function initializePeer() {
 */
 async function connectToPeer(peerID) {
 	setPartnerPeerID(peerID);
-	conn = peer.connect(peerID);
+	conn = peer.connect(partnerPeerID);
 	conn.on('open', () => {conn.send('Videochat connected');});
 }
 
@@ -46,7 +45,7 @@ async function connectToPeer(peerID) {
 */
 async function checkConnection() {
 	var res = false;
-	await peer.on('connection', (conn) => {
+	peer.on('connection', (conn) => {
 		conn.on('data', (data) => {
 			if (data.equals('Videochat connected')) {
 				res = true;
@@ -61,11 +60,11 @@ async function checkConnection() {
 * @return {String}
 */
 function getOwnPeerID() {
-	return this.id;
+	return peer.id;
 }
 
 function setPartnerPeerID(peerID) {
-	this.partnerPeerID = peerID;
+	partnerPeerID = peerID;
 }
 
 function videocallPartner(peerID) {
@@ -73,7 +72,7 @@ function videocallPartner(peerID) {
 	//What next line means is unknown to me atm
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 	navigator.getUserMedia({video: true, audio: true}, (stream) => {
-		call = peer.call(this.partnerPeerID, stream);
+		call = peer.call(partnerPeerID, stream);
 		call.on('stream', (remoteStream) => {
 			// Show stream in some <video> element. Gotta see how we access UI form here.
 		});
