@@ -93,6 +93,10 @@ function answerVideoCall() {
 	});
 }
 
+function disconnect() {
+	peer.disconnect();
+}
+
 module.exports = {
     initializePeer,
 	connectToPeer,
@@ -100,5 +104,6 @@ module.exports = {
 	getOwnPeerID,
 	setPartnerPeerID,
 	videocallPartner,
-	answerVideoCall
+	answerVideoCall,
+	disconnect
 }
