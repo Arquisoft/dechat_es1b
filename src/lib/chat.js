@@ -42,6 +42,14 @@ class Chat {
     }
 
     /**
+     * Method than allow send image to other chat.
+     * @param {*} file that user want send.
+     */
+    async sendImage(file) {
+        
+    }
+
+    /**
     * Method to get the messages
     * @return {Array} messages
     */
