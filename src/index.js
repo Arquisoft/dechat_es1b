@@ -1,6 +1,7 @@
 const session = require("./lib/session");
 const query = require("./lib/ldflex-queries");
 const Chat = require("./lib/chat");
+const Chat = require("./lib/videochat");
 const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 const Notifier = require("./lib/notifier");
@@ -29,6 +30,12 @@ $('document').ready(async () => {
             loadInitialContacts();
             let urlFolder = await FolderManager.getUrlFolder(user.id);
             await FolderManager.checkDechatFolder(urlFolder);
+            $(".messaging").append("<button id='testbutton'>"+  Boton + "<button>");
+            $("#testbutton").click(async () => {
+                const vchat = new VideoChat();
+                vchat.testPeerId();
+            });
+
         },
         // User isn't logged in
         async () => {
