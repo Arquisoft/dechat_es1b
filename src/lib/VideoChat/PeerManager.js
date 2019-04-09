@@ -1,5 +1,5 @@
 const peerjs = require('peerjs')
-const peer = undefined;
+this.peer = undefined;
 const conn = undefined;
 const call = undefined;
 
@@ -23,7 +23,9 @@ async function initializePeer() {
 	} */
     //At this point we have built a hopefully unique ID for our peer
 	this.peer = new Peer();
-	console.log(this.peer.id);
+	this.peer.on('open', function(id) {
+		this.id = this.peer.id;
+	});
 };
 
 /**
