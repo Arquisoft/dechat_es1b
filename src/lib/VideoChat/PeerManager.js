@@ -30,6 +30,7 @@ async function initializePeer() {
 * @param {String} peerID
 */
 async function connectToPeer(peerID) {
+	setPartnerPeerID(peerID);
 	conn = peer.connect(peerID);
 	conn.on('open', () => {conn.send('Videochat connected');});
 }
@@ -57,6 +58,24 @@ async function checkConnection() {
 */
 function getOwnPeerID() {
 	return this.id;
+}
+
+function setPartnerPeerID(peerID) {
+	this.partnerPeerID = peerID;
+}
+
+function videocallPartner(peerID) {
+	setPartnerPeerID(peerID);
+	//What next line means is unknown to me atm
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	navigator.getUserMedia({video: true, audio: true}, (stream) => {
+		const call = peer.call(this.partnerPeerID, stream);
+		call.on('stream', (remoteStream) => {
+			// Show stream in some <video> element. Gotta see how we access UI form here.
+		});
+	}, (err) => {
+		console.error('Failed to get local stream', err);
+	});
 }
 
 module.exports = {
