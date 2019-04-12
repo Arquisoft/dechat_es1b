@@ -92,7 +92,7 @@ async function readGroup(listOfFriends, groupId){
 		var user = listOfFriends[i];
 		var urltolook = "https://" + user + "/dechat/" + groupId + "/messages.txt";
 		var mess = await singleUriGetter(urltolook);
-		await listTR.concat(mess);
+		listaTR = await listTR.concat(mess);
 	}
 	return await sorter.sort(listTR)
 }
