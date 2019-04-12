@@ -85,6 +85,18 @@ async function readPod(userURL, friendURL) {
 	return await read(user, partner);
 };
 
+async function readGroup(listOfFriends, groupId){
+	var i;
+	var listTR = [];
+	for (i in listOfFriends){
+		var user = listOfFriends[i];
+		var urltolook = "https://" + user + "/dechat/" + groupId + "/messages.txt";
+		var mess = await singleUriGetter(urltolook);
+		await listTR.concat(mess);
+	}
+	return await sorter.sort(listTR)
+}
+
 module.exports = {
 	singleUriGetter,
 	read,
