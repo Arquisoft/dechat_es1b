@@ -118,6 +118,7 @@ async function startChat(friend, i) {
         "<div class='input_msg_write'>" +
         "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "' />" +
         "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "' >" + "Send</button>" +
+        "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='videoChatButton" + i + "' >" + "Videochat</button>" +
         "</div>" +
         "</div>";
 
@@ -144,12 +145,17 @@ async function startChat(friend, i) {
         sendMessage(chat, i, user, friend);
         // Get the input field
 		
-		//Trying out videochat...
-		videomanager = new VideoManager();
-		videomanager.initialize();
+
     });
 
-    addEnterListener(chat, i, user, friend);
+    //Add action to videochat button
+    $("#videoChatButton" + i).click(async () => {
+        //Trying out videochat...
+		videomanager = new VideoManager();
+		videomanager.initialize();
+    })
+
+    addEnterListener(chat, i, user, friend); //Press enter to send messages
 
     // Set up listener for new messages, time in ms
     messageLoop = setInterval(() => {
