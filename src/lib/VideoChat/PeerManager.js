@@ -22,9 +22,11 @@ async function initializePeer() {
 	} */
     //At this point we have built a hopefully unique ID for our peer
 	peer = new Peer();
-	peer.on('open', function(id) {
-		console.log("MANAGER: Peer id "+getOwnPeerID());
-	});
+	peer.on('open', new Promise(resolve => {
+		setTimeout(() => {
+			getOwnPeerID();
+		}, 2000);
+	  }));
 };
 
 /**
