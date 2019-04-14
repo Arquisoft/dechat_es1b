@@ -8,13 +8,13 @@ async function addContact(userId, contactId, successCallback, errorCallback) {
         if (contactId == null || contactId == '')
             throw new Error("WebID can't be empty");
         const friends = await query.getFriends();
-        for (const friend of friends){
+        for (const friend of friends) {
             if (friend.id === contactId)
                 throw new Error("You have already added this friend");
         }
         const card = contactId.replace("#me", "");
-        fc.readFile(card).then(result => {
-                writer.addContact(userId, contactId);
+        fc.readFile(card).then(async (result) => {
+                await writer.addContact(userId, contactId)
                 successCallback();
             },
             err => {

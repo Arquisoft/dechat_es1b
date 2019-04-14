@@ -1,6 +1,6 @@
 const N3 = require("n3");
 const { DataFactory } = N3;
-const { namedNode, literal, defaultGraph, quad } = DataFactory;
+const { namedNode, quad } = DataFactory;
 const fc = require("solid-file-client");
 
 const KNOWS = "http://xmlns.com/foaf/0.1/knows";
@@ -11,9 +11,8 @@ const KNOWS = "http://xmlns.com/foaf/0.1/knows";
  * @param {Friend to add} contactWebID 
  */
 async function addContact(userWebID, contactWebID) {
-  cardURI = userWebID.replace("#me", "");
+  const cardURI = userWebID.replace("#me", "");
 
-  const parser = new N3.Parser();
   const writer = new N3.Writer();
 
   var file = await fc.readFile(cardURI);
@@ -23,9 +22,9 @@ async function addContact(userWebID, contactWebID) {
   );
   writer.end((error, result) => {
     result = result.replace(/(undefined|null)/g, "");
-    var output = file + result;
+    var output = file + "\n" + result;
     console.log(output)
-    fc.updateFile(cardURI, output).then(console.log("Ya ta!"));
+    return fc.updateFile(cardURI, output);
   });
 }
 

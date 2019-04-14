@@ -71,14 +71,14 @@ function displayAlert(message){
         $(".alert").remove();
     })
 }
-
 async function loadInitialContacts() {
     loadFriends();
 }
 
 async function loadFriends() {
-    friends = await query.getFriends();
     emptyFriendsList();
+    var friends = await query.getFriends();
+    console.log(friends)
   
     $.each(friends, async (i, friend) => {
         console.log(friend.id);
