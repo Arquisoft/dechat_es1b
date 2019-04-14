@@ -41,10 +41,6 @@ $('document').ready(async () => {
 })
 
 
-$("#testBtn").click(async ()=>{
-    //profile.addContact(user.id, "https://mierda.com");
-    profile.addContact(user.id, "https://test12345.solid.community/profile/card#me")
-})
 
 // Button listeners
 $("#login").click(async () => {
@@ -59,6 +55,22 @@ $("#logout").click(async () => {
     session.logout();
 })
 
+// Add friend
+$("#testBtn").click(async ()=>{
+    //profile.addContact(user.id, "https://mierda.com");
+    const friendWebID = prompt("Input friend's WebID");
+    profile.addContact(user.id, friendWebID, loadFriends, displayAlert);
+})
+
+function displayAlert(message){
+    $(".alert-container").append('<div class="alert alert-danger alert-dismissible" role="alert">'
+    + '<a href="#" class="close close-alert" data-dismiss="alert" aria-label="close">&times;</a>'
+    + message + 
+    '</div>');
+    $(".close-alert").click(() => {
+        $(".alert").remove();
+    })
+}
 
 async function loadInitialContacts() {
     loadFriends();
@@ -101,9 +113,6 @@ async function loadFriends() {
     listenForNotifications(); 
     }
     
-
-
-
 
 /**
  * Start a chat with the selected friend
@@ -201,7 +210,7 @@ async function addEnterListener(chat, i, user, friend) {
  */
 async function checkForNewMessages(chat, index) {
     // Pass the callback function to execute if a new notification is received
-    messages = await chat.getMessages();
+    var messages = await chat.getMessages();
     updateUIMessages(messages, index);
     //await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
 }
@@ -257,7 +266,7 @@ function listenForNotifications() {
 async function friendWantsToChat(friendList) {
     if (friendList.length > 0) {
         var messageTalk = "";
-        for (i in friendList) {
+        for (var i in friendList) {
             if (i > 0) {
                 messageTalk += ", ";
             }
@@ -279,7 +288,7 @@ function notifyMe(messageTalk) {
     // Let's check whether notification permissions have already been granted
     else if (Notification.permission === "granted") {
         // If it's okay let's create a notification
-        var notification = new Notification(messageTitle, 
+        new Notification(messageTitle, 
             {   
                 body: "from " + messageTalk,
                 icon: notifIconUrl
@@ -291,7 +300,7 @@ function notifyMe(messageTalk) {
         Notification.requestPermission(function (permission) {
             // If the user accepts, let's create a notification
             if (permission === "granted") {
-                var notification = new Notification(messageTalk + " sent you a message", 
+                new Notification(messageTalk + " sent you a message", 
                 {   
                     body: "from " + messageTalk,
                     icon: notifIconUrl
@@ -302,23 +311,6 @@ function notifyMe(messageTalk) {
 
     // At last, if the user has denied notifications, and you 
     // want to be respectful there is no need to bother them any more.
-}
-
-/**
- * Shows a notification in screen when it arrives.
- * @param {Chat} A chat in particular
- */
-async function showNotification(chat) {
-    console.log("Notification: You got a new message!");
-    $("#mesgs").prepend("<div id='notificacion' class='alert alert-info'>" + chat.partner.name + " sends you a new message!</div>");
-    hideNotifications();
-}
-
-/**
- * This method has the function of hiding notifications
- */
-async function hideNotifications() {
-    $("#notificacion").fadeOut(notifFadeout);
 }
 
 
