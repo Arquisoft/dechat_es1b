@@ -5,8 +5,8 @@ class VideoManager{
         this.peerID = ""
     }
 
-    async initialize(){
-        this.peerID =  await peermanager.initializePeer();
+    async initialize(i){
+        this.peerID =  await peermanager.initializePeer(i);
         console.log("Videochat: peer id " + this.peerID)
     }
 

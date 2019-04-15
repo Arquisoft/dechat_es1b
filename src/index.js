@@ -149,18 +149,7 @@ async function startChat(friend, i) {
     $("#videoChatButton" + i).click(async () => {
         //Trying out videochat...
 		videomanager = new VideoManager();
-        await videomanager.initialize();
-
-        var messageContent = "<div class='outgoing_msg'>" +
-        "<div class='sent_msg'>" +
-        "<p>" + "I want to start a videochat, here is my ID: " +  videomanager.getMyID() + "</p>" +
-        "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
-        " </div>";
-
-        $("#msg_history" + i).append(messageContent);
-
-        //console.log(i)
-        sendMessage(chat, i, user, friend);
+        await videomanager.initialize(i);
     })
 
     addEnterListener(chat, i, user, friend); //Press enter to send messages

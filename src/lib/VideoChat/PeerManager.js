@@ -8,7 +8,7 @@ var partnerPeerID;
 * This function creates a random ID for our peer and initializes it,
 * connecting us to the PeerJs server. 
 */
-async function initializePeer() {
+async function initializePeer(i) {
 	//Test functionality to build a random ID. Leaving the Peer constructor
 	//blank gives us a random one automatically.
 	/*var symbols = ['1','2','3','4','5','d','e','c','h','a','t'];
@@ -22,11 +22,12 @@ async function initializePeer() {
 	} */
     //At this point we have built a hopefully unique ID for our peer
 	peer = new Peer();
-	peer.on('open', new Promise(resolve => {
-		setTimeout(() => {
-			getOwnPeerID();
-		}, 2000);
-	  }));
+	peer.on('open', function(id){
+		console.log("MANAGER ID PEER :" + id);
+		var messageContent = "I want to start a videochat, here is my ID: " + id;
+		$("#contentText" + i).val(messageContent);
+	}
+	);
 };
 
 /**
