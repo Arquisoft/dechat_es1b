@@ -62,7 +62,7 @@ $("#add-contact").click(async ()=>{
 })
 
 function displayAlert(message){
-    $(".alert-container").append('<div class="alert alert-danger alert-dismissible" role="alert">'
+    $(".alert-container").append('<div class="alert alert-danger alert-dismissible error-alert" role="alert">'
     + '<a href="#" class="close close-alert" data-dismiss="alert" aria-label="close">&times;</a>'
     + message + 
     '</div>');

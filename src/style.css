@@ -390,3 +390,8 @@ footer {
 	height: 32px;
 	margin-right: 1em;
 }
+
+.error-alert{
+	width: 50vw;
+	margin: auto;
+}
