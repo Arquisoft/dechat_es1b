@@ -43,6 +43,7 @@ $('document').ready(async () => {
 // Button listeners
 $("#login").click(async () => {
     session.login();
+    
 })
 
 $("#logout").click(async () => {
@@ -61,6 +62,10 @@ async function loadFriends() {
     friends = await query.getFriends();
     emptyFriendsList();
   
+    $(".messaging").prepend("<input type='text' class='write_msg' placeholder='Paste partner peerID' id='peerIDText' />"+
+    "<button onclick='connectWithPeer()' id='connectWithPeer' class='btn btn-outline-secondary btn-rounded waves-effect'>Connect</button>" +
+    "<video id='myVideo'> </video>");
+
     $.each(friends, async (i, friend) => {
         console.log(friend.id);
         console.log(friend, i);
@@ -377,9 +382,13 @@ function changeView(session) {
 async function changeTitles(session) {
     if (session) {
         $("#titleApp").html("Welcome " + await query.getName());
-        $("#subTitleApp").prop("hidden", session)
+        $("#subTitleApp").prop("hidden", session);
+
+
     } else {
         $("#titleApp").html("Sign in using Solid technology");
-        $("#subTitleApp").prop("show", session)
+        $("#subTitleApp").prop("show", session);
+
+
     }
 }

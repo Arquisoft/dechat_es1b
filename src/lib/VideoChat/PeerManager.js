@@ -9,25 +9,13 @@ var partnerPeerID;
 * connecting us to the PeerJs server. 
 */
 async function initializePeer(i) {
-	//Test functionality to build a random ID. Leaving the Peer constructor
-	//blank gives us a random one automatically.
-	/*var symbols = ['1','2','3','4','5','d','e','c','h','a','t'];
-	this.id = "";
-	var i = 0;
-	var sel;
-	while (i<9) {
-		sel = Math.random()*10;
-		this.id=this.id+""+symbols[sel];
-		i++;
-	} */
-    //At this point we have built a hopefully unique ID for our peer
 	peer = new Peer();
-	peer.on('open', function(id){
+	peer.on('open', function(id){ 
+		//At this point we have built a hopefully unique ID for our peer
 		console.log("MANAGER ID PEER :" + id);
 		var messageContent = "I want to start a videochat, here is my ID: " + id;
-		$("#contentText" + i).val(messageContent);
-	}
-	);
+		$("#contentText" + i).val(messageContent); //Update the sending message field at the UI with the content of the peerID.
+	});
 };
 
 /**
@@ -78,6 +66,7 @@ function videocallPartner(peerID) {
 		call = peer.call(partnerPeerID, stream);
 		call.on('stream', (remoteStream) => {
 			// Show stream in some <video> element. Gotta see how we access UI form here.
+			$("#myVideo").attr("src",URL.createObjectURL(remoteStream));
 		});
 	}, (err) => {
 		console.error('Failed to get local stream', err);
@@ -91,6 +80,8 @@ function answerVideoCall() {
 			call.answer(stream); // Answer the call with an Audio&&Video stream.
 			call.on('stream', (remoteStream) => {
 				// Show stream in some <video> element.
+				
+				
 			});
 		}, (err) => {
 			console.error('Failed to get local stream', err);
@@ -101,6 +92,15 @@ function answerVideoCall() {
 function disconnect() {
 	peer.disconnect();
 }
+
+
+function connectWithPeer(){
+	console.log("Connecting...");
+	var peerIDContent = $("#peerIDText").val();
+	videocallPartner(peerIDContent);
+}
+
+
 
 module.exports = {
     initializePeer,
