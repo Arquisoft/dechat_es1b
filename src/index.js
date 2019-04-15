@@ -56,8 +56,7 @@ $("#logout").click(async () => {
 })
 
 // Add friend
-$("#testBtn").click(async ()=>{
-    //profile.addContact(user.id, "https://mierda.com");
+$("#add-contact").click(async ()=>{
     const friendWebID = prompt("Input friend's WebID");
     profile.addContact(user.id, friendWebID, loadFriends, displayAlert);
 })
