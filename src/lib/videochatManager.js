@@ -19,6 +19,7 @@ async function initializePeer(i) {
         var messageContent = "I want to start a videochat, here is my ID: " + id;
         $("#contentText" + i).val(messageContent); //Update the sending message field at the UI with the content of the peerID.
     });
+    answerVideoCall();
 };
 
 /**
@@ -62,14 +63,17 @@ function setPartnerPeerID(peerID) {
 }
 
 function videocallPartner(peerID) {
+    console.log("El PEER EN EL VIDEOCHAT ES " + peer);
     setPartnerPeerID(peerID);
     //What next line means is unknown to me atm
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-    navigator.getUserMedia({ video: false, audio: true }, (stream) => {
+    navigator.getUserMedia({ video: true, audio: true }, (stream) => {
         call = peer.call(partnerPeerID, stream);
         call.on('stream', (remoteStream) => {
             // Show stream in some <video> element. Gotta see how we access UI form here.
-            $("#myVideo").attr("src", URL.createObjectURL(remoteStream));
+            var video = document.getElementById('myVideo');
+            // Set the given stream as the video source
+            video.src = URL.createObjectURL(remoteStream);
         });
     }, (err) => {
         console.error('Failed to get local stream', err);
@@ -83,7 +87,9 @@ function answerVideoCall() {
             call.answer(stream); // Answer the call with an Audio&&Video stream.
             call.on('stream', (remoteStream) => {
                 // Show stream in some <video> element.
-
+                var video = document.getElementById('partnerVideo');
+                // Set the given stream as the video source
+                video.src = URL.createObjectURL(remoteStream);
 
             });
         }, (err) => {
@@ -98,9 +104,17 @@ function disconnect() {
 
 
 function connectWithPeer() {
+    peer = new Peer();
     console.log("Connecting...");
     var peerIDContent = $("#peerIDText").val();
+    console.log("EL PEER ID DEL PARTNER ES: " + peerIDContent);
     videocallPartner(peerIDContent);
+   /* var conn = peer.connect(peerIDContent);
+        // on open will be launch when you successfully connect to PeerServer
+        conn.on('open', function(){
+        // here you have conn.id
+        conn.send('hi!');
+    });*/
 }
 
 
