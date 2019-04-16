@@ -137,7 +137,7 @@ async function startChat(friend, i) {
         "<label for='send-image'>" +
         "<img class='image-icon' src='assets/images/upload-image.svg'/>" +
         "</label>" +
-        "<input type='file' id='send-image'/>" +
+        "<input type='file' id='send-image' accept='image/*'/>" +
         "</div>" +
         "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "' >" + "Send</button>" +
         "</div>" +
@@ -170,12 +170,21 @@ async function startChat(friend, i) {
 
     addEnterListener(chat, i, user, friend);
 
+    addImageUploadListener(chat);
+
     // Set up listener for new messages, time in ms
     messageLoop = setInterval(() => {
         checkForNewMessages(chat, i)
     }, messageLoopTimer);
 
 
+}
+
+function addImageUploadListener(chat){
+    $("#send-image").on('change', function(){
+        console.log("Envío imagen");
+        chat.sendMessage(this.files[0], 'image');
+    });
 }
 
 /**
