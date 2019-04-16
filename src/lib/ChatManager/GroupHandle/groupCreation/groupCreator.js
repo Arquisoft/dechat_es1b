@@ -13,7 +13,7 @@ async createGroup(name, participants, creator){
 	
 	for(i in participants){
  
-	var uriToCheck = "https://" + participants[i] + "/dechat/groups.txt"
+	var uriToCheck = "https://" + participants[i] + "/dechat//groups.txt"
 	if(validator.checkFile(uriToCheck)){
 		
 			var newGroupAdded = await addGroup(participants[i], idGroup);
