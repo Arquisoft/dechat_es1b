@@ -1,7 +1,7 @@
 const session = require("./lib/session");
 const query = require("./lib/ldflex-queries");
 const Chat = require("./lib/chat");
-const VideoManager = require("./lib/VideoManager.js");
+const videochatManager = require("./lib/videochatManager.js");
 const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 const Notifier = require("./lib/notifier");
@@ -43,7 +43,7 @@ $('document').ready(async () => {
 // Button listeners
 $("#login").click(async () => {
     session.login();
-    
+
 })
 
 $("#logout").click(async () => {
@@ -61,10 +61,10 @@ async function loadInitialContacts() {
 async function loadFriends() {
     friends = await query.getFriends();
     emptyFriendsList();
-  
-    $(".messaging").prepend("<input type='text' class='write_msg' placeholder='Paste partner peerID' id='peerIDText' />"+
-    "<button onclick='connectWithPeer()' id='connectWithPeer' class='btn btn-outline-secondary btn-rounded waves-effect'>Connect</button>" +
-    "<video id='myVideo'> </video>");
+
+    $(".messaging").prepend("<input type='text' class='write_msg' placeholder='Paste partner peerID' id='peerIDText' />" +
+        "<button onclick='connectWithPeer()' id='connectWithPeer' class='btn btn-outline-secondary btn-rounded waves-effect'>Connect</button>" +
+        "<video id='myVideo'> </video>");
 
     $.each(friends, async (i, friend) => {
         console.log(friend.id);
@@ -72,15 +72,15 @@ async function loadFriends() {
 
 
         var image = await query.getProfilePic(friends[i].id);
-        if(typeof image === 'undefined'){
+        if (typeof image === 'undefined') {
             image = "https://ptetutorials.com/images/user-profile.png";
         }
 
-        friends[i].image=image; //Image will be cached in friend object
-        
+        friends[i].image = image; //Image will be cached in friend object
+
         var textFriend = "<div class='chat_list'>" +
             "<div class='chat_people'>" +
-            "<div class='chat_img'> <img src='" + image  +"' alt='profile img'> </div>" +
+            "<div class='chat_img'> <img src='" + image + "' alt='profile img'> </div>" +
             "<div class='chat_ib'>" +
             "<h5>" + friend.name + "</h5>" +
             "</div>" +
@@ -96,9 +96,9 @@ async function loadFriends() {
 
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     });
-    listenForNotifications(); 
-    }
-    
+    listenForNotifications();
+}
+
 
 
 
@@ -115,9 +115,9 @@ async function startChat(friend, i) {
     $("#mesgs").empty(); //Delete all the content of mesgs
 
     $(".profile_bar").empty(); //Empty profile upper bar
-    $(".profile_bar").append("<img class='bar_image' src='" + friend.image  +"' alt='profile img' /> <p class='text-center'>"+ friend.name + "</p>"); //Add content of the profile upper bar
+    $(".profile_bar").append("<img class='bar_image' src='" + friend.image + "' alt='profile img' /> <p class='text-center'>" + friend.name + "</p>"); //Add content of the profile upper bar
 
-    var initialMessageContent = 
+    var initialMessageContent =
         "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
         "<div class='type_msg'>" +
         "<div class='input_msg_write'>" +
@@ -129,7 +129,7 @@ async function startChat(friend, i) {
 
     $("#mesgs").append(initialMessageContent);
 
-    
+
     updateUIMessages(await chat.getMessages(), i);
 
     //Add action to sending messages button
@@ -146,15 +146,14 @@ async function startChat(friend, i) {
 
         //console.log(i)
         sendMessage(chat, i, user, friend);
-		
+
 
     });
 
     //Add action to videochat button
     $("#videoChatButton" + i).click(async () => {
         //Trying out videochat...
-		videomanager = new VideoManager();
-        await videomanager.initialize(i);
+        await videochatManager.initializePeer(i);
     })
 
     addEnterListener(chat, i, user, friend); //Press enter to send messages
@@ -279,13 +278,13 @@ function notifyMe(messageTalk) {
     // Let's check if the browser supports notifications
     if (!("Notification" in window)) {
         alert("This browser does not support desktop notification");
-    }   
+    }
 
     // Let's check whether notification permissions have already been granted
     else if (Notification.permission === "granted") {
         // If it's okay let's create a notification
-        var notification = new Notification(messageTitle, 
-            {   
+        var notification = new Notification(messageTitle,
+            {
                 body: "from " + messageTalk,
                 icon: notifIconUrl
             });
@@ -296,11 +295,11 @@ function notifyMe(messageTalk) {
         Notification.requestPermission(function (permission) {
             // If the user accepts, let's create a notification
             if (permission === "granted") {
-                var notification = new Notification(messageTalk + " sent you a message", 
-                {   
-                    body: "from " + messageTalk,
-                    icon: notifIconUrl
-                });
+                var notification = new Notification(messageTalk + " sent you a message",
+                    {
+                        body: "from " + messageTalk,
+                        icon: notifIconUrl
+                    });
             }
         });
     }
