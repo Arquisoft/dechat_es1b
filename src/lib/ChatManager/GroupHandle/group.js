@@ -15,3 +15,5 @@ function group(id, name, participants, owner){
 	
 	return groupTR;
 }
+
+exports.group = group;
