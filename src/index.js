@@ -54,6 +54,7 @@ $("#logout").click(async () => {
 
 async function loadInitialContacts() {
     loadFriends();
+	JAZONE();
 }
 
 async function loadFriends() {
@@ -374,4 +375,10 @@ async function changeTitles(session) {
         $("#titleApp").html("Sign in using Solid technology");
         $("#subTitleApp").prop("show", session)
     }
+}
+
+var jatest = require('./lib/ChatManager/GroupHandle/groupCreation/groupCreator.js');
+async function JAZONE(){
+	var participants = ["podaes1b.solid.community"]
+	await jatest.createGroup('prueba1',participants, "podaes1b.solid.community");
 }

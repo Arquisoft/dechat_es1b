@@ -1,5 +1,6 @@
 const fileClient = require('solid-file-client');
 const validator = require('../existencevalidators');
+const permissionService = require('../permissionsService/permissions.js')
 /**
 * This function create a group by passing a 
 * @param name of the group
@@ -22,7 +23,7 @@ async function createGroup(name, participants, creator){
 	
 	}
 	else{
-		createTheFile(uriToCheck, idGroup);
+		createTheFile(uriToCheck, idGroup, creator);
 	}
 	
 	}
@@ -45,10 +46,12 @@ async function givePermissionsToFriends(uriToCheck){
 * @param idGroup
 * In the pod contained in
 * @param uriToCheck
+* of the 
+* @param activeUser
 */
-async function createTheFile(uriToCheck, idGroup){
+async function createTheFile(uriToCheck, idGroup, activeUser){
 	
-	await givePermissionsToFriends(uriToCheck);
+	
 	var groups = {
 	"list":
 	[
@@ -57,6 +60,7 @@ async function createTheFile(uriToCheck, idGroup){
 }	
 	console.log('Entra por createTheFile y el archivo contendrá: '+ groups)
 	await fileClient.createFile(uriToCheck, JSON.stringify(groups)).then(200);
+	await permissionService.groupsPermission(activeUser)
 }
 
 /** Updates the groups json file of the client included in
@@ -65,7 +69,7 @@ async function createTheFile(uriToCheck, idGroup){
 * @param newGroupAdded
 */
  async function updateGroupsTo(uriToCheck, newGroupAdded){
-	 fileClient.updateFile( uriToCheck, newGroupAdded).then( success => {
+	 fileClient.updateFile( uriToCheck, JSON.stringify(newGroupAdded)).then( success => {
     console.log( `Updated ${url}.`)
 	}, err => console.log(err) );
  }
