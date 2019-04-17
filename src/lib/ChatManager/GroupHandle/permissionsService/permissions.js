@@ -81,4 +81,58 @@ async function addParticipants(participants){
 	return strTR;
 }
 
+/***********************************************************************************************************************************/
+
+
+/**
+* Give permission to all participants to read a
+* @param groupID
+* In the pod of the
+* @param person
+* to all the participants from
+* @param listOfParticipants
+*/
+async function groupFolderPermission(person, groupID, listOfParticipants)
+{
+	var uriToEdit = "https://"+person+"/dechat/"+groupID+"//messages.txt.acl";
+
+	var theFileTE = "https://"+person+"/dechat/"+groupID+"//messages.txt";
+	var fileTU =  await createACLFileForFolderContent(listOfParticipants, fileRoute);
+	fileClient.updateFile( uriToEdit, fileTU).then( success => {
+    console.log( `Updated ${url}.`)
+	}, err => console.log(err) );
+	
+	
+}
+
+/**
+* Main function to generate the ACL file to give permissions to friends from
+* @param listOfFriends
+* to access the group folder content
+*/
+async function createACLFileForFolderContent(listOfFriends, fileRoute){
+
+	var ACL = "@prefix : <#>. \n"
+		+ "@prefix n0: <http://www.w3.org/ns/auth/acl#>. \n"
+		+ "@prefix c: </profile/card#>. \n"
+		+ await createPrefixedFriends(listOfFriends)
+		+ "\n"
+
+		+ ":ControlReadWrite \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo <"+fileRoute+">; \n"
+		+ "\tn0:agent c:me; \n"
+		+ "\tn0:mode n0:Control, n0:Read, n0:Write. \n"
+		+ ":Read \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo <"+fileRoute+">; \n"
+		+ await addParticipants(listOfFriends)
+		+ "\tn0:mode n0:Read.";
+
+		console.log(ACL);
+	return ACL;
+}
+
+
 exports.groupsPermission = groupsPermission;
+exports.groupFolderPermission = groupFolderPermission;
