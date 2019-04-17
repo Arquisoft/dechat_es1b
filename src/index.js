@@ -239,27 +239,33 @@ function updateUIMessages(messages, index) {
     $("#msg_history" + index).empty();
     var i;
     for (i = 0; i < messages.length; i++) {
-        var sendedMessage;
+        var sentMessage;
         var userToCompare = "https://" + messages[i].user + "/profile/card#me"; //It is neccesary to known if the message is outgoing or incoming.
+        let msgContent;
+        if (messages[i].type === 'image'){
+            msgContent = "<img src='" + messages[i].content + "' class='image'/>";
+        }else{
+            msgContent = messages[i].content;
+        }
         if (userToCompare == user.id) {
-            sendedMessage = "<div class='outgoing_msg'>" +
+            sentMessage = "<div class='outgoing_msg'>" +
                 "<div class='sent_msg'>" +
-                "<p>" + messages[i].content + "</p>" +
+                "<p>" + msgContent + "</p>" +
                 "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span> </div>" +
                 " </div>";
 
         } else {
-            sendedMessage = "<div class='incoming_msg'>" +
+            sentMessage = "<div class='incoming_msg'>" +
                 "<div class='incoming_msg_img'></div>" +
                 "<div class='received_msg'>" +
                 "<div class='received_withd_msg'>" +
-                "<p>" + messages[i].content + "</p>" +
+                "<p>" + msgContent + "</p>" +
                 "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span></div>" +
                 "</div>"
             "</div>";
         }
         //console.log("Messages loop " + messages[i].content);
-        $("#msg_history" + index).append(sendedMessage);
+        $("#msg_history" + index).append(sentMessage);
     }
 
 
@@ -271,8 +277,6 @@ function updateUIMessages(messages, index) {
 function listenForNotifications() {
     notifLoop = setInterval(() => {
         notifications.checkForNotifications((friendList) => {
-            console.log("¡Te ha llegado una notificación!")
-            console.log(friendList);
             //Call function to show message alert
             friendWantsToChat(friendList);
         });

@@ -417,3 +417,7 @@ footer {
 .button-container>div{
 	padding-right: 1em;
 }
+
+.image{
+	width:120px;
+}
