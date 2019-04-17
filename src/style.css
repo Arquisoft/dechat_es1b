@@ -395,3 +395,29 @@ footer {
 	width: 50vw;
 	margin: auto;
 }
+
+.image-upload{
+	height:62px;
+}
+
+.image-upload>input{
+	display: none;
+}
+
+.image-icon{
+	padding: 9px;
+	width:62px;	
+}
+
+.button-container{
+	display:flex;
+	align-items:center;
+}
+
+.button-container>div{
+	padding-right: 1em;
+}
+
+.image{
+	width:120px;
+}
