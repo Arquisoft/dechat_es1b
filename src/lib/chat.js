@@ -21,13 +21,18 @@ class Chat {
     * @return {Promise} file
     */
     async sendMessage(content, type) {
+     async sendMessage(content, type) {
         var message = new Message(this.user.id, this.partner.id, content, type);
         this.messages = await this.getMessages();
 
         //Is is type image, process this:
         if(type === "image") {
+            var friendIdentifier = this.partner.id.replace("https://", "");
+	        var partes = friendIdentifier.split(".");
+	        friendIdentifier = partes[0] + "." + partes[1];
+            var folderRoute = this.user.id.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
             //Save in content name of file.
-            message.content = content.name;
+            message.content = folderRoute+ "/" + content.name;
             console.log("Uploadig file... [" + message.content + "]");
 
             //Upload image to Own POD.
