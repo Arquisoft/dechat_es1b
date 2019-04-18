@@ -65,8 +65,8 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
         if(typeof checkFilesFolder === 'undefined'){
             await folderManager.createFolder(folderRoute);
         }
-			
 	var URI = folderRoute + "/" + file.name;
+    folderManager.grantReadPermissionsToFile2(URI, partnerID,file.name);
     var content = file;
     fileClient.updateFile(URI, content).then( res=> {
         console.log(res);

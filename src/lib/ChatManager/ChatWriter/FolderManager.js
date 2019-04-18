@@ -17,6 +17,18 @@ async function grantReadPermissionsToFile(fileRoute, partnerID) {
 };
 
 /**
+ * Grant the necessary permissions to read a file
+ * @param {String} route of the file  
+ * @param {String} webID of the partner
+ */
+async function grantReadPermissionsToFile2(fileRoute, partnerID,fileName) {
+    var aclRoute = fileRoute + ".acl";
+    var aclContents = txtFileBuilder.generateACL(partnerID, fileName);
+    await fileClient.updateFile(aclRoute, aclContents)
+        .then(success => { 200 }, err => fileClient.createFile(aclRoute, aclContents).then(200));
+};
+
+/**
  * Deletes the content of the folder specified by url, assuming the logged user has the rights to do so
  * @param {String} url 
  * @return {Promise} files
@@ -96,6 +108,7 @@ async function validate(uriToValidate) {
 
 module.exports = {
     grantReadPermissionsToFile,
+    grantReadPermissionsToFile2,
     emptyFolder,
     getFilesFromFolder,
     createFolder,
