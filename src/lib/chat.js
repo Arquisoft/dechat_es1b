@@ -45,9 +45,17 @@ class Chat {
         let userID = this.user.id.replace("/profile/card#me", "").replace("https://", "");
         for(var i = 0; i < this.messages.length; i++) {
             if(this.messages[i].user === userID) {
-                let newMsg = new Message(this.messages[i].user, this.messages[i].partner, this.messages[i].content);
-                newMsg.init(this.messages[i].timestamp);
-                this.sentMessages.push(newMsg)
+                console.log('tipo:' + this.messages[i].type);
+                if(this.messages[i].type==undefined){
+                    let newMsg = new Message(this.messages[i].user, this.messages[i].partner, this.messages[i].content);
+                    newMsg.init(this.messages[i].timestamp);
+                    this.sentMessages.push(newMsg)
+                }else{
+                    let newMsg = new Message(this.messages[i].user, this.messages[i].partner, this.messages[i].content,this.messages[i].type);
+                    newMsg.init(this.messages[i].timestamp);
+                    this.sentMessages.push(newMsg)
+                }
+                
             }
         }
         //Saving to array current message
