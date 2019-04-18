@@ -58,8 +58,7 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
 	var friendIdentifier = partnerID.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var folderRoute = userID.replace("/profile/card#me", folderManager.CHAT_FOLDER +
-	"/" + friendIdentifier + folderManager.FILES_FOLDER);
+    var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
 
 	//If folder don't exist create.
 	let checkFilesFolder = await this.readFolder(folderRoute);
