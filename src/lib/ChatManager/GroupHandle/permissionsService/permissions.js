@@ -114,7 +114,7 @@ async function createACLFileForFolderContent(listOfFriends, fileRoute){
 		+ await createPrefixedParticipants(listOfFriends)
 		+ "\n"
 
-		+ ":ControlRead \n"
+		+ ":ControlReadWrite \n"
 		+ "\ta n0:Authorization; \n"
 		+ "\tn0:accessTo <"+fileRoute+">; \n"
 		+ "\tn0:agent c:me; \n"
@@ -124,6 +124,33 @@ async function createACLFileForFolderContent(listOfFriends, fileRoute){
 		+ "\tn0:accessTo <"+fileRoute+">; \n"
 		+ await addParticipants(listOfFriends)
 		+ "\tn0:mode n0:Read.";
+
+	return ACL;
+}
+
+/**
+* Main function to generate the ACL file to give permissions to friends from
+* @param listOfFriends
+* to access the info txt
+*/
+async function createACLFileForInfo(listOfFriends, fileRoute){
+
+	var ACL = "@prefix : <#>. \n"
+		+ "@prefix n0: <http://www.w3.org/ns/auth/acl#>. \n"
+		+ "@prefix c: </profile/card#>. \n"
+		+ await createPrefixedParticipants(listOfFriends)
+		+ "\n"
+
+		+ ":Control \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo <"+fileRoute+">; \n"
+		+ "\tn0:agent c:me; \n"
+		+ "\tn0:mode n0:Control, n0:Read, n0:Write. \n"
+		+ ":ReadWrite \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo <"+fileRoute+">; \n"
+		+ await addParticipants(listOfFriends)
+		+ "\tn0:mode n0:Read, n0:Write.";
 
 	return ACL;
 }
@@ -150,15 +177,15 @@ async function createPrefixedParticipants(participants){
 * @param groupID
 * In the pod of the
 * @param person
-* to all the participants from
-* @param listOfParticipants
+* to the
+* @param owner
 */
-async function groupInfoPermission(person, groupID, listOfParticipants)
+async function groupInfoPermission(person, groupID, owner)
 {
 	var uriToEdit = "https://"+person+"/dechat/"+groupID+"//info.txt.acl";
-
-	//var theFileTE = "https://"+person+"/dechat/"+groupID+"//messages.txt";
-	var fileTU =  await createACLFileForFolderContent(listOfParticipants, uriToEdit);
+	var listOfParticipantsB = [];
+	listOfParticipantsB.push(owner);
+	var fileTU =  await createACLFileForInfo(listOfParticipantsB, uriToEdit);
 	fileClient.updateFile( uriToEdit, fileTU).then( 200 );
 	
 	

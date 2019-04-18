@@ -8,12 +8,8 @@ const fileClient = require('solid-file-client');
 
  var thejson =  JSON.parse(salida);
  
- var list = [];
- for(i in thejson.list){
-	 list.push(thejson.list[i]);
- }
 
- return list;
+ return thejson;
 }
 
 exports.listGroups = listGroups;

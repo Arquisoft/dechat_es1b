@@ -1,7 +1,7 @@
 const fileClient = require('solid-file-client');
 const validator = require('../existencevalidators');
 const permissionService = require('../permissionsService/permissions.js')
-
+const glist = require('../groupList.js')
 /**
 * This function may be called on chat init
 * It checks the existence of file groups.txt
@@ -140,11 +140,18 @@ async function createGroupPerSe(activeUser, groupID, listOfParticipants, groupNa
 	await fileClient.createFile(uriFile, "").then(200);
 	var groupInfo = await fileGroupInfo(activeUser,groupID,listOfParticipants, groupName);
 	await fileClient.createFile(uriInfoFile, JSON.stringify(groupInfo)).then(200);
-	await permissionService.groupInfoPermission(activeUser, groupID, groupName);
+	//await permissionService.groupInfoPermission(activeUser, groupID, groupName);
 	await permissionService.groupFolderPermission(activeUser, groupID, listOfParticipants);
 	
 }
 
+/**
+* Creates the info txt document with 
+* @param activeUser the owner of the group
+* @param groupID 
+* @param listOfParticipants
+* @param groupName
+*/
 async function fileGroupInfo(activeUser,groupID,listOfParticipants, groupName){
 	return {
 		"name" : groupName,
@@ -152,6 +159,32 @@ async function fileGroupInfo(activeUser,groupID,listOfParticipants, groupName){
 		"participants": listOfParticipants,
 		"owner": activeUser
 	}
+}
+/**
+* This function may be called on init to check that the
+* @param user 
+* has all group folders created
+*/
+async function checkAllGroupsOKOnInit(user){
+	var groups = await glist.listGroups(user);
+	for(i in groups.list){
+		var uriToCheck = "https://"+user+"/dechat/"+groups.list[i].id;
+		if(!await validator.checkFile(uriToCheck)){
+			await createGroupPerSeInSon(user, groups.list[i].id, groups.list[i].owner);
+		}
+	}
+}
+/**
+* Function to create the group in the POD of a participant
+*/
+async function createGroupPerSeInSon(user, id, owner){
+	//TODO
+	// Lee y copia el archivo info del owner y le damos permisos al owner
+	// Metemos en un var la lista de participantes sacada del info
+	// Crea la carpeta con el nombre en el hijo
+	// Creamos el messages 
+	// y damos permisos a este a partir de la variable lista
+	
 }
 
 exports.createFileOnInit = createFileOnInit;
