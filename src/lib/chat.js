@@ -16,13 +16,24 @@ class Chat {
 
     /**
     * Method to send a message
-    * @param {String} text content of the message 
+    * @param {} content this can be file or string.
+    * @param {String} type depend type, sendMessage process this.
     * @return {Promise} file
     */
-    async sendMessage(text) {
-        var message = new Message(this.user.id, this.partner.id, text);
+    async sendMessage(content, type) {
+        var message = new Message(this.user.id, this.partner.id, content, type);
         this.messages = await this.getMessages();
-        console.log(this.messages);
+
+        //Is is type image, process this:
+        if(type === "image") {
+            //Save in content name of file.
+            message.content = content.name;
+            console.log("Uploadig file... [" + message.content + "]");
+
+            //Upload image to Own POD.
+            await chatManager.uploadFileToOwnPOD(content, this.user.id, this.partner.id);
+            console.log("File uploaded fine.");
+        }
 
         //Save current sentMessages.
         this.sentMessages = [];

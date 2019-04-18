@@ -31,7 +31,8 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	var friendIdentifier = partnerID.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/");
+	var folderRoute = userID.replace("/profile/card#me", folderManager.CHAT_FOLDER +
+									"/" + friendIdentifier + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
 
@@ -47,7 +48,33 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
 };
 
+/**
+ * Function to upload file to own pod and grant permissions to partner.
+ * @param {*} file 
+ * @param {*} userID 
+ * @param {*} partnerID 
+ */
+async function uploadFileToOwnPOD(file, userID, partnerID) {
+	var friendIdentifier = partnerID.replace("https://", "");
+	var partes = friendIdentifier.split(".");
+	friendIdentifier = partes[0] + "." + partes[1];
+    var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
+
+	 //If folder don't exist create.
+	let checkFilesFolder = await folderManager.readFolder(folderRoute);
+        if(typeof checkFilesFolder === 'undefined'){
+            await folderManager.createFolder(folderRoute);
+        }
+			
+	var URI = folderRoute + "/" + file.name;
+    var content = file;
+    fileClient.updateFile(URI, content).then( res=> {
+        console.log(res);
+    }, err=>{console.log("upload error : "+err)});
+}
+
 module.exports = {
 	sendToInbox,
-	sendToOwnPOD
+	sendToOwnPOD,
+	uploadFileToOwnPOD
 }

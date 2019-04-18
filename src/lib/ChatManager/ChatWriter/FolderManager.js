@@ -1,6 +1,7 @@
 const fileClient = require('solid-file-client');
 const MESSAGE_FILE = "messages.txt";
 const CHAT_FOLDER = "/dechat";
+const FILES_FOLDER = "/files";
 const txtFileBuilder = require("./TextFileBuilder");
 
 /**
@@ -59,16 +60,14 @@ async function createFolder(url) {
 
 /**
  * Check if the pod has the dechat folder
- * If not, creates the folder
+ * If not, creates the folder of the chat, and a folder for the files
  * @param {String} url folder
  */
 async function checkDechatFolder(userUrl) {
     let check = await this.readFolder(userUrl + CHAT_FOLDER);
     console.log("FOLDER NAME: " + check);
     if (typeof check === 'undefined') {
-        console.log("ESTOY CREANDO COSAS" + userUrl + " - " + CHAT_FOLDER)
         await this.createFolder(userUrl + CHAT_FOLDER);
-        console.log("SE HA CREADO?")
     }
 };
 
@@ -103,5 +102,7 @@ module.exports = {
     readFolder,
     validate,
     checkDechatFolder,
-    getUrlFolder
+    getUrlFolder,
+    CHAT_FOLDER,
+    FILES_FOLDER
 }
