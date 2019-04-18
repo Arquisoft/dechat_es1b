@@ -21,7 +21,6 @@ class Chat {
     * @return {Promise} file
     */
     async sendMessage(content, type) {
-     async sendMessage(content, type) {
         var message = new Message(this.user.id, this.partner.id, content, type);
         this.messages = await this.getMessages();
 
