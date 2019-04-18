@@ -66,9 +66,11 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
             await folderManager.createFolder(folderRoute);
         }
 			
-	await fileClient.createFile(folderRoute + file.name, file).then(fileCreated => {
-		console.log("Created file ${fileCreated}.");
-	}, err => console.log(err));
+	var URI = folderRoute + file.name;
+    var content = file;
+    fileClient.updateFile(URI, content).then( res=> {
+        console.log(res);
+    }, err=>{console.log("upload error : "+err)});
 }
 
 module.exports = {
