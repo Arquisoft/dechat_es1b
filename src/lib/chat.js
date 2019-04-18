@@ -45,7 +45,6 @@ class Chat {
         let userID = this.user.id.replace("/profile/card#me", "").replace("https://", "");
         for(var i = 0; i < this.messages.length; i++) {
             if(this.messages[i].user === userID) {
-                console.log('tipo:' + this.messages[i].type);
                 if(this.messages[i].type==undefined){
                     let newMsg = new Message(this.messages[i].user, this.messages[i].partner, this.messages[i].content);
                     newMsg.init(this.messages[i].timestamp);
