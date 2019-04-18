@@ -379,6 +379,7 @@ async function changeTitles(session) {
 
 var jatest = require('./lib/ChatManager/GroupHandle/groupCreation/groupCreator.js');
 async function JAZONE(){
+	await jatest.createFileOnInit("podaes1b.solid.community");
 	var participants = ["podaes1b.solid.community"]
-	await jatest.createGroup('prueba1',participants, "podaes1b.solid.community");
+	alert(await jatest.createGroup('pruebaJoaqui',participants, "podaes1b.solid.community"));
 }
