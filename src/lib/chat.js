@@ -3,6 +3,7 @@
  */
 const chatManager = require("./ChatManager/ChatManager.js");
 const Message = require("../model/message");
+const query = require("../lib/ldflex-queries");
 
 class Chat {
 
