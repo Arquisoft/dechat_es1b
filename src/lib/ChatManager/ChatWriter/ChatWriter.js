@@ -60,10 +60,11 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
 	friendIdentifier = partes[0] + "." + partes[1];
     var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
 
-	//If folder don't exist create.
-	let checkFilesFolder = await this.readFolder(folderRoute);
-        if(typeof checkFilesFolder === 'undefined')
-			await this.createFolder(folderRoute);
+	 //If folder don't exist create.
+	let checkFilesFolder = await folderManager.readFolder(folderRoute);
+        if(typeof checkFilesFolder === 'undefined'){
+            await folderManager.createFolder(folderRoute);
+        }
 			
 	await fileClient.createFile(folderRoute + file.name, file).then(fileCreated => {
 		console.log("Created file ${fileCreated}.");
