@@ -45,7 +45,7 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, partnerID, messages);
 	await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
 	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(404));
-	folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
+	folderManager.grantReadPermissionsToFileWithMessages(podFileRoute, partnerID);
 };
 
 /**
@@ -66,7 +66,7 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
             await folderManager.createFolder(folderRoute);
         }
 	var URI = folderRoute + "/" + file.name;
-    folderManager.grantReadPermissionsToFile2(URI, partnerID,file.name);
+    folderManager.grantReadPermissionsToFile(URI, partnerID,file.name);
     var content = file;
     fileClient.updateFile(URI, content).then( res=> {
         console.log(res);

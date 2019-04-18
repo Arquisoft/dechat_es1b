@@ -5,11 +5,11 @@ const FILES_FOLDER = "/files";
 const txtFileBuilder = require("./TextFileBuilder");
 
 /**
- * Grant the necessary permissions to read a file
+ * Grant the necessary permissions to read a file with messages
  * @param {String} route of the file  
  * @param {String} webID of the partner
  */
-async function grantReadPermissionsToFile(fileRoute, partnerID) {
+async function grantReadPermissionsToFileWithMessages(fileRoute, partnerID) {
     var aclRoute = fileRoute + ".acl";
     var aclContents = txtFileBuilder.generateACL(partnerID, MESSAGE_FILE);
     await fileClient.updateFile(aclRoute, aclContents)
@@ -20,8 +20,9 @@ async function grantReadPermissionsToFile(fileRoute, partnerID) {
  * Grant the necessary permissions to read a file
  * @param {String} route of the file  
  * @param {String} webID of the partner
+ * @param {String} file name 
  */
-async function grantReadPermissionsToFile2(fileRoute, partnerID,fileName) {
+async function grantReadPermissionsToFile(fileRoute, partnerID, fileName) {
     var aclRoute = fileRoute + ".acl";
     var aclContents = txtFileBuilder.generateACL(partnerID, fileName);
     await fileClient.updateFile(aclRoute, aclContents)
@@ -107,8 +108,8 @@ async function validate(uriToValidate) {
 };
 
 module.exports = {
+    grantReadPermissionsToFileWithMessages,
     grantReadPermissionsToFile,
-    grantReadPermissionsToFile2,
     emptyFolder,
     getFilesFromFolder,
     createFolder,
