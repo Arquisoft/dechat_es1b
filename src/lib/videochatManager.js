@@ -69,11 +69,14 @@ function videocallPartner(peerID) {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({ video: true, audio: true }, (stream) => {
         call = peer.call(partnerPeerID, stream);
+        console.log("STREAM " + stream);
         call.on('stream', (remoteStream) => {
+            console.log("REMOTE STREAM  ??  " + remoteStream);
             // Show stream in some <video> element. Gotta see how we access UI form here.
             var video = document.getElementById('myVideo');
             // Set the given stream as the video source
-            video.src = URL.createObjectURL(remoteStream);
+            video.srcObject= remoteStream;
+            video.play();
         });
     }, (err) => {
         console.error('Failed to get local stream', err);
@@ -89,7 +92,8 @@ function answerVideoCall() {
                 // Show stream in some <video> element.
                 var video = document.getElementById('partnerVideo');
                 // Set the given stream as the video source
-                video.src = URL.createObjectURL(remoteStream);
+                video.srcObject = remoteStream;
+                video.play();
 
             });
         }, (err) => {
