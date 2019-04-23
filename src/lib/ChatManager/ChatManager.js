@@ -1,5 +1,6 @@
 const chatReader = require("./ChatReader/ChatReader");
 const chatWriter = require("./ChatWriter/ChatWriter");
+const groupCreator = require("./GroupHandle/groupCreation/groupCreator");
 
 /**
  * This function receives two uri applies singleUriGetter
@@ -42,10 +43,43 @@ function writeInbox(friend, message) {
 async function writeOwnPOD(userID, partnerID, messages) {
     chatWriter.sendToOwnPOD(userID, partnerID, messages);
 };
+/**
+* CALLABLE ON INIT
+* Creates the file groups.txt on Dechat Folder of a user
+* this file represents a index of groups
+* @param {String} userID
+*/
+async function createFileOnInit(userID) {
+	userID.replace("https://", "");
+	groupCreator.createFileOnInit(userID);
+};
+
+/**
+* Creates the group per se with all necesary files and folders in own pod
+* @param {String} groupName
+* @param {Array} participantsList
+* @param {String] userID
+*/
+async function createGroup(groupName, participantsList, userID){
+	userID.replace("https://", "");
+	return await groupCreator.createGroup(groupName, participantsList, userID);
+}
+
+/**
+* CALLABLE ON INIT
+* Creates all group folder and files that does not exist
+* @param userID
+*/
+async function createUncreatedGroups(userID){
+	userID.replace("https://", "");
+	groupCreator.checkAllGroupsOKOnInit(userID);
+}
 
 module.exports = {
     read,
     readPod,
     writeInbox,
-    writeOwnPOD
+    writeOwnPOD,
+	createFileOnInit,
+	createGroup
 }
