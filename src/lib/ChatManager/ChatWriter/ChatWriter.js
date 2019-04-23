@@ -18,6 +18,24 @@ function sendToInbox(friend, message) {
 };
 
 /**
+ * Creates a file in the inbox of all participants with the json data passed as argument
+ * @param {String} inboxURL 
+ * @param {String} userID
+ */
+async function sendToInboxGroupal(groupID, userID ,message) {
+	var gRoute = "https://"+ userID + "/dechat/"+groupID+"//info.txt";
+	var info = await fileClient.readFile(groupUri);
+	var infoJSON = await JSON.parse(info);
+	//Login since it looks like its required 
+	
+	fileClient.popupLogin();
+	for(i in infoJSON.participants){
+		var friendRoute = "https://"+ infoJSON.participants[i]+"inbox/dechat.txt"
+		await fileClient.createFile(friendRoute, message).then(200);
+	}
+};
+
+/**
  * Creates a folder in user's own pod, containing a json representing chat messages
  * and grants read permissions to partner.
  * @param {String} userID 
@@ -70,5 +88,6 @@ async function sendToOwnPODForGroups(userID, groupID, messages) {
 module.exports = {
 	sendToInbox,
 	sendToOwnPOD,
-	sendToOwnPODForGroups
+	sendToOwnPODForGroups,
+	sendToInboxGroupal
 }
