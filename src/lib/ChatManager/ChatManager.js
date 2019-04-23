@@ -75,11 +75,47 @@ async function createUncreatedGroups(userID){
 	groupCreator.checkAllGroupsOKOnInit(userID);
 }
 
+/**
+* Read the group and returns the ordered list of messages
+* @param {String} userID
+* @param {String} groupId
+*/
+async function readGroup(userID, groupId){
+	userID.replace("https://", "");
+	return await chatReader.readGroup(userID, groupId);
+}
+
+/**
+* Write the message in all participants inbox
+* @param {String} groupId
+* @param {String} userID
+* @param {String} message
+*/
+async function writeInboxGroupal(groupID, userID ,message){
+	userID.replace("https://", "");
+	chatWriter.sendToInboxGroupal(groupID, userID, message);
+}
+
+/**
+* Writes the list of messages in the own pod of the user
+* @param {String} userID
+* @param {String} groupID
+* @param {String} messages
+*/
+
+async function writeGroupal(userID, groupID, messages){
+	userID.replace("https://","");
+	chatWriter.sendToOwnPODForGroups(userID, groupID, messages);
+}
+
 module.exports = {
     read,
     readPod,
     writeInbox,
     writeOwnPOD,
 	createFileOnInit,
-	createGroup
+	createGroup,
+	createUncreatedGroups, 
+	readGroup,
+	writeInboxGroupal
 }
