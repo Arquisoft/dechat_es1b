@@ -11,7 +11,7 @@ const Person = require("../model/person")
  */
 async function login(){
   await auth.popupLogin({ popupUri: "./popup.html" });
-};
+}
 
 /**
  * Returns the current session
@@ -19,7 +19,7 @@ async function login(){
  */
 async function getSession() {
   return await auth.currentSession();
-};
+}
 
 /**
  * Returns the authenticated user
@@ -37,7 +37,7 @@ async function getUser(){
  */
 async function logout() {
   auth.logout().then(alert("Disconnected"));
-};
+}
 
 
 /**
