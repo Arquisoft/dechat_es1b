@@ -2,17 +2,6 @@ const chatReader = require("./ChatReader/ChatReader");
 const chatWriter = require("./ChatWriter/ChatWriter");
 
 /**
- * This function receives two uri applies singleUriGetter
- * 	to create a message array for each onerror
- *	and returns the sorted by date list 
- * @param {String} urla Example: martinlacorrona.solid.community
- * @param {String} urlb Example: javierardura.solid.community
- */
-async function read(urla, urlb) {
-    return chatReader.read(urla, urlb);
-}
-
-/**
 * Read pod receives the webid of the chat participants returning and ordered array of messages
 * @param userURL the webID of the chat's ownerDocument
 * @param friendURL the webID of the chat's contact
@@ -55,7 +44,6 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
 }
 
 module.exports = {
-    read,
     readPod,
     writeInbox,
     writeOwnPOD,
