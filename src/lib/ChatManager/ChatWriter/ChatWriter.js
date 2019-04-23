@@ -2,7 +2,7 @@ const fileClient = require("solid-file-client");
 const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
 const txtFileBuilder = require("./TextFileBuilder");
-const query = require("../../ldflex-queries")
+const jpegasus = require('Jpegasus');
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -55,19 +55,25 @@ async function sendToOwnPOD(userID, partnerID, messages) {
  * @param {*} partnerID 
  */
 async function uploadFileToOwnPOD(file, userID, partnerID) {
-	var friendIdentifier = partnerID.replace("https://", "");
-	var partes = friendIdentifier.split(".");
+	let friendIdentifier = partnerID.replace("https://", "");
+	let partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-    var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
+    let folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
 
 	 //If folder don't exist create.
 	let checkFilesFolder = await folderManager.readFolder(folderRoute);
         if(typeof checkFilesFolder === 'undefined'){
             await folderManager.createFolder(folderRoute);
         }
-	var URI = folderRoute + "/" + file.name;
+	let URI = folderRoute + "/" + file.name;
     folderManager.grantReadPermissionsToFile(URI, partnerID,file.name);
-    var content = file;
+	//let content = file;
+	let content = 
+		 await jpegasus.compress(file, {
+			maxHeight: 1000,
+			maxWidth: 1000,
+			quality: 0.65
+		 });
     fileClient.updateFile(URI, content).then( res=> {
         console.log(res);
     }, err=>{console.log("upload error : "+err)});
