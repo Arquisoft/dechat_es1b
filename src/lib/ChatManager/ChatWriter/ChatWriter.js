@@ -2,7 +2,6 @@ const fileClient = require("solid-file-client");
 const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
 const txtFileBuilder = require("./TextFileBuilder");
-const jpegasus = require('Jpegasus');
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -67,13 +66,7 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
         }
 	let URI = folderRoute + "/" + file.name;
     folderManager.grantReadPermissionsToFile(URI, partnerID,file.name);
-	//let content = file;
-	let content = 
-		 await jpegasus.compress(file, {
-			maxHeight: 1000,
-			maxWidth: 1000,
-			quality: 0.65
-		 });
+	let content = file;
     fileClient.updateFile(URI, content).then( res=> {
         console.log(res);
     }, err=>{console.log("upload error : "+err)});
