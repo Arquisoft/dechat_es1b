@@ -2,6 +2,7 @@ const fileClient = require("solid-file-client");
 const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
 const txtFileBuilder = require("./TextFileBuilder");
+const query = require("../../ldflex-queries")
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -30,8 +31,7 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	var friendIdentifier = partnerID.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var folderRoute = userID.replace("/profile/card#me", folderManager.CHAT_FOLDER +
-									"/" + friendIdentifier + "/");
+	var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
 
@@ -44,36 +44,10 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, partnerID, messages);
 	await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
 	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(404));
-	folderManager.grantReadPermissionsToFileWithMessages(podFileRoute, partnerID);
+	folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
 };
-
-/**
- * Function to upload file to own pod and grant permissions to partner.
- * @param {*} file 
- * @param {*} userID 
- * @param {*} partnerID 
- */
-async function uploadFileToOwnPOD(file, userID, partnerID) {
-	let friendIdentifier = partnerID.replace("https://", "");
-	let partes = friendIdentifier.split(".");
-	friendIdentifier = partes[0] + "." + partes[1];
-    let folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
-
-	 //If folder don't exist create.
-	let checkFilesFolder = await folderManager.readFolder(folderRoute);
-        if(typeof checkFilesFolder === 'undefined'){
-            await folderManager.createFolder(folderRoute);
-        }
-	let URI = folderRoute + "/" + file.name;
-    folderManager.grantReadPermissionsToFile(URI, partnerID,file.name);
-	let content = file;
-    fileClient.updateFile(URI, content).then( res=> {
-        console.log(res);
-    }, err=>{console.log("upload error : "+err)});
-}
 
 module.exports = {
 	sendToInbox,
-	sendToOwnPOD,
-	uploadFileToOwnPOD
+	sendToOwnPOD
 }

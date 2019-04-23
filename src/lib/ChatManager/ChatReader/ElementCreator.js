@@ -10,7 +10,6 @@ function createSingle(sender, receiver, tmessage) {
 	tr.partner = receiver;
 	tr.content = tmessage.message;
 	tr.timestamp = tmessage.date;
-	tr.type = tmessage.type;
 	return tr;
 }
 

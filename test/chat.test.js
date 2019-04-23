@@ -27,28 +27,6 @@ describe('Send/Get messages tests', () => {
         expect(chat.sentMessages.length).toBe(0);
         await chat.sendMessage("New message");
         expect(chat.sentMessages.length).toBe(1);
-        expect(chat.messages.length).toBe(1);
-        // Make sure all the POD function calls were done
-        expect(chatManager.writeOwnPOD).toBeCalled();
-        expect(await chatManager.writeInbox).toBeCalled();
-    })
-    it('Message should get sent', async () => {  
-        await chat.sendMessage("New message 2");
-        expect(chat.messages.length).toBe(1);
-        // Make sure all the POD function calls were done
-        expect(chatManager.writeOwnPOD).toBeCalled();
-        expect(await chatManager.writeInbox).toBeCalled();
-    })
-    it('Image should get sent', async () => { 
-        await chat.sendMessage("http://example.org/image.jpg", "image");
-        expect(chat.messages.length).toBe(1);
-        // Make sure all the POD function calls were done
-        expect(chatManager.writeOwnPOD).toBeCalled();
-        expect(await chatManager.writeInbox).toBeCalled();
-    })
-    it('File should get sent', async () => {  
-        await chat.sendMessage("http://example.org/file.pdf", "file");
-        expect(chat.messages.length).toBe(1);
         // Make sure all the POD function calls were done
         expect(chatManager.writeOwnPOD).toBeCalled();
         expect(await chatManager.writeInbox).toBeCalled();

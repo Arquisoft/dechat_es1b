@@ -3,8 +3,6 @@
  */
 const chatManager = require("./ChatManager/ChatManager.js");
 const Message = require("../model/message");
-const query = require("../lib/ldflex-queries");
-const jpegasus = require('jpegasus');
 
 class Chat {
 
@@ -18,61 +16,22 @@ class Chat {
 
     /**
     * Method to send a message
-    * @param {} content this can be file or string.
-    * @param {String} type depend type, sendMessage process this.
+    * @param {String} text content of the message 
     * @return {Promise} file
     */
-    async sendMessage(content, type) {
-        var message = new Message(this.user.id, this.partner.id, content, type);
+    async sendMessage(text) {
+        var message = new Message(this.user.id, this.partner.id, text);
         this.messages = await this.getMessages();
-
-        //Is is type image, process this:
-        if(type === "image") {
-            let friendIdentifier = this.partner.id.replace("https://", "");
-	        let partes = friendIdentifier.split(".");
-	        friendIdentifier = partes[0] + "." + partes[1];
-            let folderRoute = this.user.id.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
-            //Save in content name of file.
-            message.content = folderRoute+ "/" + content.name;
-            console.log("Uploadig image file... [" + message.content + "]");
-            //Compress image
-            let compressedImage =
-                await jpegasus.compress(content, {
-                    maxHeight: 1000,
-                    maxWidth: 1000,
-                    quality: 0.65
-                });
-            //Upload image to Own POD.
-            await chatManager.uploadFileToOwnPOD(compressedImage, this.user.id, this.partner.id);
-            console.log("Image file uploaded fine.");
-        } else if(type === "file") {
-            let friendIdentifier = this.partner.id.replace("https://", "");
-	        let partes = friendIdentifier.split(".");
-	        friendIdentifier = partes[0] + "." + partes[1];
-            let folderRoute = this.user.id.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
-            //Save in content name of file.
-            message.content = folderRoute+ "/" + content.name;
-            console.log("Uploadig file... [" + message.content + "]");
-            //Upload file to Own POD.
-            await chatManager.uploadFileToOwnPOD(content, this.user.id, this.partner.id);
-            console.log("File uploaded fine.");
-        }
+        console.log(this.messages);
 
         //Save current sentMessages.
         this.sentMessages = [];
         let userID = this.user.id.replace("/profile/card#me", "").replace("https://", "");
         for(var i = 0; i < this.messages.length; i++) {
             if(this.messages[i].user === userID) {
-                if(this.messages[i].type==undefined){
-                    let newMsg = new Message(this.messages[i].user, this.messages[i].partner, this.messages[i].content);
-                    newMsg.init(this.messages[i].timestamp);
-                    this.sentMessages.push(newMsg)
-                } else {
-                    let newMsg = new Message(this.messages[i].user, this.messages[i].partner, this.messages[i].content,this.messages[i].type);
-                    newMsg.init(this.messages[i].timestamp);
-                    this.sentMessages.push(newMsg)
-                }
-                
+                let newMsg = new Message(this.messages[i].user, this.messages[i].partner, this.messages[i].content);
+                newMsg.init(this.messages[i].timestamp);
+                this.sentMessages.push(newMsg)
             }
         }
         //Saving to array current message
