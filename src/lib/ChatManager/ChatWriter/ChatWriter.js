@@ -53,19 +53,19 @@ async function sendToOwnPOD(userID, partnerID, messages) {
  * @param {*} partnerID 
  */
 async function uploadFileToOwnPOD(file, userID, partnerID) {
-	var friendIdentifier = partnerID.replace("https://", "");
-	var partes = friendIdentifier.split(".");
+	let friendIdentifier = partnerID.replace("https://", "");
+	let partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-    var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
+    let folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
 
 	//If folder don't exist create.
 	let checkFilesFolder = await folderManager.readFolder(folderRoute);
         if(typeof checkFilesFolder === 'undefined'){
             await folderManager.createFolder(folderRoute);
         }
-	var URI = folderRoute + "/" + file.name;
+	let URI = folderRoute + "/" + file.name;
     folderManager.grantReadPermissionsToFile(URI, partnerID,file.name);
-    var content = file;
+	let content = file;
     fileClient.updateFile(URI, content).then( res=> {
         console.log(res);
     }, err=>{console.log("upload error : "+err)});

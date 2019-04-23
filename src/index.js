@@ -183,7 +183,13 @@ async function startChat(friend, i) {
 function addImageUploadListener(chat){
     $("#send-image").on('change', function(){
         console.log("Envío imagen");
-        chat.sendMessage(this.files[0], 'image');
+        var parts = this.files[0].name.split(".");
+        var formato = parts[parts.length-1];
+        if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png'){
+            chat.sendMessage(this.files[0], 'image');
+        } else {
+            chat.sendMessage(this.files[0], 'file');
+        }           
     });
 }
 
@@ -242,9 +248,13 @@ function updateUIMessages(messages, index) {
         var sentMessage;
         var userToCompare = "https://" + messages[i].user + "/profile/card#me"; //It is neccesary to known if the message is outgoing or incoming.
         let msgContent;
-        if (messages[i].type === 'image'){
+        if (messages[i].type === 'image') {
             msgContent = "<img src='" + messages[i].content + "' class='image'/>";
-        }else{
+        } else if (messages[i].type === 'file') {
+            let nameFile = messages[i].content.split("/");
+            nameFile = nameFile[nameFile.length - 1];
+            msgContent = "<a href='" + messages[i].content + "' download>Download file</a> (" + nameFile + ")";
+        } else{
             msgContent = messages[i].content;
         }
         if (userToCompare == user.id) {
