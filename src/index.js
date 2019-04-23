@@ -188,7 +188,11 @@ function addImageUploadListener(chat){
         if (formato != 'jpg' || formato != 'jpeg' || formato != 'gif' || formato != 'png'){
              alert('formato de archivo no válido, se admiten: jpg, jpeg, gif, png o files');
         }else{
-                     
+            if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png'){
+                chat.sendMessage(this.files[0], 'image');
+            }else{
+                chat.sendMessage(this.files[0], 'file');
+            }           
         }
         
     });
