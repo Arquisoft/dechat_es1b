@@ -91,15 +91,16 @@ async function loadFriends() {
 
         friends[i].image = image; //Image will be cached in friend object
 
-        var textFriend = "<div class='chat_list'>" +
-            "<div class='chat_people'>" +
+        var textFriend = "<a  id='buttonFriend" + i + "'>" + 
+        "<div class='chat_list'>" + 
+        "<div class = 'chat_people' >" + 
             "<div class='chat_img'> <img src='" + image + "' alt='profile img'> </div>" +
             "<div class='chat_ib'>" +
             "<h5>" + friend.name + "</h5>" +
+            "</div>" +            
             "</div>" +
-            "</div>" +
-            "<button class='btn btn-outline-secondary btn-rounded waves-effect' id='buttonFriend" + i + "'" + " onkeypress='pressEnter(event)' >" + " Chat </button>" +
-            "</div>";
+            "</div>" + 
+            "</a>";
         $("#chat_scroll").prepend(textFriend);
         $("#buttonFriend" + i).click(async () => {
             // if there's a chat active for someone else, we stop listening for messages from it
