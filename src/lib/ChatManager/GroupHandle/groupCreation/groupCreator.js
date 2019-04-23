@@ -95,7 +95,7 @@ async function createTheFile(uriToCheck, idGroup, activeUser){
 * @param newGroupAdded
 */
  async function updateGroupsTo(uriToCheck, newGroupAdded){
-	 console.log("********"+newGroupAdded);
+	 //console.log("********"+newGroupAdded);
 	 await fileClient.updateFile( uriToCheck, JSON.stringify(newGroupAdded)).then(200);
  }
 
@@ -187,7 +187,7 @@ async function createGroupPerSeInSon(user, id, owner){
 	var folderUri = "https://"+user+"/dechat/"+id;
 	await fileClient.createFolder(folderUri).then(200);
 	var uriInfo = "https://"+owner+"/dechat/"+id+"//info.txt";
-	var infoFile = await fileClient.readFile(uriInfo).then(200);
+	var infoFile = await fileClient.readFile(uriInfo);
 	var myInfoFileUri = "https://"+user+"/dechat/"+id+"//info.txt";
 	await fileClient.createFile(myInfoFileUri, JSON.stringify(infoFile)).then(200);
 	var lista = [];
@@ -203,3 +203,4 @@ async function createGroupPerSeInSon(user, id, owner){
 
 exports.createFileOnInit = createFileOnInit;
 exports.createGroup = createGroup;
+exports.checkAllGroupsOKOnInit = checkAllGroupsOKOnInit;
