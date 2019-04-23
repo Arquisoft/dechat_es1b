@@ -23,7 +23,6 @@ class Chat {
     * @return {Promise} file
     */
     async sendMessage(content, type) {
-        console.log(content);
         var message = new Message(this.user.id, this.partner.id, content, type);
         this.messages = await this.getMessages();
 
@@ -38,7 +37,7 @@ class Chat {
             console.log("Uploadig image file... [" + message.content + "]");
             //Compress image
             let compressedImage =
-                await jpegasus.compress(file, {
+                await jpegasus.compress(content, {
                     maxHeight: 1000,
                     maxWidth: 1000,
                     quality: 0.65
