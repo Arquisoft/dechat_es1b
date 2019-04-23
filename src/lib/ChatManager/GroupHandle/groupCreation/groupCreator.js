@@ -53,6 +53,7 @@ async function createGroup(name, participants, creator){
 
 	}
 	else{
+		console.log('JELOU CHULI IM JIAR')
 		notAdded.push(participants[i]);
 	}
 	
