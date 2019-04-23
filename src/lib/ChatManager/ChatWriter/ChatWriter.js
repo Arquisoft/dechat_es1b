@@ -47,7 +47,28 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	folderManager.grantReadPermissionsToFile(podFileRoute, partnerID);
 };
 
+/**
+ * Writes a json representing chat messages
+ * in a groupal context
+ * @param {String} userID 
+ * @param {String} groupID
+ * @param {Array} messages
+ */
+async function sendToOwnPODForGroups(userID, groupID, messages) {
+	//Obtaining a string representing contact's webID
+	//To do this, we will isolate the variable part of the WebID 
+	//(example: https://jhon.solid.community will turn into jhon.solid)
+	var folderRoute = userID.replace("/profile/card#me", "/dechat/" + groupID + "/");
+	var podFileRoute = folderRoute + MESSAGE_FILE;
+	await fileClient.popupLogin().then(200);
+	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, groupID, messages);
+	await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
+	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(404));
+};
+
+
 module.exports = {
 	sendToInbox,
-	sendToOwnPOD
+	sendToOwnPOD,
+	sendToOwnPODForGroups
 }
