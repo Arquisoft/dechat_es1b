@@ -185,16 +185,11 @@ function addImageUploadListener(chat){
         console.log("Envío imagen");
         var parts = this.files[0].name.split(".");
         var formato = parts[parts.length-1];
-        if (formato != 'jpg' || formato != 'jpeg' || formato != 'gif' || formato != 'png'){
-             alert('formato de archivo no válido, se admiten: jpg, jpeg, gif, png o files');
+        if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png'){
+            chat.sendMessage(this.files[0], 'image');
         }else{
-            if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png'){
-                chat.sendMessage(this.files[0], 'image');
-            }else{
-                chat.sendMessage(this.files[0], 'file');
-            }           
-        }
-        
+            chat.sendMessage(this.files[0], 'file');
+        }           
     });
 }
 
