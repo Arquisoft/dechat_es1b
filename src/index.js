@@ -187,7 +187,7 @@ function addImageUploadListener(chat){
         var formato = parts[parts.length-1];
         if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png'){
             chat.sendMessage(this.files[0], 'image');
-        }else{
+        } else {
             chat.sendMessage(this.files[0], 'file');
         }           
     });

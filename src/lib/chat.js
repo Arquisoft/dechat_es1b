@@ -23,6 +23,7 @@ class Chat {
     * @return {Promise} file
     */
     async sendMessage(content, type) {
+        console.log(content);
         var message = new Message(this.user.id, this.partner.id, content, type);
         this.messages = await this.getMessages();
 
@@ -36,14 +37,14 @@ class Chat {
             message.content = folderRoute+ "/" + content.name;
             console.log("Uploadig image file... [" + message.content + "]");
             //Compress image
-            let content =
+            let compressedImage =
                 await jpegasus.compress(file, {
                     maxHeight: 1000,
                     maxWidth: 1000,
                     quality: 0.65
                 });
             //Upload image to Own POD.
-            await chatManager.uploadFileToOwnPOD(content, this.user.id, this.partner.id);
+            await chatManager.uploadFileToOwnPOD(compressedImage, this.user.id, this.partner.id);
             console.log("Image file uploaded fine.");
         } else if(type === "file") {
             let friendIdentifier = this.partner.id.replace("https://", "");
