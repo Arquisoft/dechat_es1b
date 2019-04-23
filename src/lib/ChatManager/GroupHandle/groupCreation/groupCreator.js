@@ -175,16 +175,30 @@ async function checkAllGroupsOKOnInit(user){
 	}
 }
 /**
-* Function to create the group in the POD of a participant
+* Function to create the group
+* owned by
+* @param owner
+* identified by
+* @param id 
+* in the POD of a participant
+* @param user
 */
 async function createGroupPerSeInSon(user, id, owner){
-	//TODO
-	// Lee y copia el archivo info del owner y le damos permisos al owner
-	// Metemos en un var la lista de participantes sacada del info
-	// Crea la carpeta con el nombre en el hijo
-	// Creamos el messages 
-	// y damos permisos a este a partir de la variable lista
+	var folderUri = "https://"+user+"/dechat/"+id;
+	await fileClient.createFolder(folderUri).then(200);
+	var uriInfo = "https://"+owner+"/dechat/"+id+"//info.txt";
+	var infoFile = await fileClient.readFile(uriInfo).then(200);
+	var myInfoFileUri = "https://"+user+"/dechat/"+id+"//info.txt";
+	await fileClient.createFile(myInfoFileUri, JSON.stringify(infoFile)).then(200);
+	var lista = [];
+	for(i in infoFile.participants){
+		lista.push(infoFile.participants[i]);
+	}
 	
+	var myMessagesFileUri = "https://"+user+"/dechat/"+id+"//messages.txt";
+	await fileClient.createFile(myMessagesFileUri, "").then(200);
+	await groupFolderPermission(user, id, lista);
+
 }
 
 exports.createFileOnInit = createFileOnInit;
