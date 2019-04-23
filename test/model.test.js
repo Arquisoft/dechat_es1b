@@ -38,4 +38,42 @@ describe('Model tests', () => {
             expect(instance.timestamp).toBeDefined();
         });
     });
+    describe('Message file', () => {
+        let instance;
+        let user, target;
+        beforeAll(() => {
+           user = new Person("https://paco.solid.community/profile/card#me", "Paco", "https://paco.solid.community/inbox")
+           target = new Person("https://carmen.solid.community/profile/card#me", "Carmen", "https://carmen.solid.community/inbox")
+           instance = new Message(user, target, "http://example.org/file.pdf", "file");
+        }),
+        it('Message should be created', () => {
+            expect(instance).toBeInstanceOf(Message)
+        }),
+        it('Attributes should match', () => {
+            expect(instance.user).toBe(user);
+            expect(instance.partner).toBe(target);
+            expect(instance.content).toBe("http://example.org/file.pdf");
+            expect(instance.type).toBe("file");
+            expect(instance.timestamp).toBeDefined();
+        });
+    });
+    describe('Message image', () => {
+        let instance;
+        let user, target;
+        beforeAll(() => {
+           user = new Person("https://paco.solid.community/profile/card#me", "Paco", "https://paco.solid.community/inbox")
+           target = new Person("https://carmen.solid.community/profile/card#me", "Carmen", "https://carmen.solid.community/inbox")
+           instance = new Message(user, target, "http://example.org/image.jpg", "image");
+        }),
+        it('Message should be created', () => {
+            expect(instance).toBeInstanceOf(Message)
+        }),
+        it('Attributes should match', () => {
+            expect(instance.user).toBe(user);
+            expect(instance.partner).toBe(target);
+            expect(instance.content).toBe("http://example.org/image.jpg");
+            expect(instance.type).toBe("image");
+            expect(instance.timestamp).toBeDefined();
+        });
+    });
 });

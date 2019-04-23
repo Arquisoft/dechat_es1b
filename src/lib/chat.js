@@ -61,6 +61,7 @@ class Chat {
         //Save current sentMessages.
         this.sentMessages = [];
         let userID = this.user.id.replace("/profile/card#me", "").replace("https://", "");
+        console.log(" ** this.messages.length: " + this.messages.length);
         for(var i = 0; i < this.messages.length; i++) {
             if(this.messages[i].user === userID) {
                 if(this.messages[i].type==undefined){
@@ -78,7 +79,6 @@ class Chat {
         //Saving to array current message
         this.sentMessages.push(message);
         this.messages.push(message);
-        console.log("** Count of messages after push:" + this.messages.length);
         await chatManager.writeOwnPOD(this.user.id, this.partner.id, this.sentMessages);
         return chatManager.writeInbox(this.partner, message.user);
     }
