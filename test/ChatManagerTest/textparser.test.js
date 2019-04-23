@@ -47,5 +47,5 @@ describe('TextParser tests', () => {
                     message: "It's a //// trap!"
                 }]
         })
-    });;
+    })
 });

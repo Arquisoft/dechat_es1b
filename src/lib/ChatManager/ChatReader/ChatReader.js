@@ -3,7 +3,6 @@ var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
 const ChatWritter = require("../ChatWriter/ChatWriter");
-const FolderManager = require("../ChatWriter/FolderManager");
 
 /**
  * This function get all messages from a single pod uri
@@ -23,7 +22,7 @@ async function singleUriGetter(url) {
 	var tr = await creator.create(textParser.parseString(salida));
     
 	return await tr;
-};
+}
 
 /**
  * This function receives two uri applies singleUriGetter
@@ -43,7 +42,7 @@ async function read(urla, urlb) {
 	var tr = await sorter.sort(at);
 
 	return await tr;
-};
+}
 
 /**
  * If is the first time, messages.txt don't create,
@@ -83,7 +82,7 @@ async function readPod(userURL, friendURL) {
 	var user = userURL.replace("https://", "").replace("/profile/card#me", "");
 	var partner = friendURL.replace("https://", "").replace("/profile/card#me", "");
 	return await read(user, partner);
-};
+}
 
 module.exports = {
 	singleUriGetter,

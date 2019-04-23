@@ -7,7 +7,7 @@ const fileClient = require('solid-file-client');
  */
 function deleteFile(url) {
     return fileClient.deleteFile(url).then(() => 200);
-};
+}
 
 /**
  * Read the url file
@@ -15,7 +15,7 @@ function deleteFile(url) {
  */
 function readFile(url) {
     return fileClient.readFile(url);
-};
+}
 
 module.exports = {
     deleteFile,
