@@ -61,7 +61,6 @@ class Chat {
         //Save current sentMessages.
         this.sentMessages = [];
         let userID = this.user.id.replace("/profile/card#me", "").replace("https://", "");
-        console.log(" ** this.messages.length: " + this.messages.length);
         for(var i = 0; i < this.messages.length; i++) {
             if(this.messages[i].user === userID) {
                 if(this.messages[i].type==undefined){

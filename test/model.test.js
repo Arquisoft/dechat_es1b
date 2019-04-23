@@ -64,9 +64,10 @@ describe('Model tests', () => {
            user = new Person("https://paco.solid.community/profile/card#me", "Paco", "https://paco.solid.community/inbox")
            target = new Person("https://carmen.solid.community/profile/card#me", "Carmen", "https://carmen.solid.community/inbox")
            instance = new Message(user, target, "http://example.org/image.jpg", "image");
+           instance.init(new Date());
         }),
         it('Message should be created', () => {
-            expect(instance).toBeInstanceOf(Message)
+            expect(instance).toBeInstanceOf(Message);
         }),
         it('Attributes should match', () => {
             expect(instance.user).toBe(user);
