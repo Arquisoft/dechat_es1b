@@ -377,9 +377,14 @@ async function changeTitles(session) {
     }
 }
 
-var jatest = require('./lib/ChatManager/GroupHandle/groupCreation/groupCreator.js');
+var jatest = require('./lib/ChatManager/ChatManager.js');
 async function JAZONE(){
+	//await jatest.createFileOnInit("uo257493.solid.community");
+    //await jatest.createUncreatedGroups('https://uo257493.solid.community');
 	await jatest.createFileOnInit("podaes1b.solid.community");
-	var participants = ["podaes1b.solid.community"]
-	alert(await jatest.createGroup('pruebaJoaqui',participants, "podaes1b.solid.community"));
+    await jatest.createUncreatedGroups('https://podaes1b.solid.community');
+	var participants = ["podaes1b.solid.community", "uo257493.solid.community"]
+	var listaNA = await jatest.createGroup('pruebaDefiC',participants, "podaes1b.solid.community");
+	
+	console.log(await listaNA + " BBESITTAAAA")
 }
