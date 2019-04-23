@@ -53,7 +53,7 @@ class Chat {
             //Save in content name of file.
             message.content = folderRoute+ "/" + content.name;
             console.log("Uploadig file... [" + message.content + "]");
-            //Upload image to Own POD.
+            //Upload file to Own POD.
             await chatManager.uploadFileToOwnPOD(content, this.user.id, this.partner.id);
             console.log("File uploaded fine.");
         }
