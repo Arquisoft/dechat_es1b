@@ -23,7 +23,7 @@ function buildJSONmessages(senderID, receiverID, messages) {
 				ret = ret + "]" + segments[1];
 		}
 	}
-	if(messages === undefined || messages.length == 0)
+	if(messages === undefined || messages.length === 0)
 		ret = ret + "]}";
 
 	return ret;

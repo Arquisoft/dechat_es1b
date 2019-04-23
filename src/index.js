@@ -1,7 +1,6 @@
 const session = require("./lib/session");
 const query = require("./lib/ldflex-queries");
 const Chat = require("./lib/chat");
-const Person = require("./model/person");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 const Notifier = require("./lib/notifier");
 const profile = require("./lib/profile");
@@ -203,7 +202,7 @@ function addImageUploadListener(chat){
  */
 async function addEnterListener(chat, i, user, friend) {
     // Trigger enter key to send messages action.
-    $('#contentText' + i).bind("enterKey", function (e) {
+    $('#contentText' + i).bind("enterKey", function () {
         var messageContent = "<div class='outgoing_msg'>" +
             "<div class='sent_msg'>" +
             "<p>" + document.getElementById("contentText" + i).value + "</p>" +

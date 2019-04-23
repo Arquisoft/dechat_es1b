@@ -25,8 +25,7 @@ function create(jsonfile) {
 	var messages = jsonfile.messages;
 	var lista = [];
 	var particularMessage;
-	var i;
-	for (i in messages) {
+	for (var i in messages) {
 		particularMessage = createSingle(sender, receiver, messages[i]);
 		lista.push(particularMessage);
 	}
