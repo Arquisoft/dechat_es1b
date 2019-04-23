@@ -48,11 +48,19 @@ $("#login").click(async () => {
 
 $("#logout").click(async () => {
     emptyFriendsList();
+    removeVideochatElements();
     clearInterval(messageLoop);
     clearInterval(notifLoop);
     session.logout();
 })
 
+function removeVideochatElements(){
+    $("#myVideo").remove();
+    $("#partnerVideo").remove();
+    $("#connectWithPeer").remove();
+    $("#disconnectButton").remove();
+    $("#peerIDText").remove();
+}
 
 async function loadInitialContacts() {
     loadFriends();
@@ -60,7 +68,8 @@ async function loadInitialContacts() {
 
 async function loadFriends() {
     friends = await query.getFriends();
-    emptyFriendsList();
+    emptyFriendsList(); 
+    removeVideochatElements();
 
     $(".messaging").prepend("<input type='text' class='write_msg' placeholder='Paste partner peerID' id='peerIDText' />" +
         "<button onclick='connectWithPeer()' id='connectWithPeer' class='btn btn-outline-secondary btn-rounded waves-effect'>Connect</button>" +
@@ -345,8 +354,7 @@ function sendMessage(chat, i) {
  * Empty the user's contacts html list
  */
 function emptyFriendsList() {
-    // $(".friends-list").empty()
-    $(".inbox_chat scroll").empty();
+    $("#chat_scroll").empty();
 
 }
 
