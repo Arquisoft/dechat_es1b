@@ -1,16 +1,30 @@
 const fileClient = require('solid-file-client');
 const MESSAGE_FILE = "messages.txt";
 const CHAT_FOLDER = "/dechat";
+const FILES_FOLDER = "/files";
 const txtFileBuilder = require("./TextFileBuilder");
+
+/**
+ * Grant the necessary permissions to read a file with messages
+ * @param {String} route of the file  
+ * @param {String} webID of the partner
+ */
+async function grantReadPermissionsToFileWithMessages(fileRoute, partnerID) {
+    var aclRoute = fileRoute + ".acl";
+    var aclContents = txtFileBuilder.generateACL(partnerID, MESSAGE_FILE);
+    await fileClient.updateFile(aclRoute, aclContents)
+        .then(success => { 200 }, err => fileClient.createFile(aclRoute, aclContents).then(200));
+};
 
 /**
  * Grant the necessary permissions to read a file
  * @param {String} route of the file  
  * @param {String} webID of the partner
+ * @param {String} file name 
  */
-async function grantReadPermissionsToFile(fileRoute, partnerID) {
+async function grantReadPermissionsToFile(fileRoute, partnerID, fileName) {
     var aclRoute = fileRoute + ".acl";
-    var aclContents = txtFileBuilder.generateACL(partnerID, MESSAGE_FILE);
+    var aclContents = txtFileBuilder.generateACL(partnerID, fileName);
     await fileClient.updateFile(aclRoute, aclContents)
         .then(success => { 200 }, err => fileClient.createFile(aclRoute, aclContents).then(200));
 };
@@ -59,16 +73,14 @@ async function createFolder(url) {
 
 /**
  * Check if the pod has the dechat folder
- * If not, creates the folder
+ * If not, creates the folder of the chat, and a folder for the files
  * @param {String} url folder
  */
 async function checkDechatFolder(userUrl) {
     let check = await this.readFolder(userUrl + CHAT_FOLDER);
     console.log("FOLDER NAME: " + check);
     if (typeof check === 'undefined') {
-        console.log("ESTOY CREANDO COSAS" + userUrl + " - " + CHAT_FOLDER)
         await this.createFolder(userUrl + CHAT_FOLDER);
-        console.log("SE HA CREADO?")
     }
 };
 
@@ -96,6 +108,7 @@ async function validate(uriToValidate) {
 };
 
 module.exports = {
+    grantReadPermissionsToFileWithMessages,
     grantReadPermissionsToFile,
     emptyFolder,
     getFilesFromFolder,
@@ -103,5 +116,7 @@ module.exports = {
     readFolder,
     validate,
     checkDechatFolder,
-    getUrlFolder
+    getUrlFolder,
+    CHAT_FOLDER,
+    FILES_FOLDER
 }

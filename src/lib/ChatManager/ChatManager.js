@@ -43,9 +43,21 @@ async function writeOwnPOD(userID, partnerID, messages) {
     chatWriter.sendToOwnPOD(userID, partnerID, messages);
 };
 
+/**
+ * Creates a folder in user's own pod, containing a json representing chat messages
+ * and grants read permissions to partner.
+ * @param {String} userID 
+ * @param {String} partnerID
+ * @param {Array} messages
+ */
+async function uploadFileToOwnPOD(file, userID, partnerID) {
+    chatWriter.uploadFileToOwnPOD(file, userID, partnerID);
+};
+
 module.exports = {
     read,
     readPod,
     writeInbox,
-    writeOwnPOD
+    writeOwnPOD,
+    uploadFileToOwnPOD
 }

@@ -20,8 +20,8 @@ async function singleUriGetter(url) {
 	} catch(error) {
 		return [];
 	}
-
 	var tr = await creator.create(textParser.parseString(salida));
+    
 	return await tr;
 };
 
