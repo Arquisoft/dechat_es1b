@@ -12,7 +12,12 @@ var partnerPeerID;
 * connecting us to the PeerJs server. 
 */
 async function initializePeer(i) {
-    peer = new Peer();
+    peer = new Peer({
+        config: {'iceServers': [
+          { url: 'stun:stun.l.google.com:19302' },
+          { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' }
+        ]} /* Sample servers, please use appropriate ones */
+      });
     peer.on('open', function (id) {
         //At this point we have built a hopefully unique ID for our peer
         console.log("MANAGER ID PEER :" + id);
@@ -100,7 +105,6 @@ function answerVideoCall() {
                 // Set the given stream as the video source
                 partnerVideo.srcObject = remoteStream;
                 partnerVideo.play();
-
             });
         }, (err) => {
             console.error('Failed to get local stream', err);
@@ -110,11 +114,18 @@ function answerVideoCall() {
 
 function disconnect() {
     peer.disconnect();
+    $("#myVideo").remove();
+    $("#partnerVideo").remove();
 }
 
 
 function connectWithPeer() {
-    peer = new Peer();
+    peer = new Peer({
+        config: {'iceServers': [
+          { url: 'stun:stun.l.google.com:19302' },
+          { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' }
+        ]} /* Sample servers, please use appropriate ones */
+      });
     console.log("Connecting...");
     var peerIDContent = $("#peerIDText").val();
     console.log("EL PEER ID DEL PARTNER ES: " + peerIDContent);

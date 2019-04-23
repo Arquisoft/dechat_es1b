@@ -64,6 +64,7 @@ async function loadFriends() {
 
     $(".messaging").prepend("<input type='text' class='write_msg' placeholder='Paste partner peerID' id='peerIDText' />" +
         "<button onclick='connectWithPeer()' id='connectWithPeer' class='btn btn-outline-secondary btn-rounded waves-effect'>Connect</button>" +
+        "<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect'>Disconnect</button>" +
         "<video id='myVideo'> </video>"+
         "<video id='partnerVideo'> </video>");
 
