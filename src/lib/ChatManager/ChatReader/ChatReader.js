@@ -85,7 +85,14 @@ async function readPod(userURL, friendURL) {
 	return await read(user, partner);
 };
 
-async function readGroup(listOfFriends, groupId){
+/**
+* Supports groupal reading passing the
+* @param listOfFriends
+* for the group
+* @param groupId
+* @return ordered messages
+*/
+async function readGroupal(listOfFriends, groupId){
 	var i;
 	var listTR = [];
 	for (i in listOfFriends){
@@ -97,8 +104,24 @@ async function readGroup(listOfFriends, groupId){
 	return await sorter.sort(listTR)
 }
 
+/**
+* Read the group identified by the 
+* @param groupId
+* in the pod of the 
+* @param userID
+* @return ordered messages
+*/
+async function readGroup(userID, groupId){
+	var groupUri = "https://"+userID+"/dechat/"+groupId+"//info.txt";
+	var info = await fileClient.readFile(groupUri);
+	var infoJSON = await JSON.parse(info);
+	return await readGroupal(infoJSON.participants, groupId);
+	
+}
+
 module.exports = {
 	singleUriGetter,
 	read,
-	readPod
+	readPod,
+	readGroup
 }
