@@ -183,7 +183,7 @@ async function startChat(friend, i) {
 function addImageUploadListener(chat){
     $("#send-image").on('change', function(){
         console.log("Envío imagen");
-        var parts = this.files[0].split(".");
+        var parts = this.files[0].name.split(".");
         var formato = parts[parts.length-1];
         if (formato != 'jpg' || formato != 'jpeg' || formato != 'gif' || formato != 'png'){
              alert('formato de archivo no válido, se admiten: jpg, jpeg, gif, png o files');
