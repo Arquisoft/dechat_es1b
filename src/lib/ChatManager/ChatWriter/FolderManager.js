@@ -1,6 +1,5 @@
 const fileClient = require('solid-file-client');
 const MESSAGE_FILE = "messages.txt";
-const CHAT_FOLDER = "/dechat";
 const FILES_FOLDER = "/files";
 const txtFileBuilder = require("./TextFileBuilder");
 const chatManager = require("../ChatManager");
