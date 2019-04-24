@@ -23,7 +23,8 @@ describe('Send/Get messages tests', () => {
         fc.readFolder = jest.fn().mockResolvedValue(OK);
         fc.createFolder = jest.fn().mockResolvedValue(OK);
         }),
-    it('Message should get sent', async () => {       
+    it('Message should get sent', async () => {    
+        await chat.init();
         expect(chat.sentMessages.length).toBe(0);
         await chat.sendMessage("New message");
         expect(chat.sentMessages.length).toBe(1);
