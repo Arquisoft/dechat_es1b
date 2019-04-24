@@ -120,6 +120,8 @@ async function loadFriends() {
  */
 async function startChat(friend, i) {
     const chat = await new Chat(user, friend);
+    await chat.init(); //Initializate sentMessages array
+    
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
     $("#mesgs").empty(); //Delete all the content of mesgs
