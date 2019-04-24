@@ -2,6 +2,12 @@ const chatReader = require("./ChatReader/ChatReader");
 const chatWriter = require("./ChatWriter/ChatWriter");
 
 /**
+ * Name of dechat folder in pods.
+ * This is the global variable.
+ */
+const folderNameDechat = "dechat_es1b";
+
+/**
 * Read pod receives the webid of the chat participants returning and ordered array of messages
 * @param userURL the webID of the chat's ownerDocument
 * @param friendURL the webID of the chat's contact
@@ -47,5 +53,6 @@ module.exports = {
     readPod,
     writeInbox,
     writeOwnPOD,
-    uploadFileToOwnPOD
+    uploadFileToOwnPOD,
+    folderNameDechat
 }

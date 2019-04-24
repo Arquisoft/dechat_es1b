@@ -3,6 +3,7 @@ var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
 const ChatWritter = require("../ChatWriter/ChatWriter");
+const chatManager = require("../ChatManager");
 
 /**
  * This function get all messages from a single pod uri
@@ -34,8 +35,8 @@ async function singleUriGetter(url) {
 async function read(urla, urlb) {
 	var folderB = urlb.split(".")[0] + "." + urlb.split(".")[1];
 	var folderA = urla.split(".")[0] + "." + urla.split(".")[1];
-	var url1 = "https://" + urla + "/dechat/" + folderB + "/messages.txt";
-	var url2 = "https://" + urlb + "/dechat/" + folderA + "/messages.txt";
+	var url1 = "https://" + urla + "/" + chatManager.folderNameDechat + "/" + folderB + "/messages.txt";
+	var url2 = "https://" + urlb + "/" + chatManager.folderNameDechat + "/" + folderA + "/messages.txt";
 	var a1 = await singleUriGetter(url1);
 	var a2 = await singleUriGetter(url2);
 	var at = await a1.concat(a2);
@@ -54,7 +55,8 @@ async function checkIfMessageExists(userUrl, friendUrl) {
 	var friendIdentifier = friendUrl.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var fileRoute = userUrl.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/messages.txt");
+	var fileRoute = userUrl.replace("/profile/card#me", "/" + chatManager.folderNameDechat + "/"
+									 + friendIdentifier + "/messages.txt");
 	try {
 		await fileClient.readFile(fileRoute);
 	} catch(error) {

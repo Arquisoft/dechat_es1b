@@ -31,7 +31,8 @@ class Chat {
             let friendIdentifier = this.partner.id.replace("https://", "");
 	        let partes = friendIdentifier.split(".");
 	        friendIdentifier = partes[0] + "." + partes[1];
-            let folderRoute = this.user.id.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
+            let folderRoute = this.user.id.replace("/profile/card#me", "/" + chatManager.folderNameDechat
+                                + "/" + friendIdentifier + "/files");
             //Save in content name of file.
             message.content = folderRoute+ "/" + content.name;
             console.log("Uploadig image file... [" + message.content + "]");
@@ -49,7 +50,8 @@ class Chat {
             let friendIdentifier = this.partner.id.replace("https://", "");
 	        let partes = friendIdentifier.split(".");
 	        friendIdentifier = partes[0] + "." + partes[1];
-            let folderRoute = this.user.id.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
+            let folderRoute = this.user.id.replace("/profile/card#me", "/" + chatManager.folderNameDechat 
+                                + "/" + friendIdentifier + "/files");
             //Save in content name of file.
             message.content = folderRoute+ "/" + content.name;
             console.log("Uploadig file... [" + message.content + "]");

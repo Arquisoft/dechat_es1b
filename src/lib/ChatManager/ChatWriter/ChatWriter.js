@@ -2,6 +2,7 @@ const fileClient = require("solid-file-client");
 const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
 const txtFileBuilder = require("./TextFileBuilder");
+const chatManager = require("../ChatManager");
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -56,7 +57,7 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
 	let friendIdentifier = partnerID.replace("https://", "");
 	let partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-    let folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/files");
+    let folderRoute = userID.replace("/profile/card#me", "/" + chatManager.folderNameDechat + "/" + friendIdentifier + "/files");
 
 	//If folder don't exist create.
 	let checkFilesFolder = await folderManager.readFolder(folderRoute);

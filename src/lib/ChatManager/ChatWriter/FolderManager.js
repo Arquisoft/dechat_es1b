@@ -3,6 +3,9 @@ const MESSAGE_FILE = "messages.txt";
 const CHAT_FOLDER = "/dechat";
 const FILES_FOLDER = "/files";
 const txtFileBuilder = require("./TextFileBuilder");
+const chatManager = require("../ChatManager");
+
+const CHAT_FOLDER = "/" + chatManager.folderNameDechat;
 
 /**
  * Grant the necessary permissions to read a file with messages
