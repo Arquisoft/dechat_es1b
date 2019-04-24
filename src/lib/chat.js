@@ -17,8 +17,19 @@ class Chat {
         this.messages = [];
     }
 
-    async init() {
-        let messages = await this.getMessages();
+    /**
+     * Function to init chat.
+     * @param {} messagesTest only for test.
+     */
+    async init(messagesTest) {
+        let messages;
+        if(messagesTest === undefined)
+            messages = await this.getMessages();
+        else {//This is only for testing.
+            messages = messagesTest;
+            this.messages = messagesTest;
+        }
+
         //Initializate current sentMessages.
         this.sentMessages = [];
         let userID = this.user.id.replace("/profile/card#me", "").replace("https://", "");
@@ -41,11 +52,17 @@ class Chat {
     * Method to send a message
     * @param {} content this can be file or string.
     * @param {String} type depend type, sendMessage process this.
+    * @param {} messagesTest only for test.
     * @return {Promise} file
     */
-    async sendMessage(content, type) {
+    async sendMessage(content, type, messagesTest) {
         var message = new Message(this.user.id, this.partner.id, content, type);
-        this.messages = await this.getMessages();
+        
+        if(messagesTest === undefined)
+            this.messages = await this.getMessages();
+        else { //This is only for testing.
+            this.messages = messagesTest;
+        }
 
         //Is is type image, process this:
         if (type === "image" || type === "file") {
