@@ -63,8 +63,11 @@ function setPartnerPeerID(peerID) {
 }
 
 function videocallPartner(peerID) {
-    console.log("El PEER EN EL VIDEOCHAT ES " + peer);
     setPartnerPeerID(peerID);
+    $(".messaging").prepend("<video id='myVideo'> </video>"+
+    "<video id='partnerVideo'> </video>");
+    $("#connectWithPeer").attr("disabled", true);
+    $("#disconnectButton").attr("disabled", false);
     //What next line means is unknown to me atm
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({ video: true, audio: true }, (stream) => {
@@ -129,10 +132,6 @@ function disconnect() {
 
 
 function connectWithPeer() {
-    $(".messaging").prepend("<video id='myVideo'> </video>"+
-    "<video id='partnerVideo'> </video>");
-    $("#connectWithPeer").attr("disabled", true);
-    $("#disconnectButton").attr("disabled", false);
     peer = new Peer();
     console.log("Connecting...");
     var peerIDContent = $("#peerIDText").val();
