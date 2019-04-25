@@ -3,19 +3,34 @@ const query = require('../../../ldflex-queries.js');
 const dechatFolder = "dechates1b";
 
 /**
+* Give permission to all friends to write and read the folder dechates1b
+* In the pod of the
+* @param person
+*/
+async function givePermisionsToFriends(person)
+{
+	var folderACLURI = "https://"+person+"/group/.acl";
+	var listOfFriends = await query.getFriends();
+	
+	var folderACL = await createACLFileForFolder(person);
+	fileClient.updateFile(folderACLURI, await folderACL).then( 200);	
+	
+}
+
+
+/**
 * Give permission to all friends to write in file groups.txt
 * In the pod of the
 * @param person
 */
 async function groupsPermission(person)
 {
-	var uriToEdit = "https://"+person+"/"+dechatFolder+"//groups.txt.acl";
-
+	var uriToEdit = "https://"+person+"/group//groups.txt.acl";
 	var listOfFriends = await query.getFriends();
 	//console.log(listOfFriends.toString());
 	
 	var fileTU =  await createACLFile(listOfFriends);
-	fileClient.updateFile( uriToEdit, fileTU).then( 200);
+	fileClient.updateFile( uriToEdit, await fileTU).then( 200);
 	
 	
 }
@@ -31,13 +46,13 @@ async function createACLFile(listOfFriends){
 		+ "@prefix c: </profile/card#>. \n"
 		+ await createPrefixedFriends(listOfFriends)
 		+ "\n"
-
+	
 		+ ":ControlReadWrite \n"
 		+ "\ta n0:Authorization; \n"
 		+ "\tn0:accessTo <groups.txt>; \n"
 		+ "\tn0:agent c:me; \n"
 		+ "\tn0:mode n0:Control, n0:Read, n0:Write. \n"
-		+ ":Write \n"
+		+ ":ReadWrite \n"
 		+ "\ta n0:Authorization; \n"
 		+ "\tn0:accessTo <groups.txt>; \n"
 		+ await addParticipants(listOfFriends)
@@ -46,6 +61,37 @@ async function createACLFile(listOfFriends){
 
 	return ACL;
 }
+
+/**
+* Main function to generate the ACL file to give permissions to friends from
+* @param listOfFriends
+*/
+async function createACLFileForFolder(user){
+
+	var ACL = "@prefix : <#>. \n"
+		+ "@prefix acl: <http://www.w3.org/ns/auth/acl#>. \n"
+		+ "@prefix foaf: <http://xmlns.com/foaf/0.1/>. \n"
+		+ "\n"
+	
+		+ "<#owner> \n"
+		+ "\ta acl:Authorization; \n"
+		+ "\tacl:agent \n"
+		+ "\t<https://"+user+"/profile/card#me>; \n"
+		+ "\tacl:accessTo <./>; \n"
+		+ "\tacl:defaultForNew <./>; \n"
+		+ "\tacl:mode \n"
+		+ "\tacl:Read, acl:Write, acl:Control. \n"
+		
+		+ "<#public> \n"
+		+ "\ta acl:Authorization; \n"
+		+ "\tacl:agentClass foaf:Agent;\n"
+		+ "\tacl:accessTo <./>; \n"
+		+ "\tacl:defaultForNew <./>; \n"
+		+ "\tacl:mode acl:Read, acl:Write, acl:Append.";   
+
+	return ACL;
+}
+
 
 /**
 * Support method to declare all the
@@ -96,18 +142,18 @@ async function groupFolderPermission(person, groupID, listOfParticipants)
 {
 	var listB = [];
 	for(i in listOfParticipants){
-		if(listOfFriends[i] != person){
-			listB.push(listOfFriends[i]);
+		if(listOfParticipants[i] != person){
+			listB.push(listOfParticipants[i]);
 		}
 	}
-	console.log("Estoy encima/*/*/*/")
+	
 	var uriToEdit = "https://"+person+"/"+dechatFolder+"/"+groupID+"//messages.txt.acl";
 	var mainUri = "https://"+person+"/"+dechatFolder+"/"+groupID+"//messages.txt";
 
 	var fileTU =  await createACLFileForFolderContent(listB, mainUri);
-	console.log("¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡\n"+ await fileTU)
 	
-	fileClient.updateFile( uriToEdit, fileTU).then(console.log("UA UA UA"));
+	
+	fileClient.updateFile( uriToEdit, await fileTU).then(console.log("Creado "+uriToEdit));
 	
 	
 }
@@ -127,12 +173,12 @@ async function createACLFileForFolderContent(listOfFriends, fileRoute){
 
 		+ ":Control \n"
 		+ "\ta n0:Authorization; \n"
-		+ "\tn0:accessTo <"+fileRoute+">; \n"
+		+ "\tn0:accessTo <messages.txt>; \n"
 		+ "\tn0:agent c:me; \n"
 		+ "\tn0:mode n0:Control, n0:Read, n0:Write. \n"
 		+ ":Read \n"
 		+ "\ta n0:Authorization; \n"
-		+ "\tn0:accessTo <"+fileRoute+">; \n"
+		+ "\tn0:accessTo <messages.txt>; \n"
 		+ await addParticipants(listOfFriends)
 		+ "\tn0:mode n0:Read.";
 
@@ -199,11 +245,12 @@ async function groupInfoPermission(person, groupID, owner)
 	var listOfParticipantsB = [];
 	listOfParticipantsB.push(owner);
 	var fileTU =  await createACLFileForInfo(listOfParticipantsB, mainUri);
-	fileClient.updateFile( uriToEdit, fileTU).then( 200 );
+	fileClient.updateFile( uriToEdit,await fileTU).then( console.log("Correctamente creado"+ uriToEdit) );
 	
 	
 }
 
+exports.givePermisionsToFriends = givePermisionsToFriends;
 exports.groupInfoPermission = groupInfoPermission;
 exports.groupsPermission = groupsPermission;
 exports.groupFolderPermission = groupFolderPermission;

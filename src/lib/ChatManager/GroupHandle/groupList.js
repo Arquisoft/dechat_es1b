@@ -3,7 +3,7 @@ const dechatFolder = "dechates1b";
 
  async function listGroups(user){
 
- var url = "https://"+user+"/"+dechatFolder+"//groups.txt";
+ var url = "https://"+user+"/group//groups.txt";
 
  var salida = await fileClient.readFile(url);
 

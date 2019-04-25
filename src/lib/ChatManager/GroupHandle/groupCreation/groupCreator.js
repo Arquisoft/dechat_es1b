@@ -11,9 +11,10 @@ const dechatFolder = "dechates1b";
 * @param activeUser refers the user on session
 */
 async function createFileOnInit(activeUser){
-	var uriToCheck = "https://" + activeUser + "/"+dechatFolder+"//groups.txt"
+	var uriToCheck = "https://" + activeUser + "/group//groups.txt"
+	var uriFolder = "https://" + activeUser + "/group";
 	if(await validator.checkFile(uriToCheck)){
-		permissionService.groupsPermission(activeUser);
+		await permissionService.groupsPermission(activeUser);
 	}
 	else{
 		var groups = {
@@ -22,7 +23,8 @@ async function createFileOnInit(activeUser){
 	]
 	}	
 	
-	await fileClient.createFile(uriToCheck, JSON.stringify(groups)).then(200);
+	await fileClient.createFolder(uriFolder).then(200);
+	await fileClient.createFile(uriToCheck, JSON.stringify(groups)).then(console.log('Creado'));
 	await permissionService.groupsPermission(activeUser)
 	}
 	
@@ -36,6 +38,7 @@ async function createFileOnInit(activeUser){
 * @param creator, the active user in session
 */
 async function createGroup(name, participants, creator){
+
 	var d = new Date();
 	var n = d.getTime();
 	var idGroup = name+"" + n+""+creator;
@@ -43,12 +46,12 @@ async function createGroup(name, participants, creator){
 
 	for(i in participants){
  
-	var uriToCheck = "https://" + participants[i] + "/"+dechatFolder+"//groups.txt"
-	console.log("El resultado de validar es: "+ await validator.checkFile(uriToCheck))
+	var uriToCheck = "https://" + participants[i] + "/group//groups.txt"
+	//console.log("El resultado de validar es: "+ await validator.checkFile(uriToCheck))
 	if(await validator.checkFile(uriToCheck)){
 		
 			var newGroupAdded = await addGroup(participants[i], idGroup, creator);
-			console.log(newGroupAdded);
+			//console.log(newGroupAdded);
 
 			await updateGroupsTo(uriToCheck,newGroupAdded);
 
@@ -62,6 +65,7 @@ async function createGroup(name, participants, creator){
 				await createGroupPerSe(creator, idGroup, participants, name);
 
 	return notAdded;
+	
 }
 
 
@@ -96,7 +100,8 @@ async function createTheFile(uriToCheck, idGroup, activeUser){
 * @param newGroupAdded
 */
  async function updateGroupsTo(uriToCheck, newGroupAdded){
-	await fileClient.updateFile( uriToCheck, JSON.stringify(newGroupAdded)).then(200);
+	 console.log("||||||"+uriToCheck);
+	await fileClient.updateFile( uriToCheck, JSON.stringify(newGroupAdded)).then("Actualizado");
  }
 
 /** Gets the group list of 
@@ -108,14 +113,14 @@ async function createTheFile(uriToCheck, idGroup, activeUser){
 */
  async function addGroup(user, groupName, owner){
 
-  var url = "https://"+user+"/"+dechatFolder+"//groups.txt";
+  var url = "https://" + user + "/group//groups.txt"
 
  var salida = await fileClient.readFile(url);
 
- var thejson =  JSON.parse(salida);
+ var thejson = await JSON.parse(salida);
  var tng = {
-			"id" : groupName,
-			"owner" : owner
+			id : groupName,
+			owner : owner
 		}
  thejson.list.push(tng);
 
@@ -139,8 +144,7 @@ async function createGroupPerSe(activeUser, groupID, listOfParticipants, groupNa
 	await fileClient.createFile(uriFile, "").then(200);
 	var groupInfo = await fileGroupInfo(activeUser,groupID,listOfParticipants, groupName);
 	await fileClient.createFile(uriInfoFile, JSON.stringify(groupInfo)).then(200);
-	//await permissionService.groupInfoPermission(activeUser, groupID, groupName);
-	console.log("EN NADA SE CREA JAVIER")
+	await permissionService.groupInfoPermission(activeUser, groupID, activeUser);
 	await permissionService.groupFolderPermission(activeUser, groupID, listOfParticipants);
 	
 }
@@ -185,9 +189,11 @@ async function checkAllGroupsOKOnInit(user){
 */
 async function createGroupPerSeInSon(user, id, owner){
 	var folderUri = "https://"+user+"/"+dechatFolder+"/"+id;
+	
 	await fileClient.createFolder(folderUri).then(200);
 	var uriInfo = "https://"+owner+"/"+dechatFolder+"/"+id+"//info.txt";
-	var infoFile = await fileClient.readFile(uriInfo);
+	var infoFilePrev = await fileClient.readFile(uriInfo);
+	var infoFile = await JSON.parse(infoFilePrev);
 	var myInfoFileUri = "https://"+user+"/"+dechatFolder+"/"+id+"//info.txt";
 	await fileClient.createFile(myInfoFileUri, JSON.stringify(infoFile)).then(200);
 	var lista = [];
@@ -198,7 +204,8 @@ async function createGroupPerSeInSon(user, id, owner){
 	var myMessagesFileUri = "https://"+user+"/"+dechatFolder+"/"+id+"//messages.txt";
 	await fileClient.createFile(myMessagesFileUri, "").then(200);
 	await groupFolderPermission(user, id, lista);
-
+	await permissionService.groupInfoPermission(user, groupID, owner);
+	
 }
 
 exports.createFileOnInit = createFileOnInit;

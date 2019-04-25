@@ -1,6 +1,7 @@
 const chatReader = require("./ChatReader/ChatReader");
 const chatWriter = require("./ChatWriter/ChatWriter");
 const groupCreator = require("./GroupHandle/groupCreation/groupCreator");
+const permissionService = require("./GroupHandle/permissionsService/permissions.js");
 
 /**
  * This function receives two uri applies singleUriGetter
@@ -50,7 +51,7 @@ async function writeOwnPOD(userID, partnerID, messages) {
 * @param {String} userID
 */
 async function createFileOnInit(userID) {
-	userID.replace("https://", "");
+	userID = userID.replace("https://", "");
 	groupCreator.createFileOnInit(userID);
 };
 
@@ -61,7 +62,10 @@ async function createFileOnInit(userID) {
 * @param {String] userID
 */
 async function createGroup(groupName, participantsList, userID){
-	userID.replace("https://", "");
+	for(i in participantsList){
+		participantsList[i] = participantsList[i].replace("https://", "");
+	}
+	userID = userID.replace("https://", "");
 	return await groupCreator.createGroup(groupName, participantsList, userID);
 }
 
@@ -71,7 +75,7 @@ async function createGroup(groupName, participantsList, userID){
 * @param userID
 */
 async function createUncreatedGroups(userID){
-	userID.replace("https://", "");
+	userID = userID.replace("https://", "");
 	groupCreator.checkAllGroupsOKOnInit(userID);
 }
 
@@ -81,7 +85,7 @@ async function createUncreatedGroups(userID){
 * @param {String} groupId
 */
 async function readGroup(userID, groupId){
-	userID.replace("https://", "");
+	userID = userID.replace("https://", "");
 	return await chatReader.readGroup(userID, groupId);
 }
 
@@ -92,7 +96,7 @@ async function readGroup(userID, groupId){
 * @param {String} message
 */
 async function writeInboxGroupal(groupID, userID ,message){
-	userID.replace("https://", "");
+	userID = userID.replace("https://", "");
 	chatWriter.sendToInboxGroupal(groupID, userID, message);
 }
 
@@ -104,8 +108,19 @@ async function writeInboxGroupal(groupID, userID ,message){
 */
 
 async function writeGroupal(userID, groupID, messages){
-	userID.replace("https://","");
+	userID = userID.replace("https://","");
 	chatWriter.sendToOwnPODForGroups(userID, groupID, messages);
+}
+/**
+* CALLABLE ON INIT
+* Give permisions of read/write on folder to all friends of
+* @param {String} userID
+* to create groups because file-client update method remove and cretate again the file
+*/
+async function givePermissionsToFriends(userID){
+	userID = userID.replace("https://","");
+	permissionService.givePermisionsToFriends(userID);
+
 }
 
 module.exports = {
@@ -117,5 +132,7 @@ module.exports = {
 	createGroup,
 	createUncreatedGroups, 
 	readGroup,
-	writeInboxGroupal
+	writeInboxGroupal,
+	writeGroupal,
+	givePermissionsToFriends
 }

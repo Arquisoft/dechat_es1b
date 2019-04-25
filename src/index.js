@@ -377,16 +377,27 @@ async function changeTitles(session) {
     }
 }
 
+const fileClient = require('solid-file-client');
+
 var jatest = require('./lib/ChatManager/ChatManager.js');
 async function JAZONE(){
-	//await jatest.createFileOnInit("uo257493.solid.community");
-   // await jatest.createUncreatedGroups('https://uo257493.solid.community');
-	await jatest.createFileOnInit("podaes1b.solid.community");
-    await jatest.createUncreatedGroups('https://podaes1b.solid.community');
-	var participants = ["podaes1b.solid.community", "uo257493.solid.community"]
-	var listaNA = await jatest.createGroup('OnlyJagger',participants, "podaes1b.solid.community");
+	/*fileClient.deleteFile("https://podaes1b.solid.community/dechates1b/.acl").then(success => {
+	console.log(`Deleted.`);
+	}, err => console.log(err) );*/
 	
-	console.log(await listaNA + " BBESITTAAAA")
+	//await jatest.createFileOnInit("https://uo257493.solid.community");
+		//await jatest.givePermissionsToFriends("https://uo257493.solid.community");
+
+    //await jatest.createUncreatedGroups('https://uo257493.solid.community');
+	//await jatest.createFileOnInit("podaes1b.solid.community");
+    await jatest.createUncreatedGroups('https://podaes1b.solid.community');
+	var participants = ["https://podaes1b.solid.community", "https://uo257493.solid.community"]
+	//var listaNA = await jatest.createGroup('Dianita',participants, "https://uo257493.solid.community");
+	var men = [{date:1555078308007,message:"Hola salao"},{date:1555515243176,message:"que hay"}]
+	//jatest.writeGroupal( 'https://podaes1b.solid.community',  'DebeIr1556200771240uo257493.solid.community', men);
+	
+	
+	
 	
 	
 }
