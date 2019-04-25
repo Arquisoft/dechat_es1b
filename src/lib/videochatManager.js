@@ -81,12 +81,13 @@ function videocallPartner(peerID) {
             partnerVideo.srcObject= remoteStream;
             partnerVideo.play();
         });
+        $('#disconnectButton').on("click", function() {
+            call.close();
+          });
     }, (err) => {
         console.error('Failed to get local stream', err);
     });
-    $('#disconnectButton').on("click", function() {
-        peerID.disconnect();
-      });
+   
 }
 
 function answerVideoCall() {
@@ -108,10 +109,15 @@ function answerVideoCall() {
                 partnerVideo.srcObject = remoteStream;
                 partnerVideo.play();
             });
+            $('#disconnectButton').on("click", function() {
+                call.close();
+              });
         }, (err) => {
             console.error('Failed to get local stream', err);
         });
     });
+    
+
 }
 
 function disconnect() {
