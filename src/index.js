@@ -54,7 +54,7 @@ $("#logout").click(async () => {
     session.logout();
 })
 
-function removeVideochatElements(){
+function removeVideochatElements() {
     $("#myVideo").remove();
     $("#partnerVideo").remove();
     $("#connectWithPeer").remove();
@@ -68,14 +68,15 @@ async function loadInitialContacts() {
 
 async function loadFriends() {
     friends = await query.getFriends();
-    emptyFriendsList(); 
+    emptyFriendsList();
     removeVideochatElements();
 
     $(".messaging").prepend("<input type='text' class='write_msg' placeholder='Paste partner peerID' id='peerIDText' />" +
         "<button onclick='connectWithPeer()' id='connectWithPeer' class='btn btn-outline-secondary btn-rounded waves-effect'>Connect</button>" +
-        "<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect'>Disconnect</button>" +
-        "<video id='myVideo'> </video>"+
-        "<video id='partnerVideo'> </video>");
+        "<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect'>Disconnect</button>");
+
+    $("#connectWithPeer").attr("disabled", false);
+    $("#disconnectButton").attr("disabled", true);
 
     $.each(friends, async (i, friend) => {
         console.log(friend.id);

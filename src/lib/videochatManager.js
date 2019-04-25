@@ -84,9 +84,16 @@ function videocallPartner(peerID) {
     }, (err) => {
         console.error('Failed to get local stream', err);
     });
+    $('#disconnectButton').on("click", function() {
+        peerID.disconnect();
+      });
 }
 
 function answerVideoCall() {
+    $(".messaging").prepend("<video id='myVideo'> </video>"+
+    "<video id='partnerVideo'> </video>");
+    $("#connectWithPeer").attr("disabled", true);
+    $("#disconnectButton").attr("disabled", false);
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     peer.on('call', (call) => {
         navigator.getUserMedia({ video: true, audio: true }, (stream) => {
@@ -108,13 +115,18 @@ function answerVideoCall() {
 }
 
 function disconnect() {
-    
+    $("#connectWithPeer").attr("disabled", false);
+    $("#disconnectButton").attr("disabled", true);
     $("#myVideo").remove();
     $("#partnerVideo").remove();
 }
 
 
 function connectWithPeer() {
+    $(".messaging").prepend("<video id='myVideo'> </video>"+
+    "<video id='partnerVideo'> </video>");
+    $("#connectWithPeer").attr("disabled", true);
+    $("#disconnectButton").attr("disabled", false);
     peer = new Peer();
     console.log("Connecting...");
     var peerIDContent = $("#peerIDText").val();
