@@ -4,6 +4,7 @@ const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
 const ChatWritter = require("../ChatWriter/ChatWriter");
 const FolderManager = require("../ChatWriter/FolderManager");
+const dechatFolder = "dechates1b";
 
 /**
  * This function get all messages from a single pod uri
@@ -35,8 +36,8 @@ async function singleUriGetter(url) {
 async function read(urla, urlb) {
 	var folderB = urlb.split(".")[0] + "." + urlb.split(".")[1];
 	var folderA = urla.split(".")[0] + "." + urla.split(".")[1];
-	var url1 = "https://" + urla + "/dechat/" + folderB + "/messages.txt";
-	var url2 = "https://" + urlb + "/dechat/" + folderA + "/messages.txt";
+	var url1 = "https://" + urla + "/"+dechatFolder+"/" + folderB + "/messages.txt";
+	var url2 = "https://" + urlb + "/"+dechatFolder+"/" + folderA + "/messages.txt";
 	var a1 = await singleUriGetter(url1);
 	var a2 = await singleUriGetter(url2);
 	var at = await a1.concat(a2);
@@ -55,7 +56,7 @@ async function checkIfMessageExists(userUrl, friendUrl) {
 	var friendIdentifier = friendUrl.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var fileRoute = userUrl.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/messages.txt");
+	var fileRoute = userUrl.replace("/profile/card#me", "/"+dechatFolder+"/" + friendIdentifier + "/messages.txt");
 	try {
 		await fileClient.readFile(fileRoute);
 	} catch(error) {
@@ -97,7 +98,7 @@ async function readGroupal(listOfFriends, groupId){
 	var listTR = [];
 	for (i in listOfFriends){
 		var user = listOfFriends[i];
-		var urltolook = "https://" + user + "/dechat/" + groupId + "/messages.txt";
+		var urltolook = "https://" + user + "/"+dechatFolder+"/" + groupId + "/messages.txt";
 		var mess = await singleUriGetter(urltolook);
 		listaTR = await listTR.concat(mess);
 	}
@@ -112,7 +113,7 @@ async function readGroupal(listOfFriends, groupId){
 * @return ordered messages
 */
 async function readGroup(userID, groupId){
-	var groupUri = "https://"+userID+"/dechat/"+groupId+"//info.txt";
+	var groupUri = "https://"+userID+"/"+dechatFolder+"/"+groupId+"//info.txt";
 	var info = await fileClient.readFile(groupUri);
 	var infoJSON = await JSON.parse(info);
 	return await readGroupal(infoJSON.participants, groupId);

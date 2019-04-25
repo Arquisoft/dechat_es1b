@@ -1,3 +1,4 @@
+const dechatFolder = "dechates1b";
 /**
 * An creator function that emulates a class of group
 * @param id of the group
@@ -11,7 +12,7 @@ function group(id, name, participants, owner){
 	groupTR.id = id;
 	groupTR.name = name;
 	groupTR.participants = participants;
-	groupTR.icon = "https://" + owner + "/dechat/" + name +"//ico.png"
+	groupTR.icon = "https://" + owner + "/"+dechatFolder+"/" + name +"//ico.png"
 	
 	return groupTR;
 }

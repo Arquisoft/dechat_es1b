@@ -1,5 +1,7 @@
 const fileClient = require('solid-file-client');
 const query = require('../../../ldflex-queries.js');
+const dechatFolder = "dechates1b";
+
 /**
 * Give permission to all friends to write in file groups.txt
 * In the pod of the
@@ -7,7 +9,7 @@ const query = require('../../../ldflex-queries.js');
 */
 async function groupsPermission(person)
 {
-	var uriToEdit = "https://"+person+"/dechat//groups.txt.acl";
+	var uriToEdit = "https://"+person+"/"+dechatFolder+"//groups.txt.acl";
 
 	var listOfFriends = await query.getFriends();
 	//console.log(listOfFriends.toString());
@@ -92,11 +94,20 @@ async function addParticipants(participants){
 */
 async function groupFolderPermission(person, groupID, listOfParticipants)
 {
-	var uriToEdit = "https://"+person+"/dechat/"+groupID+"//messages.txt.acl";
+	var listB = [];
+	for(i in listOfParticipants){
+		if(listOfFriends[i] != person){
+			listB.push(listOfFriends[i]);
+		}
+	}
+	console.log("Estoy encima/*/*/*/")
+	var uriToEdit = "https://"+person+"/"+dechatFolder+"/"+groupID+"//messages.txt.acl";
+	var mainUri = "https://"+person+"/"+dechatFolder+"/"+groupID+"//messages.txt";
 
-	//var theFileTE = "https://"+person+"/dechat/"+groupID+"//messages.txt";
-	var fileTU =  await createACLFileForFolderContent(listOfParticipants, uriToEdit);
-	fileClient.updateFile( uriToEdit, fileTU).then(200);
+	var fileTU =  await createACLFileForFolderContent(listB, mainUri);
+	console.log("¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡\n"+ await fileTU)
+	
+	fileClient.updateFile( uriToEdit, fileTU).then(console.log("UA UA UA"));
 	
 	
 }
@@ -114,7 +125,7 @@ async function createACLFileForFolderContent(listOfFriends, fileRoute){
 		+ await createPrefixedParticipants(listOfFriends)
 		+ "\n"
 
-		+ ":ControlReadWrite \n"
+		+ ":Control \n"
 		+ "\ta n0:Authorization; \n"
 		+ "\tn0:accessTo <"+fileRoute+">; \n"
 		+ "\tn0:agent c:me; \n"
@@ -182,10 +193,12 @@ async function createPrefixedParticipants(participants){
 */
 async function groupInfoPermission(person, groupID, owner)
 {
-	var uriToEdit = "https://"+person+"/dechat/"+groupID+"//info.txt.acl";
+	var uriToEdit = "https://"+person+"/"+dechatFolder+"/"+groupID+"//info.txt.acl";
+	var mainUri = "https://"+person+"/"+dechatFolder+"/"+groupID+"//info.txt";
+
 	var listOfParticipantsB = [];
 	listOfParticipantsB.push(owner);
-	var fileTU =  await createACLFileForInfo(listOfParticipantsB, uriToEdit);
+	var fileTU =  await createACLFileForInfo(listOfParticipantsB, mainUri);
 	fileClient.updateFile( uriToEdit, fileTU).then( 200 );
 	
 	

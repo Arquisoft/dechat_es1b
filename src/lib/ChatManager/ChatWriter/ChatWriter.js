@@ -3,6 +3,7 @@ const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
 const txtFileBuilder = require("./TextFileBuilder");
 const query = require("../../ldflex-queries")
+const dechatFolder = "dechates1b";
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -23,7 +24,7 @@ function sendToInbox(friend, message) {
  * @param {String} userID
  */
 async function sendToInboxGroupal(groupID, userID ,message) {
-	var gRoute = "https://"+ userID + "/dechat/"+groupID+"//info.txt";
+	var gRoute = "https://"+ userID + "/"+dechatFolder+"/"+groupID+"//info.txt";
 	var info = await fileClient.readFile(groupUri);
 	var infoJSON = await JSON.parse(info);
 	//Login since it looks like its required 
@@ -49,7 +50,7 @@ async function sendToOwnPOD(userID, partnerID, messages) {
 	var friendIdentifier = partnerID.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var folderRoute = userID.replace("/profile/card#me", "/dechat/" + friendIdentifier + "/");
+	var folderRoute = userID.replace("/profile/card#me", "/"+dechatFolder+"/" + friendIdentifier + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
 
@@ -76,7 +77,7 @@ async function sendToOwnPODForGroups(userID, groupID, messages) {
 	//Obtaining a string representing contact's webID
 	//To do this, we will isolate the variable part of the WebID 
 	//(example: https://jhon.solid.community will turn into jhon.solid)
-	var folderRoute = userID.replace("/profile/card#me", "/dechat/" + groupID + "/");
+	var folderRoute = userID.replace("/profile/card#me", "/"+dechatFolder+"/" + groupID + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, groupID, messages);
