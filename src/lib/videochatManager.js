@@ -12,7 +12,19 @@ var partnerPeerID;
 * connecting us to the PeerJs server. 
 */
 async function initializePeer(i) {
-    peer = new Peer();
+    var config = {
+        "iceServers": [
+            {
+                "url": ["stun:stun.l.google.com:19302"]
+            }
+            , {
+                "url": ["turn:numb.viagenie.ca:3478"]
+                , "username": "dechates1b@yopmail.com"
+                , "credential": "arquisoft20182019"
+            }
+        ]
+    }
+    peer = new Peer(config);
     peer.on('open', function (id) {
         //At this point we have built a hopefully unique ID for our peer
         console.log("MANAGER ID PEER :" + id);
@@ -64,8 +76,8 @@ function setPartnerPeerID(peerID) {
 
 function videocallPartner(peerID) {
     setPartnerPeerID(peerID);
-    $(".messaging").prepend("<video id='myVideo'> </video>"+
-    "<video id='partnerVideo'> </video>");
+    $(".messaging").prepend("<video id='myVideo'> </video>" +
+        "<video id='partnerVideo'> </video>");
     $("#connectWithPeer").attr("disabled", true);
     $("#disconnectButton").attr("disabled", false);
     //What next line means is unknown to me atm
@@ -74,28 +86,28 @@ function videocallPartner(peerID) {
         call = peer.call(partnerPeerID, stream);
         console.log("STREAM " + stream);
         var myVideo = document.getElementById('myVideo');
-        myVideo.srcObject= stream;
+        myVideo.srcObject = stream;
         myVideo.play();
         call.on('stream', (remoteStream) => {
             console.log("REMOTE STREAM  ??  " + remoteStream);
             // Show stream in some <video> element. Gotta see how we access UI form here.
             var partnerVideo = document.getElementById('partnerVideo');
             // Set the given stream as the video source
-            partnerVideo.srcObject= remoteStream;
+            partnerVideo.srcObject = remoteStream;
             partnerVideo.play();
         });
-        $('#disconnectButton').on("click", function() {
+        $('#disconnectButton').on("click", function () {
             call.close();
-          });
+        });
     }, (err) => {
         console.error('Failed to get local stream', err);
     });
-   
+
 }
 
 function answerVideoCall() {
-    $(".messaging").prepend("<video id='myVideo'> </video>"+
-    "<video id='partnerVideo'> </video>");
+    $(".messaging").prepend("<video id='myVideo'> </video>" +
+        "<video id='partnerVideo'> </video>");
     $("#connectWithPeer").attr("disabled", true);
     $("#disconnectButton").attr("disabled", false);
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -103,7 +115,7 @@ function answerVideoCall() {
         navigator.getUserMedia({ video: true, audio: true }, (stream) => {
             call.answer(stream); // Answer the call with an Audio&&Video stream.
             var myVideo = document.getElementById('myVideo');
-            myVideo.srcObject= stream;
+            myVideo.srcObject = stream;
             myVideo.play();
             call.on('stream', (remoteStream) => {
                 // Show stream in some <video> element.
@@ -112,14 +124,14 @@ function answerVideoCall() {
                 partnerVideo.srcObject = remoteStream;
                 partnerVideo.play();
             });
-            $('#disconnectButton').on("click", function() {
+            $('#disconnectButton').on("click", function () {
                 call.close();
-              });
+            });
         }, (err) => {
             console.error('Failed to get local stream', err);
         });
     });
-    
+
 
 }
 
@@ -132,7 +144,19 @@ function disconnect() {
 
 
 function connectWithPeer() {
-    peer = new Peer();
+    var config = {
+        "iceServers": [
+            {
+                "url": ["stun:stun.l.google.com:19302"]
+            }
+            , {
+                "url": ["turn:numb.viagenie.ca:3478"]
+                , "username": "dechates1b@gmail.com"
+                , "credential": "arquisoft20182019"
+            }
+        ]
+    }
+    peer = new Peer(config);
     console.log("Connecting...");
     var peerIDContent = $("#peerIDText").val();
     console.log("EL PEER ID DEL PARTNER ES: " + peerIDContent);
