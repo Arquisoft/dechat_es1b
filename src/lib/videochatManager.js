@@ -12,19 +12,12 @@ var partnerPeerID;
 * connecting us to the PeerJs server. 
 */
 async function initializePeer(i) {
-    var config = {
-        "iceServers": [
-            {
-                "url": ["stun:stun.l.google.com:19302"]
-            }
-            , {
-                "url": ["turn:numb.viagenie.ca:3478"]
-                , "username": "dechates1b@yopmail.com"
-                , "credential": "arquisoft20182019"
-            }
-        ]
-    }
-    peer = new Peer(config);
+
+    peer = new Peer({
+        config: {'iceServers': [
+            { url: 'stun:stun.l.google.com:19302' },
+            { url: 'turn:numb.viagenie.ca:3478', username:'dechates1b@yopmail.com',  credential: 'arquisoft20182019' }
+          ]}});
     peer.on('open', function (id) {
         //At this point we have built a hopefully unique ID for our peer
         console.log("MANAGER ID PEER :" + id);
@@ -144,19 +137,11 @@ function disconnect() {
 
 
 function connectWithPeer() {
-    var config = {
-        "iceServers": [
-            {
-                "url": ["stun:stun.l.google.com:19302"]
-            }
-            , {
-                "url": ["turn:numb.viagenie.ca:3478"]
-                , "username": "dechates1b@gmail.com"
-                , "credential": "arquisoft20182019"
-            }
-        ]
-    }
-    peer = new Peer(config);
+    peer = new Peer({
+        config: {'iceServers': [
+            { url: 'stun:stun.l.google.com:19302' },
+            { url: 'turn:numb.viagenie.ca:3478', username:'dechates1b@yopmail.com',  credential: 'arquisoft20182019' }
+          ]}});
     console.log("Connecting...");
     var peerIDContent = $("#peerIDText").val();
     console.log("EL PEER ID DEL PARTNER ES: " + peerIDContent);
