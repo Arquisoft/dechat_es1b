@@ -28,6 +28,10 @@ img {
 	width: 400px;
 }
 
+a {
+	cursor:pointer;
+  }
+
 .chat_list:hover {
 	background-color: aliceblue;
 }
