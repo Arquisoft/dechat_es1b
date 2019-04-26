@@ -1,6 +1,7 @@
 const chatReader = require("./ChatReader/ChatReader");
 const chatWriter = require("./ChatWriter/ChatWriter");
 const groupCreator = require("./GroupHandle/groupCreation/groupCreator");
+const groupList = require("./GroupHandle/groupList");
 const permissionService = require("./GroupHandle/permissionsService/permissions.js");
 
 /**
@@ -123,6 +124,15 @@ async function givePermissionsToFriends(userID){
 
 }
 
+/**
+* CALLABLE ON INIT
+* Gives a detailed list of groups 
+*/
+async function listGroupsOnInit(userID){
+	userID = userID.replace("https://","");
+	return await groupList.listGroupsOnInit(userID);
+}
+
 module.exports = {
     read,
     readPod,
@@ -134,5 +144,6 @@ module.exports = {
 	readGroup,
 	writeInboxGroupal,
 	writeGroupal,
-	givePermissionsToFriends
+	givePermissionsToFriends,
+	listGroupsOnInit
 }
