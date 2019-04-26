@@ -40,7 +40,7 @@ class Chat {
                     newMsg.init(messages[i].timestamp);
                     this.sentMessages.push(newMsg)
                 } else {
-                    let newMsg = new Message(this.messages[i].user, messages[i].partner, messages[i].content, messages[i].type);
+                    let newMsg = new Message(messages[i].user, messages[i].partner, messages[i].content, messages[i].type);
                     newMsg.init(messages[i].timestamp);
                     this.sentMessages.push(newMsg)
                 }
