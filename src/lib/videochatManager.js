@@ -2,9 +2,6 @@ const peerjs = require('peerjs')
 var peer;
 var call;
 
-
-
-
 /**
 * This function creates a random ID for our peer and initializes it,
 * connecting us to the PeerJs server. This function is called when a user press the button to generate it peerID to start a videochat

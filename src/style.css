@@ -143,6 +143,13 @@ footer {
     text-align: center;
 } 
 
+video {
+	max-width: 100%;
+	height: auto;
+	margin: 100 auto;
+	border: 10px double #ddd;
+}
+
 /*---------chat window bootsnipp---------------*/
 .container{
     max-width:900px;
