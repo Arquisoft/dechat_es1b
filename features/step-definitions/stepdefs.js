@@ -3,7 +3,6 @@ const { Given, When, Then } = require('cucumber');
 const Chat = require("../../src/lib/chat.js");
 const fc = require("solid-file-client");
 const Persona = require("../../src/model/person");
-const chatManager = require("../../src/lib/ChatManager/ChatManager")
 const fileManager = require("../../src/lib/ChatManager/ChatWriter/FileManager");
 const chatWriter = require("../../src/lib/ChatManager/ChatWriter/ChatWriter.js");
 const query = require("../../src/lib/ldflex-queries");
@@ -79,12 +78,12 @@ Then('I looked for Alberto', function() {
 
 When('I am chatting with a friend', function() {
 	var myChatA = new Chat("Secundino","Samuel");
- 	 var myChatB = new Chat("Secundino","Marcos");
-	 var myChatC = new Chat("Secundino","Martin");
-	 var myChatD = new Chat("Secundino","Luis");
-	 var myChatE = new Chat("Secundino","Javier");
+ 	var myChatB = new Chat("Secundino","Marcos");
+	var myChatC = new Chat("Secundino","Martin");
+	var myChatD = new Chat("Secundino","Luis");
+	var myChatE = new Chat("Secundino","Javier");
 	 
-	 this.myList = [myChatA.partner, myChatB.partner, myChatC.partner, myChatD.partner, myChatE.partner];
+	this.myList = [myChatA.partner, myChatB.partner, myChatC.partner, myChatD.partner, myChatE.partner];
 });
 
 Then('I can see my partner´s name {string}', function(name) {
@@ -100,7 +99,7 @@ Given('I am using the app', function() {
  	var myChatB = new Chat("Secundino","Jesus");
 	myChatB.messages = ["Secun maquina","Cuantisimo tiempo","Queria contarte una cosa","Hoy no atendi en clase, estaba descentralizado"];
 	 
-	 this.myList = [myChatA, myChatB];
+	this.myList = [myChatA, myChatB];
 });
 When('I am chatting with {string}', function(name) {
 	var i;

@@ -5,25 +5,14 @@ const groupList = require("./GroupHandle/groupList");
 const permissionService = require("./GroupHandle/permissionsService/permissions.js");
 
 /**
- * This function receives two uri applies singleUriGetter
- * 	to create a message array for each onerror
- *	and returns the sorted by date list 
- * @param {String} urla Example: martinlacorrona.solid.community
- * @param {String} urlb Example: javierardura.solid.community
- */
-async function read(urla, urlb) {
-    return chatReader.read(urla, urlb);
-};
-
-/**
 * Read pod receives the webid of the chat participants returning and ordered array of messages
 * @param userURL the webID of the chat's ownerDocument
 * @param friendURL the webID of the chat's contact
 * @return the ordered list of the conversation messages
 */
-async function readPod(userURL, friendURL, messages) {
+async function readPod(userURL, friendURL) {
     return await chatReader.readPod(userURL, friendURL);
-};
+}
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -33,7 +22,7 @@ async function readPod(userURL, friendURL, messages) {
  */
 function writeInbox(friend, message) {
     return chatWriter.sendToInbox(friend, message);
-};
+}
 
 /**
  * Creates a folder in user's own pod, containing a json representing chat messages
@@ -133,17 +122,28 @@ async function listGroupsOnInit(userID){
 	return await groupList.listGroupsOnInit(userID);
 }
 
+/**
+ * Creates a folder in user's own pod, containing a json representing chat messages
+ * and grants read permissions to partner.
+ * @param {String} userID 
+ * @param {String} partnerID
+ * @param {Array} messages
+ */
+async function uploadFileToOwnPOD(file, userID, partnerID) {
+    chatWriter.uploadFileToOwnPOD(file, userID, partnerID);
+}
+
 module.exports = {
-    read,
     readPod,
     writeInbox,
     writeOwnPOD,
-	createFileOnInit,
-	createGroup,
-	createUncreatedGroups, 
-	readGroup,
-	writeInboxGroupal,
-	writeGroupal,
-	givePermissionsToFriends,
-	listGroupsOnInit
+    createFileOnInit,
+    createGroup,
+    createUncreatedGroups, 
+    readGroup,
+    writeInboxGroupal,
+    writeGroupal,
+    givePermissionsToFriends,
+    listGroupsOnInit,
+    uploadFileToOwnPOD
 }

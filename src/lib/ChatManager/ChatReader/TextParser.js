@@ -1,5 +1,4 @@
 "use strict";
-var parsed;
 /*
 Text parser allows conversion POD-JSON
 by the convention token by the development team

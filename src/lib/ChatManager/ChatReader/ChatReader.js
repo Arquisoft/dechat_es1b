@@ -21,10 +21,10 @@ async function singleUriGetter(url) {
 	} catch(error) {
 		return [];
 	}
-
 	var tr = await creator.create(textParser.parseString(salida));
+    
 	return await tr;
-};
+}
 
 /**
  * This function receives two uri applies singleUriGetter
@@ -36,15 +36,15 @@ async function singleUriGetter(url) {
 async function read(urla, urlb) {
 	var folderB = urlb.split(".")[0] + "." + urlb.split(".")[1];
 	var folderA = urla.split(".")[0] + "." + urla.split(".")[1];
-	var url1 = "https://" + urla + "/"+dechatFolder+"/" + folderB + "/messages.txt";
-	var url2 = "https://" + urlb + "/"+dechatFolder+"/" + folderA + "/messages.txt";
+	var url1 = "https://" + urla + "/" + FolderManager.DECHAT_FOLDER + "/" + folderB + "/messages.txt";
+	var url2 = "https://" + urlb + "/" + FolderManager.DECHAT_FOLDER + "/" + folderA + "/messages.txt";
 	var a1 = await singleUriGetter(url1);
 	var a2 = await singleUriGetter(url2);
 	var at = await a1.concat(a2);
 	var tr = await sorter.sort(at);
 
 	return await tr;
-};
+}
 
 /**
  * If is the first time, messages.txt don't create,
@@ -56,7 +56,8 @@ async function checkIfMessageExists(userUrl, friendUrl) {
 	var friendIdentifier = friendUrl.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var fileRoute = userUrl.replace("/profile/card#me", "/"+dechatFolder+"/" + friendIdentifier + "/messages.txt");
+	var fileRoute = userUrl.replace("/profile/card#me", "/" + FolderManager.DECHAT_FOLDER + "/"
+									 + friendIdentifier + "/messages.txt");
 	try {
 		await fileClient.readFile(fileRoute);
 	} catch(error) {
@@ -84,7 +85,7 @@ async function readPod(userURL, friendURL) {
 	var user = userURL.replace("https://", "").replace("/profile/card#me", "");
 	var partner = friendURL.replace("https://", "").replace("/profile/card#me", "");
 	return await read(user, partner);
-};
+}
 
 /**
 * Supports groupal reading passing the
