@@ -3,7 +3,7 @@ var sorter = require("./Sorter.js");
 const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
 const ChatWritter = require("../ChatWriter/ChatWriter");
-const folderManager = require("../ChatWriter/FolderManager");
+const FolderManager = require("../ChatWriter/FolderManager");
 
 /**
  * This function get all messages from a single pod uri
@@ -35,8 +35,8 @@ async function singleUriGetter(url) {
 async function read(urla, urlb) {
 	var folderB = urlb.split(".")[0] + "." + urlb.split(".")[1];
 	var folderA = urla.split(".")[0] + "." + urla.split(".")[1];
-	var url1 = "https://" + urla + "/" + folderManager.DECHAT_FOLDER + "/" + folderB + "/messages.txt";
-	var url2 = "https://" + urlb + "/" + folderManager.DECHAT_FOLDER + "/" + folderA + "/messages.txt";
+	var url1 = "https://" + urla + "/" + FolderManager.DECHAT_FOLDER + "/" + folderB + "/messages.txt";
+	var url2 = "https://" + urlb + "/" + FolderManager.DECHAT_FOLDER + "/" + folderA + "/messages.txt";
 	var a1 = await singleUriGetter(url1);
 	var a2 = await singleUriGetter(url2);
 	var at = await a1.concat(a2);
@@ -55,7 +55,7 @@ async function checkIfMessageExists(userUrl, friendUrl) {
 	var friendIdentifier = friendUrl.replace("https://", "");
 	var partes = friendIdentifier.split(".");
 	friendIdentifier = partes[0] + "." + partes[1];
-	var fileRoute = userUrl.replace("/profile/card#me", "/" + folderManager.DECHAT_FOLDER + "/"
+	var fileRoute = userUrl.replace("/profile/card#me", "/" + FolderManager.DECHAT_FOLDER + "/"
 									 + friendIdentifier + "/messages.txt");
 	try {
 		await fileClient.readFile(fileRoute);
@@ -86,8 +86,46 @@ async function readPod(userURL, friendURL) {
 	return await read(user, partner);
 }
 
+/**
+* Supports groupal reading passing the
+* @param listOfFriends
+* for the group
+* @param groupId
+* @return ordered messages
+*/
+async function readGroupal(listOfFriends, groupId){
+	var i;
+	var listTR = [];
+	for (i in listOfFriends){
+		var user = listOfFriends[i];
+		var urltolook = "https://" + user + "/"+FolderManager.DECHAT_FOLDER+"/" + groupId + "/messages.txt";
+		var mess = await singleUriGetter(urltolook);
+		listTR = await listTR.concat(mess);
+	}
+	
+	
+	var tr =  await sorter.sort(listTR);
+	return await tr;
+}
+
+/**
+* Read the group identified by the 
+* @param groupId
+* in the pod of the 
+* @param userID
+* @return ordered messages
+*/
+async function readGroup(userID, groupId){
+	var groupUri = "https://"+userID+"/"+FolderManager.DECHAT_FOLDER+"/"+groupId+"//info.txt";
+	var info = await fileClient.readFile(groupUri);
+	var infoJSON = await JSON.parse(info);
+	return await readGroupal(infoJSON.participants, groupId);
+	
+}
+
 module.exports = {
 	singleUriGetter,
 	read,
-	readPod
+	readPod,
+	readGroup
 }
