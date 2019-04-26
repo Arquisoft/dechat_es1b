@@ -28,6 +28,11 @@ img {
 	width: 400px;
 }
 
+.chat_list:hover {
+	background-color: aliceblue;
+}
+
+
 .contactButton,
 .sendButton {
 	display: inline-block;
