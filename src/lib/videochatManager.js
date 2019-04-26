@@ -1,6 +1,5 @@
 const peerjs = require('peerjs')
 var peer;
-var conn;
 var call;
 
 
@@ -52,6 +51,11 @@ function videocallPartner(peerID) {
             call.close();
         });
     }, (err) => {
+        disconnect();
+        $(".messaging").prepend("<div id='videocallError' class='alert alert-danger' role='alert'>" +
+            "The videochat call failed to initialize properly. Check your network and your devices (microphone, webcam)" +
+            "</div>");
+        $("#videocallError").delay(3000).hide(600);
         console.error('Failed to get local stream', err);
     });
 
@@ -82,6 +86,11 @@ function answerVideoCall() {
                 call.close();
             });
         }, (err) => {
+            disconnect();
+            $(".messaging").prepend("<div id='videocallError' class='alert alert-danger' role='alert'>" +
+                "The videochat call failed to initialize properly. Check your network and your devices (microphone, webcam...)" +
+                "</div>");
+            $("#videocallError").delay(3000).hide(600);
             console.error('Failed to get local stream', err);
         });
     });
