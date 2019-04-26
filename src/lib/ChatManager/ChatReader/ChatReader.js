@@ -100,9 +100,12 @@ async function readGroupal(listOfFriends, groupId){
 		var user = listOfFriends[i];
 		var urltolook = "https://" + user + "/"+dechatFolder+"/" + groupId + "/messages.txt";
 		var mess = await singleUriGetter(urltolook);
-		listaTR = await listTR.concat(mess);
+		listTR = await listTR.concat(mess);
 	}
-	return await sorter.sort(listTR)
+	
+	
+	var tr =  await sorter.sort(listTR);
+	return await tr;
 }
 
 /**

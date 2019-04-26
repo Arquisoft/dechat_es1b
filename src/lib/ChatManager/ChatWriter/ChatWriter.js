@@ -80,6 +80,7 @@ async function sendToOwnPODForGroups(userID, groupID, messages) {
 	var folderRoute = userID.replace("/profile/card#me", "/"+dechatFolder+"/" + groupID + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
+	console.log(podFileRoute + "  +++++++  ")
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, groupID, messages);
 	await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
 	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(404));

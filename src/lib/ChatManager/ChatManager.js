@@ -108,7 +108,7 @@ async function writeInboxGroupal(groupID, userID ,message){
 */
 
 async function writeGroupal(userID, groupID, messages){
-	userID = userID.replace("https://","");
+	
 	chatWriter.sendToOwnPODForGroups(userID, groupID, messages);
 }
 /**
