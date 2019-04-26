@@ -1,5 +1,5 @@
 const fileClient = require('solid-file-client');
-const validator = require('../existencevalidators');
+const validator = require('../existenceValidators');
 const permissionService = require('../permissionsService/permissions.js')
 const glist = require('../groupList.js')
 const dechatFolder = "dechates1b";
