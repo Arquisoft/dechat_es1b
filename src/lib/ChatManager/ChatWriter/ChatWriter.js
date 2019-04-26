@@ -1,7 +1,7 @@
 const fileClient = require("solid-file-client");
 const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
-const txtFileBuilder = require("./TextFileBuilder");
+const txtFileBuilder = require("./TextFileBuilder");;
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -14,6 +14,24 @@ function sendToInbox(friend, message) {
 	//Login since it looks like its required 
 	fileClient.popupLogin();
 	return fileClient.createFile(friendRoute, message).then(200);
+};
+
+/**
+ * Creates a file in the inbox of all participants with the json data passed as argument
+ * @param {String} inboxURL 
+ * @param {String} userID
+ */
+async function sendToInboxGroupal(groupID, userID ,message) {
+	var gRoute = "https://"+ userID + "/"+folderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt";
+	var info = await fileClient.readFile(groupUri);
+	var infoJSON = await JSON.parse(info);
+	//Login since it looks like its required 
+	
+	fileClient.popupLogin();
+	for(i in infoJSON.participants){
+		var friendRoute = "https://"+ infoJSON.participants[i]+"inbox/dechat.txt"
+		await fileClient.createFile(friendRoute, message).then(200);
+	}
 };
 
 /**
@@ -71,8 +89,30 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
     }, err=>{console.log("upload error : "+err)});
 }
 
+/**
+ * Writes a json representing chat messages
+ * in a groupal context
+ * @param {String} userID 
+ * @param {String} groupID
+ * @param {Array} messages
+ */
+async function sendToOwnPODForGroups(userID, groupID, messages) {
+	//Obtaining a string representing contact's webID
+	//To do this, we will isolate the variable part of the WebID 
+	//(example: https://jhon.solid.community will turn into jhon.solid)
+	var folderRoute = userID.replace("/profile/card#me", "/"+FolderManager.DECHAT_FOLDER+"/" + groupID + "/");
+	var podFileRoute = folderRoute + MESSAGE_FILE;
+	await fileClient.popupLogin().then(200);
+	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, groupID, messages);
+	await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
+	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(404));
+};
+
+
 module.exports = {
 	sendToInbox,
 	sendToOwnPOD,
+	sendToOwnPODForGroups,
+	sendToInboxGroupal,
 	uploadFileToOwnPOD
 }

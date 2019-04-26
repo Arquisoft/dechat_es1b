@@ -405,3 +405,4 @@ async function changeTitles(session) {
         $("#subTitleApp").prop("show", session)
     }
 }
+
