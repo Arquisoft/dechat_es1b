@@ -4,7 +4,6 @@ const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
 const ChatWritter = require("../ChatWriter/ChatWriter");
 const FolderManager = require("../ChatWriter/FolderManager");
-const dechatFolder = "dechates1b";
 
 /**
  * This function get all messages from a single pod uri
@@ -99,7 +98,7 @@ async function readGroupal(listOfFriends, groupId){
 	var listTR = [];
 	for (i in listOfFriends){
 		var user = listOfFriends[i];
-		var urltolook = "https://" + user + "/"+dechatFolder+"/" + groupId + "/messages.txt";
+		var urltolook = "https://" + user + "/"+FolderManager.DECHAT_FOLDER+"/" + groupId + "/messages.txt";
 		var mess = await singleUriGetter(urltolook);
 		listTR = await listTR.concat(mess);
 	}
@@ -117,7 +116,7 @@ async function readGroupal(listOfFriends, groupId){
 * @return ordered messages
 */
 async function readGroup(userID, groupId){
-	var groupUri = "https://"+userID+"/"+dechatFolder+"/"+groupId+"//info.txt";
+	var groupUri = "https://"+userID+"/"+FolderManager.DECHAT_FOLDER+"/"+groupId+"//info.txt";
 	var info = await fileClient.readFile(groupUri);
 	var infoJSON = await JSON.parse(info);
 	return await readGroupal(infoJSON.participants, groupId);

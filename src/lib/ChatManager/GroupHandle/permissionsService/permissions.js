@@ -1,6 +1,6 @@
 const fileClient = require('solid-file-client');
 const query = require('../../../ldflex-queries.js');
-const dechatFolder = "dechates1b";
+const FolderManager = require("../../ChatWriter/FolderManager");
 
 /**
 * Give permission to all friends to write and read the folder dechates1b
@@ -147,8 +147,8 @@ async function groupFolderPermission(person, groupID, listOfParticipants)
 		}
 	}
 	
-	var uriToEdit = "https://"+person+"/"+dechatFolder+"/"+groupID+"//messages.txt.acl";
-	var mainUri = "https://"+person+"/"+dechatFolder+"/"+groupID+"//messages.txt";
+	var uriToEdit = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//messages.txt.acl";
+	var mainUri = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//messages.txt";
 
 	var fileTU =  await createACLFileForFolderContent(await listB);
 	
@@ -238,8 +238,8 @@ async function createPrefixedParticipants(participants){
 */
 async function groupInfoPermission(person, groupID, owner)
 {
-	var uriToEdit = "https://"+person+"/"+dechatFolder+"/"+groupID+"//info.txt.acl";
-	var mainUri = "https://"+person+"/"+dechatFolder+"/"+groupID+"//info.txt";
+	var uriToEdit = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt.acl";
+	var mainUri = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt";
 
 	var listOfParticipantsB = [];
 	listOfParticipantsB.push(owner);
@@ -259,8 +259,8 @@ async function groupInfoPermission(person, groupID, owner)
 */
 async function groupInfoPermissionForOwner(person, groupID, listOfParticipants)
 {
-	var uriToEdit = "https://"+person+"/"+dechatFolder+"/"+groupID+"//info.txt.acl";
-	var mainUri = "https://"+person+"/"+dechatFolder+"/"+groupID+"//info.txt";
+	var uriToEdit = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt.acl";
+	var mainUri = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt";
 	var fileTU =  await createACLFileForInfo(listOfParticipants);
 	fileClient.updateFile( uriToEdit,await fileTU).then( console.log("Correctamente creado"+ uriToEdit) );
 	

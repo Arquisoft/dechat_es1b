@@ -1,8 +1,7 @@
 const fileClient = require("solid-file-client");
 const folderManager = require("./FolderManager");
 const MESSAGE_FILE = "messages.txt";
-const txtFileBuilder = require("./TextFileBuilder");
-const query = require("../../ldflex-queries");
+const txtFileBuilder = require("./TextFileBuilder");;
 
 /**
  * Creates a file in the specified inbox with the json data passed as argument
@@ -101,7 +100,7 @@ async function sendToOwnPODForGroups(userID, groupID, messages) {
 	//Obtaining a string representing contact's webID
 	//To do this, we will isolate the variable part of the WebID 
 	//(example: https://jhon.solid.community will turn into jhon.solid)
-	var folderRoute = userID.replace("/profile/card#me", "/"+dechatFolder+"/" + groupID + "/");
+	var folderRoute = userID.replace("/profile/card#me", "/"+FolderManager.DECHAT_FOLDER+"/" + groupID + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, groupID, messages);
