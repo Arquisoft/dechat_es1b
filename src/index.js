@@ -54,7 +54,6 @@ $("#logout").click(async () => {
 
 async function loadInitialContacts() {
     loadFriends();
-	JAZONE();
 }
 
 async function loadFriends() {
@@ -377,56 +376,3 @@ async function changeTitles(session) {
     }
 }
 
-const fileClient = require('solid-file-client');
-
-var jatest = require('./lib/ChatManager/ChatManager.js');
-async function JAZONE(){
-	/*fileClient.deleteFile("https://podaes1b.solid.community/dechates1b/.acl").then(success => {
-	console.log(`Deleted.`);
-	}, err => console.log(err) );*/
-	
-	//await jatest.createFileOnInit("https://uo257493.solid.community");
-		//await jatest.givePermissionsToFriends("https://uo257493.solid.community");
-
-    //await jatest.createUncreatedGroups('https://uo257493.solid.community');
-	//await jatest.createFileOnInit("podaes1b.solid.community");
-    //await jatest.createUncreatedGroups('https://podaes1b.solid.community');
-	//var participants = ["https://podaes1b.solid.community", "https://uo257493.solid.community"]
-	//var listaNA = await jatest.createGroup('JulitoIglesias',participants, "https://uo257493.solid.community");
-	//var men = [{date:1555078308007, message:"Hola salao"},{date:1555515243176, message:"que hay"}]
-	//jatest.writeGroupal( 'https://podaes1b.solid.community/profile/card#me',  'JulitoIglesias1556274337701uo257493.solid.community', men);
-	
-	//Grupo Elecciones
-	/*
-	await jatest.createFileOnInit("https://jardura.solid.community");
-	await jatest.givePermissionsToFriends("https://jardura.solid.community");
-	await jatest.createUncreatedGroups('https://jardura.solid.community');
-	var participantes = ["https://jardura.solid.community","https://podaes1b.solid.community", "https://uo257493.solid.community"]
-	var listaEle = await jatest.createGroup('PEPPE',participantes, "https://jardura.solid.community");
-	*/
-	//var mensaje = [{date:1556282742513, message:"Hola chicos nos ha tocado mesa juntos"}]
-	//jatest.writeGroupal( 'https://jardura.solid.community/profile/card#me',  'PEPPE1556290612078jardura.solid.community', mensaje);
-	
-	
-	
-	/*
-	await jatest.createFileOnInit("https://podaes1b.solid.community");
-	await jatest.givePermissionsToFriends("https://podaes1b.solid.community");
-	await jatest.createUncreatedGroups('https://podaes1b.solid.community');
-	
-	var mensaje = [{date:1556282748513, message:"Hola yo soy PODA"}]
-	jatest.writeGroupal( 'https://podaes1b.solid.community/profile/card#me',  'PEPPE1556290612078jardura.solid.community', mensaje);
-	*/
-	
-	await jatest.createFileOnInit("https://uo257493.solid.community");
-	await jatest.givePermissionsToFriends("https://uo257493.solid.community");
-	await jatest.createUncreatedGroups('https://uo257493.solid.community');
-	
-	var mensaje = [{date:1556282748523, message:"Hola yo UO pero estoy de suplente"}]
-	await jatest.writeGroupal( 'https://uo257493.solid.community/profile/card#me',  'PEPPE1556290612078jardura.solid.community', mensaje);
-	var mensahe = await jatest.readGroup("https://uo257493.solid.community",'PEPPE1556290612078jardura.solid.community')
-	console.log("*****\n"+ await  JSON.stringify(mensahe) + "\n******");
-	
-	
-	
-}

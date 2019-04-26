@@ -16,7 +16,7 @@ function buildJSONmessages(senderID, receiverID, messages) {
 	var i;
 	if(messages !== undefined) {
 		for (i = 0; i < messages.length; i++) {
-			ret = ret + JSON.stringify(messages[i]);
+			ret = ret + messages[i].serialize();
 			if (i != messages.length - 1)
 				ret = ret + ",";
 			else
