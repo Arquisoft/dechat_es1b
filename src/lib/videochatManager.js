@@ -2,7 +2,6 @@ const peerjs = require('peerjs')
 var peer;
 var conn;
 var call;
-var partnerPeerID;
 
 
 
@@ -12,12 +11,14 @@ var partnerPeerID;
 * connecting us to the PeerJs server. 
 */
 async function initializePeer(i) {
-
     peer = new Peer({
-        config: {'iceServers': [
-            { url: 'stun:stun.l.google.com:19302' },
-            { url: 'turn:numb.viagenie.ca:3478', username:'dechates1b@yopmail.com',  credential: 'arquisoft20182019' }
-          ]}});
+        config: {
+            'iceServers': [
+                { url: 'stun:stun.l.google.com:19302' },
+                { url: 'turn:numb.viagenie.ca:3478', username: 'dechates1b@yopmail.com', credential: 'arquisoft20182019' }
+            ]
+        }
+    });
     peer.on('open', function (id) {
         //At this point we have built a hopefully unique ID for our peer
         var messageContent = "I want to start a videochat, here is my ID: " + id;
@@ -32,8 +33,7 @@ async function initializePeer(i) {
 * @param {String} peerID
 */
 async function connectToPeer(peerID) {
-    setPartnerPeerID(peerID);
-    conn = peer.connect(partnerPeerID);
+    conn = peer.connect(peerID);
     conn.on('open', () => { conn.send('Videochat connected'); });
 }
 
@@ -54,28 +54,12 @@ async function checkConnection() {
     return res;
 }
 
-/**
-* Return our peer id, so we can send it to our oartner at some point.
-* @return {String}
-*/
-function getOwnPeerID() {
-    return peer.id;
-}
-
-function setPartnerPeerID(peerID) {
-    partnerPeerID = peerID;
-}
-
 function videocallPartner(peerID) {
-    setPartnerPeerID(peerID);
-    $(".messaging").prepend("<video id='myVideo'> </video>" +
-        "<video id='partnerVideo'> </video>");
-    $("#connectWithPeer").attr("disabled", true);
-    $("#disconnectButton").attr("disabled", false);
+    initializeChatComponents();
     //What next line means is unknown to me atm
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({ video: true, audio: true }, (stream) => {
-        call = peer.call(partnerPeerID, stream);
+        call = peer.call(peerID, stream);
         var myVideo = document.getElementById('myVideo');
         myVideo.srcObject = stream;
         myVideo.play();
@@ -96,10 +80,7 @@ function videocallPartner(peerID) {
 }
 
 function answerVideoCall() {
-    $(".messaging").prepend("<video id='myVideo'> </video>" +
-        "<video id='partnerVideo'> </video>");
-    $("#connectWithPeer").attr("disabled", true);
-    $("#disconnectButton").attr("disabled", false);
+    initializeChatComponents();
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     peer.on('call', (call) => {
         navigator.getUserMedia({ video: true, audio: true }, (stream) => {
@@ -135,25 +116,27 @@ function disconnect() {
 
 function connectWithPeer() {
     peer = new Peer({
-        config: {'iceServers': [
-            { url: 'stun:stun.l.google.com:19302' },
-            { url: 'turn:numb.viagenie.ca:3478', username:'dechates1b@yopmail.com',  credential: 'arquisoft20182019' }
-          ]}});
+        config: {
+            'iceServers': [
+                { url: 'stun:stun.l.google.com:19302' },
+                { url: 'turn:numb.viagenie.ca:3478', username: 'dechates1b@yopmail.com', credential: 'arquisoft20182019' }
+            ]
+        }
+    });
     var peerIDContent = $("#peerIDText").val();
     videocallPartner(peerIDContent);
 }
 
-function initializeChatComponents(){
-    
+function initializeChatComponents() {
+    $(".messaging").prepend("<video id='myVideo'> </video>" +
+        "<video id='partnerVideo'> </video>");
+    $("#connectWithPeer").attr("disabled", true);
+    $("#disconnectButton").attr("disabled", false);
 }
 
 
 module.exports = {
     initializePeer,
-    connectToPeer,
-    checkConnection,
-    getOwnPeerID,
-    setPartnerPeerID,
     videocallPartner,
     answerVideoCall,
     disconnect
