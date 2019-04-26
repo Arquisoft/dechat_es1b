@@ -20,7 +20,6 @@ async function initializePeer(i) {
           ]}});
     peer.on('open', function (id) {
         //At this point we have built a hopefully unique ID for our peer
-        console.log("MANAGER ID PEER :" + id);
         var messageContent = "I want to start a videochat, here is my ID: " + id;
         $("#contentText" + i).val(messageContent); //Update the sending message field at the UI with the content of the peerID.
     });
@@ -77,12 +76,10 @@ function videocallPartner(peerID) {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     navigator.getUserMedia({ video: true, audio: true }, (stream) => {
         call = peer.call(partnerPeerID, stream);
-        console.log("STREAM " + stream);
         var myVideo = document.getElementById('myVideo');
         myVideo.srcObject = stream;
         myVideo.play();
         call.on('stream', (remoteStream) => {
-            console.log("REMOTE STREAM  ??  " + remoteStream);
             // Show stream in some <video> element. Gotta see how we access UI form here.
             var partnerVideo = document.getElementById('partnerVideo');
             // Set the given stream as the video source
@@ -142,12 +139,13 @@ function connectWithPeer() {
             { url: 'stun:stun.l.google.com:19302' },
             { url: 'turn:numb.viagenie.ca:3478', username:'dechates1b@yopmail.com',  credential: 'arquisoft20182019' }
           ]}});
-    console.log("Connecting...");
     var peerIDContent = $("#peerIDText").val();
-    console.log("EL PEER ID DEL PARTNER ES: " + peerIDContent);
     videocallPartner(peerIDContent);
 }
 
+function initializeChatComponents(){
+    
+}
 
 
 module.exports = {
