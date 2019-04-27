@@ -163,7 +163,7 @@ async function loadFriends() {
 
         var image = await query.getProfilePic(friends[i].id);
         if (typeof image === 'undefined') {
-            image = "https://ptetutorials.com/images/user-profile.png";
+            image = "./assets/images/user.png";
         }
 
         friends[i].image = image; //Image will be cached in friend object
@@ -197,7 +197,7 @@ async function loadGroups() {
         var groupHTML = "<a id= 'buttonGroup" + i + "'>" +
             "<div class='chat_list'>" +
             "<div class = 'chat_people' >" +
-            "<div class = 'chat_img'> <img src='./assets/images/group.svg'></div>" +
+            "<div class = 'chat_img'> <img src='./assets/images/group.png'></div>" +
             "<div class='chat_ib'>" +
             "<h5>" + group.name + "</h5>" +
             "</div>" +
@@ -284,7 +284,7 @@ async function startGroupChat(group, i) {
     $("#mesgs").empty(); //Delete all the content of mesgs
 
     $(".profile_bar").empty(); //Empty profile upper bar
-    $(".profile_bar").append("<img class='bar_image' src='./assets/images/group.svg' alt='profile img' /> <p class='text-center'>" + group.name + "</p>"); //Add content of the profile upper bar
+    $(".profile_bar").append("<img class='bar_image' src='./assets/images/group.png' alt='profile img' /> <p class='text-center'>" + group.name + "</p>"); //Add content of the profile upper bar
 
     var initialMessageContent =
         "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
@@ -292,12 +292,6 @@ async function startGroupChat(group, i) {
         "<div class='input_msg_write'>" +
         "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "' />" +
         "<div class='button-container'>" +
-        "<div class='image-upload'>" +
-        "<label for='send-image'>" +
-        "<img class='image-icon' src='assets/images/upload-image.svg'/>" +
-        "</label>" +
-        "<input type='file' id='send-image' accept='image/*'/>" +
-        "</div>" +
         "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "' >" + "Send</button>" +
         "</div>" +
         "</div>" +
