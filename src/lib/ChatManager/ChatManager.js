@@ -42,6 +42,7 @@ async function writeOwnPOD(userID, partnerID, messages) {
 */
 async function createFileOnInit(userID) {
 	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
 	groupCreator.createFileOnInit(userID);
 };
 
@@ -53,9 +54,10 @@ async function createFileOnInit(userID) {
 */
 async function createGroup(groupName, participantsList, userID){
 	for(i in participantsList){
-		participantsList[i] = participantsList[i].replace("https://", "");
+		participantsList[i] = participantsList[i].replace("https://", "").replace("/profile/card#me","");;
 	}
 	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
 	return await groupCreator.createGroup(groupName, participantsList, userID);
 }
 
@@ -66,6 +68,7 @@ async function createGroup(groupName, participantsList, userID){
 */
 async function createUncreatedGroups(userID){
 	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
 	groupCreator.checkAllGroupsOKOnInit(userID);
 }
 
@@ -76,6 +79,7 @@ async function createUncreatedGroups(userID){
 */
 async function readGroup(userID, groupId){
 	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
 	return await chatReader.readGroup(userID, groupId);
 }
 
@@ -87,6 +91,7 @@ async function readGroup(userID, groupId){
 */
 async function writeInboxGroupal(groupID, userID ,message){
 	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
 	chatWriter.sendToInboxGroupal(groupID, userID, message);
 }
 
@@ -98,7 +103,6 @@ async function writeInboxGroupal(groupID, userID ,message){
 */
 
 async function writeGroupal(userID, groupID, messages){
-	
 	chatWriter.sendToOwnPODForGroups(userID, groupID, messages);
 }
 /**
@@ -109,6 +113,7 @@ async function writeGroupal(userID, groupID, messages){
 */
 async function givePermissionsToFriends(userID){
 	userID = userID.replace("https://","");
+	userID = userID.replace("/profile/card#me","");
 	permissionService.givePermisionsToFriends(userID);
 
 }
@@ -119,6 +124,7 @@ async function givePermissionsToFriends(userID){
 */
 async function listGroupsOnInit(userID){
 	userID = userID.replace("https://","");
+	userID = userID.replace("/profile/card#me","");
 	return await groupList.listGroupsOnInit(userID);
 }
 
