@@ -60,6 +60,11 @@ $("#add-contact").click(async () => {
     profile.addContact(user.id, friendWebID, loadFriends, displayAlert);
 })
 
+
+/**
+ * Shows an alert if something goes wrong with add friends funcionality.
+ * @param {message} message - message that will be shown on display when something goes wrong.
+ */
 function displayAlert(message) {
     $(".alert-container").append('<div class="alert alert-danger alert-dismissible error-alert" role="alert">' +
         '<a href="#" class="close close-alert" data-dismiss="alert" aria-label="close">&times;</a>' +
@@ -69,12 +74,20 @@ function displayAlert(message) {
         $(".alert").remove();
     })
 }
+
+/**
+ * Starts the load of user friends.
+ */
 async function loadInitialContacts() {
     loadFriends();
 }
 
+
+/**
+ * This functions loads the friends that the user has in his POD and show them in UI given the user the option to chat with them.
+ */
 async function loadFriends() {
-    emptyFriendsList();
+    emptyFriendsList(); // Remove all the friends in the list of them (solve bugs with disconnect and reconnect funcionality)
     var friends = await query.getFriends();
     console.log(friends)
 
@@ -109,7 +122,7 @@ async function loadFriends() {
 
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     });
-    listenForNotifications();
+    listenForNotifications(); //Starts the listening notifications to check if the user receive a message from someone.
 }
 
 
@@ -147,9 +160,6 @@ async function startChat(friend, i) {
         "</div>";
 
     $("#mesgs").append(initialMessageContent);
-
-
-
 
     updateUIMessages(await chat.getMessages(), i);
 
@@ -280,6 +290,8 @@ function updateUIMessages(messages, index) {
         $("#msg_history" + index).append(sentMessage);
     }
 
+    $("#msg_history"+index).animate({ scrollTop: $('#msg_history'+index)[0].scrollHeight}, 1000);
+
 
 }
 
@@ -294,6 +306,7 @@ function listenForNotifications() {
         });
     }, notifLoopTimer);
 }
+
 
 async function friendWantsToChat(friendList) {
     if (friendList.length > 0) {
@@ -310,6 +323,10 @@ async function friendWantsToChat(friendList) {
 
 }
 
+/**
+ * This functions is call when user receives a message to notify him.
+ * @param {String} messageTalk 
+ */
 function notifyMe(messageTalk) {
     const messageTitle = "You have got new messages!"
     // Let's check if the browser supports notifications
