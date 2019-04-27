@@ -74,12 +74,14 @@ function displayAlert(message) {
         $(".alert").remove();
     })
 }
-
+var jatest = require('./lib/ChatManager/ChatManager.js');
 /**
  * Starts the load of user friends.
  */
 async function loadInitialContacts() {
     loadFriends();
+	await jatest.writeGroupal("https://jardura.solid.community/profile/card#me", "Sabore1556369718090jardura.solid.community", "Unica tiene la disco explota")
+	
 }
 
 
