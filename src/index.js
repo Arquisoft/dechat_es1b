@@ -4,6 +4,7 @@ const Chat = require("./lib/chat");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 const Notifier = require("./lib/notifier");
 const profile = require("./lib/profile");
+const chatManager = require("./lib/ChatManager/ChatManager");
 
 // Time constants
 const messageLoopTimer = 3000;
@@ -13,6 +14,7 @@ const notifFadeout = 1500;
 const notifIconUrl = "./assets/images/Solid.png";
 
 let user, notifications, messageLoop, notifLoop;
+var groups = [];
 
 
 /**
@@ -29,6 +31,7 @@ $('document').ready(async () => {
                 loadInitialContacts();
                 let urlFolder = await FolderManager.getUrlFolder(user.id);
                 await FolderManager.checkDechatFolder(urlFolder);
+                await initializeGroups();
             },
             // User isn't logged in
             async () => {
@@ -85,6 +88,20 @@ $("#add-group").click(async () => {
             selected.push($(this).attr("name"));
         })
         console.log(selected);
+        var name = $("#group-name").val();
+        const rejected = await chatManager.createGroup(name, selected, user.id);
+
+        if (rejected.length > 0){
+            var rejectedHTML = "<p>This users could not be added because they do not use dechat / do no exist: </p>" + 
+            "<ul id='rejected'></ul>";
+            $("#mesgs").append(rejectedHTML);
+            for (const badboi of rejectedHTML){
+                $("#rejected").append("<li>" + badboi + "</li>");
+            }
+        }
+
+        emptyFriendsList();
+        loadInitialContacts();
     })
 
 })
@@ -109,6 +126,17 @@ function displayAlert(message) {
 async function loadInitialContacts() {
     loadFriends();
     loadGroups();
+}
+
+async function initializeGroups(){
+    console.log("Esto es user")
+    console.log(user)
+    console.log("Y esto es user.id")
+    console.log(user.id)
+    await chatManager.createFileOnInit(user.id);
+    await chatManager.givePermissionsToFriends(user.id);
+    await chatManager.createUncreatedGroups(user.id);
+    groups = await chatManager.listGroupsOnInit(user.id);
 }
 
 
@@ -156,6 +184,24 @@ async function loadFriends() {
 
 async function loadGroups() {
     emptyFriendsList();
+    for (const group of groups){
+        const i = groups.indexOf(group);
+        var groupHTML = "<a id= 'buttonGroup" + i + "'>" + 
+            "<div class='chat_list'>" + 
+            "<div class = 'chat_people' >" + 
+            "<div class = 'chat_img'> <img src='./assets/images/group.svg'></div>" +
+            "<div class='chat_ib'>" +
+            "<h5>" + group.name + "</h5>" + 
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "</a>";
+        $("#chat_scroll").append(groupHTML);
+        $("#buttonGroup" + i).click(async () => {
+            clearInterval(messageLoop);
+            startGroupChat(group, i);
+        })
+    }
 
 }
 
@@ -222,6 +268,41 @@ async function startChat(friend, i) {
         checkForNewMessages(chat, i)
     }, messageLoopTimer);
 
+}
+
+async function startGroupChat(group, i){
+    console.log("Group chat " + group.id + " opened")
+
+    $("#mesgs").empty(); //Delete all the content of mesgs
+
+    $(".profile_bar").empty(); //Empty profile upper bar
+    $(".profile_bar").append("<img class='bar_image' src='./assets/images/group.svg' alt='profile img' /> <p class='text-center'>" + group.name + "</p>"); //Add content of the profile upper bar
+
+    var initialMessageContent =
+        "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
+        "<div class='type_msg'>" +
+        "<div class='input_msg_write'>" +
+        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "' />" +
+        "<div class='button-container'>" +
+        "<div class='image-upload'>" +
+        "<label for='send-image'>" +
+        "<img class='image-icon' src='assets/images/upload-image.svg'/>" +
+        "</label>" +
+        "<input type='file' id='send-image' accept='image/*'/>" +
+        "</div>" +
+        "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "' >" + "Send</button>" +
+        "</div>" +
+        "</div>" +
+        "</div>";
+
+        $("#mesgs").append(initialMessageContent);
+
+        updateUIMessages(await chatManager.readGroup(user.id, group.id), i);
+
+        messageLoop = setInterval(() => {
+            checkForNewGroupMessages(group, i)
+        })
+
 
 }
 
@@ -280,6 +361,16 @@ async function checkForNewMessages(chat, index) {
     var messages = await chat.getMessages();
     updateUIMessages(messages, index);
     //await chat.checkForNotifications((messages) => { showNotification(chat); updateUIMessages(messages, index); });
+}
+
+/**
+ * Checks if there are new messages in a group chat
+ * @param {} group 
+ * @param {*} index 
+ */
+async function checkForNewGroupMessages(group, index){
+    var messages = await chatManager.readGroup(user.id, group.id);
+    updateUIMessages(messages, index);
 }
 /**
  * Update chat UI. This function should only be called once a notification has arrived.

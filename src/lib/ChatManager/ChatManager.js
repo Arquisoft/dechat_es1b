@@ -52,7 +52,7 @@ async function createFileOnInit(userID) {
 * @param {String] userID
 */
 async function createGroup(groupName, participantsList, userID){
-	for(i in participantsList){
+	for(var i in participantsList){
 		participantsList[i] = participantsList[i].replace("https://", "");
 	}
 	userID = userID.replace("https://", "");
