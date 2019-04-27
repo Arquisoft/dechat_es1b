@@ -69,8 +69,10 @@ $("#add-group").click(async () => {
 
     var content = "<div class='msg_history'>" +
         "<h3>Add group</h3>" +
+        "</br>" +
         "<h5>Group name:</h5>" +
         "<input type='text' id='group-name'/>" +
+        "</br></br>" +
         "<h5>Choose members:</h5>" +
         "<div id='group-candidates'></div>" +
         "<button id='submit-group' class='btn btn-default'>Add group</button>" +
