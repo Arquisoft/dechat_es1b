@@ -47,7 +47,6 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
-
     emptyFriendsList();
     clearInterval(messageLoop);
     clearInterval(notifLoop);
@@ -57,9 +56,35 @@ $("#logout").click(async () => {
 // Add friend
 $("#add-contact").click(async () => {
     const friendWebID = prompt("Input friend's WebID");
-    profile.addContact(user.id, friendWebID, loadFriends, displayAlert);
+    profile.addContact(user.id, friendWebID, loadInitialContacts, displayAlert);
 })
 
+// Add group
+$("#add-group").click(async () => {
+    clearInterval(messageLoop);
+    $("#mesgs").empty(); //Delete all the content of mesgs
+    $(".profile_bar").empty(); //Empty profile upper bar
+
+    var content= "<div class='msg_history'>"
+    + "<h3>Add group</h3>"
+    + "<div id='group-candidates'></div>"
+    + "<button id='submit-group' class='btn btn-default'>Add group</button>"
+    + "</div>"
+    $("#mesgs").append(content);
+    const friends = await query.getFriends();
+    for await (var friend of friends) {
+        $("#group-candidates").append("<label><input type=checkbox class='candidate' name='" + friend.id + "'/>  " + friend.id + "</label></br>");
+    }
+    
+    $("#submit-group").click(async () => {
+        var selected = [];
+        $("#group-candidates input:checked").each(function(){
+            selected.push($(this).attr("name"));
+        })
+        console.log(selected);
+    })
+
+})
 
 /**
  * Shows an alert if something goes wrong with add friends funcionality.
@@ -80,6 +105,7 @@ function displayAlert(message) {
  */
 async function loadInitialContacts() {
     loadFriends();
+    loadGroups();
 }
 
 
@@ -103,15 +129,15 @@ async function loadFriends() {
 
         friends[i].image = image; //Image will be cached in friend object
 
-        var textFriend = "<a  id='buttonFriend" + i + "'>" + 
-        "<div class='chat_list'>" + 
-        "<div class = 'chat_people' >" + 
+        var textFriend = "<a  id='buttonFriend" + i + "'>" +
+            "<div class='chat_list'>" +
+            "<div class = 'chat_people' >" +
             "<div class='chat_img'> <img src='" + image + "' alt='profile img'> </div>" +
             "<div class='chat_ib'>" +
             "<h5>" + friend.name + "</h5>" +
-            "</div>" +            
             "</div>" +
-            "</div>" + 
+            "</div>" +
+            "</div>" +
             "</a>";
         $("#chat_scroll").prepend(textFriend);
         $("#buttonFriend" + i).click(async () => {
@@ -125,6 +151,10 @@ async function loadFriends() {
     listenForNotifications(); //Starts the listening notifications to check if the user receive a message from someone.
 }
 
+async function loadGroups() {
+    emptyFriendsList();
+
+}
 
 /**
  * Start a chat with the selected friend
@@ -134,7 +164,7 @@ async function loadFriends() {
 async function startChat(friend, i) {
     const chat = await new Chat(user, friend);
     await chat.init(); //Initializate sentMessages array
-    
+
     //We start the chat when we make sure we have the folder created.
     console.log("Chat with " + friend.id + " opened")
     $("#mesgs").empty(); //Delete all the content of mesgs
@@ -146,7 +176,7 @@ async function startChat(friend, i) {
         "<div class='msg_history' id='msg_history" + i + "'>" + "</div>" +
         "<div class='type_msg'>" +
         "<div class='input_msg_write'>" +
-        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "' />" +        
+        "<input type='text' class='write_msg' placeholder='Write a message' id='contentText" + i + "' />" +
         "<div class='button-container'>" +
         "<div class='image-upload'>" +
         "<label for='send-image'>" +
@@ -192,16 +222,16 @@ async function startChat(friend, i) {
 
 }
 
-function addImageUploadListener(chat){
-    $("#send-image").on('change', function(){
+function addImageUploadListener(chat) {
+    $("#send-image").on('change', function () {
         console.log("Envío imagen");
         var parts = this.files[0].name.split(".");
-        var formato = parts[parts.length-1];
-        if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png'){
+        var formato = parts[parts.length - 1];
+        if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png') {
             chat.sendMessage(this.files[0], 'image');
         } else {
             chat.sendMessage(this.files[0], 'file');
-        }           
+        }
     });
 }
 
@@ -266,7 +296,7 @@ function updateUIMessages(messages, index) {
             let nameFile = messages[i].content.split("/");
             nameFile = nameFile[nameFile.length - 1];
             msgContent = "<a href='" + messages[i].content + "' download>Download file</a> (" + nameFile + ")";
-        } else{
+        } else {
             msgContent = messages[i].content;
         }
         if (userToCompare == user.id) {
@@ -290,7 +320,9 @@ function updateUIMessages(messages, index) {
         $("#msg_history" + index).append(sentMessage);
     }
 
-    $("#msg_history"+index).animate({ scrollTop: $('#msg_history'+index)[0].scrollHeight}, 1000);
+    $("#msg_history" + index).animate({
+        scrollTop: $('#msg_history' + index)[0].scrollHeight
+    }, 1000);
 
 
 }
@@ -422,4 +454,3 @@ async function changeTitles(session) {
         $("#subTitleApp").prop("show", session)
     }
 }
-
