@@ -1,6 +1,6 @@
 const fileClient = require('solid-file-client');
 const createGroup = require('./group.js');
-const FolderManager = require("../../ChatWriter/FolderManager");
+const FolderManager = require("../ChatWriter/FolderManager");
 
 
  async function listGroups(user){
