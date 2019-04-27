@@ -1,6 +1,6 @@
 const fileClient = require('solid-file-client');
 const createGroup = require('./group.js');
-const dechatFolder = "dechates1b";
+const dechatFolder = "dechat_es1b";
 
  async function listGroups(user){
 

@@ -9,7 +9,6 @@ const chatManager = require("./lib/ChatManager/ChatManager");
 // Time constants
 const messageLoopTimer = 3000;
 const notifLoopTimer = 5000;
-const notifFadeout = 1500;
 
 const notifIconUrl = "./assets/images/Solid.png";
 
@@ -28,10 +27,10 @@ $('document').ready(async () => {
                 notifications = new Notifier(user);
                 console.log(user);
                 changeView(true);
-                loadInitialContacts();
                 let urlFolder = await FolderManager.getUrlFolder(user.id);
                 await FolderManager.checkDechatFolder(urlFolder);
                 await initializeGroups();
+                loadInitialContacts();
             },
             // User isn't logged in
             async () => {
@@ -68,34 +67,38 @@ $("#add-group").click(async () => {
     $("#mesgs").empty(); //Delete all the content of mesgs
     $(".profile_bar").empty(); //Empty profile upper bar
 
-    var content= "<div class='msg_history'>"
-    + "<h3>Add group</h3>"
-    + "<h5>Group name:</h5>"
-    + "<input type='text' id='group-name'/>"
-    + "<h5>Choose members:</h5>" +
-    + "<div id='group-candidates'></div>"
-    + "<button id='submit-group' class='btn btn-default'>Add group</button>"
-    + "</div>"
+    var content = "<div class='msg_history'>" +
+        "<h3>Add group</h3>" +
+        "<h5>Group name:</h5>" +
+        "<input type='text' id='group-name'/>" +
+        "<h5>Choose members:</h5>" +
+        "<div id='group-candidates'></div>" +
+        "<button id='submit-group' class='btn btn-default'>Add group</button>" +
+        "</div>"
     $("#mesgs").append(content);
-    const friends = await query.getFriends();
-    for await (var friend of friends) {
-        $("#group-candidates").append("<label><input type=checkbox class='candidate' name='" + friend.id + "'/>  " + friend.id + "</label></br>");
+    var friends = await query.getFriends();
+    friends = removeDupes(friends, "id");
+    console.log("amigos")
+    console.log(friends)
+    for (var friend of friends) {
+        $("#group-candidates").append("<label><input type=checkbox class='candidate' name='" + friend.id + "'/>  " + friend.name + "</label></br>");
     }
-    
+
     $("#submit-group").click(async () => {
         var selected = [];
-        $("#group-candidates input:checked").each(function(){
+        $("#group-candidates input:checked").each(function () {
             selected.push($(this).attr("name"));
         })
+        selected.push(user.id);
         console.log(selected);
         var name = $("#group-name").val();
         const rejected = await chatManager.createGroup(name, selected, user.id);
 
-        if (rejected.length > 0){
-            var rejectedHTML = "<p>This users could not be added because they do not use dechat / do no exist: </p>" + 
-            "<ul id='rejected'></ul>";
+        if (rejected.length > 0) {
+            var rejectedHTML = "<p>This users could not be added because they do not use dechat / do no exist: </p>" +
+                "<ul id='rejected'></ul>";
             $("#mesgs").append(rejectedHTML);
-            for (const badboi of rejectedHTML){
+            for (const badboi of rejected) {
                 $("#rejected").append("<li>" + badboi + "</li>");
             }
         }
@@ -128,7 +131,7 @@ async function loadInitialContacts() {
     loadGroups();
 }
 
-async function initializeGroups(){
+async function initializeGroups() {
     console.log("Esto es user")
     console.log(user)
     console.log("Y esto es user.id")
@@ -137,6 +140,8 @@ async function initializeGroups(){
     await chatManager.givePermissionsToFriends(user.id);
     await chatManager.createUncreatedGroups(user.id);
     groups = await chatManager.listGroupsOnInit(user.id);
+    console.log("ESTO SON LOS GRUUUUPOS")
+    console.log(groups);
 }
 
 
@@ -146,9 +151,12 @@ async function initializeGroups(){
 async function loadFriends() {
     emptyFriendsList(); // Remove all the friends in the list of them (solve bugs with disconnect and reconnect funcionality)
     var friends = await query.getFriends();
+    friends = removeDupes(friends, "id");
+    console.log("amiguis")
     console.log(friends)
 
-    $.each(friends, async (i, friend) => {
+    for (var i in friends) {
+        const friend = friends[i];
         console.log(friend.id);
         console.log(friend, i);
 
@@ -178,20 +186,20 @@ async function loadFriends() {
         });
 
         console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
-    });
+    };
     listenForNotifications(); //Starts the listening notifications to check if the user receive a message from someone.
 }
 
 async function loadGroups() {
     emptyFriendsList();
-    for (const group of groups){
+    for (const group of groups) {
         const i = groups.indexOf(group);
-        var groupHTML = "<a id= 'buttonGroup" + i + "'>" + 
-            "<div class='chat_list'>" + 
-            "<div class = 'chat_people' >" + 
+        var groupHTML = "<a id= 'buttonGroup" + i + "'>" +
+            "<div class='chat_list'>" +
+            "<div class = 'chat_people' >" +
             "<div class = 'chat_img'> <img src='./assets/images/group.svg'></div>" +
             "<div class='chat_ib'>" +
-            "<h5>" + group.name + "</h5>" + 
+            "<h5>" + group.name + "</h5>" +
             "</div>" +
             "</div>" +
             "</div>" +
@@ -270,7 +278,7 @@ async function startChat(friend, i) {
 
 }
 
-async function startGroupChat(group, i){
+async function startGroupChat(group, i) {
     console.log("Group chat " + group.id + " opened")
 
     $("#mesgs").empty(); //Delete all the content of mesgs
@@ -295,13 +303,32 @@ async function startGroupChat(group, i){
         "</div>" +
         "</div>";
 
-        $("#mesgs").append(initialMessageContent);
+    $("#mesgs").append(initialMessageContent);
+    console.log("Empiezo a pintar cositas")
+    console.log("GroupID: " + group.id)
+    console.log(await chatManager.readGroup(user.id, group.id));
 
-        updateUIMessages(await chatManager.readGroup(user.id, group.id), i);
+    updateGroupUIMessages(await chatManager.readGroup(user.id, group.id), i);
 
-        messageLoop = setInterval(() => {
-            checkForNewGroupMessages(group, i)
-        })
+    $("#sendMessages" + i).click(async () => {
+        var messageContent = "<div class='outgoing_msg'>" +
+            "<div class='sent_msg'>" +
+            "<p>" + document.getElementById("contentText" + i).value + "</p>" +
+            "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
+            " </div>";
+
+        //If message is empty don't send message
+        if ($("#contentText" + i).val().length > 0)
+            $("#msg_history" + i).append(messageContent);
+
+        //Cuando que esto funcione pues se hace lo de mandar
+
+    });
+
+
+    messageLoop = setInterval(() => {
+        checkForNewGroupMessages(group, i)
+    }, messageLoopTimer)
 
 
 }
@@ -368,9 +395,9 @@ async function checkForNewMessages(chat, index) {
  * @param {} group 
  * @param {*} index 
  */
-async function checkForNewGroupMessages(group, index){
+async function checkForNewGroupMessages(group, index) {
     var messages = await chatManager.readGroup(user.id, group.id);
-    updateUIMessages(messages, index);
+    updateGroupUIMessages(messages, index);
 }
 /**
  * Update chat UI. This function should only be called once a notification has arrived.
@@ -417,7 +444,43 @@ function updateUIMessages(messages, index) {
     $("#msg_history" + index).animate({
         scrollTop: $('#msg_history' + index)[0].scrollHeight
     }, 1000);
+}
 
+async function updateGroupUIMessages(messages, index) {
+    $("#msg_history" + index).empty();
+    var i;
+    for (i = 0; i < messages.length; i++) {
+        let sentMessage;
+        var userToCompare = "https://" + messages[i].user + "/profile/card#me";
+        let msgContent;
+        msgContent = messages[i].content;
+        if (typeof msgContent != 'undefined') {
+            if (userToCompare == user.id) {
+                "<div class='outgoing_msg'>" +
+                "<div class='sent_msg'>" +
+                "<b>You: </b><p>" + msgContent + "</p>" +
+                    "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span> </div>" +
+                    " </div>";
+            } else {
+                var author = await query.getName(messages[i].user);
+                sentMessage = "<div class='incoming_msg'>" +
+                    "<div class='incoming_msg_img'></div>" +
+                    "<div class='received_msg'>" +
+                    "<div class='received_withd_msg'>" +
+                    "<b>" + author + " </b><p>" + msgContent + "</p>" +
+                    "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span></div>" +
+                    "</div>"
+                "</div>";
+            }
+
+            $("#msg_history" + index).append(sentMessage);
+        }
+
+    }
+
+    $("#msg_history" + index).animate({
+        scrollTop: $('#msg_history' + index)[0].scrollHeight
+    }, 1000);
 
 }
 
@@ -547,4 +610,12 @@ async function changeTitles(session) {
         $("#titleApp").html("Sign in using Solid technology");
         $("#subTitleApp").prop("show", session)
     }
+}
+
+// Aux function to remove dupes from an array
+function removeDupes(array, criteria) {
+    const toRet = array.map(elem => elem[criteria])
+        .map((elem, i, final) => final.indexOf(elem) === i && i)
+        .filter(elem => array[elem]).map(elem => array[elem]);
+    return toRet;
 }
