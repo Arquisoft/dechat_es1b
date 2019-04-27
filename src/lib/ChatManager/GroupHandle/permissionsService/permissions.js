@@ -13,7 +13,7 @@ async function givePermisionsToFriends(person)
 	var listOfFriends = await query.getFriends();
 	
 	var folderACL = await createACLFileForFolder(person);
-	fileClient.updateFile(folderACLURI, await folderACL).then(console.log("Cargado"));	
+	fileClient.updateFile(folderACLURI, await folderACL);	
 	
 }
 
@@ -30,7 +30,7 @@ async function groupsPermission(person)
 	//console.log(listOfFriends.toString());
 	
 	var fileTU =  await createACLFile(listOfFriends);
-	fileClient.updateFile( uriToEdit, await fileTU).then(console.log("Cargado"));
+	fileClient.updateFile( uriToEdit, await fileTU);
 	
 	
 }
@@ -152,7 +152,7 @@ async function groupFolderPermission(person, groupID, listOfParticipants)
 
 	var fileTU =  await createACLFileForFolderContent(await listB);
 	
-	fileClient.updateFile( uriToEdit, await fileTU).then(console.log("Creado "+uriToEdit));
+	fileClient.updateFile( uriToEdit, await fileTU);
 	
 	
 }
@@ -244,7 +244,7 @@ async function groupInfoPermission(person, groupID, owner)
 	var listOfParticipantsB = [];
 	listOfParticipantsB.push(owner);
 	var fileTU =  await createACLFileForInfo(listOfParticipantsB);
-	fileClient.updateFile( uriToEdit,await fileTU).then( console.log("Correctamente creado"+ uriToEdit) );
+	fileClient.updateFile( uriToEdit,await fileTU);
 	
 	
 }
@@ -262,7 +262,7 @@ async function groupInfoPermissionForOwner(person, groupID, listOfParticipants)
 	var uriToEdit = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt.acl";
 	var mainUri = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt";
 	var fileTU =  await createACLFileForInfo(listOfParticipants);
-	fileClient.updateFile( uriToEdit,await fileTU).then( console.log("Correctamente creado"+ uriToEdit) );
+	fileClient.updateFile( uriToEdit,await fileTU);
 	
 	
 }
