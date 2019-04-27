@@ -4,6 +4,8 @@ const creator = require("./ElementCreator.js");
 const fileClient = require("solid-file-client");
 const ChatWritter = require("../ChatWriter/ChatWriter");
 const FolderManager = require("../ChatWriter/FolderManager");
+const validator = require('../GroupHandle/existenceValidators');
+
 
 /**
  * This function get all messages from a single pod uri
@@ -20,7 +22,11 @@ async function singleUriGetter(url) {
 	} catch(error) {
 		return [];
 	}
-	var tr = await creator.create(textParser.parseString(salida));
+	var tr
+	if(await salida != "")
+		tr = await creator.create(textParser.parseString(salida));
+	else
+		tr = "";
     
 	return await tr;
 }
@@ -99,8 +105,10 @@ async function readGroupal(listOfFriends, groupId){
 	for (i in listOfFriends){
 		var user = listOfFriends[i];
 		var urltolook = "https://" + user + "/"+FolderManager.DECHAT_FOLDER+"/" + groupId + "/messages.txt";
+		if(validator.checkFile(urltolook)){
 		var mess = await singleUriGetter(urltolook);
 		listTR = await listTR.concat(mess);
+		}
 	}
 	
 	

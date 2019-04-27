@@ -100,7 +100,7 @@ async function sendToOwnPODForGroups(userID, groupID, messages) {
 	//Obtaining a string representing contact's webID
 	//To do this, we will isolate the variable part of the WebID 
 	//(example: https://jhon.solid.community will turn into jhon.solid)
-	var folderRoute = userID.replace("/profile/card#me", "/"+FolderManager.DECHAT_FOLDER+"/" + groupID + "/");
+	var folderRoute = userID.replace("/profile/card#me", "/"+folderManager.DECHAT_FOLDER+"/" + groupID + "/");
 	var podFileRoute = folderRoute + MESSAGE_FILE;
 	await fileClient.popupLogin().then(200);
 	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, groupID, messages);
