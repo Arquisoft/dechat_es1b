@@ -59,7 +59,9 @@ function getFilesFromFolder(url) {
 */
 async function getUrlFolder(sessionURL) {
     var splitId = sessionURL.split("/");
-    var urlFolder = splitId[0] + splitId[1] + splitId[2];
+    console.log(splitId)
+    var urlFolder = splitId[0] + "//" + splitId[2];
+    console.log(urlFolder)
     return urlFolder;
 };
 
