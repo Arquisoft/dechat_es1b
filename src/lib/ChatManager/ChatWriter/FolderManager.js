@@ -1,5 +1,6 @@
 const fileClient = require('solid-file-client');
 const MESSAGE_FILE = "messages.txt";
+// Suspect?
 const DECHAT_FOLDER = "dechat_es1b";
 const txtFileBuilder = require("./TextFileBuilder");
 
