@@ -27,7 +27,10 @@ $('document').ready(async () => {
                 user = await session.getUser();
                 notifications = new Notifier(user);
                 changeView(true);
+                console.log("User")
+                console.log(user)
                 let urlFolder = await FolderManager.getUrlFolder(user.id);
+                console.log("URL: " + urlFolder);
                 await FolderManager.checkDechatFolder(urlFolder);
                 await initializeGroups();
                 loadInitialContacts();
