@@ -25,7 +25,6 @@ $('document').ready(async () => {
         async () => {
                 user = await session.getUser();
                 notifications = new Notifier(user);
-                console.log(user);
                 changeView(true);
                 let urlFolder = await FolderManager.getUrlFolder(user.id);
                 await FolderManager.checkDechatFolder(urlFolder);
@@ -35,7 +34,6 @@ $('document').ready(async () => {
             // User isn't logged in
             async () => {
                 user = null;
-                console.log(user);
                 changeView(false);
             }
     )
@@ -104,9 +102,6 @@ $("#add-group").click(async () => {
                 $("#rejected").append("<li>" + badboi + "</li>");
             }
         }
-
-        emptyFriendsList();
-        loadInitialContacts();
     })
 
 })
@@ -134,16 +129,10 @@ async function loadInitialContacts() {
 }
 
 async function initializeGroups() {
-    console.log("Esto es user")
-    console.log(user)
-    console.log("Y esto es user.id")
-    console.log(user.id)
     await chatManager.createFileOnInit(user.id);
     await chatManager.givePermissionsToFriends(user.id);
     await chatManager.createUncreatedGroups(user.id);
     groups = await chatManager.listGroupsOnInit(user.id);
-    console.log("ESTO SON LOS GRUUUUPOS")
-    console.log(groups);
 }
 
 
@@ -154,13 +143,9 @@ async function loadFriends() {
     emptyFriendsList(); // Remove all the friends in the list of them (solve bugs with disconnect and reconnect funcionality)
     var friends = await query.getFriends();
     friends = removeDupes(friends, "id");
-    console.log("amiguis")
-    console.log(friends)
 
     for (var i in friends) {
         const friend = friends[i];
-        console.log(friend.id);
-        console.log(friend, i);
 
 
         var image = await query.getProfilePic(friends[i].id);
@@ -186,8 +171,6 @@ async function loadFriends() {
             clearInterval(messageLoop);
             startChat(friend, i)
         });
-
-        console.log("Friend #" + i + " " + friend.id + " " + friend.name + " " + friend.inbox);
     };
     listenForNotifications(); //Starts the listening notifications to check if the user receive a message from someone.
 }
@@ -300,9 +283,6 @@ async function startGroupChat(group, i) {
         "</div>";
 
     $("#mesgs").append(initialMessageContent);
-    console.log("Empiezo a pintar cositas")
-    console.log("GroupID: " + group.id)
-    console.log(await chatManager.readGroup(user.id, group.id));
 
     updateGroupUIMessages(await chatManager.readGroup(user.id, group.id), i);
 
@@ -317,14 +297,16 @@ async function startGroupChat(group, i) {
         if ($("#contentText" + i).val().length > 0)
             $("#msg_history" + i).append(messageContent);
 
-        //Cuando que esto funcione pues se hace lo de mandar
+        sendGroupMessage(group, i);
 
     });
+
+    addGroupEnterListener(group, i);
 
 
     messageLoop = setInterval(() => {
         checkForNewGroupMessages(group, i)
-    }, messageLoopTimer)
+    }, 5000)
 
 
 }
@@ -371,9 +353,39 @@ async function addEnterListener(chat, i, user, friend) {
             $(this).trigger("enterKey");
         }
     });
-
 }
 
+
+/**
+ * Add the functionality of sending messages to enter key in group chats
+ * @param {Chat} chat representing the chat object.
+ * @param {User} user representing the user who is using the chat.
+ * @param {User} friend representing the friend of the user who receives the messages.
+ * @param {Integer} i
+ */
+async function addGroupEnterListener(group, i) {
+    // Trigger enter key to send messages action.
+    $('#contentText' + i).bind("enterKey", function () {
+        var messageContent = "<div class='outgoing_msg'>" +
+            "<div class='sent_msg'>" +
+            "<p>" + document.getElementById("contentText" + i).value + "</p>" +
+            "<span class='time_date'>" + new Date().toLocaleDateString() + '\t' + new Date().toLocaleTimeString() + "</span> </div>" +
+            " </div>";
+
+        //If message is empty don't send message
+        if ($("#contentText" + i).val().length > 0)
+            $("#msg_history" + i).append(messageContent);
+
+        //console.log(i)
+        chatManager.writeGroupal(user.id, group.id, document.getElementById("contentText" + i).value);
+    });
+
+    $('#contentText' + i).keyup(function (e) {
+        if (e.keyCode == 13) {
+            $(this).trigger("enterKey");
+        }
+    });
+}
 
 /**
  * Check if there is a new message in a chat.
@@ -445,32 +457,35 @@ function updateUIMessages(messages, index) {
 async function updateGroupUIMessages(messages, index) {
     $("#msg_history" + index).empty();
     var i;
+    console.log(messages)
     for (i = 0; i < messages.length; i++) {
+        console.log(messages[i])
         let sentMessage;
         var userToCompare = "https://" + messages[i].user + "/profile/card#me";
         let msgContent;
         msgContent = messages[i].content;
-        if (typeof msgContent != 'undefined') {
-            if (userToCompare == user.id) {
-                "<div class='outgoing_msg'>" +
+        if (typeof msgContent !== 'undefined'){
+        if (userToCompare == user.id) {
+            sentMessage = "<div class='outgoing_msg'>" +
                 "<div class='sent_msg'>" +
-                "<b>You: </b><p>" + msgContent + "</p>" +
-                    "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span> </div>" +
-                    " </div>";
-            } else {
-                var author = await query.getName(messages[i].user);
-                sentMessage = "<div class='incoming_msg'>" +
-                    "<div class='incoming_msg_img'></div>" +
-                    "<div class='received_msg'>" +
-                    "<div class='received_withd_msg'>" +
-                    "<b>" + author + " </b><p>" + msgContent + "</p>" +
-                    "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span></div>" +
-                    "</div>"
+                "<b>You: </b><p>" +
+                msgContent +
+                "</p>" +
+                "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span></div>" +
                 "</div>";
-            }
-
-            $("#msg_history" + index).append(sentMessage);
+        } else {
+            var author = await query.getName(userToCompare);
+            sentMessage = "<div class='incoming_msg'>" +
+                "<div class='incoming_msg_img'></div>" +
+                "<div class='received_msg'>" +
+                "<div class='received_withd_msg'>" +
+                "<b>" + author + " </b><p>" + msgContent + "</p>" +
+                "<span class='time_date'>" + new Date(messages[i].timestamp).toLocaleDateString() + "\t" + new Date(messages[i].timestamp).toLocaleTimeString() + "</span></div>" +
+                "</div>"
+            "</div>";
         }
+        $("#msg_history" + index).append(sentMessage);
+    }
 
     }
 
@@ -559,6 +574,12 @@ function sendMessage(chat, i) {
     }
 }
 
+function sendGroupMessage(group, i) {
+    if ($("#contentText" + i).val().length > 0) {
+        chatManager.writeGroupal(user.id, group.id, $("#contentText" + i).val());
+        $("#contentText" + i).val(""); //Remove content of the send message text area
+    }
+}
 /**
  * Empty the user's contacts html list
  */

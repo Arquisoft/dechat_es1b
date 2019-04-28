@@ -1,3 +1,5 @@
+const fileClient = require("solid-file-client");
+
 /**
 * Builds a JSON format file that contains all messages
 * @param {String} senderID
@@ -6,6 +8,7 @@
 * @return {String} desired JSON-format contents in a string
 */
 function buildJSONmessages(senderID, receiverID, messages) {
+
 	var sender = senderID.replace("https://", "").replace("/profile/card#me", "");
 	var receiver = receiverID.replace("https://", "").replace("/profile/card#me", "");
 	var lastupdate = new Date().getTime();
@@ -16,6 +19,7 @@ function buildJSONmessages(senderID, receiverID, messages) {
 	var i;
 	if(messages !== undefined) {
 		for (i = 0; i < messages.length; i++) {
+
 			ret = ret + messages[i].serialize();
 			if (i != messages.length - 1)
 				ret = ret + ",";
@@ -25,8 +29,35 @@ function buildJSONmessages(senderID, receiverID, messages) {
 	}
 	if(messages === undefined || messages.length === 0)
 		ret = ret + "]}";
-
+	
+	console.log(ret);
 	return ret;
+}
+
+/**
+* Builds a JSON format file that contains all messages
+* @param {String} senderID
+* @param {String} groupID
+* @param {String} message
+* @return {String} desired JSON-format contents in a string
+*/
+ async function buildJSONmessagesGroup(senderID, groupID, message) {
+
+	var sender = senderID.replace("https://", "").replace("/profile/card#me", "");
+	var lastupdate = new Date().getTime();
+	var url = "https://"+sender+"/dechat_es1b/"+groupID+"/messages.txt";
+	console.log("$$$"+ url);
+	var readed = await fileClient.readFile(url);
+	if(readed != "")
+	{
+		var inJson = JSON.parse(readed);
+		inJson.messages.push(message);
+		return inJson;
+	}
+	else{
+		var inJson = { "webid_sender": sender, "webid_receiver": groupID, "lastupdate": lastupdate, "messages": [message] }
+		return inJson;
+	}
 }
 
 /**
@@ -58,5 +89,6 @@ function generateACL(partnerID, filename) {
 
 module.exports = {
 	generateACL,
-	buildJSONmessages
+	buildJSONmessages,
+	buildJSONmessagesGroup
 }

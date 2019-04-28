@@ -32,8 +32,8 @@ function writeInbox(friend, message) {
  * @param {Array} messages
  */
 async function writeOwnPOD(userID, partnerID, messages) {
-    chatWriter.sendToOwnPOD(userID, partnerID, messages);
-}
+	chatWriter.sendToOwnPOD(userID, partnerID, messages);
+};
 /**
 * CALLABLE ON INIT
 * Creates the file groups.txt on Dechat Folder of a user
@@ -96,14 +96,17 @@ async function writeInboxGroupal(groupID, userID ,message){
 }
 
 /**
-* Writes the list of messages in the own pod of the user
+* Writes a message in the own pod of the user
 * @param {String} userID
 * @param {String} groupID
-* @param {String} messages
+* @param {String} message
 */
 
-async function writeGroupal(userID, groupID, messages){
-	chatWriter.sendToOwnPODForGroups(userID, groupID, messages);
+async function writeGroupal(userID, groupID, message){
+	var d = new Date();
+	var n = d.getTime();
+	var tmessage = { "date": n, "message": message}
+	await chatWriter.sendToOwnPODForGroups(userID, groupID, tmessage);
 }
 /**
 * CALLABLE ON INIT
