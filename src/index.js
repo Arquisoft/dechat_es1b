@@ -4,6 +4,7 @@ const Chat = require("./lib/chat");
 const FolderManager = require("./lib/ChatManager/ChatWriter/FolderManager");
 const Notifier = require("./lib/notifier");
 const profile = require("./lib/profile");
+const videochatManager = require("./lib/videochatManager.js");
 const chatManager = require("./lib/ChatManager/ChatManager");
 
 // Time constants
@@ -47,11 +48,22 @@ $("#login").click(async () => {
 })
 
 $("#logout").click(async () => {
+    removeVideochatElements();
     emptyFriendsList();
     clearInterval(messageLoop);
     clearInterval(notifLoop);
     session.logout();
 })
+
+//Listener for videochat button in navbar
+$("#videochat").click(async () => {
+    $(".messaging").prepend("<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
+    $("#videochat").attr('disabled', true);
+    var friendVideoID = prompt("Input friend's videochat ID");
+    connectWithPeer(friendVideoID);
+   
+})
+
 
 // Add friend
 $("#add-contact").click(async () => {
@@ -144,6 +156,11 @@ async function loadFriends() {
     var friends = await query.getFriends();
     friends = removeDupes(friends, "id");
 
+    removeVideochatElements();
+
+    //$(".messaging").prepend("<button onclick='disconnect()' visibility='hidden' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
+    //$("#disconnectButton").attr("disabled", true);
+
     for (var i in friends) {
         const friend = friends[i];
 
@@ -156,8 +173,8 @@ async function loadFriends() {
         friends[i].image = image; //Image will be cached in friend object
 
         var textFriend = "<a  id='buttonFriend" + i + "'>" +
-            "<div class='chat_list'>" +
-            "<div class = 'chat_people' >" +
+        "<div class='chat_list'>" +
+        "<div class = 'chat_people' >" +
             "<div class='chat_img'> <img src='" + image + "' alt='profile img'> </div>" +
             "<div class='chat_ib'>" +
             "<h5>" + friend.name + "</h5>" +
@@ -227,6 +244,7 @@ async function startChat(friend, i) {
         "<input type='file' id='send-image' accept='image/*'/>" +
         "</div>" +
         "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='sendMessages" + i + "' >" + "Send</button>" +
+        "<button class='btn btn-outline-secondary btn-rounded waves-effect' type='button' id='videoChatButton" + i + "' >" + "Send my Videochat ID</button>" +
         "</div>" +
         "</div>" +
         "</div>";
@@ -251,6 +269,15 @@ async function startChat(friend, i) {
         sendMessage(chat, i, user, friend);
         // Get the input field
     });
+
+        //Add action to videochat button
+        $("#videoChatButton" + i).click(async () => {
+            //Trying out videochat...
+            $(".messaging").prepend("<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
+            $("#videochat").attr('disabled', true);
+            await videochatManager.initializePeer(i);
+        })
+
 
     addEnterListener(chat, i, user, friend);
 
@@ -525,7 +552,7 @@ async function friendWantsToChat(friendList) {
 
 /**
  * This functions is call when user receives a message to notify him.
- * @param {String} messageTalk 
+ * @param {String} messageTalk
  */
 function notifyMe(messageTalk) {
     const messageTitle = "You have got new messages!"
@@ -556,7 +583,7 @@ function notifyMe(messageTalk) {
         });
     }
 
-    // At last, if the user has denied notifications, and you 
+    // At last, if the user has denied notifications, and you
     // want to be respectful there is no need to bother them any more.
 }
 
@@ -596,7 +623,7 @@ function emptyFriendsList() {
  * If we close session disappears the nav and the button of the list of friends and the button of the login appears.
  * Change the titles depending on whether we are logged in or not.
  * If we are not logged in, we will empty the list of friends.
- * @param {boolean} session 
+ * @param {boolean} session
  */
 function changeView(session) {
     $("#login").prop("hidden", session);
@@ -627,6 +654,17 @@ async function changeTitles(session) {
         $("#titleApp").html("Sign in using Solid technology");
         $("#subTitleApp").prop("show", session)
     }
+}
+
+
+
+
+function removeVideochatElements() {
+    $("#myVideo").remove();
+    $("#partnerVideo").remove();
+    $("#connectWithPeer").remove();
+    $("#disconnectButton").remove();
+    $("#peerIDText").remove();
 }
 
 // Aux function to remove dupes from an array
