@@ -377,7 +377,7 @@ async function addGroupEnterListener(group, i) {
             $("#msg_history" + i).append(messageContent);
 
         //console.log(i)
-        chatManager.writeGroupal(user.id, group.id, document.getElementById("contentText" + i).value);
+        sendGroupMessage(group, i);
     });
 
     $('#contentText' + i).keyup(function (e) {
