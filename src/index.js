@@ -55,6 +55,16 @@ $("#logout").click(async () => {
     session.logout();
 })
 
+//Listener for videochat button in navbar
+$("#videochat").click(async () => {
+    $(".messaging").prepend("<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
+    $("#videochat").attr('disabled', true);
+    var friendVideoID = prompt("Input friend's videochat ID");
+    connectWithPeer(friendVideoID);
+   
+})
+
+
 // Add friend
 $("#add-contact").click(async () => {
     const friendWebID = prompt("Input friend's WebID");
@@ -148,12 +158,8 @@ async function loadFriends() {
 
     removeVideochatElements();
 
-    $(".messaging").prepend("<input type='text' class='write_msg' placeholder='Write partner Videochat ID' id='peerIDText' />" +
-        "<button onclick='connectWithPeer()' id='connectWithPeer' class='btn btn-outline-secondary btn-rounded waves-effect'>Connect</button>" +
-        "<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect'>Disconnect</button>");
-
-    $("#connectWithPeer").attr("disabled", false);
-    $("#disconnectButton").attr("disabled", true);
+    //$(".messaging").prepend("<button onclick='disconnect()' visibility='hidden' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
+    //$("#disconnectButton").attr("disabled", true);
 
     for (var i in friends) {
         const friend = friends[i];
@@ -267,6 +273,8 @@ async function startChat(friend, i) {
         //Add action to videochat button
         $("#videoChatButton" + i).click(async () => {
             //Trying out videochat...
+            $(".messaging").prepend("<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
+            $("#videochat").attr('disabled', true);
             await videochatManager.initializePeer(i);
         })
 

@@ -98,8 +98,8 @@ function answerVideoCall() {
  * This function shows/hide videochat components of the UI and disable/enable connect/disconnect buttons if the call is on process or not.
  */
 function disconnect() {
-    $("#connectWithPeer").attr("disabled", false);
-    $("#disconnectButton").attr("disabled", true);
+    $("#videochat").attr('disabled', false);
+    $("#disconnectButton").remove();
     $("#myVideo").remove();
     $("#partnerVideo").remove();
 }
@@ -108,7 +108,7 @@ function disconnect() {
  * This function is called from index.js when a user write the partner peerID and press connect.
  * It established connection with the other user and calls videoCallPartner function to start the call.
  */
-function connectWithPeer() {
+function connectWithPeer(friendPeerID) {
     peer = new Peer({
         config: {
             'iceServers': [
@@ -117,7 +117,7 @@ function connectWithPeer() {
             ]
         }
     });
-    var peerIDContent = $("#peerIDText").val(); //Obtain the value of the text area which have the partner peerID.
+    var peerIDContent = friendPeerID; //Obtain the value of the text area which have the partner peerID.
     videocallPartner(peerIDContent);
 }
 /**
@@ -127,7 +127,6 @@ function connectWithPeer() {
 function initializeChatComponents() {
     $(".messaging").prepend("<video id='myVideo'> </video>" +
         "<video id='partnerVideo'> </video>");
-    $("#connectWithPeer").attr("disabled", true);
     $("#disconnectButton").attr("disabled", false);
 }
 
