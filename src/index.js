@@ -662,9 +662,7 @@ async function changeTitles(session) {
 function removeVideochatElements() {
     $("#myVideo").remove();
     $("#partnerVideo").remove();
-    $("#connectWithPeer").remove();
     $("#disconnectButton").remove();
-    $("#peerIDText").remove();
 }
 
 // Aux function to remove dupes from an array
