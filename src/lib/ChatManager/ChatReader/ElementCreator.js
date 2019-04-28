@@ -10,6 +10,7 @@ function createSingle(sender, receiver, tmessage) {
 	tr.partner = receiver;
 	tr.content = tmessage.message;
 	tr.timestamp = tmessage.date;
+	tr.type = tmessage.type;
 	return tr;
 }
 
@@ -24,8 +25,7 @@ function create(jsonfile) {
 	var messages = jsonfile.messages;
 	var lista = [];
 	var particularMessage;
-	var i;
-	for (i in messages) {
+	for (var i in messages) {
 		particularMessage = createSingle(sender, receiver, messages[i]);
 		lista.push(particularMessage);
 	}
