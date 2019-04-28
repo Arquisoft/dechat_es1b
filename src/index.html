@@ -15,10 +15,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
@@ -45,19 +41,25 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #7C4DFF;" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #59b4d3;" id="navbar">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/" aria-label="Home">
+                    <a class="nav-link" href="/" aria-label="Home" data-toggle="tooltip" data-placement="bottom" title="Home">
                         <img src="assets/images/chat.svg" class="nav-icon" />
                     </a>
                 </li>
-                <li class="nav-link" id="add-contact" aria-label="Add contact">
-                    <img src="assets/images/add.svg" class="nav-icon"/>
+                <li class="nav-link" id="add-contact" aria-label="Add contact" data-toggle="tooltip" data-placement="bottom" title="Add friend">
+                    <img src="assets/images/add.svg" class="nav-icon" />
+                </li>
+                <li class="nav-link" id="add-group" aria-label="Add group" data-toggle="tooltip" data-placement="bottom" title="Add group">
+                    <img src="assets/images/add-group.svg" class="nav-icon" />
+                </li>
+                <li class="nav-link" id="videochat" aria-label="Start videochat" data-toggle="tooltip" data-placement="bottom" title="Start videochat">
+                    <img src="assets/images/videochat-icon.svg" class="nav-icon" />
                 </li>
             </ul>
-            <a class="nav-link" id="logout">
+            <a class="nav-link" id="logout" data-toggle="tooltip" data-placement="bottom" title="Logout">
                 <img src="assets/images/logout.svg" class="nav-icon" />
             </a>
         </div>
@@ -119,7 +121,7 @@
 
     <div class="messaging">
         <div class="inbox_msg">
-            <h4 class="subTitleApp">Friends</h4>
+            <h4 class="subTitleApp friendsTitle">Friends & Groups</h4>
             <div class="inbox_people">
 
                 <div id="chat_scroll" class="inbox_chat scroll">
@@ -149,8 +151,7 @@
 
         </div>
     </div>
-
-
+    </div>
 </body>
 
 

@@ -36,6 +36,10 @@ a {
 	background-color: aliceblue;
 }
 
+#add-contact, #add-group, #videochat {
+	cursor:pointer;
+}
+
 
 .contactButton,
 .sendButton {
@@ -429,4 +433,8 @@ footer {
 
 .image{
 	max-width:120px;
+}
+
+.friendsTitle{
+	margin-left: 1em;
 }

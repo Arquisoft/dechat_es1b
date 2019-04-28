@@ -44,17 +44,17 @@ async function createFileOnInit(userID) {
 	userID = userID.replace("https://", "");
 	userID = userID.replace("/profile/card#me","");
 	groupCreator.createFileOnInit(userID);
-};
+}
 
 /**
 * Creates the group per se with all necesary files and folders in own pod
 * @param {String} groupName
 * @param {Array} participantsList
-* @param {String] userID
+* @param {String} userID
 */
 async function createGroup(groupName, participantsList, userID){
-	for(i in participantsList){
-		participantsList[i] = participantsList[i].replace("https://", "").replace("/profile/card#me","");;
+	for(var i in participantsList){
+		participantsList[i] = participantsList[i].replace("https://", "").replace("/profile/card#me","");
 	}
 	userID = userID.replace("https://", "");
 	userID = userID.replace("/profile/card#me","");
