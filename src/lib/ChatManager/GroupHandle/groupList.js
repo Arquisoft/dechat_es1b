@@ -1,6 +1,7 @@
 const fileClient = require('solid-file-client');
 const createGroup = require('./group.js');
-const dechatFolder = "dechates1b";
+const FolderManager = require("../ChatWriter/FolderManager");
+
 
  async function listGroups(user){
 
@@ -20,7 +21,7 @@ async function listGroupsOnInit(user){
 	var i;
 	var listOfTR = [];
 	for(i in listJSON.list){
-		var folderUri = "https://"+user+"/"+dechatFolder+"/"+listJSON.list[i].id+"//info.txt";
+		var folderUri = "https://"+user+"/"+FolderManager.DECHAT_FOLDER+"/"+listJSON.list[i].id+"//info.txt";
 		var readed = await fileClient.readFile(folderUri);
 		var jsonreaded = JSON.parse(readed);
 		var theObje = createGroup.group(jsonreaded.id, jsonreaded.name, jsonreaded.participants, jsonreaded.owner)

@@ -94,18 +94,19 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
  * in a groupal context
  * @param {String} userID 
  * @param {String} groupID
- * @param {Array} messages
+ * @param {String} message
  */
-async function sendToOwnPODForGroups(userID, groupID, messages) {
+async function sendToOwnPODForGroups(userID, groupID, message) {
 	//Obtaining a string representing contact's webID
 	//To do this, we will isolate the variable part of the WebID 
 	//(example: https://jhon.solid.community will turn into jhon.solid)
-	var folderRoute = userID.replace("/profile/card#me", "/"+folderManager.DECHAT_FOLDER+"/" + groupID + "/");
-	var podFileRoute = folderRoute + MESSAGE_FILE;
+	var sender = userID.replace("https://", "").replace("/profile/card#me", "");
+
 	await fileClient.popupLogin().then(200);
-	var messagesJSON = txtFileBuilder.buildJSONmessages(userID, groupID, messages);
-	await fileClient.updateFile(podFileRoute, messagesJSON).then(success => {
-	}, err => fileClient.createFile(podFileRoute, messagesJSON).then(404));
+	var messagesJSON = await txtFileBuilder.buildJSONmessagesGroup(userID, groupID, message);
+	var url = "https://"+sender+"/"+folderManager.DECHAT_FOLDER+"/"+groupID+"/messages.txt";
+	await fileClient.updateFile( url, JSON.stringify(messagesJSON));
+
 };
 
 

@@ -107,7 +107,9 @@ async function readGroupal(listOfFriends, groupId){
 		var urltolook = "https://" + user + "/"+FolderManager.DECHAT_FOLDER+"/" + groupId + "/messages.txt";
 		if(validator.checkFile(urltolook)){
 		var mess = await singleUriGetter(urltolook);
-		listTR = await listTR.concat(mess);
+		if(await mess != ""){
+			listTR = await listTR.concat(mess);
+		}
 		}
 	}
 	
