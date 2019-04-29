@@ -3,7 +3,7 @@
 
 == Deployment View
 
-DeChat is a client side application that will be run inside the user's browser without server intervention other than connecting to the SOLID PODs.
+DeChat is a client side application that will be run inside the user's browser without server intervention other than connecting to the SOLID PODs and the videochat TURN server.
 
 It makes sense to deploy the app in https://pages.github.com/[Github Pages]. 
 
