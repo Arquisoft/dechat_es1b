@@ -46,6 +46,7 @@ function videocallPartner(peerID) {
         //End the user transmission stream if the user press disconnect button.
         $('#disconnectButton').on("click", function () {
             call.close();
+            disconnect();
         });
     }, (err) => {
         disconnect();
@@ -81,6 +82,7 @@ function answerVideoCall() {
             //End the user transmission stream if the user press disconnect button.
             $('#disconnectButton').on("click", function () {
                 call.close();
+                disconnect();
             });
         }, (err) => {
             disconnect();

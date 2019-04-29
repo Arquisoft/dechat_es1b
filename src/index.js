@@ -60,7 +60,7 @@ $("#logout").click(async () => {
 
 //Listener for videochat button in navbar
 $("#videochat").click(async () => {
-    $(".messaging").prepend("<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
+    $(".messaging").prepend("<button id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
     $("#videochat").attr('disabled', true);
     var friendVideoID = prompt("Input friend's videochat ID");
     connectWithPeer(friendVideoID);
@@ -276,7 +276,7 @@ async function startChat(friend, i) {
         //Add action to videochat button
         $("#videoChatButton" + i).click(async () => {
             //Trying out videochat...
-            $(".messaging").prepend("<button onclick='disconnect()' id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
+            $(".messaging").prepend("<button  id='disconnectButton' class='btn btn-outline-secondary btn-rounded waves-effect' >Disconnect</button>");
             $("#videochat").attr('disabled', true);
             await videochatManager.initializePeer(i);
         })
