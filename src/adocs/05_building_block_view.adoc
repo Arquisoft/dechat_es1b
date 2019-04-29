@@ -13,7 +13,7 @@ This view illustrates the relationship between the app and the users and pods.
 The users will interact with the application through their user agent, reading and sending information from/to the DeChat.
 
 ==== Solid POD
-Solid PODs store the data of their owner. Each user's messages will be stored in their own POD and nowhere else.
+Solid PODs store the data of their owner. Each user's messages and files will be stored in their own POD and nowhere else.
 PODs also contain the inbox where notificiations for new messages will be sent. 
 
 ==== DeChat
@@ -37,6 +37,13 @@ The logic of the chat is contained in its own module `chat.js`
 It allows us to separate the chat itself from the presentation so the UI can be changed freely.
 In SOLID, the user is the owner of his data, therefore each participant in the chat stores their messages in their own POD.
 This module must recompose the whole chat from the data it gets from both PODs through the Persistence layer.
+Group chats and participants are also recovered and recomposed from pod data in a similar fashion.
+
+==== Videochat
+Similar to the main chat module, videochat functionality is contained in its own module `videochatManager.js`.
+The videocall system works through RTC, making use of the PeerJS library. Being this way, it makes use
+of a TURN server to establish connection. This module isolates all the logic related to connecting 
+to the other contact's peer, starting and finishing the call, streaming it onto the screen, and disconnecting.
 
 ==== POD Handling
 Communications with the PODs are done through the ChatManager package, a grouping of submodules that handle the persistence and data transformations needed to work with the PODs.
