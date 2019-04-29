@@ -465,6 +465,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_create_chat">6.1. Create Chat</a></li>
 <li><a href="#_send_message">6.2. Send Message</a></li>
 <li><a href="#_receive_message">6.3. Receive message</a></li>
+<li><a href="#_starting_a_videocall">6.4. Starting a videocall</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a></li>
@@ -533,8 +534,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Contents</div>
 <p>The main functionality consists of a decentralized, SOLID based
 chat application that allows to comunicate via text messages, and where users
-can share pictures, videos or other kind of files. Being decentralized, data
-storage will be separated from the app, and users will store their data
+can share pictures, videos or other kind of files, as well as videocall each other. Being decentralized,
+data storage will be separated from the app, and users will store their data
 on their own PODs.</p>
 </div>
 <div class="paragraph">
@@ -643,7 +644,7 @@ so they will have total control over their personal information and data.</p>
 <h2 id="section-architecture_constraints">2. Architecture Constraints</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here we go to present any requirement that constrained us in our freedom of design and implementation decisions or decision about the development process.</p>
+<p>Here we will present any requirement that constrained us in our freedom of design and implementation decisions or decision about the development process.</p>
 </div>
 <div class="sect2">
 <h3 id="_constraints">2.1. Constraints</h3>
@@ -671,7 +672,7 @@ so they will have total control over their personal information and data.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TC2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use Node.js</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID technology are very young, we don&#8217;t have time to create new libraries in our specialty. (Java)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOLID technology is very young, we don&#8217;t have time to create new libraries in our specialty. (Java)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TC3</p></td>
@@ -700,7 +701,7 @@ so they will have total control over their personal information and data.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OC1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Time schedule</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We start in janury of 2019, first "release" schedule is programed to March 2019. The final release is schedule to May 2019.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We start in janury of 2019, first "release" schedule is programed to March 2019. The final release is scheduled to May 2019.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OC2</p></td>
@@ -762,7 +763,7 @@ trying to adjust as better as possible the first version of our chat.</p>
 <div class="sect3">
 <h4 id="_users">3.1.1. Users</h4>
 <div class="paragraph">
-<p>Users can chat privately, messages aren´t registered in a server,
+<p>Users can chat privately (messages aren&#8217;t registered in a server)
 with others using their own pod (SOLID credentials for any client)</p>
 </div>
 </div>
@@ -796,9 +797,11 @@ It detemines who can get a content, as messages, avoiding unwanted accesses from
 This way we will get the final task, a decentralized chat.</p>
 </div>
 <div class="paragraph">
-<p>We can distinguish among two different contexts:
-.<strong>Reading context</strong>
-To describe it better we are going to use an iteration diagram between the Chat module and the ChatReader one.</p>
+<p>We can distinguish among two different contexts:</p>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Reading context</strong></div>
+<p>To describe it better we are going to use an iteration diagram between the Chat module and the ChatReader one.</p>
 </div>
 <div id="img-overviewreadcontext" class="imageblock">
 <div class="content">
@@ -812,6 +815,43 @@ To describe it better we are going to use an iteration diagram between the Chat 
 <div id="img-overviewwrittingcontext" class="imageblock">
 <div class="content">
 <img src="./diagrams/03-writtingContext.png" alt="overviewwrittingcontext">
+</div>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Group files</strong></div>
+<p>A group is composed by some elements:
+	- Group list(/group/groups.txt): All groups are registered there. It is token as the index for the group creation if doesn&#8217;t exist
+	- Folder (/dechat_es1b/groupID): Contains the messages file and Info file.
+	- Info file (/dechat_es1b/groupID/info.txt): Contains group info, in owner&#8217;s folder is accessible by every participant. In other for the owner and the user. Oriented to delete participants in the future.
+	- Message file (/dechat_es1b/groupID/messages.txt): Contains the list of messages of a user. It is accessible by every participant.
+To ilustrate the I/O context we bring you this diagram:</p>
+</div>
+<div id="img-overviewgroup" class="imageblock">
+<div class="content">
+<img src="./diagrams/IOGROUP.png" alt="overviewgroup">
+</div>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Group creation context</strong></div>
+<p>We have talked about group permissions, supported by permissions.js. In group creation we follow some steps:
+	- Register the group in own groups.txt and participants one.
+	- Create the group folder with the files.
+	- Give permissions to friends for the files.
+To ilustrate it better let&#8217;s see a Reduced Context diagram:</p>
+</div>
+<div id="img-overviewgroupcreation" class="imageblock">
+<div class="content">
+<img src="./diagrams/RedGroupCEdit.png" alt="overviewgroupcreation">
+</div>
+</div>
+<div class="paragraph">
+<div class="title"><strong>Group load context</strong></div>
+<p>When we start the app, some functions run in background.
+These are represented here:</p>
+</div>
+<div id="img-overviewloadgroups" class="imageblock">
+<div class="content">
+<img src="./diagrams/GroupOnInit.png" alt="overviewloadgroups">
 </div>
 </div>
 </div>
@@ -830,20 +870,23 @@ The application must interact with the PODs through their HTTP API.</p>
 <h2 id="section-solution-strategy">4. Solution Strategy</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Language of choice is JavaScript. It&#8217;s the most adequate language to develop SOLID apps at the moment both because of the support module wise it has currently such as its synergy with web applications.</p>
+<p>Language of choice is JavaScript. It&#8217;s the most adequate language to develop SOLID apps at the moment both because of its support module-wise as for its synergy with web applications.</p>
 </div>
 <div class="paragraph">
-<p>Node.js modularity, asynchronity capabilities and its underlaying package managers are interesting features we want in our application therefore DeChat is made with Node.
+<p>Node.js modularity, asynchronity capabilities and its underlaying package managers are interesting features we want in our application, therefore DeChat is made on Node.
 Using npm as package manager provides us the easy management of external dependencies such as solid-auth-client or solid-file-client.</p>
 </div>
 <div class="paragraph">
 <p>However we want DeChat to be client side and communicate with the POD&#8217;s wherever they are hosted, removing any unneeded middle server. For that purpose, Webpack will be used to keep all the advantages of Node, client side.</p>
 </div>
 <div class="paragraph">
-<p>The user interface will be developed using web technologies (HTML5+CSS3+Bootstrap) following their standards defined in W3C. Because of our time constraints, JQuery will be used to manipulate DOM tree instead of choosing a framework such as Angular or React that would be more of a hindrance than an advantage, considering we already have to learn a lot of new tech we aren&#8217;t used to as students and for this project&#8217;s needs they would be overdesigning anyways.</p>
+<p>The user interface will be developed using web technologies (HTML5+CSS3+Bootstrap) following their standards as defined in W3C.
+Because of our time constraints, JQuery will be used to manipulate the DOM tree, instead of choosing a framework such as Angular or React.
+That would be more of a hindrance than an advantage considering we already have to learn a lot of new tech we aren&#8217;t used to as students,
+and for this project&#8217;s needs they would be overdesigning anyways.</p>
 </div>
 <div class="paragraph">
-<p>As for data storage, JSON is our choice because it&#8217;s lightweight, ingrained into JavaScript and it has an easy way of manipulation.</p>
+<p>As for data storage, JSON format is our choice because it&#8217;s lightweight, ingrained into JavaScript and it has an easy way of manipulation.</p>
 </div>
 <div class="paragraph">
 <p>Considerations:</p>
@@ -851,7 +894,7 @@ Using npm as package manager provides us the easy management of external depende
 <div class="ulist">
 <ul>
 <li>
-<p>The technology decisions that has been made are focus on the compatibilities with SOLID specification.</p>
+<p>The technology decisions that have been made focus on the compatibilities with the SOLID specification.</p>
 </li>
 <li>
 <p>All decisions were made with the aim of easily developing the application, using previous knowledge of the team members and adapting them to SOLID technology.</p>
@@ -884,7 +927,7 @@ Using npm as package manager provides us the easy management of external depende
 <div class="sect3">
 <h4 id="_solid_pod_2">5.1.2. Solid POD</h4>
 <div class="paragraph">
-<p>Solid PODs store the data of their owner. Each user&#8217;s messages will be stored in their own POD and nowhere else.
+<p>Solid PODs store the data of their owner. Each user&#8217;s messages and files will be stored in their own POD and nowhere else.
 PODs also contain the inbox where notificiations for new messages will be sent.</p>
 </div>
 </div>
@@ -920,18 +963,28 @@ UI functionality is contained to <code>index.js</code> and isolated from the app
 <p>The logic of the chat is contained in its own module <code>chat.js</code>
 It allows us to separate the chat itself from the presentation so the UI can be changed freely.
 In SOLID, the user is the owner of his data, therefore each participant in the chat stores their messages in their own POD.
-This module must recompose the whole chat from the data it gets from both PODs through the Persistence layer.</p>
+This module must recompose the whole chat from the data it gets from both PODs through the Persistence layer.
+Group chats and participants are also recovered and recomposed from pod data in a similar fashion.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_pod_handling">5.2.3. POD Handling</h4>
+<h4 id="_videochat">5.2.3. Videochat</h4>
+<div class="paragraph">
+<p>Similar to the main chat module, videochat functionality is contained in its own module <code>videochatManager.js</code>.
+The videocall system works through RTC, making use of the PeerJS library. Being this way, it makes use
+of a TURN server to establish connection. This module isolates all the logic related to connecting
+to the other contact&#8217;s peer, starting and finishing the call, streaming it onto the screen, and disconnecting.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_pod_handling">5.2.4. POD Handling</h4>
 <div class="paragraph">
 <p>Communications with the PODs are done through the ChatManager package, a grouping of submodules that handle the persistence and data transformations needed to work with the PODs.
 Each DeChat&#8217;s instance will write/read both to the user&#8217;s POD (write users messages, read notifications) and the target&#8217;s (read their messages, send notifications).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_building_blocks_level_3">5.2.4. Building Blocks: Level 3</h4>
+<h4 id="_building_blocks_level_3">5.2.5. Building Blocks: Level 3</h4>
 <div id="img-uiuml" class="imageblock">
 <div class="content">
 <img src="./diagrams/05-chatmanager.jpg" alt="uiuml">
@@ -940,14 +993,14 @@ Each DeChat&#8217;s instance will write/read both to the user&#8217;s POD (write
 </div>
 </div>
 <div class="sect3">
-<h4 id="_chat_interface">5.2.5. Chat interface</h4>
+<h4 id="_chat_interface">5.2.6. Chat interface</h4>
 <div class="paragraph">
 <p>The UI should be agnostic from the implementation. For that purpose we provide an interface it will communicate with, with general purpose methods such as <code>sendMessage</code>, <code>getMessages</code> or <code>checkForNotifications</code>.
 Details of implementation should be irrelevant for the UI itself allowing for the reusability of the interface in a different chat domain.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_chatmanager">5.2.6. ChatManager</h4>
+<h4 id="_chatmanager">5.2.7. ChatManager</h4>
 <div class="paragraph">
 <p>The modules destined to the Read/Write operations against the PODs are split in two subfolders according to their nature, mainly represented by the <code>ChatReader.js</code> and <code>ChatWriter.js</code> modules.
 Aside from this two there&#8217;s a series of dependencies on both our own submodules and third party ones that collaborate towards the POD-Handling.
@@ -1049,6 +1102,14 @@ Finally the UI is refreshed to show the new message.</p>
 </div>
 <div class="title">Figure 7. Receive message - Sequence diagram</div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_starting_a_videocall">6.4. Starting a videocall</h3>
+<div class="paragraph">
+<p>When the user presses the Videocall button, a connection to the TURN server is established. A PeerID is created as a result, which will identify ourselves,
+and we start listening for an incoming, answer call. Once the other user is communicated our PeerID, he or she will input it into the UI and a direct
+peer-to-peer connection will be made. At this point the other user will call on our peer which is listening, finally setting up a direct video call.</p>
+</div>
 <div class="paragraph">
 <p>When the user logs in the application starts listening for notifications and when one is found the user is informed via a HTML5 Notification API who (one person or several) sent a message since the last check.</p>
 </div>
@@ -1063,7 +1124,7 @@ Finally the UI is refreshed to show the new message.</p>
 <h2 id="section-deployment-view">7. Deployment View</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>DeChat is a client side application that will be run inside the user&#8217;s browser without server intervention other than connecting to the SOLID PODs.</p>
+<p>DeChat is a client side application that will be run inside the user&#8217;s browser without server intervention other than connecting to the SOLID PODs and the videochat TURN server.</p>
 </div>
 <div class="paragraph">
 <p>It makes sense to deploy the app in <a href="https://pages.github.com/">Github Pages</a>.</p>
@@ -1086,7 +1147,7 @@ Finally the UI is refreshed to show the new message.</p>
 <p>Pursuing what the SOLID spec looks for, its imperative that the user regains control of his own data and that it doesnt fall in the hands of a third party.</p>
 </div>
 <div class="paragraph">
-<p>For that purpose each user&#8217;s data will be uniquely in his own POD, a personal storage to which only he has full control over. As a result, when a user sends a message this message will only be stored in that user&#8217;s POD and nowhere else. His partner will be able to read this message as long as he is granted permission to do so but as said, the data will be exclusively in its author&#8217;s POD.</p>
+<p>For that purpose each user&#8217;s data will be uniquely in his own POD, a personal storage to which only he/she has full control over. As a result, when a user sends a message this message will only be stored in that user&#8217;s POD and nowhere else. User&#8217;s partner will be able to read this message as long as they are granted permission to do so but as said, the data will be exclusively in its author&#8217;s POD.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1131,13 +1192,13 @@ Finally the UI is refreshed to show the new message.</p>
 <p>We have to decide which libraries will use in the project.</p>
 </li>
 <li>
-<p>We have to learn too many things to carry out the project.</p>
+<p>We have to learn lots of new things to carry out the project.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <div class="title">Constraints</div>
-<p>We have to use Solid,  a web decentralization project led by Tim Berners-Lee. Solid supports the framework of JavaScript Angular and the library React.</p>
+<p>We have to use Solid, a web decentralization project led by Tim Berners-Lee. Solid supports the framework of JavaScript Angular and the library React.</p>
 </div>
 <div class="ulist">
 <div class="title">Assumptions</div>
@@ -1146,13 +1207,13 @@ Finally the UI is refreshed to show the new message.</p>
 <p>If we use a language that we do not know at all, the beginning of the project will be hard.</p>
 </li>
 <li>
-<p>If we use a language other than JavaScript, we will have many less alternatives in the future because solid supports Angular a framework of JavaScript or React a library of JavaScript.</p>
+<p>If we use a language other than JavaScript, we will have many less alternatives in the future because solid supports Angular, a framework of JavaScript, or React, a library of JavaScript.</p>
 </li>
 <li>
-<p>If we decided to use Angular we would have to learn to use it, this means, where we already have things to learn to add one more. And we do not believe that we will know enough about Angular to carry out the project correctly. It does not save us anything.</p>
+<p>If we decided to use Angular we would have to learn how to use it, this means, where we already have things to learn to add one more. And we do not believe we will know enough about Angular to carry out the project correctly. It does not save us anything.</p>
 </li>
 <li>
-<p>If we discard Angular and use only Node.js, we would save ourselves learning Angular. With Node.js and jQuery, it is enough to carry out the project.</p>
+<p>If we discard Angular and use only Node.js, we would save ourselves time learning Angular. With Node.js and jQuery, it is enough to carry out the project.</p>
 </li>
 </ul>
 </div>
@@ -1174,10 +1235,10 @@ Finally the UI is refreshed to show the new message.</p>
 <div class="title">Decisions</div>
 <ul>
 <li>
-<p>We make the decision of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.</p>
+<p>We make the decision of using JavaScript, because although we are used to Java or C#, we prefer to take the risk of using a programming language in which we have less experience, since that provides us more resources in Solid.</p>
 </li>
 <li>
-<p>At first we had thought to use Angular too, but we say to use only Node.js and jQuery because with these tools we can carry out the project without problem and we save ourselves the task of having to learn and know how to handle Angular.</p>
+<p>At first we had thought to use Angular too, but we switched to just Node.js and jQuery because with these tools we can carry out the project no problem, and we save ourselves the task of learning and knowing how to handle Angular.</p>
 </li>
 </ul>
 </div>
@@ -1192,11 +1253,11 @@ Finally the UI is refreshed to show the new message.</p>
 <dl>
 <dt class="hdlist1"><em>Testability</em></dt>
 <dd>
-<p>The app should be testable, as automated as possible with the use of Unit Testing and CI where applicable.</p>
+<p>The app should be testable, as automated as possible with the use of Unit Testing and CI where applicable, as well as User Stories.</p>
 </dd>
 <dt class="hdlist1"><em>Performance</em></dt>
 <dd>
-<p>The app must perform within reasonable levels of latency</p>
+<p>The app must perform within reasonable levels of latency.</p>
 </dd>
 <dt class="hdlist1"><em>Usability</em></dt>
 <dd>
@@ -1311,7 +1372,7 @@ as far as eg. we don´t delete the chat.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>First time using most of this tech. We never made a RCT application before, nor used Node.js. It&#8217;s an obstacle to overcome and to do so we have to learn how to dwell in all of this on our own, which is no easy task.</p>
+<p>First time using most of this tech. We have never made a RCT application before, nor used Node.js. It&#8217;s an obstacle to overcome and to do so we have to learn how to dwell in all of this on our own, which is no easy task.</p>
 </li>
 <li>
 <p>Low experience with JavaScript. We already know the basics, but developing such a web app is on another level. We need to get used to JS and its quirks.</p>
@@ -1320,7 +1381,7 @@ as far as eg. we don´t delete the chat.</p>
 <p>SOLID is not exactly flavour of the month, therefore it&#8217;s still greenfield that required a lot of investment in learning its modus operandi and specification.</p>
 </li>
 <li>
-<p>PODs structure. One problem we came across is that we thought all PODs had the same directory structure (private folder, public folder, etc.) Once we started having users test the application we discovered this is not a norm and some users might not have the expected folders. Our solution was create our own folder inside the user&#8217;s POD to store DeChat&#8217;s data.</p>
+<p>PODs structure. One problem we came across is that we thought all PODs had the same directory structure (private folder, public folder, etc.) Once we started having users test the application we discovered this is not a norm and some users might not have the expected folders. Our solution was to create our own folder inside the user&#8217;s POD, to store DeChat&#8217;s data.</p>
 </li>
 <li>
 <p>Permissions. We knew from the start that we should pay attention to which resources users had access too. For example, we dont want a user reading another user&#8217;s DeChat folder. For that purpose, we learned Web Access Control in SOLID.</p>
@@ -1409,8 +1470,20 @@ as far as eg. we don´t delete the chat.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">files that specify the authorization rules of a POD&#8217;s directory/file.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TURN server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'Traversal Using Relays around NAT' is a protocol used to traverse the use of NATs or firewalls on multimedia applications.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RTC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">'Real Time Communications' is a web technology that uses a common set of protocols to allow intercommunication on different browsers or mobile platforms.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">GitHub Pages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Static site hosting service by GitHub</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Static site hosting service by GitHub.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Peer-to-peer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Net or connection type in which computers act as equal to each other, without fixed clients and servers.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1439,7 +1512,7 @@ Created by Dr. Peter Hruschka &amp; Dr. Gernot Starke.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-01 17:23:45 +0200
+Last updated 2019-04-28 18:02:20 +0200
 </div>
 </div>
 </body>
