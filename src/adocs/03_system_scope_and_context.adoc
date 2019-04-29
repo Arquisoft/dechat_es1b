@@ -36,6 +36,7 @@ It detemines who can get a content, as messages, avoiding unwanted accesses from
 This way we will get the final task, a decentralized chat.
 
 We can distinguish among two different contexts:
+
 .*Reading context*
 To describe it better we are going to use an iteration diagram between the Chat module and the ChatReader one.
 [#img-overviewreadcontext]
