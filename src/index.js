@@ -343,7 +343,6 @@ async function startGroupChat(group, i) {
 
 function addImageUploadListener(chat) {
     $("#send-image").on('change', function () {
-        console.log("Envío imagen");
         var parts = this.files[0].name.split(".");
         var formato = parts[parts.length - 1];
         if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png') {

@@ -74,7 +74,6 @@ class Chat {
                 + "/" + friendIdentifier + "/files");
             //Save in content name of file.
             message.content = folderRoute + "/" + content.name;
-            console.log("Uploadig image file... [" + message.content + "]");
             if(type === "image") {
                 //Compress image
                 content =
@@ -86,7 +85,6 @@ class Chat {
             }
             //Upload image to Own POD.
             await chatManager.uploadFileToOwnPOD(content, this.user.id, this.partner.id);
-            console.log("Image file uploaded fine.");
         }
         //Saving to array current message
         this.sentMessages.push(message);
