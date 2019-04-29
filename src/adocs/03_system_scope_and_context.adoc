@@ -64,7 +64,7 @@ We have talked about group permissions, supported by permissions.js. In group cr
 	- Give permissions to friends for the files.
 To ilustrate it better let's see a Reduced Context diagram:
 [#img-overviewgroupcreation]
-image::./diagrams/RedGroupC.png[overviewgroupcreation]
+image::./diagrams/RedGroupCEdit.png[overviewgroupcreation]
 
 
 .*Group load context*
