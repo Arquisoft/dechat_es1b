@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="deConvert"><span class="type-signature"></span>deConvert<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="create"><span class="type-signature"></span>create<span class="signature">(json)</span><span class="type-signature"> &rarr; {Array}</span></h4>
     
 
     
@@ -112,115 +112,7 @@
 
 
 <div class="description">
-    Change each character by its previous in ASCII
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Decryptor.js.html">Decryptor.js</a>, <a href="Decryptor.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    decrypted message
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="decryptor"><span class="type-signature"></span>decryptor<span class="signature">(message)</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    This function decrypt the message
+    Create a list of Objects messages
 </div>
 
 
@@ -256,13 +148,13 @@
 
         <tr>
             
-                <td class="name"><code>message</code></td>
+                <td class="name"><code>json</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">JSON</span>
 
 
             
@@ -272,7 +164,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">file</td>
         </tr>
 
     
@@ -313,7 +205,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Decryptor.js.html">Decryptor.js</a>, <a href="Decryptor.js.html#line33">line 33</a>
+        <a href="ElementCreator.js.html">ElementCreator.js</a>, <a href="ElementCreator.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -340,7 +232,7 @@
 
         
 <div class="param-desc">
-    decrypted message
+    array of Objects messages
 </div>
 
 
@@ -351,7 +243,7 @@
     </dt>
     <dd>
         
-<span class="param-type">String</span>
+<span class="param-type">Array</span>
 
 
     </dd>
@@ -369,7 +261,7 @@
     
 
     
-    <h4 class="name" id="splitMessage"><span class="type-signature"></span>splitMessage<span class="signature">(message)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="createSingle"><span class="type-signature"></span>createSingle<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
     
 
     
@@ -377,7 +269,7 @@
 
 
 <div class="description">
-    Separate the message letter by letter
+    Create a message object
 </div>
 
 
@@ -386,55 +278,6 @@
 
 
 
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>message</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -470,7 +313,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Decryptor.js.html">Decryptor.js</a>, <a href="Decryptor.js.html#line7">line 7</a>
+        <a href="ElementCreator.js.html">ElementCreator.js</a>, <a href="ElementCreator.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -493,6 +336,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    message
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -514,13 +379,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#deConvert">deConvert</a></li><li><a href="global.html#decryptor">decryptor</a></li><li><a href="global.html#splitMessage">splitMessage</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#create">create</a></li><li><a href="global.html#createSingle">createSingle</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:14:40 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:15:01 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
