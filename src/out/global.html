@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="buildJSONmessages"><span class="type-signature"></span>buildJSONmessages<span class="signature">(senderID, receiverID, messages)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="checkFile"><span class="type-signature">(async) </span>checkFile<span class="signature">(uri)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
     
 
     
@@ -112,7 +112,7 @@
 
 
 <div class="description">
-    Builds a JSON format file that contains all messages
+    Boolean function to determine the existence of a solid file
 </div>
 
 
@@ -148,7 +148,7 @@
 
         <tr>
             
-                <td class="name"><code>senderID</code></td>
+                <td class="name"><code>uri</code></td>
             
 
             <td class="type">
@@ -164,53 +164,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>receiverID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>messages</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">the pod uri of the element to know about its existence</td>
         </tr>
 
     
@@ -251,7 +205,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TextFileBuilder.js.html">TextFileBuilder.js</a>, <a href="TextFileBuilder.js.html#line10">line 10</a>
+        <a href="existenceValidators.js.html">existenceValidators.js</a>, <a href="existenceValidators.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -278,7 +232,7 @@
 
         
 <div class="param-desc">
-    desired JSON-format contents in a string
+    true if exists, false if is not accesible or non-existent
 </div>
 
 
@@ -289,7 +243,7 @@
     </dt>
     <dd>
         
-<span class="param-type">String</span>
+<span class="param-type">Boolean</span>
 
 
     </dd>
@@ -307,7 +261,7 @@
     
 
     
-    <h4 class="name" id="buildJSONmessagesGroup"><span class="type-signature">(async) </span>buildJSONmessagesGroup<span class="signature">(senderID, groupID, message)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="checkFolder"><span class="type-signature">(async) </span>checkFolder<span class="signature">(uri)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
     
 
     
@@ -315,7 +269,7 @@
 
 
 <div class="description">
-    Builds a JSON format file that contains all messages
+    Boolean function to determine the existence of a solid folder
 </div>
 
 
@@ -351,7 +305,7 @@
 
         <tr>
             
-                <td class="name"><code>senderID</code></td>
+                <td class="name"><code>uri</code></td>
             
 
             <td class="type">
@@ -367,53 +321,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>groupID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>message</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">the pod uri of the element to know about its existence</td>
         </tr>
 
     
@@ -454,7 +362,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TextFileBuilder.js.html">TextFileBuilder.js</a>, <a href="TextFileBuilder.js.html#line44">line 44</a>
+        <a href="existenceValidators.js.html">existenceValidators.js</a>, <a href="existenceValidators.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -481,7 +389,7 @@
 
         
 <div class="param-desc">
-    desired JSON-format contents in a string
+    true if exists, false if is not accesible or non-existent
 </div>
 
 
@@ -492,187 +400,7 @@
     </dt>
     <dd>
         
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="generateACL"><span class="type-signature"></span>generateACL<span class="signature">(partnerID, filename)</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Generate an ACL text string that grants owner all permissions and Read only to partnerID
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>partnerID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>filename</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="TextFileBuilder.js.html">TextFileBuilder.js</a>, <a href="TextFileBuilder.js.html#line69">line 69</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    ACL string content
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
+<span class="param-type">Boolean</span>
 
 
     </dd>
@@ -700,13 +428,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#buildJSONmessages">buildJSONmessages</a></li><li><a href="global.html#buildJSONmessagesGroup">buildJSONmessagesGroup</a></li><li><a href="global.html#generateACL">generateACL</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkFile">checkFile</a></li><li><a href="global.html#checkFolder">checkFolder</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:18:48 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:19:21 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
