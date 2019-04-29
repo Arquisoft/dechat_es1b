@@ -26,48 +26,165 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>var textParser = require("./TextParser.js");
-var sorter = require("./Sorter.js");
-const creator = require("./ElementCreator.js");
-const fileClient = require("solid-file-client");
+            <pre class="prettyprint source linenums"><code>const chatReader = require("./ChatReader/ChatReader");
+const chatWriter = require("./ChatWriter/ChatWriter");
+const groupCreator = require("./GroupHandle/groupCreation/groupCreator");
+const groupList = require("./GroupHandle/groupList");
+const permissionService = require("./GroupHandle/permissionsService/permissions.js");
 
 /**
- * This function get all messages from a single pod uri
- * parsing file and converting to a json
- * After this an element creator go over every message 
- * and create every element message
- * @param {String} Url
- * @return {Array} List of objects messages
- */
-async function singleUriGetter(url) {
-	var salida = await fileClient.readFile(url);
-
-	var tr = await creator.create(textParser.parseString(salida));
-
-	return await tr;
+* Read pod receives the webid of the chat participants returning and ordered array of messages
+* @param userURL the webID of the chat's ownerDocument
+* @param friendURL the webID of the chat's contact
+* @return the ordered list of the conversation messages
+*/
+async function readPod(userURL, friendURL) {
+    return await chatReader.readPod(userURL, friendURL);
 }
 
 /**
- * This function receives two uri applies singleUriGetter
- * 	to create a message array for each onerror
- *	and returns the sorted by date list 
- * @param {String} urla Example: martinlacorrona.solid.community
- * @param {String} urlb Example: javierardura.solid.community
+ * Creates a file in the specified inbox with the json data passed as argument
+ * @param {String} inboxURL 
+ * @param {String} data Promise
+ * @return {Promise} file
  */
-async function read(urla, urlb) {
-	var folderB = urlb.split(".")[0]+"."+urlb.split(".")[1];
-	var folderA = urla.split(".")[0]+"."+urla.split(".")[1];
-	var url1 = "https://"+urla+"/private/"+folderB+"/messages.txt"
-	var url2 = "https://"+urlb+"/private/"+folderA+"/messages.txt"
-	var a1 = await singleUriGetter(url1);
-	var a2 = await singleUriGetter(url2);
-	var at = await a1.concat(a2);
-	var tr = await sorter.sort(at);
-	
- return await tr;
+function writeInbox(friend, message) {
+    return chatWriter.sendToInbox(friend, message);
 }
 
-exports.read = read;</code></pre>
+/**
+ * Creates a folder in user's own pod, containing a json representing chat messages
+ * and grants read permissions to partner.
+ * @param {String} userID 
+ * @param {String} partnerID
+ * @param {Array} messages
+ */
+async function writeOwnPOD(userID, partnerID, messages) {
+	chatWriter.sendToOwnPOD(userID, partnerID, messages);
+};
+/**
+* CALLABLE ON INIT
+* Creates the file groups.txt on Dechat Folder of a user
+* this file represents a index of groups
+* @param {String} userID
+*/
+async function createFileOnInit(userID) {
+	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
+	groupCreator.createFileOnInit(userID);
+}
+
+/**
+* Creates the group per se with all necesary files and folders in own pod
+* @param {String} groupName
+* @param {Array} participantsList
+* @param {String} userID
+*/
+async function createGroup(groupName, participantsList, userID){
+	for(var i in participantsList){
+		participantsList[i] = participantsList[i].replace("https://", "").replace("/profile/card#me","");
+	}
+	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
+	return await groupCreator.createGroup(groupName, participantsList, userID);
+}
+
+/**
+* CALLABLE ON INIT
+* Creates all group folder and files that does not exist
+* @param userID
+*/
+async function createUncreatedGroups(userID){
+	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
+	groupCreator.checkAllGroupsOKOnInit(userID);
+}
+
+/**
+* Read the group and returns the ordered list of messages
+* @param {String} userID
+* @param {String} groupId
+*/
+async function readGroup(userID, groupId){
+	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
+	return await chatReader.readGroup(userID, groupId);
+}
+
+/**
+* Write the message in all participants inbox
+* @param {String} groupId
+* @param {String} userID
+* @param {String} message
+*/
+async function writeInboxGroupal(groupID, userID ,message){
+	userID = userID.replace("https://", "");
+	userID = userID.replace("/profile/card#me","");
+	chatWriter.sendToInboxGroupal(groupID, userID, message);
+}
+
+/**
+* Writes a message in the own pod of the user
+* @param {String} userID
+* @param {String} groupID
+* @param {String} message
+*/
+
+async function writeGroupal(userID, groupID, message){
+	var d = new Date();
+	var n = d.getTime();
+	var tmessage = { "date": n, "message": message}
+	await chatWriter.sendToOwnPODForGroups(userID, groupID, tmessage);
+}
+/**
+* CALLABLE ON INIT
+* Give permisions of read/write on folder to all friends of
+* @param {String} userID
+* to create groups because file-client update method remove and cretate again the file
+*/
+async function givePermissionsToFriends(userID){
+	userID = userID.replace("https://","");
+	userID = userID.replace("/profile/card#me","");
+	permissionService.givePermisionsToFriends(userID);
+
+}
+
+/**
+* CALLABLE ON INIT
+* Gives a detailed list of groups 
+*/
+async function listGroupsOnInit(userID){
+	userID = userID.replace("https://","");
+	userID = userID.replace("/profile/card#me","");
+	return await groupList.listGroupsOnInit(userID);
+}
+
+/**
+ * Creates a folder in user's own pod, containing a json representing chat messages
+ * and grants read permissions to partner.
+ * @param {String} userID 
+ * @param {String} partnerID
+ * @param {Array} messages
+ */
+async function uploadFileToOwnPOD(file, userID, partnerID) {
+    chatWriter.uploadFileToOwnPOD(file, userID, partnerID);
+}
+
+module.exports = {
+    readPod,
+    writeInbox,
+    writeOwnPOD,
+    createFileOnInit,
+    createGroup,
+    createUncreatedGroups, 
+    readGroup,
+    writeInboxGroupal,
+    writeGroupal,
+    givePermissionsToFriends,
+    listGroupsOnInit,
+    uploadFileToOwnPOD
+}
+</code></pre>
         </article>
     </section>
 
@@ -77,13 +194,13 @@ exports.read = read;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#read">read</a></li><li><a href="global.html#singleUriGetter">singleUriGetter</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createFileOnInit">createFileOnInit</a></li><li><a href="global.html#createGroup">createGroup</a></li><li><a href="global.html#createUncreatedGroups">createUncreatedGroups</a></li><li><a href="global.html#givePermissionsToFriends">givePermissionsToFriends</a></li><li><a href="global.html#listGroupsOnInit">listGroupsOnInit</a></li><li><a href="global.html#readGroup">readGroup</a></li><li><a href="global.html#readPod">readPod</a></li><li><a href="global.html#uploadFileToOwnPOD">uploadFileToOwnPOD</a></li><li><a href="global.html#writeGroupal">writeGroupal</a></li><li><a href="global.html#writeInbox">writeInbox</a></li><li><a href="global.html#writeInboxGroupal">writeInboxGroupal</a></li><li><a href="global.html#writeOwnPOD">writeOwnPOD</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Mar 11 2019 21:59:37 GMT+0100 (GMT+01:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:13:51 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
