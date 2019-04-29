@@ -9,6 +9,10 @@ describe("LDFlex queries tests", function(){
         const name = await query.getName(WebID);
         expect(name).toBe("Paco");
     }),
+    it("Gets profile pic from WebID", async function(){
+        const picture = await query.getProfilePic(WebID).name;
+        expect(picture).toBe(undefined);
+    }),
     it("Gets inbox URI from WebID", async function(){        
         const inbox = await query.getInbox(WebID);
         expect(inbox).toBe("https://es1btest.solid.community/inbox/");
