@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="addGroup"><span class="type-signature">(async) </span>addGroup<span class="signature">(user, owner, groupName)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addParticipants"><span class="type-signature">(async) </span>addParticipants<span class="signature">(participants)</span><span class="type-signature"></span></h4>
     
 
     
@@ -112,7 +112,7 @@
 
 
 <div class="description">
-    Gets the group list of
+    Support method to give permission to all
 </div>
 
 
@@ -144,460 +144,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>owner</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the groupand adds a new group</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>groupName</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line113">line 113</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The file with the groups
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="checkAllGroupsOKOnInit"><span class="type-signature">(async) </span>checkAllGroupsOKOnInit<span class="signature">(user)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    This function may be called on init to check that the
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">has all group folders created</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line171">line 171</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="createFileOnInit"><span class="type-signature">(async) </span>createFileOnInit<span class="signature">(activeUser)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    This function may be called on chat initIt checks the existence of file groups.txtcreating it if doesn't exist  or else updating the acl file
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>activeUser</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">refers the user on session</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="createGroup"><span class="type-signature">(async) </span>createGroup<span class="signature">(name, participants, creator,)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    This function create a group by passing a
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the group</td>
-        </tr>
-
     
 
         <tr>
@@ -617,10 +163,122 @@
         </tr>
 
     
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createACLFile"><span class="type-signature">(async) </span>createACLFile<span class="signature">(listOfFriends)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Main function to generate the ACL file to give permissions to friends from
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
 
         <tr>
             
-                <td class="name"><code>creator,</code></td>
+                <td class="name"><code>listOfFriends</code></td>
             
 
             <td class="type">
@@ -631,7 +289,7 @@
 
             
 
-            <td class="description last">the active user in session</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -672,7 +330,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line40">line 40</a>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -706,7 +364,7 @@
     
 
     
-    <h4 class="name" id="createGroupPerSe"><span class="type-signature">(async) </span>createGroupPerSe<span class="signature">(activeUser, groupID, listOfParticipants)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="createACLFileForFolder"><span class="type-signature">(async) </span>createACLFileForFolder<span class="signature">(listOfFriends)</span><span class="type-signature"></span></h4>
     
 
     
@@ -714,7 +372,7 @@
 
 
 <div class="description">
-    This function creates the group folder with his messages.txt filein the
+    Main function to generate the ACL file to give permissions to friends from
 </div>
 
 
@@ -750,7 +408,7 @@
 
         <tr>
             
-                <td class="name"><code>activeUser</code></td>
+                <td class="name"><code>listOfFriends</code></td>
             
 
             <td class="type">
@@ -761,9 +419,771 @@
 
             
 
-            <td class="description last">pod for a group determined by</td>
+            <td class="description last"></td>
         </tr>
 
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createACLFileForFolderContent"><span class="type-signature">(async) </span>createACLFileForFolderContent<span class="signature">(listOfFriends)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Main function to generate the ACL file to give permissions to friends from
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listOfFriends</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to access the group folder content</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createACLFileForInfo"><span class="type-signature">(async) </span>createACLFileForInfo<span class="signature">(listOfFriends)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Main function to generate the ACL file to give permissions to friends from
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listOfFriends</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to access the info txt</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line192">line 192</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createPrefixedFriends"><span class="type-signature">(async) </span>createPrefixedFriends<span class="signature">(participants)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Support method to declare all the
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>participants</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to receive permissions</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line101">line 101</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createPrefixedParticipants"><span class="type-signature">(async) </span>createPrefixedParticipants<span class="signature">(participants)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Support method to declare all the
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>participants</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to receive permissions</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="givePermisionsToFriends"><span class="type-signature">(async) </span>givePermisionsToFriends<span class="signature">(person)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Give permission to all friends to write and read the folder dechates1bIn the pod of the
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>person</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="groupFolderPermission"><span class="type-signature">(async) </span>groupFolderPermission<span class="signature">(groupID, person, listOfParticipants)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Give permission to all participants to read a
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -779,7 +1199,25 @@
 
             
 
-            <td class="description last">including a</td>
+            <td class="description last">In the pod of the</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>person</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to all the participants from</td>
         </tr>
 
     
@@ -838,7 +1276,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line137">line 137</a>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line141">line 141</a>
     </li></ul></dd>
     
 
@@ -872,7 +1310,7 @@
     
 
     
-    <h4 class="name" id="createGroupPerSeInSon"><span class="type-signature">(async) </span>createGroupPerSeInSon<span class="signature">(owner, id, user)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="groupInfoPermission"><span class="type-signature">(async) </span>groupInfoPermission<span class="signature">(groupID, person, owner)</span><span class="type-signature"></span></h4>
     
 
     
@@ -880,7 +1318,7 @@
 
 
 <div class="description">
-    Function to create the groupowned by
+    Give permission to owner to read a
 </div>
 
 
@@ -912,6 +1350,42 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupID</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">In the pod of the</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>person</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to the</td>
+        </tr>
+
     
 
         <tr>
@@ -927,42 +1401,6 @@
 
             
 
-            <td class="description last">identified by</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">in the POD of a participant</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
             <td class="description last"></td>
         </tr>
 
@@ -1004,7 +1442,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line190">line 190</a>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line239">line 239</a>
     </li></ul></dd>
     
 
@@ -1038,7 +1476,7 @@
     
 
     
-    <h4 class="name" id="createTheFile"><span class="type-signature">(async) </span>createTheFile<span class="signature">(idGroup, uriToCheck, activeUser)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="groupInfoPermissionForOwner"><span class="type-signature">(async) </span>groupInfoPermissionForOwner<span class="signature">(groupID, person, listOfParticipants)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1046,7 +1484,7 @@
 
 
 <div class="description">
-    Creates the file groups.txt with the new group
+    Give permission to all participants to read a
 </div>
 
 
@@ -1078,190 +1516,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>idGroup</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">In the pod contained in</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>uriToCheck</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">of the</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>activeUser</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line80">line 80</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="fileGroupInfo"><span class="type-signature">(async) </span>fileGroupInfo<span class="signature">(activeUser, groupID, listOfParticipants, groupName)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Creates the info txt document with
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>activeUser</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the owner of the group</td>
-        </tr>
-
     
 
         <tr>
@@ -1277,7 +1531,25 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">In the pod of the</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>person</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">to</td>
         </tr>
 
     
@@ -1299,24 +1571,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>groupName</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -1354,7 +1608,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line158">line 158</a>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line260">line 260</a>
     </li></ul></dd>
     
 
@@ -1388,7 +1642,7 @@
     
 
     
-    <h4 class="name" id="updateGroupsTo"><span class="type-signature">(async) </span>updateGroupsTo<span class="signature">(uriToCheck, newGroupAdded)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="groupsPermission"><span class="type-signature">(async) </span>groupsPermission<span class="signature">(person)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1396,7 +1650,7 @@
 
 
 <div class="description">
-    Updates the groups json file of the client included in
+    Give permission to all friends to write in file groups.txtIn the pod of the
 </div>
 
 
@@ -1432,25 +1686,7 @@
 
         <tr>
             
-                <td class="name"><code>uriToCheck</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">with the file containing all groups</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>newGroupAdded</code></td>
+                <td class="name"><code>person</code></td>
             
 
             <td class="type">
@@ -1502,7 +1738,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="groupCreator.js.html">groupCreator.js</a>, <a href="groupCreator.js.html#line102">line 102</a>
+        <a href="permissions.js.html">permissions.js</a>, <a href="permissions.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -1546,13 +1782,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addGroup">addGroup</a></li><li><a href="global.html#checkAllGroupsOKOnInit">checkAllGroupsOKOnInit</a></li><li><a href="global.html#createFileOnInit">createFileOnInit</a></li><li><a href="global.html#createGroup">createGroup</a></li><li><a href="global.html#createGroupPerSe">createGroupPerSe</a></li><li><a href="global.html#createGroupPerSeInSon">createGroupPerSeInSon</a></li><li><a href="global.html#createTheFile">createTheFile</a></li><li><a href="global.html#fileGroupInfo">fileGroupInfo</a></li><li><a href="global.html#updateGroupsTo">updateGroupsTo</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addParticipants">addParticipants</a></li><li><a href="global.html#createACLFile">createACLFile</a></li><li><a href="global.html#createACLFileForFolder">createACLFileForFolder</a></li><li><a href="global.html#createACLFileForFolderContent">createACLFileForFolderContent</a></li><li><a href="global.html#createACLFileForInfo">createACLFileForInfo</a></li><li><a href="global.html#createPrefixedFriends">createPrefixedFriends</a></li><li><a href="global.html#createPrefixedParticipants">createPrefixedParticipants</a></li><li><a href="global.html#givePermisionsToFriends">givePermisionsToFriends</a></li><li><a href="global.html#groupFolderPermission">groupFolderPermission</a></li><li><a href="global.html#groupInfoPermission">groupInfoPermission</a></li><li><a href="global.html#groupInfoPermissionForOwner">groupInfoPermissionForOwner</a></li><li><a href="global.html#groupsPermission">groupsPermission</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:20:37 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:21:10 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

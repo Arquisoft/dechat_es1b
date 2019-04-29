@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: permissions.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: permissions.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const fileClient = require('solid-file-client');
+const query = require('../../../ldflex-queries.js');
+const FolderManager = require("../../ChatWriter/FolderManager");
+
+/**
+* Give permission to all friends to write and read the folder dechates1b
+* In the pod of the
+* @param person
+*/
+async function givePermisionsToFriends(person)
+{
+	var folderACLURI = "https://"+person+"/group/.acl";
+	var listOfFriends = await query.getFriends();
+	
+	var folderACL = await createACLFileForFolder(person);
+	fileClient.updateFile(folderACLURI, await folderACL);	
+	
+}
+
+
+/**
+* Give permission to all friends to write in file groups.txt
+* In the pod of the
+* @param person
+*/
+async function groupsPermission(person)
+{
+	var uriToEdit = "https://"+person+"/group//groups.txt.acl";
+	var listOfFriends = await query.getFriends();
+	//console.log(listOfFriends.toString());
+	
+	var fileTU =  await createACLFile(listOfFriends);
+	fileClient.updateFile( uriToEdit, await fileTU);
+	
+	
+}
+
+/**
+* Main function to generate the ACL file to give permissions to friends from
+* @param listOfFriends
+*/
+async function createACLFile(listOfFriends){
+
+	var ACL = "@prefix : &lt;#>. \n"
+		+ "@prefix n0: &lt;http://www.w3.org/ns/auth/acl#>. \n"
+		+ "@prefix c: &lt;/profile/card#>. \n"
+		+ await createPrefixedFriends(listOfFriends)
+		+ "\n"
+	
+		+ ":ControlReadWrite \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo &lt;groups.txt>; \n"
+		+ "\tn0:agent c:me; \n"
+		+ "\tn0:mode n0:Control, n0:Read, n0:Write. \n"
+		+ ":ReadWrite \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo &lt;groups.txt>; \n"
+		+ await addParticipants(listOfFriends)
+		+ "\tn0:mode n0:Write, n0:Read.";
+
+
+	return ACL;
+}
+
+/**
+* Main function to generate the ACL file to give permissions to friends from
+* @param listOfFriends
+*/
+async function createACLFileForFolder(user){
+
+	var ACL = "@prefix : &lt;#>. \n"
+		+ "@prefix acl: &lt;http://www.w3.org/ns/auth/acl#>. \n"
+		+ "@prefix foaf: &lt;http://xmlns.com/foaf/0.1/>. \n"
+		+ "\n"
+	
+		+ "&lt;#owner> \n"
+		+ "\ta acl:Authorization; \n"
+		+ "\tacl:agent \n"
+		+ "\t&lt;https://"+user+"/profile/card#me>; \n"
+		+ "\tacl:accessTo &lt;./>; \n"
+		+ "\tacl:defaultForNew &lt;./>; \n"
+		+ "\tacl:mode \n"
+		+ "\tacl:Read, acl:Write, acl:Control. \n"
+		
+		+ "&lt;#public> \n"
+		+ "\ta acl:Authorization; \n"
+		+ "\tacl:agentClass foaf:Agent;\n"
+		+ "\tacl:accessTo &lt;./>; \n"
+		+ "\tacl:defaultForNew &lt;./>; \n"
+		+ "\tacl:mode acl:Read, acl:Write, acl:Append.";   
+
+	return ACL;
+}
+
+
+/**
+* Support method to declare all the
+* @param participants 
+* to receive permissions 
+*/
+async function createPrefixedFriends(participants){
+	var strTR = "";
+	
+	for(i in participants){
+		var partnerID = participants[i].id.replace('#me','#');
+		strTR = strTR + "@prefix c"+i+": &lt;" + partnerID + ">. \n";
+	}
+	return strTR;
+}
+
+/**
+* Support method to give permission to all 
+* @param participants 
+*/
+async function addParticipants(participants){
+	var strTR = "\tn0:agent";
+	for(i in participants){
+		
+		if(i != participants.length -1){
+			strTR = strTR + " c"+i+":me,";
+		}
+		else{
+			strTR = strTR + " c"+i+":me";
+		}
+	}
+	strTR = strTR + "; \n";
+	return strTR;
+}
+
+/***********************************************************************************************************************************/
+
+
+/**
+* Give permission to all participants to read a
+* @param groupID
+* In the pod of the
+* @param person
+* to all the participants from
+* @param listOfParticipants
+*/
+async function groupFolderPermission(person, groupID, listOfParticipants)
+{
+	var listB = [];
+	for(i in listOfParticipants){
+		if(listOfParticipants[i] != person){
+			listB.push(listOfParticipants[i]);
+		}
+	}
+	
+	var uriToEdit = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//messages.txt.acl";
+	var mainUri = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//messages.txt";
+
+	var fileTU =  await createACLFileForFolderContent(await listB);
+	
+	fileClient.updateFile( uriToEdit, await fileTU);
+	
+	
+}
+
+/**
+* Main function to generate the ACL file to give permissions to friends from
+* @param listOfFriends
+* to access the group folder content
+*/
+async function createACLFileForFolderContent(listOfFriends){
+
+	var ACL = "@prefix : &lt;#>. \n"
+		+ "@prefix n0: &lt;http://www.w3.org/ns/auth/acl#>. \n"
+		+ "@prefix c: &lt;/profile/card#>. \n"
+		+ await createPrefixedParticipants(listOfFriends)
+		+ "\n"
+
+		+ ":Control \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo &lt;messages.txt>; \n"
+		+ "\tn0:agent c:me; \n"
+		+ "\tn0:mode n0:Control, n0:Read, n0:Write. \n"
+		+ ":Read \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo &lt;messages.txt>; \n"
+		+ await addParticipants(listOfFriends)
+		+ "\tn0:mode n0:Read.";
+
+	return ACL;
+}
+
+/**
+* Main function to generate the ACL file to give permissions to friends from
+* @param listOfFriends
+* to access the info txt
+*/
+async function createACLFileForInfo(listOfFriends){
+
+	var ACL = "@prefix : &lt;#>. \n"
+		+ "@prefix n0: &lt;http://www.w3.org/ns/auth/acl#>. \n"
+		+ "@prefix c: &lt;/profile/card#>. \n"
+		+ await createPrefixedParticipants(listOfFriends)
+		+ "\n"
+
+		+ ":Control \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo &lt;info.txt>; \n"
+		+ "\tn0:agent c:me; \n"
+		+ "\tn0:mode n0:Control, n0:Read, n0:Write. \n"
+		+ ":ReadWrite \n"
+		+ "\ta n0:Authorization; \n"
+		+ "\tn0:accessTo &lt;info.txt>; \n"
+		+ await addParticipants(listOfFriends)
+		+ "\tn0:mode n0:Read, n0:Write.";
+
+	return ACL;
+}
+
+/**
+* Support method to declare all the
+* @param participants 
+* to receive permissions 
+*/
+async function createPrefixedParticipants(participants){
+	var strTR = "";
+	
+	for(i in participants){
+		var partnerID = "https://"+participants[i]+"/profile/card#";
+		strTR = strTR + "@prefix c"+i+": &lt;" + partnerID + ">. \n";
+	}
+	return strTR;
+}
+/***********************************************************************************************************************************/
+
+
+/**
+* Give permission to owner to read a
+* @param groupID
+* In the pod of the
+* @param person
+* to the
+* @param owner
+*/
+async function groupInfoPermission(person, groupID, owner)
+{
+	var uriToEdit = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt.acl";
+	var mainUri = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt";
+
+	var listOfParticipantsB = [];
+	listOfParticipantsB.push(owner);
+	var fileTU =  await createACLFileForInfo(listOfParticipantsB);
+	fileClient.updateFile( uriToEdit,await fileTU);
+	
+	
+}
+
+/**
+* Give permission to all participants to read a
+* @param groupID
+* In the pod of the
+* @param person
+* to 
+* @param listOfParticipants
+*/
+async function groupInfoPermissionForOwner(person, groupID, listOfParticipants)
+{
+	var uriToEdit = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt.acl";
+	var mainUri = "https://"+person+"/"+FolderManager.DECHAT_FOLDER+"/"+groupID+"//info.txt";
+	var fileTU =  await createACLFileForInfo(listOfParticipants);
+	fileClient.updateFile( uriToEdit,await fileTU);
+	
+	
+}
+
+exports.givePermisionsToFriends = givePermisionsToFriends;
+exports.groupInfoPermission = groupInfoPermission;
+exports.groupsPermission = groupsPermission;
+exports.groupFolderPermission = groupFolderPermission;
+exports.groupInfoPermissionForOwner = groupInfoPermissionForOwner;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addParticipants">addParticipants</a></li><li><a href="global.html#createACLFile">createACLFile</a></li><li><a href="global.html#createACLFileForFolder">createACLFileForFolder</a></li><li><a href="global.html#createACLFileForFolderContent">createACLFileForFolderContent</a></li><li><a href="global.html#createACLFileForInfo">createACLFileForInfo</a></li><li><a href="global.html#createPrefixedFriends">createPrefixedFriends</a></li><li><a href="global.html#createPrefixedParticipants">createPrefixedParticipants</a></li><li><a href="global.html#givePermisionsToFriends">givePermisionsToFriends</a></li><li><a href="global.html#groupFolderPermission">groupFolderPermission</a></li><li><a href="global.html#groupInfoPermission">groupInfoPermission</a></li><li><a href="global.html#groupInfoPermissionForOwner">groupInfoPermissionForOwner</a></li><li><a href="global.html#groupsPermission">groupsPermission</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:21:10 GMT+0200 (GMT+02:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
