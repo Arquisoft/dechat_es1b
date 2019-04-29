@@ -272,3 +272,5 @@ exports.groupInfoPermission = groupInfoPermission;
 exports.groupsPermission = groupsPermission;
 exports.groupFolderPermission = groupFolderPermission;
 exports.groupInfoPermissionForOwner = groupInfoPermissionForOwner;
+exports.createACLFile = createACLFile;
+exports.createPrefixedFriends = createPrefixedFriends;
