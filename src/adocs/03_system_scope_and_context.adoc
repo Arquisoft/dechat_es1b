@@ -46,7 +46,11 @@ As we have done previously, It is going to be represented in the next diagram.
 [#img-overviewwrittingcontext]
 image::./diagrams/03-writtingContext.png[overviewwrittingcontext]
 
-
+.*Group load context*
+When we start the app, some functions run in background.
+These are represented here:
+[#img-overviewloadgroups]
+image::./diagrams/GroupOnInit.png[overviewloadgroups]
 
 ==== Frontend 
 The frontend will be a SPA (Single page application) in which the user will make all of his interactions, which will be the authentication and the chatting itself.
