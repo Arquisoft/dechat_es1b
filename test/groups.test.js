@@ -43,6 +43,24 @@ describe('Test groups', () => {
         //console.log(await permissionsService.createPrefixedFriends(["prueba.solid.comunnity", "prueba2.solid.comunnity"]));
         expect(await permissionsService.createPrefixedFriends({})).toBe("");
         expect(await permissionsService.createPrefixedFriends({})).toBe("");
+        expect(await permissionsService.createACLFileForFolder({})).toBe("@prefix : <#>. \n" +
+            "@prefix acl: <http://www.w3.org/ns/auth/acl#>. \n" +
+            "@prefix foaf: <http://xmlns.com/foaf/0.1/>. \n" +
+            "\n" +
+            "<#owner> \n" +
+            "\ta acl:Authorization; \n" +
+            "\tacl:agent \n" +
+            "\t<https://[object Object]/profile/card#me>; \n" +
+            "\tacl:accessTo <./>; \n" +
+            "\tacl:defaultForNew <./>; \n" +
+            "\tacl:mode \n" +
+            "\tacl:Read, acl:Write, acl:Control. \n" +
+            "<#public> \n" +
+            "\ta acl:Authorization; \n" +
+            "\tacl:agentClass foaf:Agent;\n" +
+            "\tacl:accessTo <./>; \n" +
+            "\tacl:defaultForNew <./>; \n" +
+            "\tacl:mode acl:Read, acl:Write, acl:Append.");
         expect(await permissionsService.createACLFileForFolderContent({})).toBe("@prefix : <#>. \n" +
             "@prefix n0: <http://www.w3.org/ns/auth/acl#>. \n" +
             "@prefix c: </profile/card#>. \n" +
@@ -72,6 +90,26 @@ describe('Test groups', () => {
             "\tn0:agent; \n" +
             "\tn0:mode n0:Read, n0:Write.");
         expect(await permissionsService.createPrefixedParticipants({})).toBe("");
+        expect(await permissionsService.createPrefixedParticipants(["prueba.community.solid", "prueba2.community.solid"])).toBe("@prefix c0: <https://prueba.community.solid/profile/card#>. \n" +
+            "@prefix c1: <https://prueba2.community.solid/profile/card#>. \n");
+        expect(await permissionsService.createACLFileForFolderContent(["prueba.community.solid", "prueba2.community.solid"])).toBe("@prefix : <#>. \n" +
+            "@prefix n0: <http://www.w3.org/ns/auth/acl#>. \n" +
+            "@prefix c: </profile/card#>. \n" +
+            "@prefix c0: <https://prueba.community.solid/profile/card#>. \n" +
+            "@prefix c1: <https://prueba2.community.solid/profile/card#>. \n" +
+            "\n" +
+            ":Control \n" +
+            "\ta n0:Authorization; \n" +
+            "\tn0:accessTo <messages.txt>; \n" +
+            "\tn0:agent c:me; \n" +
+            "\tn0:mode n0:Control, n0:Read, n0:Write. \n" +
+            ":Read \n" +
+            "\ta n0:Authorization; \n" +
+            "\tn0:accessTo <messages.txt>; \n" +
+            "\tn0:agent c0:me, c1:me; \n" +
+            "\tn0:mode n0:Read.");
+        //Check that this method running
+        expect(await permissionsService.groupFolderPermission("prueba.community.solid","testingGroup",["prueba.community.solid", "prueba2.community.solid"])).toBe(undefined);
     });
 });
 

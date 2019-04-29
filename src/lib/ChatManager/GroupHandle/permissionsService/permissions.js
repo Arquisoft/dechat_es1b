@@ -277,3 +277,4 @@ exports.createPrefixedFriends = createPrefixedFriends;
 exports.createACLFileForFolderContent = createACLFileForFolderContent;
 exports.createACLFileForInfo = createACLFileForInfo;
 exports.createPrefixedParticipants = createPrefixedParticipants;
+exports.createACLFileForFolder = createACLFileForFolder;
