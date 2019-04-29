@@ -345,7 +345,7 @@ function addImageUploadListener(chat) {
     $("#send-image").on('change', function () {
         var parts = this.files[0].name.split(".");
         var formato = parts[parts.length - 1];
-        if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png') {
+        if (formato == 'jpg' || formato == 'jpeg' || formato == 'gif' || formato == 'png'|| formato == 'ico') {
             chat.sendMessage(this.files[0], 'image');
         } else {
             chat.sendMessage(this.files[0], 'file');
