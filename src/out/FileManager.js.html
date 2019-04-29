@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: FileManager.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,40 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: FileManager.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const fileClient = require('solid-file-client');
 
+/**
+ * Deletes the file with the given URL
+ * @param {String} url 
+ * @return {Promise} file
+ */
+function deleteFile(url) {
+    return fileClient.deleteFile(url).then(() => 200);
+}
 
-    <h3> </h3>
+/**
+ * Read the url file
+ * @return {Promise} file
+ */
+function readFile(url) {
+    return fileClient.readFile(url);
+}
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = {
+    deleteFile,
+    readFile
+}</code></pre>
+        </article>
+    </section>
 
 
 
