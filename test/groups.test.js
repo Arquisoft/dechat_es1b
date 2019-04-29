@@ -42,6 +42,36 @@ describe('Test groups', () => {
         //Again, in some ecosystem like Travis don't work with prefixeds list.
         //console.log(await permissionsService.createPrefixedFriends(["prueba.solid.comunnity", "prueba2.solid.comunnity"]));
         expect(await permissionsService.createPrefixedFriends({})).toBe("");
+        expect(await permissionsService.createPrefixedFriends({})).toBe("");
+        expect(await permissionsService.createACLFileForFolderContent({})).toBe("@prefix : <#>. \n" +
+            "@prefix n0: <http://www.w3.org/ns/auth/acl#>. \n" +
+            "@prefix c: </profile/card#>. \n" +
+            "\n" +
+            ":Control \n" +
+            "\ta n0:Authorization; \n" +
+            "\tn0:accessTo <messages.txt>; \n" +
+            "\tn0:agent c:me; \n" +
+            "\tn0:mode n0:Control, n0:Read, n0:Write. \n" +
+            ":Read \n" +
+            "\ta n0:Authorization; \n" +
+            "\tn0:accessTo <messages.txt>; \n" +
+            "\tn0:agent; \n" +
+            "\tn0:mode n0:Read.");
+        expect(await permissionsService.createACLFileForInfo({})).toBe("@prefix : <#>. \n" +
+            "@prefix n0: <http://www.w3.org/ns/auth/acl#>. \n" +
+            "@prefix c: </profile/card#>. \n" +
+            "\n" +
+            ":Control \n" +
+            "\ta n0:Authorization; \n" +
+            "\tn0:accessTo <info.txt>; \n" +
+            "\tn0:agent c:me; \n" +
+            "\tn0:mode n0:Control, n0:Read, n0:Write. \n" +
+            ":ReadWrite \n" +
+            "\ta n0:Authorization; \n" +
+            "\tn0:accessTo <info.txt>; \n" +
+            "\tn0:agent; \n" +
+            "\tn0:mode n0:Read, n0:Write.");
+        expect(await permissionsService.createPrefixedParticipants({})).toBe("");
     });
 });
 
