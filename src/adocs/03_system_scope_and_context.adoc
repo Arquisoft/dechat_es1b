@@ -10,7 +10,7 @@ trying to adjust as better as possible the first version of our chat.
 === Business Context
 
 ==== Users
-Users can chat privately, messages aren´t registered in a server, 
+Users can chat privately (messages aren't registered in a server) 
 with others using their own pod (SOLID credentials for any client)  
 
 ==== SOLID POD

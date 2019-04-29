@@ -1,20 +1,23 @@
 [[section-solution-strategy]]
 == Solution Strategy
 
-Language of choice is JavaScript. It's the most adequate language to develop SOLID apps at the moment both because of the support module wise it has currently such as its synergy with web applications.
+Language of choice is JavaScript. It's the most adequate language to develop SOLID apps at the moment both because of its support module-wise as for its synergy with web applications.
 
-Node.js modularity, asynchronity capabilities and its underlaying package managers are interesting features we want in our application therefore DeChat is made with Node.
+Node.js modularity, asynchronity capabilities and its underlaying package managers are interesting features we want in our application, therefore DeChat is made on Node.
 Using npm as package manager provides us the easy management of external dependencies such as solid-auth-client or solid-file-client.
 
 However we want DeChat to be client side and communicate with the POD's wherever they are hosted, removing any unneeded middle server. For that purpose, Webpack will be used to keep all the advantages of Node, client side.
 
-The user interface will be developed using web technologies (HTML5+CSS3+Bootstrap) following their standards defined in W3C. Because of our time constraints, JQuery will be used to manipulate DOM tree instead of choosing a framework such as Angular or React that would be more of a hindrance than an advantage, considering we already have to learn a lot of new tech we aren't used to as students and for this project's needs they would be overdesigning anyways.
+The user interface will be developed using web technologies (HTML5+CSS3+Bootstrap) following their standards as defined in W3C. 
+Because of our time constraints, JQuery will be used to manipulate the DOM tree, instead of choosing a framework such as Angular or React.
+That would be more of a hindrance than an advantage considering we already have to learn a lot of new tech we aren't used to as students,
+and for this project's needs they would be overdesigning anyways.
 
-As for data storage, JSON is our choice because it's lightweight, ingrained into JavaScript and it has an easy way of manipulation.
+As for data storage, JSON format is our choice because it's lightweight, ingrained into JavaScript and it has an easy way of manipulation.
 
 Considerations:
 
- - The technology decisions that has been made are focus on the compatibilities with SOLID specification.
+ - The technology decisions that have been made focus on the compatibilities with the SOLID specification.
  
  - All decisions were made with the aim of easily developing the application, using previous knowledge of the team members and adapting them to SOLID technology.
 

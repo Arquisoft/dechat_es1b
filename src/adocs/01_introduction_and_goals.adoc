@@ -12,8 +12,8 @@ In this section the relevant requirements, goals and objectives of the final pro
 .Contents
 The main functionality consists of a decentralized, SOLID based 
 chat application that allows to comunicate via text messages, and where users 
-can share pictures, videos or other kind of files. Being decentralized, data 
-storage will be separated from the app, and users will store their data 
+can share pictures, videos or other kind of files, as well as videocall each other. Being decentralized, 
+data storage will be separated from the app, and users will store their data 
 on their own PODs.
 
 .Motivation
