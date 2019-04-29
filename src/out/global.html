@@ -94,72 +94,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="auth"><span class="type-signature">(constant) </span>auth<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    API for handling SOLID pods
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="session.js.html">session.js</a>, <a href="session.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -170,7 +104,7 @@
     
 
     
-    <h4 class="name" id="getSession"><span class="type-signature">(async) </span>getSession<span class="signature">()</span><span class="type-signature"> &rarr; {function}</span></h4>
+    <h4 class="name" id="answerVideoCall"><span class="type-signature"></span>answerVideoCall<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -178,7 +112,7 @@
 
 
 <div class="description">
-    Returns the current session
+    This function set the user to a waiting state when the user generates his peerID.When the call from the other user is receive, it initializes videochat call components and establish connection.
 </div>
 
 
@@ -222,7 +156,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="session.js.html">session.js</a>, <a href="session.js.html#line20">line 20</a>
+        <a href="videochatManager.js.html">videochatManager.js</a>, <a href="videochatManager.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -245,28 +179,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    currentSession
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">function</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -278,7 +190,7 @@
     
 
     
-    <h4 class="name" id="getUser"><span class="type-signature">(async) </span>getUser<span class="signature">()</span><span class="type-signature"> &rarr; {Person}</span></h4>
+    <h4 class="name" id="connectWithPeer"><span class="type-signature"></span>connectWithPeer<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -286,7 +198,7 @@
 
 
 <div class="description">
-    Returns the authenticated user
+    This function is called from index.js when a user write the partner peerID and press connect.It established connection with the other user and calls videoCallPartner function to start the call.
 </div>
 
 
@@ -330,7 +242,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="session.js.html">session.js</a>, <a href="session.js.html#line28">line 28</a>
+        <a href="videochatManager.js.html">videochatManager.js</a>, <a href="videochatManager.js.html#line113">line 113</a>
     </li></ul></dd>
     
 
@@ -353,28 +265,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    user
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Person</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -386,7 +276,7 @@
     
 
     
-    <h4 class="name" id="login"><span class="type-signature">(async) </span>login<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="disconnect"><span class="type-signature"></span>disconnect<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -394,7 +284,7 @@
 
 
 <div class="description">
-    Presents a popup and logs the user in
+    This function shows/hide videochat components of the UI and disable/enable connect/disconnect buttons if the call is on process or not.
 </div>
 
 
@@ -438,7 +328,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="session.js.html">session.js</a>, <a href="session.js.html#line12">line 12</a>
+        <a href="videochatManager.js.html">videochatManager.js</a>, <a href="videochatManager.js.html#line102">line 102</a>
     </li></ul></dd>
     
 
@@ -472,7 +362,7 @@
     
 
     
-    <h4 class="name" id="logout"><span class="type-signature">(async) </span>logout<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="initializeChatComponents"><span class="type-signature"></span>initializeChatComponents<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -480,7 +370,7 @@
 
 
 <div class="description">
-    Close user session
+    This function add the <video> elements in UI. It is called when someone established a videochat call and when someone answer a videochat call.It disable/enable the connect/disconnect button.
 </div>
 
 
@@ -524,7 +414,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="session.js.html">session.js</a>, <a href="session.js.html#line38">line 38</a>
+        <a href="videochatManager.js.html">videochatManager.js</a>, <a href="videochatManager.js.html#line129">line 129</a>
     </li></ul></dd>
     
 
@@ -558,7 +448,7 @@
     
 
     
-    <h4 class="name" id="track"><span class="type-signature">(async) </span>track<span class="signature">(success, failure)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="initializePeer"><span class="type-signature">(async) </span>initializePeer<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -566,7 +456,93 @@
 
 
 <div class="description">
-    Tracks the session and executes the callback functions depending on the session status
+    This function creates a random ID for our peer and initializes it,connecting us to the PeerJs server. This function is called when a user press the button to generate it peerID to start a videochat
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="videochatManager.js.html">videochatManager.js</a>, <a href="videochatManager.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="videocallPartner"><span class="type-signature"></span>videocallPartner<span class="signature">(peerID)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This function start the videocall with the partner. The connection is established and the neccesary components are shown in UI.
 </div>
 
 
@@ -602,13 +578,13 @@
 
         <tr>
             
-                <td class="name"><code>success</code></td>
+                <td class="name"><code>peerID</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">string</span>
 
 
             
@@ -618,30 +594,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>failure</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">the partner peerID which is used to establish connection.</td>
         </tr>
 
     
@@ -682,7 +635,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="session.js.html">session.js</a>, <a href="session.js.html#line48">line 48</a>
+        <a href="videochatManager.js.html">videochatManager.js</a>, <a href="videochatManager.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -726,13 +679,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#auth">auth</a></li><li><a href="global.html#getSession">getSession</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#track">track</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#answerVideoCall">answerVideoCall</a></li><li><a href="global.html#connectWithPeer">connectWithPeer</a></li><li><a href="global.html#disconnect">disconnect</a></li><li><a href="global.html#initializeChatComponents">initializeChatComponents</a></li><li><a href="global.html#initializePeer">initializePeer</a></li><li><a href="global.html#videocallPartner">videocallPartner</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:12:19 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:12:39 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
