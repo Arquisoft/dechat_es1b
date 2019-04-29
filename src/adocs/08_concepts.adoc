@@ -6,7 +6,7 @@ Perhaps the most important concept surrounding this project and what sets it apa
 
 Pursuing what the SOLID spec looks for, its imperative that the user regains control of his own data and that it doesnt fall in the hands of a third party.
 
-For that purpose each user's data will be uniquely in his own POD, a personal storage to which only he has full control over. As a result, when a user sends a message this message will only be stored in that user's POD and nowhere else. His partner will be able to read this message as long as he is granted permission to do so but as said, the data will be exclusively in its author's POD.
+For that purpose each user's data will be uniquely in his own POD, a personal storage to which only he/she has full control over. As a result, when a user sends a message this message will only be stored in that user's POD and nowhere else. User's partner will be able to read this message as long as they are granted permission to do so but as said, the data will be exclusively in its author's POD.
 
 === Performance
 Obviously we aren't trying to get top of the industry speed in our chat, but that doesnt mean that its latency should be thrown out of the window either.

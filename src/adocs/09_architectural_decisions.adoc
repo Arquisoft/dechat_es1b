@@ -7,18 +7,18 @@
 
 - We have to choose the language of the programming that we will use to carry out the project, taking into account the advantages and disadvantages of each one.
 - We have to decide which libraries will use in the project.
-- We have to learn too many things to carry out the project.
+- We have to learn lots of new things to carry out the project.
 
 .Constraints
 
-We have to use Solid,  a web decentralization project led by Tim Berners-Lee. Solid supports the framework of JavaScript Angular and the library React.
+We have to use Solid, a web decentralization project led by Tim Berners-Lee. Solid supports the framework of JavaScript Angular and the library React.
 
 .Assumptions
 
 - If we use a language that we do not know at all, the beginning of the project will be hard.
-- If we use a language other than JavaScript, we will have many less alternatives in the future because solid supports Angular a framework of JavaScript or React a library of JavaScript.
-- If we decided to use Angular we would have to learn to use it, this means, where we already have things to learn to add one more. And we do not believe that we will know enough about Angular to carry out the project correctly. It does not save us anything.
-- If we discard Angular and use only Node.js, we would save ourselves learning Angular. With Node.js and jQuery, it is enough to carry out the project.
+- If we use a language other than JavaScript, we will have many less alternatives in the future because solid supports Angular, a framework of JavaScript, or React, a library of JavaScript.
+- If we decided to use Angular we would have to learn how to use it, this means, where we already have things to learn to add one more. And we do not believe we will know enough about Angular to carry out the project correctly. It does not save us anything.
+- If we discard Angular and use only Node.js, we would save ourselves time learning Angular. With Node.js and jQuery, it is enough to carry out the project.
 
 
 .Considered Alternatives
@@ -29,6 +29,6 @@ We have to use Solid,  a web decentralization project led by Tim Berners-Lee. So
 
 .Decisions
 
-- We make the decision of use JavaScript, because although we handle better in Java or C# we prefer take the risk of use use a programming language that we have used less but that provides us more resources in Solid.
-- At first we had thought to use Angular too, but we say to use only Node.js and jQuery because with these tools we can carry out the project without problem and we save ourselves the task of having to learn and know how to handle Angular.
+- We make the decision of using JavaScript, because although we are used to Java or C#, we prefer to take the risk of using a programming language in which we have less experience, since that provides us more resources in Solid.
+- At first we had thought to use Angular too, but we switched to just Node.js and jQuery because with these tools we can carry out the project no problem, and we save ourselves the task of learning and knowing how to handle Angular.
 

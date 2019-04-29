@@ -2,10 +2,10 @@
 == Quality Requirements
 
 _Testability_::
-The app should be testable, as automated as possible with the use of Unit Testing and CI where applicable.
+The app should be testable, as automated as possible with the use of Unit Testing and CI where applicable, as well as User Stories.
 
 _Performance_::
-The app must perform within reasonable levels of latency
+The app must perform within reasonable levels of latency.
 
 _Usability_::
 The app must be user friendly and should have a comfortable learning curve. It is imperative that the user doesnt need to waste time figuring out how to use the app
