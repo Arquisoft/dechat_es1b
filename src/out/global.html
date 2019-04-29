@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="createFileOnInit"><span class="type-signature">(async) </span>createFileOnInit<span class="signature">(userID)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="checkIfMessageExists"><span class="type-signature">(async) </span>checkIfMessageExists<span class="signature">(userURL, friendURL)</span><span class="type-signature"></span></h4>
     
 
     
@@ -112,7 +112,7 @@
 
 
 <div class="description">
-    CALLABLE ON INITCreates the file groups.txt on Dechat Folder of a userthis file represents a index of groups
+    If is the first time, messages.txt don't create,so we will create.
 </div>
 
 
@@ -148,7 +148,30 @@
 
         <tr>
             
-                <td class="name"><code>userID</code></td>
+                <td class="name"><code>userURL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>friendURL</code></td>
             
 
             <td class="type">
@@ -205,7 +228,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line43">line 43</a>
+        <a href="ChatReader.js.html">ChatReader.js</a>, <a href="ChatReader.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -239,7 +262,7 @@
     
 
     
-    <h4 class="name" id="createGroup"><span class="type-signature">(async) </span>createGroup<span class="signature">(groupName, participantsList, userID)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="checkIfMessagesExists"><span class="type-signature">(async) </span>checkIfMessagesExists<span class="signature">(userURL, friendURL)</span><span class="type-signature"></span></h4>
     
 
     
@@ -247,7 +270,7 @@
 
 
 <div class="description">
-    Creates the group per se with all necesary files and folders in own pod
+    Check if messages exists, if not create created.
 </div>
 
 
@@ -283,7 +306,7 @@
 
         <tr>
             
-                <td class="name"><code>groupName</code></td>
+                <td class="name"><code>userURL</code></td>
             
 
             <td class="type">
@@ -306,30 +329,7 @@
 
         <tr>
             
-                <td class="name"><code>participantsList</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>userID</code></td>
+                <td class="name"><code>friendURL</code></td>
             
 
             <td class="type">
@@ -386,7 +386,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line55">line 55</a>
+        <a href="ChatReader.js.html">ChatReader.js</a>, <a href="ChatReader.js.html#line78">line 78</a>
     </li></ul></dd>
     
 
@@ -420,7 +420,7 @@
     
 
     
-    <h4 class="name" id="createUncreatedGroups"><span class="type-signature">(async) </span>createUncreatedGroups<span class="signature">(userID)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="read"><span class="type-signature">(async) </span>read<span class="signature">(urla, urlb)</span><span class="type-signature"></span></h4>
     
 
     
@@ -428,7 +428,7 @@
 
 
 <div class="description">
-    CALLABLE ON INITCreates all group folder and files that does not exist
+    This function receives two uri applies singleUriGetter	to create a message array for each onerror	and returns the sorted by date list
 </div>
 
 
@@ -460,6 +460,182 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>urla</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Example: martinlacorrona.solid.community</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>urlb</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Example: javierardura.solid.community</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ChatReader.js.html">ChatReader.js</a>, <a href="ChatReader.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="readGroup"><span class="type-signature">(async) </span>readGroup<span class="signature">(groupId, userID)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Read the group identified by the
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>groupId</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">in the pod of the</td>
+        </tr>
+
     
 
         <tr>
@@ -516,7 +692,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line69">line 69</a>
+        <a href="ChatReader.js.html">ChatReader.js</a>, <a href="ChatReader.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
@@ -539,6 +715,16 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    ordered messages
+</div>
+
+
+
+    
 
 
 
@@ -550,7 +736,7 @@
     
 
     
-    <h4 class="name" id="givePermissionsToFriends"><span class="type-signature">(async) </span>givePermissionsToFriends<span class="signature">(userID)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="readGroupal"><span class="type-signature">(async) </span>readGroupal<span class="signature">(listOfFriends, groupId)</span><span class="type-signature"></span></h4>
     
 
     
@@ -558,7 +744,7 @@
 
 
 <div class="description">
-    CALLABLE ON INITGive permisions of read/write on folder to all friends of
+    Supports groupal reading passing the
 </div>
 
 
@@ -594,15 +780,10 @@
 
         <tr>
             
-                <td class="name"><code>userID</code></td>
+                <td class="name"><code>listOfFriends</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
             
             </td>
 
@@ -610,228 +791,7 @@
 
             
 
-            <td class="description last">to create groups because file-client update method remove and cretate again the file</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line117">line 117</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="listGroupsOnInit"><span class="type-signature">(async) </span>listGroupsOnInit<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    CALLABLE ON INITGives a detailed list of groups
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line128">line 128</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="readGroup"><span class="type-signature">(async) </span>readGroup<span class="signature">(userID, groupId)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Read the group and returns the ordered list of messages
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>userID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">for the group</td>
         </tr>
 
     
@@ -843,11 +803,6 @@
 
             <td class="type">
             
-                
-<span class="param-type">String</span>
-
-
-            
             </td>
 
             
@@ -895,7 +850,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line80">line 80</a>
+        <a href="ChatReader.js.html">ChatReader.js</a>, <a href="ChatReader.js.html#line102">line 102</a>
     </li></ul></dd>
     
 
@@ -918,6 +873,16 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    ordered messages
+</div>
+
+
+
+    
 
 
 
@@ -1043,7 +1008,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line13">line 13</a>
+        <a href="ChatReader.js.html">ChatReader.js</a>, <a href="ChatReader.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -1087,7 +1052,7 @@
     
 
     
-    <h4 class="name" id="uploadFileToOwnPOD"><span class="type-signature">(async) </span>uploadFileToOwnPOD<span class="signature">(userID, partnerID, messages)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="singleUriGetter"><span class="type-signature">(async) </span>singleUriGetter<span class="signature">(Url)</span><span class="type-signature"> &rarr; {Array}</span></h4>
     
 
     
@@ -1095,7 +1060,7 @@
 
 
 <div class="description">
-    Creates a folder in user's own pod, containing a json representing chat messagesand grants read permissions to partner.
+    This function get all messages from a single pod uriparsing file and converting to a jsonAfter this an element creator go over every message and create every element message
 </div>
 
 
@@ -1131,234 +1096,7 @@
 
         <tr>
             
-                <td class="name"><code>userID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partnerID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>messages</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line141">line 141</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="writeGroupal"><span class="type-signature">(async) </span>writeGroupal<span class="signature">(userID, groupID, message)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Writes a message in the own pod of the user
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>userID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>groupID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>message</code></td>
+                <td class="name"><code>Url</code></td>
             
 
             <td class="type">
@@ -1415,165 +1153,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line105">line 105</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="writeInbox"><span class="type-signature"></span>writeInbox<span class="signature">(inboxURL, data)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Creates a file in the specified inbox with the json data passed as argument
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>inboxURL</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Promise</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line23">line 23</a>
+        <a href="ChatReader.js.html">ChatReader.js</a>, <a href="ChatReader.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -1600,7 +1180,7 @@
 
         
 <div class="param-desc">
-    file
+    List of objects messages
 </div>
 
 
@@ -1611,375 +1191,13 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Array</span>
 
 
     </dd>
 </dl>
 
     
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="writeInboxGroupal"><span class="type-signature">(async) </span>writeInboxGroupal<span class="signature">(groupId, userID, message)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Write the message in all participants inbox
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>groupId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>userID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>message</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line92">line 92</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="writeOwnPOD"><span class="type-signature">(async) </span>writeOwnPOD<span class="signature">(userID, partnerID, messages)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Creates a folder in user's own pod, containing a json representing chat messagesand grants read permissions to partner.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>userID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>partnerID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>messages</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ChatManager.js.html">ChatManager.js</a>, <a href="ChatManager.js.html#line34">line 34</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2001,13 +1219,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createFileOnInit">createFileOnInit</a></li><li><a href="global.html#createGroup">createGroup</a></li><li><a href="global.html#createUncreatedGroups">createUncreatedGroups</a></li><li><a href="global.html#givePermissionsToFriends">givePermissionsToFriends</a></li><li><a href="global.html#listGroupsOnInit">listGroupsOnInit</a></li><li><a href="global.html#readGroup">readGroup</a></li><li><a href="global.html#readPod">readPod</a></li><li><a href="global.html#uploadFileToOwnPOD">uploadFileToOwnPOD</a></li><li><a href="global.html#writeGroupal">writeGroupal</a></li><li><a href="global.html#writeInbox">writeInbox</a></li><li><a href="global.html#writeInboxGroupal">writeInboxGroupal</a></li><li><a href="global.html#writeOwnPOD">writeOwnPOD</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkIfMessageExists">checkIfMessageExists</a></li><li><a href="global.html#checkIfMessagesExists">checkIfMessagesExists</a></li><li><a href="global.html#read">read</a></li><li><a href="global.html#readGroup">readGroup</a></li><li><a href="global.html#readGroupal">readGroupal</a></li><li><a href="global.html#readPod">readPod</a></li><li><a href="global.html#singleUriGetter">singleUriGetter</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:13:51 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 29 2019 19:14:22 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
