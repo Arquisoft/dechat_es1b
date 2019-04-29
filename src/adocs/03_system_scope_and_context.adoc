@@ -46,7 +46,7 @@ As we have done previously, It is going to be represented in the next diagram.
 [#img-overviewwrittingcontext]
 image::./diagrams/03-writtingContext.png[overviewwrittingcontext]
 
-.*Group creation context*
+.*Group files*
 A group is composed by some elements:
 	- Group list(/group/groups.txt): All groups are registered there. It is token as the index for the group creation if doesn't exist
 	- Folder (/dechat_es1b/groupID): Contains the messages file and Info file.
@@ -56,6 +56,15 @@ To ilustrate the I/O context we bring you this diagram:
 [#img-overviewgroup]
 image::./diagrams/IOGROUP.png[overviewgroup]
 	
+.*Group creation context*
+We have talked about group permissions, supported by permissions.js. In group creation we follow some steps:
+	- Register the group in own groups.txt and participants one.
+	- Create the group folder with the files.
+	- Give permissions to friends for the files.
+To ilustrate it better let's see a Reduced Context diagram:
+[#img-overviewgroupcreation]
+image::./diagrams/RedGroupC.png[overviewgroupcreation]
+
 
 .*Group load context*
 When we start the app, some functions run in background.
