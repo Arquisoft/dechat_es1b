@@ -27,10 +27,7 @@ $('document').ready(async () => {
                 user = await session.getUser();
                 notifications = new Notifier(user);
                 changeView(true);
-                console.log("User")
-                console.log(user)
                 let urlFolder = await FolderManager.getUrlFolder(user.id);
-                console.log("URL: " + urlFolder);
                 await FolderManager.checkDechatFolder(urlFolder);
                 await initializeGroups();
                 loadInitialContacts();
@@ -93,8 +90,6 @@ $("#add-group").click(async () => {
     $("#mesgs").append(content);
     var friends = await query.getFriends();
     friends = removeDupes(friends, "id");
-    console.log("amigos")
-    console.log(friends)
     for (var friend of friends) {
         $("#group-candidates").append("<label><input type=checkbox class='candidate' name='" + friend.id + "'/>  " + friend.name + "</label></br>");
     }
@@ -105,7 +100,6 @@ $("#add-group").click(async () => {
             selected.push($(this).attr("name"));
         })
         selected.push(user.id);
-        console.log(selected);
         var name = $("#group-name").val();
         const rejected = await chatManager.createGroup(name, selected, user.id);
 
@@ -228,7 +222,6 @@ async function startChat(friend, i) {
     await chat.init(); //Initializate sentMessages array
 
     //We start the chat when we make sure we have the folder created.
-    console.log("Chat with " + friend.id + " opened")
     $("#mesgs").empty(); //Delete all the content of mesgs
 
     $(".profile_bar").empty(); //Empty profile upper bar
@@ -268,7 +261,7 @@ async function startChat(friend, i) {
         if ($("#contentText" + i).val().length > 0)
             $("#msg_history" + i).append(messageContent);
 
-        //console.log(i)
+       
         sendMessage(chat, i, user, friend);
         // Get the input field
     });
@@ -294,7 +287,6 @@ async function startChat(friend, i) {
 }
 
 async function startGroupChat(group, i) {
-    console.log("Group chat " + group.id + " opened")
 
     $("#mesgs").empty(); //Delete all the content of mesgs
 
@@ -373,7 +365,7 @@ async function addEnterListener(chat, i, user, friend) {
         if ($("#contentText" + i).val().length > 0)
             $("#msg_history" + i).append(messageContent);
 
-        //console.log(i)
+     
         sendMessage(chat, i, user, friend);
     });
 
@@ -405,7 +397,6 @@ async function addGroupEnterListener(group, i) {
         if ($("#contentText" + i).val().length > 0)
             $("#msg_history" + i).append(messageContent);
 
-        //console.log(i)
         sendGroupMessage(group, i);
     });
 
@@ -474,7 +465,6 @@ function updateUIMessages(messages, index) {
                 "</div>"
             "</div>";
         }
-        //console.log("Messages loop " + messages[i].content);
         $("#msg_history" + index).append(sentMessage);
     }
 
@@ -486,9 +476,7 @@ function updateUIMessages(messages, index) {
 async function updateGroupUIMessages(messages, index) {
     $("#msg_history" + index).empty();
     var i;
-    console.log(messages)
     for (i = 0; i < messages.length; i++) {
-        console.log(messages[i])
         let sentMessage;
         var userToCompare = "https://" + messages[i].user + "/profile/card#me";
         let msgContent;
