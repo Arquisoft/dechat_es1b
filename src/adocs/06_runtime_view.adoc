@@ -41,6 +41,11 @@ Finally the UI is refreshed to show the new message.
 .Receive message - Sequence diagram
 image::./diagrams/06-receivemessage.png[receivemessage]
 
+=== Starting a videocall
+When the user presses the Videocall button, a connection to the TURN server is established. A PeerID is created as a result, which will identify ourselves,
+and we start listening for an incoming, answer call. Once the other user is communicated our PeerID, he or she will input it into the UI and a direct
+peer-to-peer connection will be made. At this point the other user will call on our peer which is listening, finally setting up a direct video call.
+
 When the user logs in the application starts listening for notifications and when one is found the user is informed via a HTML5 Notification API who (one person or several) sent a message since the last check.
 
 On the other hand when a user starts a chat with someone a listener is set up to gather the messages from both of the PODs every few seconds. This listener is only set for the active chat in order to increase performance (why load all chats' messages when the user will only be using one at once?). If the user changes to a different chat the listener is released and a new one is set for the new chat.
