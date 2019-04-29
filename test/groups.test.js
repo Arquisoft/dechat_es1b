@@ -2,6 +2,7 @@ const Chat = require("../src/lib/chat");
 const Persona = require("../src/model/person");
 const Message = require("../src/model/message");
 const chatManager = require("../src/lib/ChatManager/ChatManager");
+const permissionsService = require("../src/lib/ChatManager/GroupHandle/permissionsService/permissions");
 
 const fc = require("solid-file-client");
 const validator = require('../src/lib/ChatManager/GroupHandle/existenceValidators');
@@ -23,7 +24,7 @@ describe('Test groups', () => {
         fc.readFolder = jest.fn().mockResolvedValue(OK);
         fc.createFolder = jest.fn().mockResolvedValue(OK);
     }),
-    it('Check if create group', async () => {
+    it('Check if create file of groups.txt', async () => {
         //Create file on init
         await chatManager.createFileOnInit(user.id);
         let localitation = user.id.replace("/profile/card#me", "");
@@ -31,6 +32,13 @@ describe('Test groups', () => {
         //Check if file exist
         console.log(" *** localitation: " + localitation);
         console.log(" +++ result: " + await validator.checkFile(localitation));
+    });
+    it('Check permissions work', async () => {
+        permissionsService.givePermisionsToFriends("podaes1b.solid.community");
+        permissionsService.groupsPermission("podaes1b.solid.community");
+        let result = await permissionsService.createACLFile({});
+        expect(result).toBe("@prefix : <#>. \n@prefix n0: <http://www.w3.org/ns/auth/acl#>. \n@prefix c: </profile/card#>. \n\n:ControlReadWrite \n\ta n0:Authorization;" +
+            " \n\tn0:accessTo <groups.txt>; \n\tn0:agent c:me; \n\tn0:mode n0:Control, n0:Read, n0:Write. \n:ReadWrite \n\ta n0:Authorization; \n\tn0:accessTo <groups.txt>; \n\tn0:agent; \n\tn0:mode n0:Write, n0:Read.");
     });
 });
 
