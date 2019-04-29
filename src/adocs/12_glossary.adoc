@@ -19,6 +19,8 @@
 | IDE | (Integrated Development Environment) IDE is a software application that provides comprehensive facilities to computer programmers for software development.
 | jQuery | Is a multiplatform library of JavaScript, that allows to simplify the way to interact with HTML documents, manipulate the DOM tree, manage events, develop animations and add interaction with the AJAX technique to web pages.
 | .acl | files that specify the authorization rules of a POD's directory/file.
+| TURN server | 'Traversal Using Relays around NAT' is a protocol used to traverse the use of NATs or firewalls on multimedia applications.
+| RTC | 'Real Time Communications' is a web technology that uses a common set of protocols to allow intercommunication on different browsers or mobile platforms.
 | GitHub Pages | Static site hosting service by GitHub
 |===
 
