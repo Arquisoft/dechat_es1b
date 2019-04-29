@@ -13,6 +13,9 @@ describe("LDFlex queries tests", function(){
         const picture = await query.getProfilePic(WebID).name;
         expect(picture).toBe(undefined);
     }),
+    it("Gets profile pic from WebID w", async function(){
+        const picture = await query.getProfilePic(WebID); expect(picture).toBe('https://es1btest.solid.community/profile/5b8e65c53399621bf6c6612a180c8ea462dccea0_full.jpg');
+    }),   
     it("Gets inbox URI from WebID", async function(){        
         const inbox = await query.getInbox(WebID);
         expect(inbox).toBe("https://es1btest.solid.community/inbox/");
