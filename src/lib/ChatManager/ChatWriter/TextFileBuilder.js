@@ -30,7 +30,6 @@ function buildJSONmessages(senderID, receiverID, messages) {
 	if(messages === undefined || messages.length === 0)
 		ret = ret + "]}";
 	
-	console.log(ret);
 	return ret;
 }
 
@@ -46,7 +45,6 @@ function buildJSONmessages(senderID, receiverID, messages) {
 	var sender = senderID.replace("https://", "").replace("/profile/card#me", "");
 	var lastupdate = new Date().getTime();
 	var url = "https://"+sender+"/dechat_es1b/"+groupID+"/messages.txt";
-	console.log("$$$"+ url);
 	var readed = await fileClient.readFile(url);
 	if(readed != "")
 	{

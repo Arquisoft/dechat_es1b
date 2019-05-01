@@ -170,7 +170,6 @@ async function fileGroupInfo(activeUser,groupID,listOfParticipants, groupName){
 */
 async function checkAllGroupsOKOnInit(user){
 	var groups = await glist.listGroups(user);
-	console.log(await JSON.stringify(groups))
 	for(i in await groups.list){
 		var uriToCheck = "https://"+user+"/"+FolderManager.DECHAT_FOLDER+"/"+ await groups.list[i].id;
 		if(!await validator.checkFile(uriToCheck) && await groups.list[i].owner !== user){
