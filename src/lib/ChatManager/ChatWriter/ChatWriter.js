@@ -85,7 +85,7 @@ async function uploadFileToOwnPOD(file, userID, partnerID) {
     folderManager.grantReadPermissionsToFile(URI, partnerID,file.name);
 	let content = file;
     fileClient.updateFile(URI, content).then( res=> {
-        console.log(res);
+		
     }, err=>{console.log("upload error : "+err)});
 }
 

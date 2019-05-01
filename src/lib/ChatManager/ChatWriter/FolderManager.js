@@ -79,7 +79,6 @@ async function createFolder(url) {
 async function checkDechatFolder(userUrl) {
     let folder = userUrl + "/" + DECHAT_FOLDER;
     let check = await this.readFolder(folder);
-    console.log("FOLDER NAME: " + check);
     if (typeof check === 'undefined') {
         await this.createFolder(folder);
     }
@@ -91,9 +90,7 @@ async function checkDechatFolder(userUrl) {
  * @return {Promise} Object promise if exist or undefined if not
  */
 async function readFolder(url) {
-    console.log("VOY A LEER: " + url)
     return fileClient.readFolder(url).then(folder => {
-        console.log("YAY " + folder) 
         return (folder);
      }, err => undefined);
 };
